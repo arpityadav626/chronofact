@@ -1,0 +1,37 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local database and uploaded evidence files (runtime generated)
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+data/evidence_storage/*
+!data/evidence_storage/.gitkeep
+data/vault/*
+!data/vault/.gitkeep
+
+# Python virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor & IDE artifacts
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test & coverage caches
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
