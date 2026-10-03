@@ -27,7 +27,7 @@ from .parsers.chat_parser import parse_chat_file
 from .parsers.csv_log_parser import parse_csv_log_file
 from .engines.timeline_engine import build_interval_timeline
 from .engines.inconsistency import detect_inconsistencies
-from .engines.verifier import verify_ai_claims
+from .engines.verifier import verify_ai_claims, MechanicalCitationVerifier
 from .legal.bsa_certificate import generate_bsa_section_63_certificate
 
 # Initialize app
@@ -446,41 +446,13 @@ def query_case_evidence(req: QueryRequest):
             
     stored_facts_map = {f["id"]: f for f in retrieved_facts}
     
-    candidate_claims = []
-    for f in retrieved_facts[:4]:
-        raw_text = f["raw_text"]
-        lines = [line.strip() for line in raw_text.split("\n") if len(line.strip()) > 10]
-        chosen_quote = lines[0] if lines else raw_text[:80]
-        
-        claim_summary = f"Evidence ({f['fact_type']}) records: '{chosen_quote[:120]}...'"
-        
-        candidate_claims.append({
-            "claim_text": claim_summary,
-            "evidence_id": f["evidence_id"],
-            "exact_quote": chosen_quote,
-            "locator": f["locator"],
-            "fact_id": f["id"]
-        })
-
-    if "bribe" in search_term.lower() or "bitcoin" in search_term.lower() or "hallucinate" in search_term.lower():
-        candidate_claims.append({
-            "claim_text": "Suspect admitted receiving 10 BTC in wallet 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
-            "evidence_id": retrieved_facts[0]["evidence_id"] if retrieved_facts else "EV-000000",
-            "exact_quote": "Received 10 BTC in anonymous bitcoin wallet on darkweb",
-            "locator": "Fabricated Citation",
-            "fact_id": ""
-        })
-
-    verification_report = verify_ai_claims(
-        claims_payload={"claims": candidate_claims},
+    answer_res = MechanicalCitationVerifier.answer_and_verify_query(
+        query=req.query,
         evidence_vault_map=vault_map,
         stored_facts_map=stored_facts_map
     )
     
-    return {
-        "query": req.query,
-        "verification_report": verification_report
-    }
+    return answer_res
 
 @app.get("/api/certificate/bsa63")
 def get_bsa_certificate(

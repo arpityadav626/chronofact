@@ -216,6 +216,23 @@ def test_module_3_mechanical_citation_verifier():
     print("      [OK] Fabricated quotes intercepted and rejected with 0.0% grounding.")
     print("      [OK] Cross-exhibit citation misattribution successfully detected.")
 
+    # Case D: Q&A Engine - Multi-Scenario & Trap Rejection
+    ans_trap = MechanicalCitationVerifier.answer_and_verify_query("Did suspect accept a 50 BTC bribe?", vault)
+    assert ans_trap["status"] == "REJECTED_HALLUCINATION"
+    assert ans_trap["grounding_score"] == 0.0
+    assert ans_trap["is_admissible"] is False
+
+    ans_alibi = MechanicalCitationVerifier.answer_and_verify_query("Did suspect sleep during server operations?", vault)
+    assert ans_alibi["status"] == "VERIFIED_CONTRADICTION"
+    assert ans_alibi["grounding_score"] == 100.0
+    assert ans_alibi["is_admissible"] is True
+
+    ans_exf = MechanicalCitationVerifier.answer_and_verify_query("Did suspect download confidential patent or financials?", vault)
+    assert ans_exf["status"] == "VERIFIED_EXFILTRATION"
+    assert ans_exf["grounding_score"] == 100.0
+
+    print("      [OK] Multi-case forensic Q&A engine verified: 100% byte-grounding and zero-hallucination trap gates.")
+
 
 def test_module_4_bsa_statutory_certificate():
     """Verify Module 4: BSA 2023 Section 63(4) Certificate Generation."""
