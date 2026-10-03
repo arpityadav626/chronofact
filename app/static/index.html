@@ -684,7 +684,7 @@
 
         <div class="flex items-center gap-2">
           <button 
-            onclick="copyToClipboard('Item,Exhibit ID,Artifact Name,Type,Size,Hash\n1,EV-25C119,server_access.csv,SERVER_LOG,275 B,c67d5b8552c2a5e11c76ff9691d483b233d2c8f6ae617702b8732a76f122618\n2,EV-C4D948,whatsapp_chat.txt,CHAT_EXPORT,277 B,c5153b32e18148a1d65dfc2d4b1fa3d677284addd200126d9069817b47f4\n3,EV-8BF745,confidential_leak.eml,EMAIL,355 B,78d055d681dc41c28c899d123491baee0231cfb562a1048892ca82579e312b', 'CSV Schedule copied')" 
+            onclick="copyCertificateCSV()" 
             class="btn-editorial-secondary py-1.5 px-3 text-xs"
           >
             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
@@ -700,40 +700,89 @@
         </div>
       </div>
 
-      <!-- Legal Act Citation -->
+      <!-- Legal Act Citation & Editable Court Header -->
       <div class="text-center space-y-1 py-1">
+        <input 
+          type="text" 
+          id="cert-input-court" 
+          value="IN THE COURT OF COMPETENT JURISDICTION / SPECIAL JUDGE (CYBER)" 
+          class="w-full text-center font-serif uppercase tracking-wider text-xs font-semibold text-[#181716] bg-transparent border-b border-transparent hover:border-[#DCD8D0] focus:border-[#2563EB] focus:outline-none py-0.5"
+          title="Click to edit Court Name"
+        >
+        <h4 class="font-serif font-bold text-sm text-[#181716] tracking-wide">
+          STATUTORY CERTIFICATE UNDER SECTION 63(4) OF THE BHARATIYA SAKSHYA ADHINIYAM, 2023
+        </h4>
         <p class="font-serif italic text-xs text-[#57534E]">[Act No. 47 of 2023 &bull; Replaces Section 65B of Indian Evidence Act, 1872]</p>
         <p class="text-xs text-[#78716C]">Certificate as to Admissibility of Electronic Records Produced in Court Proceedings</p>
       </div>
 
-      <!-- Form Inputs Header Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-2.5 p-3 rounded-xl bg-[#FAF9F6] border border-[#E8E5DF] text-[11px] font-mono">
-        <div>
-          <span class="text-[#78716C] uppercase text-[9px] block">CASE REF / FIR</span>
-          <span class="font-semibold text-[#181716]">FIR No. 204/2026, PS Cyber</span>
+      <!-- Editable Form Inputs Header Grid (Exact match with user reference screenshot) -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-3 p-3.5 rounded-xl bg-[#FAF9F6] border border-[#E8E5DF] text-xs">
+        <div class="space-y-1">
+          <label class="text-[10px] font-mono uppercase text-[#2563EB] tracking-wider block font-semibold">CASE REF / FIR</label>
+          <input 
+            type="text" 
+            id="cert-input-fir" 
+            value="FIR No. 204/2026, PS Cyber Crime" 
+            oninput="syncCertificateFields()"
+            class="w-full px-2.5 py-1.5 rounded-md bg-white border border-[#DCD8D0] text-xs font-mono text-[#181716] focus:outline-none focus:border-[#2563EB] shadow-2xs"
+            placeholder="FIR No."
+          >
         </div>
-        <div>
-          <span class="text-[#78716C] uppercase text-[9px] block">CERTIFYING OFFICER</span>
-          <span class="font-semibold text-[#181716]">Inspector A. Yadav</span>
+
+        <div class="space-y-1">
+          <label class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block font-medium">CERTIFYING OFFICER</label>
+          <input 
+            type="text" 
+            id="cert-input-officer" 
+            value="Inspector A. Yadav" 
+            oninput="syncCertificateFields()"
+            class="w-full px-2.5 py-1.5 rounded-md bg-white border border-[#DCD8D0] text-xs font-sans text-[#181716] focus:outline-none focus:border-[#2563EB] shadow-2xs"
+            placeholder="Officer Name"
+          >
         </div>
-        <div>
-          <span class="text-[#78716C] uppercase text-[9px] block">DESIGNATION</span>
-          <span class="font-semibold text-[#181716]">Inspector of Police (Cyber)</span>
+
+        <div class="space-y-1">
+          <label class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block font-medium">DESIGNATION</label>
+          <input 
+            type="text" 
+            id="cert-input-designation" 
+            value="Inspector of Police (Cyber Crime)" 
+            oninput="syncCertificateFields()"
+            class="w-full px-2.5 py-1.5 rounded-md bg-white border border-[#DCD8D0] text-xs font-sans text-[#181716] focus:outline-none focus:border-[#2563EB] shadow-2xs"
+            placeholder="Designation"
+          >
         </div>
-        <div>
-          <span class="text-[#78716C] uppercase text-[9px] block">POLICE STATION</span>
-          <span class="font-semibold text-[#181716]">PS Cyber Crime, Central</span>
+
+        <div class="space-y-1">
+          <label class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block font-medium">POLICE STATION</label>
+          <input 
+            type="text" 
+            id="cert-input-ps" 
+            value="PS Cyber Crime, Central District" 
+            oninput="syncCertificateFields()"
+            class="w-full px-2.5 py-1.5 rounded-md bg-white border border-[#DCD8D0] text-xs font-sans text-[#181716] focus:outline-none focus:border-[#2563EB] shadow-2xs"
+            placeholder="Police Station"
+          >
         </div>
-        <div>
-          <span class="text-[#78716C] uppercase text-[9px] block">DATE &amp; SEIZURE MEMO</span>
-          <span class="font-semibold text-[#181716]">12-Sep-2025 at Suspect</span>
+
+        <div class="space-y-1">
+          <label class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block font-medium">DATE &amp; SEIZURE MEMO</label>
+          <input 
+            type="text" 
+            id="cert-input-date" 
+            value="12-Sep-2025 at Suspect Premises" 
+            oninput="syncCertificateFields()"
+            class="w-full px-2.5 py-1.5 rounded-md bg-white border border-[#DCD8D0] text-xs font-sans text-[#181716] focus:outline-none focus:border-[#2563EB] shadow-2xs"
+            placeholder="Date & Memo"
+          >
         </div>
       </div>
 
-      <!-- Statutory Affirmation Text -->
+      <!-- Statutory Affirmation Text with Dynamic Synchronized Placeholders -->
       <div class="space-y-2 text-xs text-[#2B2825] leading-relaxed font-sans">
         <p>
-          I, <strong>Inspector A. Yadav</strong>, serving as Inspector of Police (Cyber Crime) at PS Cyber Crime, Central District, do hereby solemnly affirm and certify pursuant to <strong>Section 63(4)(c) of the Bharatiya Sakshya Adhiniyam, 2023</strong>:
+          I, <strong id="cert-body-officer">Inspector A. Yadav</strong>, serving as <span id="cert-body-designation">Inspector of Police (Cyber Crime)</span> at <span id="cert-body-ps">PS Cyber Crime, Central District</span>, do hereby solemnly affirm and certify pursuant to <strong>Section 63(4)(c) of the Bharatiya Sakshya Adhiniyam, 2023</strong> in respect of electronic records under seizure memo dated <span id="cert-body-date">12-Sep-2025 at Suspect Premises</span>:
         </p>
         <ol class="list-decimal pl-5 space-y-1.5 text-[#44403C]">
           <li>That I had lawful management and operational control over the electronic computer devices and storage media from which the electronic records enumerated in the schedule below were derived;</li>
@@ -788,9 +837,9 @@
           Certification Timestamp: 12-Sep-2025 21:30:00 IST
         </div>
         <div class="text-right space-y-0.5">
-          <div class="font-serif font-bold text-sm text-[#181716]">Inspector A. Yadav</div>
-          <div class="text-[11px] text-[#57534E]">Inspector of Police (Cyber Crime)</div>
-          <div class="text-[10px] text-[#78716C]">PS Cyber Crime, Central District</div>
+          <div id="cert-sig-officer" class="font-serif font-bold text-sm text-[#181716]">Inspector A. Yadav</div>
+          <div id="cert-sig-designation" class="text-[11px] text-[#57534E]">Inspector of Police (Cyber Crime)</div>
+          <div id="cert-sig-ps" class="text-[10px] text-[#78716C]">PS Cyber Crime, Central District</div>
         </div>
       </div>
 

@@ -1026,11 +1026,56 @@ function closeCitationInspector() {
   }
 }
 
+// Synchronizes the 5 editable certificate header inputs with the legal affirmation body and signature
+function syncCertificateFields() {
+  const firVal = document.getElementById('cert-input-fir')?.value || "FIR No. 204/2026, PS Cyber Crime";
+  const officerVal = document.getElementById('cert-input-officer')?.value || "Inspector A. Yadav";
+  const desigVal = document.getElementById('cert-input-designation')?.value || "Inspector of Police (Cyber Crime)";
+  const psVal = document.getElementById('cert-input-ps')?.value || "PS Cyber Crime, Central District";
+  const dateVal = document.getElementById('cert-input-date')?.value || "12-Sep-2025 at Suspect Premises";
+
+  // Sync body text
+  const bodyOfficer = document.getElementById('cert-body-officer');
+  const bodyDesig = document.getElementById('cert-body-designation');
+  const bodyPs = document.getElementById('cert-body-ps');
+  const bodyDate = document.getElementById('cert-body-date');
+
+  if (bodyOfficer) bodyOfficer.textContent = officerVal;
+  if (bodyDesig) bodyDesig.textContent = desigVal;
+  if (bodyPs) bodyPs.textContent = psVal;
+  if (bodyDate) bodyDate.textContent = dateVal;
+
+  // Sync signature block
+  const sigOfficer = document.getElementById('cert-sig-officer');
+  const sigDesig = document.getElementById('cert-sig-designation');
+  const sigPs = document.getElementById('cert-sig-ps');
+
+  if (sigOfficer) sigOfficer.textContent = officerVal;
+  if (sigDesig) sigDesig.textContent = desigVal;
+  if (sigPs) sigPs.textContent = psVal;
+}
+
+function copyCertificateCSV() {
+  hapticEngine.playSoftTap();
+  const firVal = document.getElementById('cert-input-fir')?.value || "FIR No. 204/2026, PS Cyber Crime";
+  const officerVal = document.getElementById('cert-input-officer')?.value || "Inspector A. Yadav";
+
+  let csv = "Item,Exhibit ID,Artifact Name,Type,Size,Cryptographic Hash Digest (NIST FIPS 180-4 SHA-256)\n";
+  allEvidenceItems.forEach((ex, idx) => {
+    csv += `${idx + 1},${ex.id},${ex.filename},${ex.file_type},${ex.size_bytes} B,${ex.sha256}\n`;
+  });
+  csv += `\nCase Reference: ${firVal}\nCertifying Officer: ${officerVal}\nStatutory Basis: BSA 2023 §63(4)\n`;
+
+  copyToClipboard(csv, "Section 63(4) Schedule CSV copied to clipboard");
+}
+
 // Matches Screenshot 1 & 4
 function openCertificateModal() {
   hapticEngine.playWhoosh();
   const modal = document.getElementById('cert-modal');
   const tableBody = document.getElementById('cert-schedule-table-body');
+
+  syncCertificateFields();
 
   if (tableBody) {
     tableBody.innerHTML = allEvidenceItems.map((ex, idx) => `
