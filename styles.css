@@ -2,7 +2,7 @@
 
 /* ==========================================================================
    CHRONOFACT 2.0 // EDITORIAL FORENSIC DESIGN SYSTEM
-   Inspiration: "Les Grands Chênes" / "Explora Journal" / High-End Legal Atelier
+   Inspiration: "Les Grands Chênes" / "Explora Journal" / High-End Atelier
    Theme: Warm Ivory / Editorial Typography / Restrained Luxury / Zero Gimmicks
    ========================================================================== */
 
@@ -186,6 +186,25 @@ html, body {
   border-color: var(--border-subtle);
 }
 
+.btn-editorial-blue {
+  background-color: #2563EB;
+  color: #FFFFFF;
+  border: 1px solid #2563EB;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 12px;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-editorial-blue:hover {
+  background-color: #1D4ED8;
+  border-color: #1D4ED8;
+}
+
 /* Anomaly Glow Animation on Target Timeline Card */
 @keyframes softAmberPulse {
   0% {
@@ -214,11 +233,51 @@ html, body {
   transform: translateX(0);
 }
 
-/* Soft Fade In */
-.editorial-fade {
-  animation: fadeIn 0.4s ease forwards;
+/* Sleek Luxury Initial Opening Splash Animation */
+#initial-splash-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background-color: #F8F7F4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+  pointer-events: auto;
 }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+
+#initial-splash-overlay.splash-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splash-progress-track {
+  width: 140px;
+  height: 2px;
+  background-color: #E8E5DF;
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.splash-progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: #181716;
+  border-radius: 999px;
+  transition: width 0.04s linear;
+}
+
+/* Drag & Drop Zone States (Exact reference match) */
+.dropzone-container {
+  border: 1.5px dashed #DCD8D0;
+  background-color: #FAF9F6;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dropzone-container:hover, .dropzone-container.drag-over {
+  border-color: #181716;
+  background-color: #F3F1EC;
 }

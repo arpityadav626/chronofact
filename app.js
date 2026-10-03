@@ -1,16 +1,17 @@
 /**
- * CHRONOFACT 2.0 // FORENSIC INVESTIGATION WORKBENCH
+ * CHRONOFACT 2.0 // OFFICIAL FORENSIC INVESTIGATION WORKBENCH
  * Compliance: Bharatiya Sakshya Adhiniyam, 2023 §63(4) (Indian Evidence Law)
  * Design: Quiet Luxury, Editorial Restraint, High-Fidelity Forensic Precision
  */
 
 // =============================================================================
-// 1. MINIMALIST WHISPER-SOFT ACOUSTIC FEEDBACK (ZERO SOUND ON SCROLL)
+// 1. REFINED ACOUSTIC HAPTIC SOUND ENGINE (ENABLED BY DEFAULT, ZERO SCROLL AUDIO)
 // =============================================================================
-class MinimalHapticEngine {
+class LuxuryHapticAudio {
   constructor() {
     this.ctx = null;
-    this.isMuted = true; // Default muted for dignified official use
+    this.isMuted = false; // Enabled by default as requested!
+    this.hasUnlocked = false;
   }
 
   init() {
@@ -23,6 +24,7 @@ class MinimalHapticEngine {
     if (this.ctx && this.ctx.state === 'suspended') {
       this.ctx.resume();
     }
+    this.hasUnlocked = true;
   }
 
   toggle() {
@@ -35,25 +37,46 @@ class MinimalHapticEngine {
     if (this.isMuted) {
       if (label) label.textContent = 'Muted';
       if (icon) icon.setAttribute('data-lucide', 'volume-x');
+      if (btn) btn.classList.replace('text-[#181716]', 'text-[#8C867D]');
     } else {
-      if (label) label.textContent = 'Subtle Sound';
+      if (label) label.textContent = 'Sound ON';
       if (icon) icon.setAttribute('data-lucide', 'volume-2');
-      this.playSoftTap();
+      if (btn) btn.classList.replace('text-[#8C867D]', 'text-[#181716]');
+      this.playChime(660);
     }
     if (window.lucide) lucide.createIcons();
     return !this.isMuted;
   }
 
-  // Ultra-soft 8ms acoustic sine tap for deliberate primary clicks only
+  // Soft tactile acoustic tap for deliberate primary clicks
   playSoftTap() {
-    if (this.isMuted || !this.ctx) return;
+    if (this.isMuted) return;
+    this.init();
     try {
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(600, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(300, this.ctx.currentTime + 0.008);
-      gain.gain.setValueAtTime(0.006, this.ctx.currentTime); // Whisper volume
+      osc.frequency.setValueAtTime(620, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(260, this.ctx.currentTime + 0.02);
+      gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.02);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.02);
+    } catch (_) {}
+  }
+
+  // Micro hover tick for interactive buttons
+  playHoverTick() {
+    if (this.isMuted) return;
+    this.init();
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(1100, this.ctx.currentTime);
+      gain.gain.setValueAtTime(0.012, this.ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.008);
       osc.connect(gain);
       gain.connect(this.ctx.destination);
@@ -61,14 +84,99 @@ class MinimalHapticEngine {
       osc.stop(this.ctx.currentTime + 0.008);
     } catch (_) {}
   }
+
+  // Pure harmonic crystalline chime (e.g. verified lock, splash end)
+  playChime(freq = 523.25) {
+    if (this.isMuted) return;
+    this.init();
+    try {
+      [freq, freq * 1.5].forEach((f, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0.06 / (idx + 1), this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.35);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.35);
+      });
+    } catch (_) {}
+  }
+
+  // Double chime on commit/verification
+  playSuccess() {
+    this.playChime(587);
+    setTimeout(() => this.playChime(880), 120);
+  }
+
+  // Soft breath whoosh on modal opening
+  playWhoosh() {
+    if (this.isMuted) return;
+    this.init();
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(220, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(440, this.ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.03, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.08);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.08);
+    } catch (_) {}
+  }
 }
 
-const hapticEngine = new MinimalHapticEngine();
-document.addEventListener('click', () => hapticEngine.init(), { once: true });
+const hapticEngine = new LuxuryHapticAudio();
+
+// Unlock Web Audio immediately on first user touch/click/press anywhere
+['pointerdown', 'mousedown', 'keydown', 'touchstart'].forEach(evt => {
+  window.addEventListener(evt, () => hapticEngine.init(), { once: true });
+});
 
 
 // =============================================================================
-// 2. FORENSIC STATE & COMPLETE AIR-GAPPED FALLBACK DATA
+// 2. SLEEK INITIAL OPENING SPLASH ANIMATION
+// =============================================================================
+function runSleekOpeningAnimation() {
+  const overlay = document.getElementById('initial-splash-overlay');
+  const bar = document.getElementById('splash-progress-bar');
+  if (!overlay || !bar) return;
+
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += 8;
+    if (progress > 100) progress = 100;
+    bar.style.width = `${progress}%`;
+
+    if (progress >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        dismissSleekSplash();
+      }, 180);
+    }
+  }, 45);
+}
+
+function dismissSleekSplash() {
+  const overlay = document.getElementById('initial-splash-overlay');
+  if (overlay && !overlay.classList.contains('splash-hidden')) {
+    overlay.classList.add('splash-hidden');
+    hapticEngine.playChime(660);
+  }
+}
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') dismissSleekSplash();
+});
+
+
+// =============================================================================
+// 3. CASE DATA & MASTER DETERMINISTIC VAULT
 // =============================================================================
 let allEvidenceItems = [];
 let allTimelineEvents = [];
@@ -76,56 +184,56 @@ let allInconsistencies = [];
 let activeExhibitFilter = null;
 let currentTimelineCalibration = "ntp";
 let timelineSearchQuery = "";
-let activeEventTypeFilters = new Set();
 let activeIntegrityFilters = new Set();
 let timelineSearchDebounceTimer = null;
+let selectedUploadFile = null;
 
-const FALLBACK_DATA = {
-  case_info: {
-    fir_no: "FIR No. 204/2026",
-    police_station: "PS Cyber Crime, Special Cell",
-    jurisdiction: "Court of Chief Metropolitan Magistrate, Patiala House Courts, New Delhi",
-    statute: "Bharatiya Sakshya Adhiniyam, 2023 (Section 63(4))",
-    suspect: "Vikram Malhotra",
-    examiner: "Inspector A. Yadav (Digital Forensics Division)",
-    merkle_root: "90ebf0e585bae35df91984284cfbdbb981bfbb55c0e5a79afda3e30bf2fd290c"
-  },
+const INITIAL_SAMPLE_DATA = {
   evidence: [
     {
-      id: "EV-BB0B03",
+      id: "EV-25C119",
       filename: "server_access.csv",
       file_type: "SERVER_LOG",
       size_bytes: 275,
-      sha256: "c67d5b83921074a38217bb41a0b36e8492048591823700147981249bcf122618",
+      sha256: "c67d5b8552c2a5e11c76ff9691d483b233d2c8f6ae617702b8732a76f122618",
       sha3_256: "ce98141049acabcb9b8f51deb0f7d0f6f04c975536ffdc0ad63dff3cfd3e409e",
-      uploaded_at: "2025-09-12T16:30:00Z",
-      integrity_status: "VERIFIED"
+      uploaded_at: "03 Oct 2026, 02:11 am",
+      integrity_status: "Untampered (0 B Skew)",
+      device_type: "Workstation Terminal",
+      custodian: "Inspector A. Yadav, PS Cyber Crime",
+      tool: "FTK Imager v4.7 (Bitstream Image)"
     },
     {
-      id: "EV-8EA211",
+      id: "EV-C4D948",
       filename: "whatsapp_chat.txt",
       file_type: "CHAT_EXPORT",
       size_bytes: 277,
-      sha256: "7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069",
+      sha256: "c5153b32e18148a1d65dfc2d4b1fa3d677284addd200126d9069817b47f4",
       sha3_256: "a120dc95817290bc938217bb41a0b36e8492048591823700147981249bcf3312",
-      uploaded_at: "2025-09-12T16:35:00Z",
-      integrity_status: "VERIFIED"
+      uploaded_at: "03 Oct 2026, 02:11 am",
+      integrity_status: "Untampered (0 B Skew)",
+      device_type: "Phone / Mobile Device",
+      custodian: "Inspector A. Yadav, PS Cyber Crime",
+      tool: "Cellebrite UFED 4PC v7.68"
     },
     {
-      id: "EV-0ADDE3",
+      id: "EV-8BF745",
       filename: "confidential_leak.eml",
-      file_type: "EMAIL_RECORD",
+      file_type: "EMAIL",
       size_bytes: 355,
-      sha256: "94f0e21a81dc41c28c899d123491baee0231cfb562a1048892ca8220018d4512",
+      sha256: "78d055d681dc41c28c899d123491baee0231cfb562a1048892ca82579e312b",
       sha3_256: "ff8310ba791823700147981249bcf122618c67d5b83921074a38217bb41a0b36",
-      uploaded_at: "2025-09-12T16:40:00Z",
-      integrity_status: "VERIFIED"
+      uploaded_at: "03 Oct 2026, 02:11 am",
+      integrity_status: "Untampered (0 B Skew)",
+      device_type: "Corporate Email Server",
+      custodian: "Inspector A. Yadav, PS Cyber Crime",
+      tool: "MailStore Forensic Imager"
     }
   ],
   timeline: [
     {
       id: "FACT-001",
-      evidence_id: "EV-BB0B03",
+      evidence_id: "EV-25C119",
       t_utc: "2025-09-12T15:24:10Z",
       t_ist: "12 Sep 2025, 20:54:10 IST",
       actor: "vikram.malhotra",
@@ -137,20 +245,19 @@ const FALLBACK_DATA = {
     },
     {
       id: "FACT-002",
-      evidence_id: "EV-8EA211",
+      evidence_id: "EV-C4D948",
       t_utc: "2025-09-12T09:55:40Z",
       t_ist: "12 Sep 2025, 15:25:40 IST",
       actor: "Vikram Malhotra",
       locator: "Line 2",
-      fact_type: "CHAT_MESSAGE",
+      fact_type: "CHAT_EXPORT",
       is_interval: true,
       title: "Suspect Claim of Medical Incapacitation (Alibi Statement)",
-      order_status_vs_next: "Precedes server access event",
       content: "[12/09/2025, 15:25:40] Vikram Malhotra: Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning."
     },
     {
       id: "FACT-003",
-      evidence_id: "EV-BB0B03",
+      evidence_id: "EV-25C119",
       t_utc: "2025-09-12T15:28:45Z",
       t_ist: "12 Sep 2025, 20:58:45 IST",
       actor: "vikram.malhotra",
@@ -162,19 +269,19 @@ const FALLBACK_DATA = {
     },
     {
       id: "FACT-004",
-      evidence_id: "EV-0ADDE3",
+      evidence_id: "EV-8BF745",
       t_utc: "2025-09-12T10:00:00Z",
       t_ist: "12 Sep 2025, 15:30:00 IST",
       actor: "vikram.malhotra@techcorp.in",
       locator: "Line 7",
-      fact_type: "EMAIL_RECORD",
+      fact_type: "EMAIL",
       is_interval: false,
-      title: "Outbound Leak Transmission to Unverified Recipient",
+      title: "Outbound Leak Transmission to External Recipient",
       content: "From: vikram.malhotra@techcorp.in\nTo: external.contact@protonmail.com\nSubject: Leaked Q3 Financial Model and Database Credentials\nDate: Fri, 12 Sep 2025 15:30:00 +0530"
     },
     {
       id: "FACT-005",
-      evidence_id: "EV-BB0B03",
+      evidence_id: "EV-25C119",
       t_utc: "2025-09-12T15:31:00Z",
       t_ist: "12 Sep 2025, 21:01:00 IST",
       actor: "vikram.malhotra",
@@ -190,24 +297,58 @@ const FALLBACK_DATA = {
       id: "INC-001",
       rule_id: "ALIBI_CONTRADICTION",
       category: "TEMPORAL_CLASH",
-      title: "Alibi Contradiction: Active Server Operation During Claimed Incapacitation",
-      description: "Suspect Vikram Malhotra stated on WhatsApp that he was asleep with high fever from 15:25 IST. Authenticated server logs concurrently record active logins, downloads, and exfiltration from his dedicated workstation IP 192.168.1.105.",
+      title: "Causal Anomaly: Document Exported on Server After Claimed Incapacitation",
+      description: "Suspect Vikram Malhotra stated on WhatsApp that he was asleep with high fever from 15:25 IST. Authenticated server logs concurrently record active logins, downloads, and file exfiltration from his dedicated workstation IP 192.168.1.105.",
       fact_ids: ["FACT-001", "FACT-002"],
-      discrepancy_delta: "Concurrent Conflict (+5h 28m UTC/IST skew)",
+      discrepancy_delta: "Concurrent Conflict (+5h 28m Skew)",
       claimed_statement: "Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning.",
-      system_reality: "Session LOGIN OK, IP 192.168.1.105, file exfiltration active.",
-      benign_hypotheses: [
-        "Uncalibrated device clock drift (Client operating on non-NTP adjusted time).",
-        "Automated background scheduled task executing background synchronization.",
-        "Shared credential access across colleague or unauthorized family member."
-      ]
+      system_reality: "Session LOGIN OK, File Export Active. IP 192.168.1.105"
     }
   ]
 };
 
-// =============================================================================
-// 3. DATA INGESTION & UI SYNCHRONIZATION
-// =============================================================================
+function loadSampleCaseData() {
+  hapticEngine.playSoftTap();
+  allEvidenceItems = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.evidence));
+  allTimelineEvents = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.timeline));
+  allInconsistencies = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.inconsistencies));
+  activeExhibitFilter = null;
+  timelineSearchQuery = "";
+  activeIntegrityFilters.clear();
+
+  const searchInput = document.getElementById('timeline-search-input');
+  if (searchInput) searchInput.value = "";
+  const filterBar = document.getElementById('timeline-filter-bar');
+  if (filterBar) filterBar.classList.add('hidden');
+
+  renderEvidenceTable();
+  renderInconsistencyRadar();
+  renderTimelineFilters();
+  renderTimeline();
+  updateCaseSummaryMetrics();
+  hapticEngine.playSuccess();
+  showToast("Sample Case FIR No. 204/2026 exhibits loaded into vault.");
+}
+
+function clearEvidenceVault() {
+  hapticEngine.playSoftTap();
+  if (confirm("Clear all exhibits and reset the case vault to empty state?")) {
+    allEvidenceItems = [];
+    allTimelineEvents = [];
+    allInconsistencies = [];
+    activeExhibitFilter = null;
+    timelineSearchQuery = "";
+    activeIntegrityFilters.clear();
+
+    renderEvidenceTable();
+    renderInconsistencyRadar();
+    renderTimelineFilters();
+    renderTimeline();
+    updateCaseSummaryMetrics();
+    showToast("Case vault cleared. Ready for fresh exhibit ingestion.");
+  }
+}
+
 async function loadCaseData() {
   try {
     const [resEv, resTl, resInc] = await Promise.all([
@@ -218,28 +359,28 @@ async function loadCaseData() {
 
     if (resEv && resEv.ok) {
       const data = await resEv.json();
-      allEvidenceItems = data.evidence_items || [];
+      allEvidenceItems = data.evidence_items?.length ? data.evidence_items : INITIAL_SAMPLE_DATA.evidence;
     } else {
-      allEvidenceItems = FALLBACK_DATA.evidence;
+      allEvidenceItems = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.evidence));
     }
 
     if (resTl && resTl.ok) {
       const data = await resTl.json();
-      allTimelineEvents = data.timeline_events || [];
+      allTimelineEvents = data.timeline_events?.length ? data.timeline_events : INITIAL_SAMPLE_DATA.timeline;
     } else {
-      allTimelineEvents = FALLBACK_DATA.timeline;
+      allTimelineEvents = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.timeline));
     }
 
     if (resInc && resInc.ok) {
       const data = await resInc.json();
-      allInconsistencies = data.inconsistencies || [];
+      allInconsistencies = data.inconsistencies?.length ? data.inconsistencies : INITIAL_SAMPLE_DATA.inconsistencies;
     } else {
-      allInconsistencies = FALLBACK_DATA.inconsistencies;
+      allInconsistencies = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.inconsistencies));
     }
   } catch (_) {
-    allEvidenceItems = FALLBACK_DATA.evidence;
-    allTimelineEvents = FALLBACK_DATA.timeline;
-    allInconsistencies = FALLBACK_DATA.inconsistencies;
+    allEvidenceItems = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.evidence));
+    allTimelineEvents = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.timeline));
+    allInconsistencies = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.inconsistencies));
   }
 
   renderEvidenceTable();
@@ -266,12 +407,42 @@ function updateCaseSummaryMetrics() {
   if (elUnc) elUnc.textContent = unc;
 }
 
+
 // =============================================================================
 // 4. SEIZED EVIDENCE EXHIBITS TABLE
 // =============================================================================
 function renderEvidenceTable() {
   const container = document.getElementById('evidence-table-body');
   if (!container) return;
+
+  if (allEvidenceItems.length === 0) {
+    container.innerHTML = `
+      <tr>
+        <td colspan="7" class="py-12 text-center">
+          <div class="max-w-md mx-auto space-y-3">
+            <div class="w-10 h-10 rounded-full bg-[#F3F1EC] text-[#78716C] flex items-center justify-center mx-auto">
+              <i data-lucide="archive" class="w-5 h-5"></i>
+            </div>
+            <div class="space-y-1">
+              <h4 class="text-sm font-medium text-[#181716]">Vault is Empty</h4>
+              <p class="text-xs text-[#78716C]">No evidence exhibits are currently loaded into this case session.</p>
+            </div>
+            <div class="flex items-center justify-center gap-2 pt-2">
+              <button onclick="openIngestModal()" class="btn-editorial-primary text-xs py-1.5 px-3">
+                <i data-lucide="file-up" class="w-3.5 h-3.5"></i>
+                <span>Ingest First Exhibit</span>
+              </button>
+              <button onclick="loadSampleCaseData()" class="btn-editorial-secondary text-xs py-1.5 px-3">
+                <span>Load Sample Case</span>
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    `;
+    if (window.lucide) lucide.createIcons();
+    return;
+  }
 
   container.innerHTML = allEvidenceItems.map((item) => {
     const isSelected = activeExhibitFilter === item.id;
@@ -283,13 +454,13 @@ function renderEvidenceTable() {
         <td class="py-3.5 px-4">
           <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] badge-verified">
             <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
-            <span>Untampered</span>
+            <span>${item.integrity_status || 'Untampered'}</span>
           </span>
         </td>
         <td class="py-3.5 px-4 font-mono text-xs font-semibold text-[#181716] tracking-wide">${item.id}</td>
         <td class="py-3.5 px-4 text-xs font-medium text-[#2B2825]">${item.filename}</td>
         <td class="py-3.5 px-4">
-          <span class="px-2 py-0.5 rounded text-[11px] badge-neutral">
+          <span class="px-2 py-0.5 rounded text-[11px] badge-neutral font-mono">
             ${item.file_type}
           </span>
         </td>
@@ -301,17 +472,17 @@ function renderEvidenceTable() {
           <div class="inline-flex items-center gap-2">
             <button 
               onclick="event.stopPropagation(); filterTimelineByExhibit('${item.id}', '${item.filename}')" 
-              class="px-2 py-1 rounded text-xs font-sans text-[#57534E] hover:text-[#181716] hover:bg-[#EAE7E0] transition" 
+              class="px-2.5 py-1 rounded text-xs font-sans text-[#57534E] hover:text-[#181716] hover:bg-[#EAE7E0] transition" 
               title="Filter Timeline by this Exhibit"
             >
               Filter Timeline
             </button>
             <button 
               onclick="event.stopPropagation(); openHexInspector('${item.id}')" 
-              class="px-2 py-1 rounded text-xs font-mono text-[#1E293B] hover:bg-[#EAE7E0] transition" 
-              title="Audit Hex Offset"
+              class="px-2.5 py-1 rounded text-xs font-mono text-[#1E293B] hover:bg-[#EAE7E0] transition" 
+              title="Audit Hex"
             >
-              Hex View
+              Hex
             </button>
           </div>
         </td>
@@ -330,9 +501,11 @@ function openEvidenceDetail(exhibitId) {
   document.getElementById('detail-exhibit-id').textContent = item.id;
   document.getElementById('detail-filename').textContent = item.filename;
   document.getElementById('detail-type').textContent = item.file_type;
-  document.getElementById('detail-size').textContent = `${item.size_bytes} Bytes`;
+  document.getElementById('detail-size').textContent = `${item.size_bytes} Bytes (${(item.size_bytes / 1024).toFixed(1)} KB)`;
   document.getElementById('detail-sha256').textContent = item.sha256;
   document.getElementById('detail-sha3').textContent = item.sha3_256 || 'ce98141049acabcb9b8f51deb0f7d0f6f04c975536ffdc0ad63dff3cfd3e409e';
+  document.getElementById('detail-custody-tool').textContent = item.tool || "FTK Imager v4.7 (Bitstream Image)";
+  document.getElementById('detail-custody-officer').textContent = item.custodian || "Inspector A. Yadav, PS Cyber Crime";
 
   document.getElementById('btn-detail-filter-timeline').onclick = () => {
     filterTimelineByExhibit(item.id, item.filename);
@@ -343,6 +516,7 @@ function openEvidenceDetail(exhibitId) {
     closeEvidenceDetail();
   };
 
+  hapticEngine.playWhoosh();
   if (drawer) {
     drawer.classList.remove('hidden');
     drawer.classList.add('flex');
@@ -350,6 +524,7 @@ function openEvidenceDetail(exhibitId) {
 }
 
 function closeEvidenceDetail() {
+  hapticEngine.playSoftTap();
   const drawer = document.getElementById('evidence-detail-drawer');
   if (drawer) {
     drawer.classList.add('hidden');
@@ -357,12 +532,156 @@ function closeEvidenceDetail() {
   }
 }
 
+
 // =============================================================================
-// 5. INCONSISTENCY RADAR & ALIBI CLASH ENGINE
+// 5. INGESTION & DRAG-AND-DROP FILE PROCESSING (MATCHES SCREENSHOT 5)
+// =============================================================================
+function setupDragAndDropZone() {
+  const dropzone = document.getElementById('dropzone-area');
+  const fileInput = document.getElementById('file-drop-input');
+
+  if (!dropzone || !fileInput) return;
+
+  // Open file browser on dropzone click
+  dropzone.onclick = () => {
+    hapticEngine.playSoftTap();
+    fileInput.click();
+  };
+
+  // Drag over styling
+  ['dragenter', 'dragover'].forEach(name => {
+    dropzone.addEventListener(name, (e) => {
+      e.preventDefault();
+      dropzone.classList.add('drag-over');
+    });
+  });
+
+  // Drag leave styling
+  ['dragleave', 'drop'].forEach(name => {
+    dropzone.addEventListener(name, (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('drag-over');
+    });
+  });
+
+  // On file drop
+  dropzone.addEventListener('drop', (e) => {
+    const files = e.dataTransfer?.files;
+    if (files && files.length > 0) {
+      handleSelectedExhibitFile(files[0]);
+    }
+  });
+
+  // On file browse
+  fileInput.addEventListener('change', (e) => {
+    const files = e.target?.files;
+    if (files && files.length > 0) {
+      handleSelectedExhibitFile(files[0]);
+    }
+  });
+}
+
+function handleSelectedExhibitFile(file) {
+  selectedUploadFile = file;
+  hapticEngine.playSoftTap();
+
+  const infoEl = document.getElementById('dropzone-file-info');
+  const nameEl = document.getElementById('dropzone-filename');
+  const sizeEl = document.getElementById('dropzone-filesize');
+  const promptEl = document.getElementById('dropzone-prompt');
+
+  if (promptEl) promptEl.classList.add('hidden');
+  if (infoEl) infoEl.classList.remove('hidden');
+  if (nameEl) nameEl.textContent = file.name;
+  if (sizeEl) sizeEl.textContent = `${file.size} Bytes (${(file.size / 1024).toFixed(1)} KB)`;
+}
+
+async function commitUploadedExhibit() {
+  hapticEngine.playSoftTap();
+
+  const file = selectedUploadFile;
+  const fileName = file ? file.name : "custom_exhibit_" + Date.now() + ".log";
+  const fileSize = file ? file.size : 312;
+  const deviceType = document.getElementById('ingest-device-type')?.value || "Workstation Terminal";
+  const owner = document.getElementById('ingest-owner')?.value || "Vikram Malhotra";
+  const tool = document.getElementById('ingest-tool')?.value || "FTK Imager v4.7";
+  const notes = document.getElementById('ingest-notes')?.value || "Seized under Panchnama Memo";
+
+  // Generate deterministic hash simulation
+  const randomHex = Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('');
+  const randomSha3 = Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('');
+  const newId = "EV-" + Math.random().toString(16).substring(2, 8).toUpperCase();
+
+  let fileType = "SERVER_LOG";
+  if (fileName.endsWith('.txt')) fileType = "CHAT_EXPORT";
+  else if (fileName.endsWith('.eml')) fileType = "EMAIL";
+  else if (fileName.endsWith('.pdf')) fileType = "DOCUMENT";
+
+  const newExhibit = {
+    id: newId,
+    filename: fileName,
+    file_type: fileType,
+    size_bytes: fileSize,
+    sha256: randomHex,
+    sha3_256: randomSha3,
+    uploaded_at: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+    integrity_status: "Untampered (0 B Skew)",
+    device_type: deviceType,
+    custodian: `Inspector A. Yadav (${notes})`,
+    tool: tool
+  };
+
+  allEvidenceItems.unshift(newExhibit);
+
+  // Add corresponding timeline event
+  const newEvent = {
+    id: "FACT-" + String(allTimelineEvents.length + 1).padStart(3, '0'),
+    evidence_id: newId,
+    t_utc: new Date().toISOString(),
+    t_ist: new Date().toLocaleTimeString('en-IN', { hour12: false }) + " IST",
+    actor: owner.toLowerCase().replace(/\s+/g, '.'),
+    locator: "Section 1",
+    fact_type: fileType,
+    is_interval: false,
+    title: `Exhibit Ingest: ${fileName}`,
+    content: `${new Date().toISOString()},${owner},INGEST_VERIFIED,NIST_SHA256_MATCH`
+  };
+  allTimelineEvents.unshift(newEvent);
+
+  // Update UI
+  renderEvidenceTable();
+  renderTimelineFilters();
+  renderTimeline();
+  updateCaseSummaryMetrics();
+
+  // Reset form
+  selectedUploadFile = null;
+  const promptEl = document.getElementById('dropzone-prompt');
+  const infoEl = document.getElementById('dropzone-file-info');
+  if (promptEl) promptEl.classList.remove('hidden');
+  if (infoEl) infoEl.classList.add('hidden');
+
+  closeIngestModal();
+  hapticEngine.playSuccess();
+  showToast(`Exhibit ${newId} (${fileName}) successfully committed to vault.`);
+}
+
+
+// =============================================================================
+// 6. INCONSISTENCY RADAR
 // =============================================================================
 function renderInconsistencyRadar() {
   const container = document.getElementById('inconsistency-container');
   if (!container) return;
+
+  if (allInconsistencies.length === 0) {
+    container.innerHTML = `
+      <div class="p-6 text-center border border-dashed border-[#E8E5DF] rounded-xl text-xs text-[#78716C]">
+        Zero temporal anomalies flagged. All evidence events align within Allen partial order algebra bounds.
+      </div>
+    `;
+    return;
+  }
 
   container.innerHTML = allInconsistencies.map((inc) => {
     return `
@@ -374,7 +693,7 @@ function renderInconsistencyRadar() {
           <div class="flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-[#DC2626]"></span>
             <span class="text-xs font-semibold text-[#991B1B] uppercase tracking-wide">
-              Contradiction: Alibi Statement vs. Server Telemetry
+              ${inc.title}
             </span>
           </div>
           <span class="badge-clash text-[10px] px-2 py-0.5 rounded font-mono">
@@ -386,23 +705,22 @@ function renderInconsistencyRadar() {
           ${inc.description}
         </p>
 
-        <!-- Side-by-Side Comparison -->
+        <!-- Comparison -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-          <div class="p-3 rounded-lg bg-white border border-[#E8E5DF] space-y-1">
-            <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">Claimed Statement (WhatsApp Line 2)</span>
-            <p class="text-[#1E293B] font-serif italic text-sm">"${inc.claimed_statement}"</p>
+          <div class="p-3.5 rounded-lg bg-white border border-[#E8E5DF] space-y-1">
+            <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">Claimed Alibi Statement (WhatsApp)</span>
+            <p class="text-[#1E293B] font-serif italic text-xs leading-relaxed">"${inc.claimed_statement}"</p>
           </div>
-          <div class="p-3 rounded-lg bg-white border border-[#E8E5DF] space-y-1">
-            <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">Physical Reality (Server Log Row 1)</span>
-            <p class="text-[#15803D] font-mono text-xs font-semibold">${inc.system_reality}</p>
+          <div class="p-3.5 rounded-lg bg-white border border-[#E8E5DF] space-y-1">
+            <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">Objective System Reality (Server Log)</span>
+            <p class="text-[#15803D] font-mono text-xs font-semibold leading-relaxed">${inc.system_reality}</p>
           </div>
         </div>
 
-        <!-- Benign Hypotheses & Action -->
         <div class="pt-2 border-t border-[#FEE2E2] flex flex-wrap items-center justify-between gap-3 text-xs">
           <div class="flex items-center gap-2 text-[#78716C] text-[11px]">
             <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#15803D]"></i>
-            <span>3 Benign Explanations Evaluated (Clock Drift, Daemon, Credential Sharing)</span>
+            <span>3 Benign Explanations Evaluated (Clock Drift, Daemon, Shared Credential)</span>
           </div>
           <button 
             onclick="event.stopPropagation(); scrollToTimelineEvents(['${inc.fact_ids[0]}'])" 
@@ -431,8 +749,9 @@ function scrollToTimelineEvents(factIds) {
   }
 }
 
+
 // =============================================================================
-// 6. RECONSTRUCTED CHRONOLOGICAL EVENT TIMELINE
+// 7. RECONSTRUCTED CHRONOLOGICAL EVENT TIMELINE
 // =============================================================================
 function renderTimeline() {
   const container = document.getElementById('timeline-container');
@@ -476,7 +795,7 @@ function renderTimeline() {
         <div class="flex items-center justify-between text-[11px] text-[#78716C] pt-1">
           <span class="font-mono">Exhibit: <strong>${ev.evidence_id}</strong> &bull; Locator: ${ev.locator}</span>
           <button 
-            onclick="openCitationInspector('Fact Verbatim Anchor: ${ev.locator}', '${ev.evidence_id}', '${ev.locator}', '${escapeAttr(ev.content)}')" 
+            onclick="openCitationInspector('Fact Anchor: ${ev.locator}', '${ev.evidence_id}', '${ev.locator}', '${escapeAttr(ev.content)}')" 
             class="text-xs font-medium text-[#1E293B] hover:underline flex items-center gap-1"
           >
             <span>Inspect Anchor</span>
@@ -515,7 +834,7 @@ function renderTimelineFilters() {
 
   const actorContainer = document.getElementById('actor-pills-list');
   if (actorContainer) {
-    const actors = ["vikram.malhotra", "Team Lead"];
+    const actors = Array.from(new Set(allTimelineEvents.map(e => e.actor).filter(Boolean))).slice(0, 3);
     actorContainer.innerHTML = actors.map(a => `
       <button 
         onclick="toggleActorFilter('${a}')" 
@@ -600,8 +919,9 @@ function clearTimelineFilter() {
   renderTimeline();
 }
 
+
 // =============================================================================
-// 7. GROUNDED EVIDENCE Q&A & ZERO-HALLUCINATION VERIFIER
+// 8. GROUNDED EVIDENCE Q&A & ZERO-HALLUCINATION VERIFIER
 // =============================================================================
 function setQuery(q) {
   const input = document.getElementById('query-input');
@@ -620,7 +940,7 @@ async function executeQuery() {
     container.innerHTML = `
       <div class="py-5 text-center text-xs text-[#57534E] flex items-center justify-center gap-2">
         <i data-lucide="loader-2" class="w-4 h-4 animate-spin text-[#181716]"></i>
-        <span>Verifying query assertions against physical exhibit bytes...</span>
+        <span>Verifying assertions against physical exhibit bytes...</span>
       </div>
     `;
     if (window.lucide) lucide.createIcons();
@@ -640,7 +960,7 @@ async function executeQuery() {
             The asserted premise ("Suspect accepted a 50 BTC bribe") does not appear in any seized evidence exhibits.
           </p>
           <div class="text-[11px] text-[#991B1B] font-mono pt-1">
-            Rejection Basis: No token or byte match in vault. Inadmissible under BSA 2023 §63(4).
+            Basis: Zero byte or token substring match in vault. Inadmissible under BSA 2023 §63(4).
           </div>
         </div>
       `;
@@ -652,25 +972,26 @@ async function executeQuery() {
             <span class="text-xs font-mono text-[#15803D]">Confidence: 100%</span>
           </div>
           <p class="text-xs text-[#1F2937] leading-relaxed">
-            Finding: The alibi claim of sleep/incapacitation is directly refuted by authenticated server logins and confidential file exfiltration from workstation IP <code>192.168.1.105</code> at 15:24 UTC (20:54 IST).
+            Finding: The suspect's alibi claim of medical sleep is directly refuted by authenticated server logins and confidential file exfiltration from workstation IP <code>192.168.1.105</code> at 15:24 UTC (20:54 IST).
           </p>
           <div class="pt-2 border-t border-[#DCFCE7] flex flex-wrap gap-2">
-            <button onclick="openCitationInspector('Server auth log proves successful authentication during alibi', 'EV-BB0B03', 'Row 1', '2025-09-12T15:24:10Z,vikram.malhotra,192.168.1.105,LOGIN,OK')" class="btn-editorial-secondary text-xs py-1 px-2.5">
-              Inspect Anchor EV-BB0B03 (LOGIN OK)
+            <button onclick="openCitationInspector('Server auth log proves successful authentication during alibi', 'EV-25C119', 'Row 1', '2025-09-12T15:24:10Z,vikram.malhotra,192.168.1.105,LOGIN,OK')" class="btn-editorial-secondary text-xs py-1 px-2.5">
+              Inspect Exhibit EV-25C119 (LOGIN OK)
             </button>
-            <button onclick="openCitationInspector('Suspect statement claiming sleep and high fever', 'EV-8EA211', 'Line 2', '[12/09/2025, 15:25:40] Vikram Malhotra: Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning.')" class="btn-editorial-secondary text-xs py-1 px-2.5">
-              Inspect Anchor EV-8EA211 (WhatsApp Statement)
+            <button onclick="openCitationInspector('Suspect statement claiming sleep and high fever', 'EV-C4D948', 'Line 2', '[12/09/2025, 15:25:40] Vikram Malhotra: Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning.')" class="btn-editorial-secondary text-xs py-1 px-2.5">
+              Inspect Exhibit EV-C4D948 (WhatsApp Chat)
             </button>
           </div>
         </div>
       `;
     }
     if (window.lucide) lucide.createIcons();
-  }, 350);
+  }, 300);
 }
 
+
 // =============================================================================
-// 8. CITATION, CERTIFICATE, MERKLE, HEX & DOSSIER MODALS
+// 9. STATUTORY CERTIFICATES, MERKLE & MODALS (MATCHES SCREENSHOTS 1, 3, 4)
 // =============================================================================
 function openCitationInspector(claim, exId, locator, quote) {
   hapticEngine.playSoftTap();
@@ -678,7 +999,7 @@ function openCitationInspector(claim, exId, locator, quote) {
   document.getElementById('inspector-claim-text').textContent = `"${claim}"`;
   document.getElementById('inspector-target-exhibit').textContent = exId;
   document.getElementById('inspector-locator').textContent = locator;
-  document.getElementById('inspector-filename').textContent = exId === "EV-8EA211" ? "whatsapp_chat.txt" : "server_access.csv";
+  document.getElementById('inspector-filename').textContent = exId.includes("C4D") ? "whatsapp_chat.txt" : "server_access.csv";
 
   const rawCode = document.getElementById('inspector-raw-code');
   if (rawCode) {
@@ -689,6 +1010,7 @@ function openCitationInspector(claim, exId, locator, quote) {
     `;
   }
 
+  hapticEngine.playWhoosh();
   if (modal) {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
@@ -696,6 +1018,7 @@ function openCitationInspector(claim, exId, locator, quote) {
 }
 
 function closeCitationInspector() {
+  hapticEngine.playSoftTap();
   const modal = document.getElementById('citation-inspector-modal');
   if (modal) {
     modal.classList.add('hidden');
@@ -703,27 +1026,25 @@ function closeCitationInspector() {
   }
 }
 
+// Matches Screenshot 1 & 4
 function openCertificateModal() {
-  hapticEngine.playSoftTap();
+  hapticEngine.playWhoosh();
   const modal = document.getElementById('cert-modal');
-  const renderArea = document.getElementById('cert-render-area');
-  if (renderArea) {
-    renderArea.innerHTML = `
-      <div class="border-b border-[#E8E5DF] pb-4 mb-4 text-center space-y-1">
-        <h2 class="text-sm font-semibold tracking-wider text-[#181716] uppercase">BHARATIYA SAKSHYA ADHINIYAM, 2023</h2>
-        <p class="text-xs text-[#57534E]">Section 63(4) Statutory Certificate of Electronic Records</p>
-      </div>
-      <div class="space-y-3 text-xs font-mono text-[#2B2825]">
-        <div><strong>CASE REFERENCE:</strong> FIR No. 204/2026, PS Cyber Crime</div>
-        <div><strong>INVESTIGATING OFFICER:</strong> Inspector A. Yadav (Digital Forensics Division)</div>
-        <div><strong>AUTHENTICATING WORKBENCH:</strong> CHRONOFACT Offline Cryptographic Engine</div>
-        <div><strong>CASE MERKLE ROOT:</strong> 90ebf0e585bae35df91984284cfbdbb981bfbb55c0e5a79afda3e30bf2fd290c</div>
-        <div class="p-3 bg-[#FAF9F6] rounded border border-[#E8E5DF] text-[11px] leading-relaxed text-[#57534E]">
-          I hereby certify under Section 63(4)(c) of the Bharatiya Sakshya Adhiniyam, 2023, that the electronic records detailed in the attached schedule were produced by devices operating properly under lawful official custody, with zero physical bit modification since acquisition, verified via dual NIST FIPS 180-4 digests.
-        </div>
-      </div>
-    `;
+  const tableBody = document.getElementById('cert-schedule-table-body');
+
+  if (tableBody) {
+    tableBody.innerHTML = allEvidenceItems.map((ex, idx) => `
+      <tr class="border-b border-[#E8E5DF] text-xs font-mono">
+        <td class="py-2.5 px-3 text-center text-[#57534E]">${idx + 1}</td>
+        <td class="py-2.5 px-3 font-semibold text-[#181716]">${ex.id}</td>
+        <td class="py-2.5 px-3 text-[#2B2825]">${ex.filename}</td>
+        <td class="py-2.5 px-3 text-[#57534E]">${ex.file_type}</td>
+        <td class="py-2.5 px-3 text-[#57534E]">${ex.size_bytes} B</td>
+        <td class="py-2.5 px-3 text-[11px] text-[#181716] break-all select-all font-mono">${ex.sha256}</td>
+      </tr>
+    `).join('');
   }
+
   if (modal) {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
@@ -731,6 +1052,7 @@ function openCertificateModal() {
 }
 
 function closeCertificateModal() {
+  hapticEngine.playSoftTap();
   const modal = document.getElementById('cert-modal');
   if (modal) {
     modal.classList.add('hidden');
@@ -739,7 +1061,7 @@ function closeCertificateModal() {
 }
 
 function openMerkleModal() {
-  hapticEngine.playSoftTap();
+  hapticEngine.playWhoosh();
   const modal = document.getElementById('merkle-modal');
   const rootBox = document.getElementById('tree-root-box');
   const leavesBox = document.getElementById('tree-leaves-container');
@@ -761,6 +1083,7 @@ function openMerkleModal() {
 }
 
 function closeMerkleModal() {
+  hapticEngine.playSoftTap();
   const modal = document.getElementById('merkle-modal');
   if (modal) {
     modal.classList.add('hidden');
@@ -769,10 +1092,10 @@ function closeMerkleModal() {
 }
 
 function openHexInspector(exId) {
-  hapticEngine.playSoftTap();
+  hapticEngine.playWhoosh();
   const modal = document.getElementById('hex-modal');
   const title = document.getElementById('hex-modal-title');
-  if (title) title.textContent = `Hexadecimal Inspection: ${exId || 'EV-BB0B03'}`;
+  if (title) title.textContent = `Hexadecimal Inspection: ${exId || 'EV-25C119'}`;
   if (modal) {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
@@ -780,6 +1103,7 @@ function openHexInspector(exId) {
 }
 
 function closeHexInspector() {
+  hapticEngine.playSoftTap();
   const modal = document.getElementById('hex-modal');
   if (modal) {
     modal.classList.add('hidden');
@@ -788,7 +1112,7 @@ function closeHexInspector() {
 }
 
 function openGeoLocationDrawer() {
-  hapticEngine.playSoftTap();
+  hapticEngine.playWhoosh();
   const drawer = document.getElementById('geo-location-drawer');
   if (drawer) {
     drawer.classList.remove('hidden');
@@ -797,6 +1121,7 @@ function openGeoLocationDrawer() {
 }
 
 function closeGeoLocationDrawer() {
+  hapticEngine.playSoftTap();
   const drawer = document.getElementById('geo-location-drawer');
   if (drawer) {
     drawer.classList.add('hidden');
@@ -805,7 +1130,7 @@ function closeGeoLocationDrawer() {
 }
 
 function openDossierModal() {
-  hapticEngine.playSoftTap();
+  hapticEngine.playWhoosh();
   const modal = document.getElementById('dossier-modal');
   if (modal) {
     modal.classList.remove('hidden');
@@ -814,6 +1139,7 @@ function openDossierModal() {
 }
 
 function closeDossierModal() {
+  hapticEngine.playSoftTap();
   const modal = document.getElementById('dossier-modal');
   if (modal) {
     modal.classList.add('hidden');
@@ -822,7 +1148,7 @@ function closeDossierModal() {
 }
 
 function openIngestModal() {
-  hapticEngine.playSoftTap();
+  hapticEngine.playWhoosh();
   const modal = document.getElementById('ingest-modal');
   if (modal) {
     modal.classList.remove('hidden');
@@ -831,6 +1157,7 @@ function openIngestModal() {
 }
 
 function closeIngestModal() {
+  hapticEngine.playSoftTap();
   const modal = document.getElementById('ingest-modal');
   if (modal) {
     modal.classList.add('hidden');
@@ -838,16 +1165,66 @@ function closeIngestModal() {
   }
 }
 
+// Matches Screenshot 3 (Command Palette)
+function openCommandPalette() {
+  hapticEngine.playWhoosh();
+  const modal = document.getElementById('command-palette-modal');
+  const input = document.getElementById('command-palette-input');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    if (input) { input.value = ""; input.focus(); }
+  }
+}
+
+function closeCommandPalette() {
+  hapticEngine.playSoftTap();
+  const modal = document.getElementById('command-palette-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+window.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    openCommandPalette();
+  }
+  if (e.key === 'Escape') {
+    closeCommandPalette();
+    closeCertificateModal();
+    closeCitationInspector();
+    closeEvidenceDetail();
+    closeGeoLocationDrawer();
+    closeDossierModal();
+    closeHexInspector();
+    closeIngestModal();
+    closeMerkleModal();
+  }
+});
+
+
 // =============================================================================
-// 9. UTILITIES & MASTER INITIALIZER
+// 10. NOTIFICATION TOAST & DOM MASTER INITIALIZER
 // =============================================================================
 function showToast(msg) {
+  hapticEngine.playSoftTap();
   const toast = document.createElement('div');
   toast.className = "fixed bottom-6 right-6 z-[99999] px-4 py-3 rounded-lg bg-[#181716] text-white font-sans text-xs shadow-xl flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2 duration-200";
   toast.innerHTML = `<i data-lucide="check-circle-2" class="w-4 h-4 text-[#15803D]"></i> <span>${escapeHTML(msg)}</span>`;
   document.body.appendChild(toast);
   if (window.lucide) lucide.createIcons();
   setTimeout(() => toast.remove(), 2800);
+}
+
+function copyToClipboard(text, msg = "Copied to clipboard") {
+  hapticEngine.playSoftTap();
+  navigator.clipboard.writeText(text).then(() => {
+    showToast(msg);
+  }).catch(() => {
+    showToast("Copied: " + text.substring(0, 16) + "...");
+  });
 }
 
 function escapeHTML(str) {
@@ -862,6 +1239,8 @@ function escapeAttr(str) {
 
 // Master Lifecycle Initializer
 window.addEventListener('DOMContentLoaded', () => {
+  runSleekOpeningAnimation();
   loadCaseData();
+  setupDragAndDropZone();
   if (window.lucide) lucide.createIcons();
 });

@@ -49,14 +49,40 @@
 <body class="bg-[#F8F7F4] text-[#181716] font-sans min-h-screen antialiased selection:bg-[#EAE7E0] selection:text-[#181716]">
 
   <!-- ========================================================================= -->
-  <!-- 1. EDITORIAL HEADER & LEGAL METRICS DECK -->
+  <!-- 0. SLEEK LUXURY OPENING SPLASH ANIMATION (1-SECOND ELEGANT REVEAL) -->
+  <!-- ========================================================================= -->
+  <div id="initial-splash-overlay" onclick="dismissSleekSplash()">
+    <div class="text-center space-y-4 max-w-sm px-6">
+      <!-- Monogram Emblem -->
+      <div class="w-14 h-14 rounded-full bg-[#181716] text-[#F8F7F4] flex items-center justify-center font-serif text-2xl font-normal mx-auto shadow-sm">
+        C
+      </div>
+      <div class="space-y-1">
+        <h1 class="font-serif text-2xl tracking-tight text-[#181716]">CHRONOFACT</h1>
+        <p class="text-[11px] font-sans uppercase tracking-widest text-[#78716C]">
+          OFFICIAL FORENSIC WORKBENCH &bull; BSA 2023 §63(4)
+        </p>
+      </div>
+
+      <!-- Sleek Hairline Progress Bar -->
+      <div class="splash-progress-track mx-auto">
+        <div id="splash-progress-bar" class="splash-progress-bar"></div>
+      </div>
+      
+      <p class="text-[10px] font-mono text-[#A8A29A]">INITIALIZING CRYPTOGRAPHIC VAULT...</p>
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 1. EDITORIAL HEADER & COMMAND NAVIGATION -->
   <!-- ========================================================================= -->
   <header class="sticky top-0 z-30 w-full bg-[#F8F7F4]/90 backdrop-blur-md border-b border-[#E8E5DF] px-6 lg:px-12 py-3.5">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
       
       <!-- Brand & Compliance Seal -->
       <div class="flex items-center gap-3.5">
-        <div class="w-8 h-8 rounded-full bg-[#181716] text-white flex items-center justify-center font-serif font-bold text-sm shadow-sm">
+        <div class="w-8 h-8 rounded-full bg-[#181716] text-white flex items-center justify-center font-serif font-bold text-sm shadow-sm cursor-pointer" onclick="hapticEngine.playChime(660)">
           C
         </div>
         <div>
@@ -68,23 +94,34 @@
         </div>
       </div>
 
-      <!-- Center Status: Air-Gapped Status -->
-      <div class="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#E8E5DF] text-xs font-sans text-[#57534E]">
-        <span class="w-2 h-2 rounded-full bg-[#15803D]"></span>
-        <span>Air-Gapped Local Environment &bull; Zero Egress Custody</span>
+      <!-- Center Status: Air-Gapped Status & Command Search Trigger -->
+      <div class="hidden md:flex items-center gap-3">
+        <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#E8E5DF] text-xs font-sans text-[#57534E]">
+          <span class="w-2 h-2 rounded-full bg-[#15803D]"></span>
+          <span>Air-Gapped Local Environment &bull; Zero Egress Custody</span>
+        </div>
+
+        <button 
+          onclick="openCommandPalette()" 
+          class="flex items-center gap-2 px-3 py-1 rounded-full bg-[#F3F1EC] hover:bg-[#EAE7E0] text-xs font-sans text-[#57534E] border border-[#E8E5DF] transition"
+          title="Search actions (Cmd + K)"
+        >
+          <i data-lucide="search" class="w-3 h-3 text-[#78716C]"></i>
+          <span>Search actions, Ctrl+K</span>
+        </button>
       </div>
 
       <!-- Action Navigation Buttons -->
       <div class="flex items-center gap-2 text-xs">
-        <!-- Whisper Sound Toggle -->
+        <!-- Sound Toggle (Audible Luxury Haptics) -->
         <button 
           id="sound-toggle-btn"
           onclick="hapticEngine.toggle()" 
-          class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E8E5DF] hover:bg-[#F3F1EC] text-[#57534E] font-sans transition"
-          title="Toggle Soft Acoustic Feedback"
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E8E5DF] hover:bg-[#F3F1EC] text-[#181716] font-sans transition"
+          title="Toggle Acoustic Feedback"
         >
-          <i id="sound-toggle-icon" data-lucide="volume-x" class="w-3.5 h-3.5"></i>
-          <span id="sound-toggle-label" class="hidden sm:inline">Muted</span>
+          <i id="sound-toggle-icon" data-lucide="volume-2" class="w-3.5 h-3.5"></i>
+          <span id="sound-toggle-label" class="hidden sm:inline">Sound ON</span>
         </button>
 
         <button 
@@ -132,13 +169,18 @@
         <div class="flex items-center gap-2">
           <span class="font-mono uppercase text-[10px] tracking-widest text-[#57534E]">CASE REFERENCE</span>
           <span>&bull;</span>
-          <span class="font-semibold text-[#181716]">FIR No. 204/2026 (PS Cyber Crime, Special Cell)</span>
+          <span class="font-semibold text-[#181716]">FIR No. 204/2026 (PS Cyber Crime, Central District)</span>
         </div>
         <div class="flex items-center gap-2 font-mono text-[11px]">
           <span>MASTER MERKLE ROOT:</span>
-          <span class="font-medium text-[#181716] select-all bg-white px-2 py-0.5 rounded border border-[#E8E5DF]">
-            90ebf0e5...2fd290c
-          </span>
+          <button 
+            onclick="copyToClipboard('90ebf0e585bae35df91984284cfbdbb981bfbb55c0e5a79afda3e30bf2fd290c', 'Master Merkle Root copied')" 
+            class="font-medium text-[#181716] bg-white px-2.5 py-0.5 rounded border border-[#E8E5DF] hover:bg-[#F3F1EC] transition flex items-center gap-1.5"
+            title="Click to copy full 64-char Merkle root digest"
+          >
+            <span>90ebf0e5...2fd290c</span>
+            <i data-lucide="copy" class="w-3 h-3 text-[#78716C]"></i>
+          </button>
         </div>
       </div>
 
@@ -147,22 +189,22 @@
           State of NCT of Delhi <span class="text-[#78716C] italic font-serif">v.</span> Vikram Malhotra &amp; Ors.
         </h1>
         <p class="text-sm font-sans text-[#57534E]">
-          Investigation Workbench &bull; Cryptographic Evidence Provenance &amp; Reconstructed Event Timeline
+          Investigation Workbench &bull; Cryptographic Provenance &amp; Grounded Timeline Reconstruction
         </p>
       </div>
 
       <div class="pt-2 flex flex-wrap items-center gap-4 text-xs text-[#78716C]">
         <div class="flex items-center gap-1.5">
           <i data-lucide="user-check" class="w-3.5 h-3.5 text-[#181716]"></i>
-          <span>Lead Examiner: <strong>Inspector A. Yadav</strong> (Cyber Cell)</span>
+          <span>Investigating Officer: <strong>Insp. A. Yadav</strong> (Cyber Crime)</span>
         </div>
         <div class="flex items-center gap-1.5">
           <i data-lucide="scale" class="w-3.5 h-3.5 text-[#181716]"></i>
-          <span>Statutory Authority: <strong>Section 63(4), BSA 2023</strong></span>
+          <span>Statutory Authority: <strong>BSA 2023 §63(4)</strong></span>
         </div>
         <div class="flex items-center gap-1.5">
           <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#15803D]"></i>
-          <span>Hash Algorithm: <strong>NIST FIPS 180-4 Dual Digest</strong></span>
+          <span>Hashing Standard: <strong>NIST FIPS 180-4 Dual Hashing</strong></span>
         </div>
       </div>
     </section>
@@ -174,24 +216,24 @@
     <section class="grid grid-cols-2 md:grid-cols-5 gap-3.5">
       
       <div class="editorial-card p-4 space-y-1">
-        <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">Seized Exhibits</span>
+        <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">Ingested Exhibits</span>
         <div class="text-2xl font-serif font-medium text-[#181716]" id="stat-evidence-count">3</div>
         <span class="text-[11px] text-[#15803D] flex items-center gap-1">
-          <i data-lucide="check" class="w-3 h-3"></i> 100% Untampered
+          <i data-lucide="check" class="w-3 h-3"></i> 100% Sealed
         </span>
       </div>
 
       <div class="editorial-card p-4 space-y-1">
-        <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">Reconstructed Events</span>
+        <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">Timeline Events</span>
         <div class="text-2xl font-serif font-medium text-[#181716]" id="stat-timeline-count">5</div>
-        <span class="text-[11px] text-[#57534E]">Chronologically Grounded</span>
+        <span class="text-[11px] text-[#57534E]">Partial Order Grounded</span>
       </div>
 
       <div class="editorial-card p-4 space-y-1">
-        <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">Alibi Contradictions</span>
+        <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">Inconsistencies</span>
         <div class="text-2xl font-serif font-medium text-[#991B1B]" id="stat-anomalies-count">1</div>
         <span class="text-[11px] text-[#991B1B] flex items-center gap-1">
-          <i data-lucide="alert-circle" class="w-3 h-3"></i> Critical Conflict
+          <i data-lucide="alert-circle" class="w-3 h-3"></i> Alibi Clash
         </span>
       </div>
 
@@ -211,34 +253,45 @@
 
 
     <!-- ======================================================================= -->
-    <!-- 1. SEIZED EVIDENCE EXHIBITS VAULT -->
+    <!-- 1. SEIZED EVIDENCE EXHIBITS VAULT (WITH CLEAR & UPLOAD ACTIONS) -->
     <!-- ======================================================================= -->
     <section class="editorial-card p-6 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#E8E5DF] pb-4">
         <div>
-          <h2 class="text-lg font-serif font-medium text-[#181716]">Seized Evidence Exhibits</h2>
-          <p class="text-xs text-[#57534E]">Cryptographically verified files under lawful custody pursuant to BSA 2023 §63</p>
+          <h2 class="text-lg font-serif font-medium text-[#181716]">Case Evidence &amp; Forensic Exhibits</h2>
+          <p class="text-xs text-[#57534E]">Immutable local vault &bull; NIST FIPS 180-4 Dual Hashing &bull; Select any row to open forensic detail panel</p>
         </div>
 
+        <!-- Evidence Toolbar: Upload, Load Sample, Clear Vault -->
         <div class="flex items-center gap-2">
-          <button onclick="openIngestModal()" class="btn-editorial-secondary py-1.5 px-3">
-            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-            <span>Ingest New Exhibit</span>
+          <button onclick="openIngestModal()" class="btn-editorial-blue py-1.5 px-3">
+            <i data-lucide="file-up" class="w-3.5 h-3.5"></i>
+            <span>Ingest Electronic Exhibit</span>
+          </button>
+          
+          <button onclick="loadSampleCaseData()" class="btn-editorial-secondary py-1.5 px-3" title="Reload original FIR sample case">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-[#57534E]"></i>
+            <span class="hidden sm:inline">Load Sample Case</span>
+          </button>
+
+          <button onclick="clearEvidenceVault()" class="btn-editorial-secondary py-1.5 px-2.5 text-[#991B1B] hover:text-[#DC2626]" title="Clear vault exhibits">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Clear</span>
           </button>
         </div>
       </div>
 
-      <!-- Table -->
+      <!-- Table Viewport -->
       <div class="overflow-x-auto rounded-lg border border-[#E8E5DF]">
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="border-b border-[#E8E5DF] text-[10px] font-mono uppercase text-[#78716C] bg-[#FAF9F6]">
               <th class="py-3 px-4 font-medium">Status</th>
-              <th class="py-3 px-4 font-medium">Exhibit ID</th>
-              <th class="py-3 px-4 font-medium">File Name</th>
+              <th class="py-3 px-4 font-medium">Exhibit</th>
+              <th class="py-3 px-4 font-medium">Artifact</th>
               <th class="py-3 px-4 font-medium">Type</th>
               <th class="py-3 px-4 font-medium">Size</th>
-              <th class="py-3 px-4 font-medium">SHA-256 Digest (NIST FIPS 180-4)</th>
+              <th class="py-3 px-4 font-medium">Cryptographic Digest (SHA-256)</th>
               <th class="py-3 px-4 font-medium text-right">Actions</th>
             </tr>
           </thead>
@@ -249,9 +302,9 @@
       </div>
 
       <div class="flex items-center justify-between text-xs text-[#78716C] pt-1">
-        <span>Click any row to view complete custody metadata, hash chains, and technical specifications.</span>
+        <span>Click any row to open the complete custody record, FTK notes, and bitstream hashes.</span>
         <button onclick="openMerkleModal()" class="text-[#181716] font-medium hover:underline flex items-center gap-1">
-          <span>Calculate Merkle Root</span>
+          <span>Audit Merkle Tree &amp; Root</span>
           <i data-lucide="arrow-right" class="w-3 h-3"></i>
         </button>
       </div>
@@ -264,13 +317,13 @@
     <section class="editorial-card p-6 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#E8E5DF] pb-4">
         <div>
-          <h2 class="text-lg font-serif font-medium text-[#181716]">Inconsistency Radar &amp; Clash Detection</h2>
-          <p class="text-xs text-[#57534E]">Algorithmic temporal and geospatial clash identification using Allen's Interval Algebra</p>
+          <h2 class="text-lg font-serif font-medium text-[#181716]">Inconsistency Radar</h2>
+          <p class="text-xs text-[#57534E]">Cross-modal clash detection between statements and system logs</p>
         </div>
 
         <button onclick="openGeoLocationDrawer()" class="btn-editorial-secondary py-1.5 px-3">
           <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#181716]"></i>
-          <span>Cell Site Triangulation Radar</span>
+          <span>View Geo-Map Triangulation</span>
         </button>
       </div>
 
@@ -289,8 +342,8 @@
       <!-- Timeline Header -->
       <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#E8E5DF] pb-4">
         <div>
-          <h2 class="text-lg font-serif font-medium text-[#181716]">Reconstructed Chronological Event Timeline</h2>
-          <p class="text-xs text-[#57534E]">Grounded factual events ordered by verified UTC and IST timestamps</p>
+          <h2 class="text-lg font-serif font-medium text-[#181716]">Reconstructed Event Timeline</h2>
+          <p class="text-xs text-[#57534E]">Causally sorted factual events with verbatim evidentiary anchors</p>
         </div>
 
         <!-- Clock Calibration Toggle -->
@@ -309,7 +362,7 @@
       <div id="timeline-filter-bar" class="hidden flex items-center justify-between p-3 rounded-lg bg-[#FAF9F6] border border-[#E8E5DF] text-xs">
         <div class="flex items-center gap-2 text-[#181716]">
           <i data-lucide="filter" class="w-3.5 h-3.5 text-[#57534E]"></i>
-          <span>Filtering timeline events by exhibit: <strong id="timeline-filter-name" class="underline">EV-BB0B03</strong></span>
+          <span>Filtering timeline events by exhibit: <strong id="timeline-filter-name" class="underline">EV-25C119</strong></span>
         </div>
         <button onclick="clearTimelineFilter()" class="px-2.5 py-1 rounded bg-white hover:bg-[#F3F1EC] text-[#181716] font-medium border border-[#E8E5DF] transition">
           Clear Filter
@@ -345,7 +398,7 @@
           <div class="flex items-center gap-2">
             <span class="text-[#78716C] text-[11px] uppercase tracking-wider">Actor / Suspect:</span>
             <div id="actor-pills-list" class="flex items-center gap-1.5">
-              <!-- Dynamically rendered actor filter buttons -->
+              <!-- Dynamically populated actor filter buttons -->
             </div>
           </div>
         </div>
@@ -364,8 +417,8 @@
     <!-- ======================================================================= -->
     <section class="editorial-card p-6 space-y-4">
       <div class="border-b border-[#E8E5DF] pb-4">
-        <h2 class="text-lg font-serif font-medium text-[#181716]">Grounded Evidence Q&amp;A Gate</h2>
-        <p class="text-xs text-[#57534E]">Strict zero-hallucination verification constrained exclusively to seized exhibit bytes</p>
+        <h2 class="text-lg font-serif font-medium text-[#181716]">Forensic Evidence Q&amp;A</h2>
+        <p class="text-xs text-[#57534E]">Zero-hallucination inference &bull; Strictly grounded to seized bytes</p>
       </div>
 
       <div class="space-y-3">
@@ -376,7 +429,7 @@
               type="text" 
               id="query-input"
               value="Did Vikram Malhotra execute server operations during claimed incapacitation?"
-              placeholder="Ask questions strictly constrained to evidentiary bytes..."
+              placeholder="Ask a question about the case (e.g. 'Did suspect send leak email?')..."
               class="w-full pl-10 pr-4 py-2.5 rounded-lg bg-white border border-[#E8E5DF] text-xs text-[#181716] placeholder-[#A8A29A] font-sans focus:outline-none focus:border-[#181716] transition"
               onkeydown="if(event.key==='Enter') executeQuery()"
             >
@@ -385,18 +438,18 @@
             onclick="executeQuery()" 
             class="btn-editorial-primary text-xs py-2.5 px-4"
           >
-            <span>Verify Assertion</span>
+            <span>Ask Workbench</span>
           </button>
         </div>
 
         <!-- Preset Chips -->
         <div class="flex flex-wrap items-center gap-2 text-xs">
-          <span class="text-[#78716C] text-[11px]">Test Cases:</span>
+          <span class="text-[#78716C] text-[11px]">Quick Tests:</span>
           <button onclick="setQuery('Show evidence of confidential financial file download')" class="px-2.5 py-1 rounded bg-[#FAF9F6] hover:bg-[#F3F1EC] text-[#57534E] border border-[#E8E5DF] transition">
-            Q3 Financials Exfiltration
+            Alibi Clash (Supported)
           </button>
-          <button onclick="setQuery('Did suspect accept a 50 BTC bribe?')" class="px-2.5 py-1 rounded bg-[#FAF9F6] hover:bg-[#F3F1EC] text-[#57534E] border border-[#E8E5DF] transition">
-            Test Hallucination Rejection (50 BTC Bribe)
+          <button onclick="setQuery('Did suspect accept a 50 BTC bribe?')" class="px-2.5 py-1 rounded bg-[#FAF9F6] hover:bg-[#F3F1EC] text-[#991B1B] border border-[#FECACA] transition">
+            Fabricated Query (Rejected)
           </button>
         </div>
       </div>
@@ -411,64 +464,105 @@
 
 
   <!-- ========================================================================= -->
-  <!-- 3. DRAWERS & MODALS: EVIDENCE DETAIL, CITATION, CERTIFICATE, MERKLE, HEX -->
+  <!-- 3. DRAWERS & MODALS: EXACT SCREENSHOT ALIGNMENT -->
   <!-- ========================================================================= -->
 
-  <!-- DRAWER: Evidence Detail -->
-  <div id="evidence-detail-drawer" class="fixed inset-0 z-50 bg-[#181716]/40 backdrop-blur-xs hidden items-center justify-end">
-    <div class="w-full max-w-xl h-full bg-white border-l border-[#E8E5DF] p-7 flex flex-col justify-between space-y-6 overflow-y-auto drawer-enter-active">
+  <!-- MODAL: Ingest Electronic Exhibit (MATCHES SCREENSHOT 5) -->
+  <div id="ingest-modal" class="fixed inset-0 z-50 bg-[#181716]/40 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="editorial-card w-full max-w-xl bg-white border border-[#E8E5DF] rounded-2xl shadow-2xl p-6 space-y-4">
       
-      <div class="space-y-5">
-        <div class="flex items-center justify-between border-b border-[#E8E5DF] pb-4">
-          <div>
-            <h3 class="font-serif font-medium text-lg text-[#181716]">Evidence Custody Record</h3>
-            <p class="text-xs text-[#78716C]">Forensic exhibit integrity &amp; technical metadata</p>
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-[#E8E5DF] pb-3.5">
+        <div class="flex items-center gap-2">
+          <i data-lucide="cloud-upload" class="w-5 h-5 text-[#2563EB]"></i>
+          <h3 class="font-sans font-bold text-base text-[#181716]">Ingest Electronic Exhibit</h3>
+        </div>
+        <button onclick="closeIngestModal()" class="p-1 rounded hover:bg-[#F3F1EC] text-[#78716C] hover:text-[#181716] transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Drag & Drop Area -->
+      <div id="dropzone-area" class="dropzone-container p-8 rounded-xl text-center space-y-2 cursor-pointer transition">
+        <input type="file" id="file-drop-input" class="hidden">
+        
+        <div id="dropzone-prompt" class="space-y-2">
+          <div class="w-12 h-12 rounded-full bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center mx-auto">
+            <i data-lucide="file-up" class="w-6 h-6"></i>
           </div>
-          <button onclick="closeEvidenceDetail()" class="p-1 rounded hover:bg-[#F3F1EC] text-[#78716C] hover:text-[#181716] transition">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
+          <div class="text-xs text-[#181716] font-medium">
+            Drag &amp; drop forensic exhibit here, or <span class="text-[#2563EB] underline font-semibold">browse storage</span>
+          </div>
+          <div class="text-[11px] text-[#78716C]">
+            Supports: .csv, .txt, .eml, .log, .pdf
+          </div>
         </div>
 
-        <div class="space-y-3.5 text-xs">
-          <div class="p-3.5 rounded-lg bg-[#FAF9F6] border border-[#E8E5DF] space-y-1">
-            <span class="text-[#78716C] uppercase text-[10px] font-mono tracking-wider block">Exhibit Identifier</span>
-            <div id="detail-exhibit-id" class="text-sm font-mono font-semibold text-[#181716]">EV-BB0B03</div>
+        <div id="dropzone-file-info" class="hidden space-y-1">
+          <div class="w-10 h-10 rounded-full bg-[#ECFDF5] text-[#15803D] flex items-center justify-center mx-auto">
+            <i data-lucide="check" class="w-5 h-5"></i>
+          </div>
+          <div id="dropzone-filename" class="text-xs font-semibold text-[#181716]">selected_file.csv</div>
+          <div id="dropzone-filesize" class="text-[11px] text-[#78716C]">2.4 KB</div>
+          <div class="text-[10px] text-[#2563EB] pt-1">Ready for cryptographic hashing &amp; ingestion</div>
+        </div>
+      </div>
+
+      <!-- Metadata Form Fields -->
+      <div class="space-y-3 text-xs">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label class="font-medium text-[#44403C] block">Target Device Type</label>
+            <select id="ingest-device-type" class="w-full px-3 py-2 rounded-lg bg-white border border-[#E8E5DF] text-[#181716] font-sans focus:outline-none focus:border-[#2563EB]">
+              <option value="Phone / Mobile Device">Phone / Mobile Device</option>
+              <option value="Computer / Workstation">Computer / Workstation</option>
+              <option value="Server Access Log">Server Access Log</option>
+              <option value="Corporate Email Gateway">Corporate Email Gateway</option>
+              <option value="Cloud Storage Export">Cloud Storage Export</option>
+            </select>
           </div>
 
-          <div class="p-3.5 rounded-lg bg-[#FAF9F6] border border-[#E8E5DF] space-y-1">
-            <span class="text-[#78716C] uppercase text-[10px] font-mono tracking-wider block">Seized File Name</span>
-            <div id="detail-filename" class="text-xs font-medium text-[#181716]">server_access.csv</div>
+          <div class="space-y-1">
+            <label class="font-medium text-[#44403C] block">Owner / Suspect</label>
+            <input 
+              type="text" 
+              id="ingest-owner" 
+              value="Vikram Malhotra" 
+              class="w-full px-3 py-2 rounded-lg bg-white border border-[#E8E5DF] text-[#181716] font-sans focus:outline-none focus:border-[#2563EB]"
+            >
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label class="font-medium text-[#44403C] block">Acquisition Tool</label>
+            <input 
+              type="text" 
+              id="ingest-tool" 
+              value="FTK Imager v4.7" 
+              class="w-full px-3 py-2 rounded-lg bg-white border border-[#E8E5DF] text-[#181716] font-sans focus:outline-none focus:border-[#2563EB]"
+            >
           </div>
 
-          <div class="grid grid-cols-2 gap-3">
-            <div class="p-3.5 rounded-lg bg-[#FAF9F6] border border-[#E8E5DF] space-y-1">
-              <span class="text-[#78716C] uppercase text-[10px] font-mono tracking-wider block">Format</span>
-              <div id="detail-type" class="text-xs font-mono text-[#181716]">SERVER_LOG</div>
-            </div>
-            <div class="p-3.5 rounded-lg bg-[#FAF9F6] border border-[#E8E5DF] space-y-1">
-              <span class="text-[#78716C] uppercase text-[10px] font-mono tracking-wider block">Size on Disk</span>
-              <div id="detail-size" class="text-xs font-mono text-[#181716]">275 Bytes</div>
-            </div>
-          </div>
-
-          <div class="p-3.5 rounded-lg bg-[#FAF9F6] border border-[#E8E5DF] space-y-1">
-            <span class="text-[#78716C] uppercase text-[10px] font-mono tracking-wider block">Primary Digest (SHA-256 NIST FIPS 180-4)</span>
-            <div id="detail-sha256" class="text-[11px] font-mono text-[#181716] break-all select-all">c67d5b83921074a38217bb41a0b36e8492048591823700147981249bcf122618</div>
-          </div>
-
-          <div class="p-3.5 rounded-lg bg-[#FAF9F6] border border-[#E8E5DF] space-y-1">
-            <span class="text-[#78716C] uppercase text-[10px] font-mono tracking-wider block">Secondary Digest (SHA3-256 FIPS 202)</span>
-            <div id="detail-sha3" class="text-[11px] font-mono text-[#78716C] break-all select-all">ce98141049acabcb9b8f51deb0f7d0f6f04c975536ffdc0ad63dff3cfd3e409e</div>
+          <div class="space-y-1">
+            <label class="font-medium text-[#44403C] block">Seizure Notes</label>
+            <input 
+              type="text" 
+              id="ingest-notes" 
+              value="Seized under Panchnama Memo" 
+              class="w-full px-3 py-2 rounded-lg bg-white border border-[#E8E5DF] text-[#181716] font-sans focus:outline-none focus:border-[#2563EB]"
+            >
           </div>
         </div>
       </div>
 
-      <div class="pt-4 border-t border-[#E8E5DF] flex items-center gap-3">
-        <button id="btn-detail-filter-timeline" class="btn-editorial-primary flex-1 justify-center text-xs">
-          <span>Filter Timeline Events</span>
+      <!-- Modal Actions -->
+      <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-[#E8E5DF]">
+        <button onclick="closeIngestModal()" class="btn-editorial-secondary text-xs">
+          Cancel
         </button>
-        <button id="btn-detail-audit-hex" class="btn-editorial-secondary flex-1 justify-center text-xs">
-          <span>Inspect Hexadecimal</span>
+        <button id="btn-commit-vault" onclick="commitUploadedExhibit()" class="btn-editorial-blue text-xs">
+          <span>Commit to Vault</span>
         </button>
       </div>
 
@@ -476,13 +570,336 @@
   </div>
 
 
-  <!-- MODAL: Dual-Pane Citation Inspector -->
+  <!-- DRAWER: Exhibit Forensic Detail (MATCHES SCREENSHOT 2) -->
+  <div id="evidence-detail-drawer" class="fixed inset-0 z-50 bg-[#181716]/40 backdrop-blur-xs hidden items-center justify-end">
+    <div class="w-full max-w-lg h-full bg-white border-l border-[#E8E5DF] p-7 flex flex-col justify-between space-y-6 overflow-y-auto drawer-enter-active">
+      
+      <div class="space-y-5">
+        <!-- Header -->
+        <div class="flex items-center justify-between border-b border-[#E8E5DF] pb-4">
+          <div class="flex items-center gap-2">
+            <i data-lucide="file-text" class="w-5 h-5 text-[#2563EB]"></i>
+            <h3 class="font-sans font-bold text-base text-[#181716]">Exhibit Forensic Detail</h3>
+          </div>
+          <button onclick="closeEvidenceDetail()" class="p-1 rounded hover:bg-[#F3F1EC] text-[#78716C] hover:text-[#181716] transition">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <!-- Exhibit Identifier Header -->
+        <div class="space-y-1">
+          <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">EXHIBIT IDENTIFIER</span>
+          <div id="detail-exhibit-id" class="text-xl font-mono font-bold text-[#181716]">EV-25C119</div>
+          <div id="detail-filename" class="text-xs font-mono text-[#57534E]">server_access.csv</div>
+        </div>
+
+        <!-- Key Properties Grid -->
+        <div class="p-4 rounded-xl bg-[#FAF9F6] border border-[#E8E5DF] space-y-2 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="text-[#78716C]">File Type:</span>
+            <span id="detail-type" class="badge-neutral font-mono text-[10px] px-2 py-0.5 rounded">SERVER_LOG</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[#78716C]">File Size:</span>
+            <span id="detail-size" class="font-mono text-[#181716]">275 Bytes (0.3 KB)</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[#78716C]">Acquisition:</span>
+            <span class="font-mono text-[#57534E]">03 Oct 2026, 02:11 am</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[#78716C]">Disk Integrity:</span>
+            <span class="badge-verified text-[10px] px-2 py-0.5 rounded">Untampered (0 B Skew)</span>
+          </div>
+        </div>
+
+        <!-- Primary Hash Digest -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider">PRIMARY NIST SHA-256 DIGEST</span>
+            <button 
+              onclick="copyToClipboard(document.getElementById('detail-sha256').textContent, 'SHA-256 hash copied')" 
+              class="text-[#2563EB] hover:underline flex items-center gap-1 text-[11px]"
+            >
+              <i data-lucide="copy" class="w-3 h-3"></i> Copy
+            </button>
+          </div>
+          <div id="detail-sha256" class="p-3 rounded-lg bg-[#EFF6FF] border border-[#BFDBFE] font-mono text-[11px] text-[#1E3A8A] break-all select-all leading-relaxed">
+            c67d5b8552c2a5e11c76ff9691d483b233d2c8f6ae617702b8732a76f122618
+          </div>
+        </div>
+
+        <!-- Secondary SHA3 Hash Digest -->
+        <div class="space-y-1.5">
+          <div class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider">
+            SECONDARY SHA3-256 COLLISION HASH
+          </div>
+          <div id="detail-sha3" class="p-3 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] font-mono text-[11px] text-[#475569] break-all select-all leading-relaxed">
+            ce98141049acabcb9b8f51deb0f7d0f6f04c975536ffdc0ad63dff3cfd3e409e
+          </div>
+        </div>
+
+        <!-- Chain of Custody & Seizure Notes -->
+        <div class="p-4 rounded-xl bg-[#FAF9F6] border border-[#E8E5DF] space-y-2 text-xs">
+          <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block font-bold">CHAIN OF CUSTODY &amp; SEIZURE NOTES</span>
+          <div class="space-y-1 text-[#57534E]">
+            <div>Seizure Tool: <strong id="detail-custody-tool" class="text-[#181716]">FTK Imager v4.7 (Bitstream Image)</strong></div>
+            <div>Custodian: <strong id="detail-custody-officer" class="text-[#181716]">Inspector A. Yadav, PS Cyber Crime</strong></div>
+            <div>Hardware Hash Match: <strong class="text-[#15803D]">100% Cryptographic Match</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="pt-4 border-t border-[#E8E5DF] space-y-2">
+        <button id="btn-detail-filter-timeline" class="btn-editorial-blue w-full justify-center text-xs">
+          <i data-lucide="filter" class="w-3.5 h-3.5"></i>
+          <span>Filter Timeline by this Exhibit</span>
+        </button>
+        <button id="btn-detail-audit-hex" class="btn-editorial-secondary w-full justify-center text-xs">
+          <i data-lucide="binary" class="w-3.5 h-3.5"></i>
+          <span>Audit Hex &amp; Metadata Structure</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- MODAL: BSA Section 63(4) Certificate (MATCHES SCREENSHOTS 1 & 4) -->
+  <div id="cert-modal" class="fixed inset-0 z-50 bg-[#181716]/40 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="editorial-card w-full max-w-4xl bg-white border border-[#E8E5DF] rounded-2xl shadow-2xl p-6 md:p-8 space-y-5 max-h-[90vh] overflow-y-auto">
+      
+      <!-- Modal Top Toolbar -->
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#E8E5DF] pb-4">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="scale" class="w-6 h-6 text-[#15803D]"></i>
+          <div>
+            <h3 class="font-sans font-bold text-base text-[#181716]">
+              Bharatiya Sakshya Adhiniyam, 2023 &bull; Section 63(4) Certificate
+            </h3>
+            <p class="text-xs text-[#78716C]">Official Electronic Record Certificate &amp; Hash Disclosure Dossier</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button 
+            onclick="copyToClipboard('Item,Exhibit ID,Artifact Name,Type,Size,Hash\n1,EV-25C119,server_access.csv,SERVER_LOG,275 B,c67d5b8552c2a5e11c76ff9691d483b233d2c8f6ae617702b8732a76f122618\n2,EV-C4D948,whatsapp_chat.txt,CHAT_EXPORT,277 B,c5153b32e18148a1d65dfc2d4b1fa3d677284addd200126d9069817b47f4\n3,EV-8BF745,confidential_leak.eml,EMAIL,355 B,78d055d681dc41c28c899d123491baee0231cfb562a1048892ca82579e312b', 'CSV Schedule copied')" 
+            class="btn-editorial-secondary py-1.5 px-3 text-xs"
+          >
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span>Copy CSV</span>
+          </button>
+          <button onclick="window.print()" class="btn-editorial-blue py-1.5 px-3 text-xs">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+            <span>Print Certificate</span>
+          </button>
+          <button onclick="closeCertificateModal()" class="p-1.5 rounded hover:bg-[#F3F1EC] text-[#78716C] hover:text-[#181716]">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Legal Act Citation -->
+      <div class="text-center space-y-1 py-1">
+        <p class="font-serif italic text-xs text-[#57534E]">[Act No. 47 of 2023 &bull; Replaces Section 65B of Indian Evidence Act, 1872]</p>
+        <p class="text-xs text-[#78716C]">Certificate as to Admissibility of Electronic Records Produced in Court Proceedings</p>
+      </div>
+
+      <!-- Form Inputs Header Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-2.5 p-3 rounded-xl bg-[#FAF9F6] border border-[#E8E5DF] text-[11px] font-mono">
+        <div>
+          <span class="text-[#78716C] uppercase text-[9px] block">CASE REF / FIR</span>
+          <span class="font-semibold text-[#181716]">FIR No. 204/2026, PS Cyber</span>
+        </div>
+        <div>
+          <span class="text-[#78716C] uppercase text-[9px] block">CERTIFYING OFFICER</span>
+          <span class="font-semibold text-[#181716]">Inspector A. Yadav</span>
+        </div>
+        <div>
+          <span class="text-[#78716C] uppercase text-[9px] block">DESIGNATION</span>
+          <span class="font-semibold text-[#181716]">Inspector of Police (Cyber)</span>
+        </div>
+        <div>
+          <span class="text-[#78716C] uppercase text-[9px] block">POLICE STATION</span>
+          <span class="font-semibold text-[#181716]">PS Cyber Crime, Central</span>
+        </div>
+        <div>
+          <span class="text-[#78716C] uppercase text-[9px] block">DATE &amp; SEIZURE MEMO</span>
+          <span class="font-semibold text-[#181716]">12-Sep-2025 at Suspect</span>
+        </div>
+      </div>
+
+      <!-- Statutory Affirmation Text -->
+      <div class="space-y-2 text-xs text-[#2B2825] leading-relaxed font-sans">
+        <p>
+          I, <strong>Inspector A. Yadav</strong>, serving as Inspector of Police (Cyber Crime) at PS Cyber Crime, Central District, do hereby solemnly affirm and certify pursuant to <strong>Section 63(4)(c) of the Bharatiya Sakshya Adhiniyam, 2023</strong>:
+        </p>
+        <ol class="list-decimal pl-5 space-y-1.5 text-[#44403C]">
+          <li>That I had lawful management and operational control over the electronic computer devices and storage media from which the electronic records enumerated in the schedule below were derived;</li>
+          <li>That the electronic records were produced by the computer systems during the period over which the systems were used regularly to store and process digital evidence;</li>
+          <li>That throughout the material period, the computer devices were operating properly, and the cryptographic integrity of the bitstream copies has remained uncompromised;</li>
+          <li>That cryptographic verification was performed using NIST FIPS 180-4 standard SHA-256 digest algorithms, and the hash values disclosed in the Schedule below represent the exact unaltered state of the electronic exhibits.</li>
+        </ol>
+      </div>
+
+      <!-- Schedule of Electronic Exhibits Table -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-sans font-bold text-[#181716] uppercase tracking-wider text-[11px]">
+            SCHEDULE OF ELECTRONIC EXHIBITS &amp; MANDATORY SHA-256 HASH VALUES:
+          </span>
+          <span class="font-mono text-[10px] text-[#78716C]">SECTION 63(4) PART B SCHEDULE</span>
+        </div>
+
+        <div class="rounded-lg border border-[#E8E5DF] overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-[#E8E5DF] text-[10px] font-mono uppercase text-[#78716C] bg-[#FAF9F6]">
+                <th class="py-2.5 px-3 font-medium text-center">Item</th>
+                <th class="py-2.5 px-3 font-medium">Exhibit ID</th>
+                <th class="py-2.5 px-3 font-medium">Artifact Name</th>
+                <th class="py-2.5 px-3 font-medium">Type</th>
+                <th class="py-2.5 px-3 font-medium">Size</th>
+                <th class="py-2.5 px-3 font-medium">Cryptographic Hash Digest (NIST FIPS 180-4 SHA-256)</th>
+              </tr>
+            </thead>
+            <tbody id="cert-schedule-table-body" class="divide-y divide-[#E8E5DF] bg-white">
+              <!-- Rendered dynamic schedule rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Audit Chain Integrity & Terminal Chain Root -->
+      <div class="p-3.5 rounded-xl bg-[#FAF9F6] border border-[#E8E5DF] text-xs font-mono space-y-1">
+        <div class="text-[#15803D] flex items-center gap-1.5 font-medium">
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+          <span>Audit Chain Integrity: 4 sequential tamper-evident ledger blocks confirmed unbroken.</span>
+        </div>
+        <div class="text-[#57534E] text-[11px]">
+          Terminal Chain Root Hash: <span class="text-[#181716] font-semibold">d2714a3d67cf9b516d5fccd83d659c0530997d49f7be36891238ce619e5a39dd</span>
+        </div>
+      </div>
+
+      <!-- Signature Block -->
+      <div class="pt-4 border-t border-[#E8E5DF] flex items-center justify-between text-xs">
+        <div class="text-[11px] text-[#78716C] font-mono">
+          Certification Timestamp: 12-Sep-2025 21:30:00 IST
+        </div>
+        <div class="text-right space-y-0.5">
+          <div class="font-serif font-bold text-sm text-[#181716]">Inspector A. Yadav</div>
+          <div class="text-[11px] text-[#57534E]">Inspector of Police (Cyber Crime)</div>
+          <div class="text-[10px] text-[#78716C]">PS Cyber Crime, Central District</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- MODAL: Command Palette (MATCHES SCREENSHOT 3) -->
+  <div id="command-palette-modal" class="fixed inset-0 z-50 bg-[#181716]/40 backdrop-blur-xs hidden items-start justify-center pt-24 p-4">
+    <div class="editorial-card w-full max-w-xl bg-white border border-[#E8E5DF] rounded-2xl shadow-2xl p-4 space-y-3 font-sans text-xs">
+      
+      <!-- Input Header -->
+      <div class="relative">
+        <i data-lucide="search" class="w-4 h-4 text-[#A8A29A] absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+        <input 
+          type="text" 
+          id="command-palette-input"
+          placeholder="Type a command or search action..." 
+          class="w-full pl-10 pr-12 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#E8E5DF] text-[#181716] text-xs focus:outline-none focus:border-[#2563EB]"
+        >
+        <span class="absolute right-3 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded bg-white border border-[#E8E5DF] font-mono text-[10px] text-[#78716C]">
+          ESC
+        </span>
+      </div>
+
+      <!-- Action Items List -->
+      <div class="space-y-1 max-h-72 overflow-y-auto">
+        <button onclick="loadSampleCaseData(); closeCommandPalette()" class="w-full text-left p-3 rounded-lg hover:bg-[#F3F1EC] flex items-center justify-between transition">
+          <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded-md bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center">
+              <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="font-medium text-[#181716]">Load Sample Case Exhibit</div>
+              <div class="text-[10px] font-mono uppercase text-[#78716C]">ACTION</div>
+            </div>
+          </div>
+          <span class="px-2 py-0.5 rounded bg-[#FAF9F6] border border-[#E8E5DF] font-mono text-[10px] text-[#57534E]">L</span>
+        </button>
+
+        <button onclick="openMerkleModal(); closeCommandPalette()" class="w-full text-left p-3 rounded-lg hover:bg-[#F3F1EC] flex items-center justify-between transition">
+          <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded-md bg-[#F0FDF4] text-[#15803D] flex items-center justify-center">
+              <i data-lucide="git-commit" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="font-medium text-[#181716]">Audit Merkle Tree &amp; Chain-of-Custody Root</div>
+              <div class="text-[10px] font-mono uppercase text-[#78716C]">SECURITY</div>
+            </div>
+          </div>
+          <span class="px-2 py-0.5 rounded bg-[#FAF9F6] border border-[#E8E5DF] font-mono text-[10px] text-[#57534E]">M</span>
+        </button>
+
+        <button onclick="openCertificateModal(); closeCommandPalette()" class="w-full text-left p-3 rounded-lg hover:bg-[#F3F1EC] flex items-center justify-between transition">
+          <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded-md bg-[#FEF3C7] text-[#B45309] flex items-center justify-center">
+              <i data-lucide="scale" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="font-medium text-[#181716]">Generate BSA 2023 §63(4) Certificate</div>
+              <div class="text-[10px] font-mono uppercase text-[#78716C]">COMPLIANCE</div>
+            </div>
+          </div>
+          <span class="px-2 py-0.5 rounded bg-[#FAF9F6] border border-[#E8E5DF] font-mono text-[10px] text-[#57534E]">C</span>
+        </button>
+
+        <button onclick="openDossierModal(); closeCommandPalette()" class="w-full text-left p-3 rounded-lg hover:bg-[#F3F1EC] flex items-center justify-between transition">
+          <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded-md bg-[#F5F3FF] text-[#7C3AED] flex items-center justify-center">
+              <i data-lucide="folder-archive" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="font-medium text-[#181716]">Export Court Evidence Dossier (ZIP)</div>
+              <div class="text-[10px] font-mono uppercase text-[#78716C]">EXPORT</div>
+            </div>
+          </div>
+          <span class="px-2 py-0.5 rounded bg-[#FAF9F6] border border-[#E8E5DF] font-mono text-[10px] text-[#57534E]">D</span>
+        </button>
+
+        <button onclick="openIngestModal(); closeCommandPalette()" class="w-full text-left p-3 rounded-lg hover:bg-[#F3F1EC] flex items-center justify-between transition">
+          <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded-md bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center">
+              <i data-lucide="file-up" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="font-medium text-[#181716]">Ingest New Electronic Exhibit</div>
+              <div class="text-[10px] font-mono uppercase text-[#78716C]">EVIDENCE</div>
+            </div>
+          </div>
+          <span class="px-2 py-0.5 rounded bg-[#FAF9F6] border border-[#E8E5DF] font-mono text-[10px] text-[#57534E]">I</span>
+        </button>
+      </div>
+
+      <div class="flex items-center justify-between text-[11px] text-[#78716C] pt-2 border-t border-[#E8E5DF] font-mono">
+        <span>Navigate: &uarr; &darr; &bull; Execute: &crarr;</span>
+        <span class="font-sans font-medium text-[#181716]">Chronofact 2.0</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- MODAL: Dual-Pane Citation Anchor Inspector -->
   <div id="citation-inspector-modal" class="fixed inset-0 z-50 bg-[#181716]/40 backdrop-blur-xs hidden items-center justify-center p-4">
     <div class="editorial-card w-full max-w-2xl bg-white border border-[#E8E5DF] rounded-2xl shadow-xl p-6 space-y-4">
       <div class="flex items-center justify-between border-b border-[#E8E5DF] pb-3.5">
         <div>
           <h3 class="font-serif font-medium text-base text-[#181716]">Citation &amp; Verbatim Anchor Inspector</h3>
-          <p class="text-xs text-[#78716C]">Verbatim alignment without LLM interpolation</p>
+          <p class="text-xs text-[#78716C]">Mechanical citation without LLM hallucination</p>
         </div>
         <button onclick="closeCitationInspector()" class="p-1 rounded hover:bg-[#F3F1EC] text-[#78716C] hover:text-[#181716] transition">
           <i data-lucide="x" class="w-5 h-5"></i>
@@ -496,14 +913,14 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
         <div class="p-3.5 rounded-lg bg-white border border-[#E8E5DF] space-y-2">
-          <span class="text-[10px] font-mono uppercase text-[#78716C] block">Citation Anchor</span>
-          <div>Exhibit ID: <strong id="inspector-target-exhibit" class="font-mono text-[#181716]">EV-BB0B03</strong></div>
+          <span class="text-[10px] font-mono uppercase text-[#78716C] block font-bold">Citation Anchor</span>
+          <div>Exhibit ID: <strong id="inspector-target-exhibit" class="font-mono text-[#181716]">EV-25C119</strong></div>
           <div>File: <span id="inspector-filename" class="text-[#57534E]">server_access.csv</span></div>
           <div>Locator: <span id="inspector-locator" class="font-mono text-[#181716]">Row 1</span></div>
         </div>
 
         <div class="p-3.5 rounded-lg bg-white border border-[#E8E5DF] space-y-2">
-          <span class="text-[10px] font-mono uppercase text-[#78716C] block">Extracted Verbatim Bytes</span>
+          <span class="text-[10px] font-mono uppercase text-[#78716C] block font-bold">Extracted Verbatim Bytes</span>
           <div id="inspector-raw-code">
             <!-- Raw code block -->
           </div>
@@ -513,34 +930,6 @@
       <div class="text-right pt-2 border-t border-[#E8E5DF]">
         <button onclick="closeCitationInspector()" class="btn-editorial-secondary text-xs">
           <span>Close Inspector</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- MODAL: BSA Section 63(4) Statutory Certificate -->
-  <div id="cert-modal" class="fixed inset-0 z-50 bg-[#181716]/40 backdrop-blur-xs hidden items-center justify-center p-4">
-    <div class="editorial-card w-full max-w-2xl bg-white border border-[#E8E5DF] rounded-2xl shadow-xl p-6 space-y-4">
-      <div class="flex items-center justify-between border-b border-[#E8E5DF] pb-3.5">
-        <div>
-          <h3 class="font-serif font-medium text-base text-[#181716]">Statutory Admissibility Certificate</h3>
-          <p class="text-xs text-[#78716C]">Bharatiya Sakshya Adhiniyam, 2023 (Section 63(4))</p>
-        </div>
-        <button onclick="closeCertificateModal()" class="p-1 rounded hover:bg-[#F3F1EC] text-[#78716C] hover:text-[#181716] transition">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div id="cert-render-area" class="p-4 rounded-xl bg-[#FAF9F6] border border-[#E8E5DF] max-h-[60vh] overflow-y-auto">
-        <!-- Rendered Certificate Content -->
-      </div>
-
-      <div class="flex items-center justify-between pt-2 border-t border-[#E8E5DF]">
-        <span class="text-xs text-[#78716C]">Official Seal: Government of NCT of Delhi</span>
-        <button onclick="window.print()" class="btn-editorial-primary text-xs">
-          <i data-lucide="printer" class="w-3.5 h-3.5"></i>
-          <span>Print Certificate</span>
         </button>
       </div>
     </div>
@@ -587,7 +976,7 @@
     <div class="editorial-card w-full max-w-2xl bg-white border border-[#E8E5DF] rounded-2xl shadow-xl p-6 space-y-4 font-mono text-xs">
       <div class="flex items-center justify-between border-b border-[#E8E5DF] pb-3.5">
         <h3 id="hex-modal-title" class="font-sans font-medium text-sm text-[#181716]">
-          Hexadecimal Inspection: EV-BB0B03
+          Hexadecimal Inspection: EV-25C119
         </h3>
         <button onclick="closeHexInspector()" class="p-1 rounded hover:bg-[#F3F1EC] text-[#78716C] hover:text-[#181716] transition">
           <i data-lucide="x" class="w-5 h-5"></i>
@@ -612,7 +1001,7 @@
   </div>
 
 
-  <!-- DRAWER: Geo Location Cell Tower Radar -->
+  <!-- DRAWER: Geo Location Triangulation Radar -->
   <div id="geo-location-drawer" class="fixed inset-0 z-50 bg-[#181716]/40 backdrop-blur-xs hidden items-center justify-end">
     <div class="w-full max-w-lg h-full bg-white border-l border-[#E8E5DF] p-7 flex flex-col justify-between space-y-6 overflow-y-auto drawer-enter-active">
       
@@ -716,37 +1105,9 @@
         <button onclick="closeDossierModal()" class="btn-editorial-secondary text-xs">
           Cancel
         </button>
-        <button onclick="showToast('Packaging legal dossier archive with cryptographic manifests...'); closeDossierModal()" class="btn-editorial-primary text-xs">
+        <button onclick="showToast('Packaging legal dossier archive with cryptographic manifests...'); closeDossierModal()" class="btn-editorial-blue text-xs">
           <i data-lucide="download" class="w-3.5 h-3.5"></i>
           <span>Download Bundle (ZIP)</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- MODAL: Ingest Evidence Exhibit -->
-  <div id="ingest-modal" class="fixed inset-0 z-50 bg-[#181716]/40 backdrop-blur-xs hidden items-center justify-center p-4">
-    <div class="editorial-card w-full max-w-md bg-white border border-[#E8E5DF] rounded-2xl shadow-xl p-6 space-y-4">
-      <div class="flex items-center justify-between border-b border-[#E8E5DF] pb-3.5">
-        <div>
-          <h3 class="font-serif font-medium text-base text-[#181716]">Ingest Seized Evidence Exhibit</h3>
-          <p class="text-xs text-[#78716C]">Air-gapped hashing without atime alteration</p>
-        </div>
-        <button onclick="closeIngestModal()" class="p-1 rounded hover:bg-[#F3F1EC] text-[#78716C] hover:text-[#181716] transition">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div class="p-8 border-2 border-dashed border-[#E8E5DF] hover:border-[#181716] rounded-xl text-center space-y-2 cursor-pointer transition">
-        <i data-lucide="file-up" class="w-7 h-7 text-[#57534E] mx-auto"></i>
-        <div class="text-xs font-medium text-[#181716]">Select or drop physical exhibit dump</div>
-        <div class="text-[11px] text-[#78716C]">Supports CSV (Server Logs), TXT (Chats), EML (Emails)</div>
-      </div>
-
-      <div class="text-right pt-2 border-t border-[#E8E5DF]">
-        <button onclick="closeIngestModal()" class="btn-editorial-secondary text-xs">
-          Dismiss
         </button>
       </div>
     </div>
