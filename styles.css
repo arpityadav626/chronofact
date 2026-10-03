@@ -1,52 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 /* ==========================================================================
-   CHRONOFACT 2.0 // CYBERNETIC TEMPORAL INTELLIGENCE DESIGN SYSTEM
-   Theme: Obsidian OLED / Electric Chartreuse / Sci-Fi HUD Laboratory
+   CHRONOFACT 2.0 // EDITORIAL FORENSIC DESIGN SYSTEM
+   Inspiration: "Les Grands Chênes" / "Explora Journal" / High-End Legal Atelier
+   Theme: Warm Ivory / Editorial Typography / Restrained Luxury / Zero Gimmicks
    ========================================================================== */
 
 :root {
-  --bg-canvas: #08090A;
-  --bg-surface: #0E1117;
-  --bg-surface-elevated: #141822;
-  --bg-panel: rgba(15, 18, 25, 0.78);
-  --bg-panel-hover: rgba(22, 27, 38, 0.88);
+  /* Warm Canvas & Surface Palette */
+  --bg-canvas: #F8F7F4;
+  --bg-canvas-subtle: #F3F1EC;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FCFBF9;
+  --bg-inset: #F4F2ED;
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-medium: rgba(255, 255, 255, 0.16);
-  --border-active: rgba(204, 255, 0, 0.45);
+  /* Refined Hairline Borders */
+  --border-hairline: #E8E5DF;
+  --border-subtle: #DCD8D0;
+  --border-focus: #181716;
 
-  --accent-lime: #CCFF00;
-  --accent-lime-dim: rgba(204, 255, 0, 0.12);
-  --accent-lime-glow: rgba(204, 255, 0, 0.35);
+  /* Editorial Typography Colors */
+  --text-primary: #181716;
+  --text-secondary: #57534E;
+  --text-muted: #8C867D;
+  --text-dim: #A8A29A;
 
-  --accent-azure: #38BDF8;
-  --accent-azure-dim: rgba(56, 189, 248, 0.12);
-  --accent-azure-glow: rgba(56, 189, 248, 0.35);
+  /* Restrained Court & Legal Accent Accents */
+  --court-navy: #1E293B;
+  --court-navy-light: #F1F5F9;
+  
+  --forest-green: #15803D;
+  --forest-green-bg: #F0FDF4;
+  --forest-green-border: #BBF7D0;
 
-  --accent-lavender: #C084FC;
-  --accent-lavender-dim: rgba(192, 132, 252, 0.12);
-  --accent-lavender-glow: rgba(192, 132, 252, 0.35);
+  --amber-interval: #B45309;
+  --amber-interval-bg: #FFFBEB;
+  --amber-interval-border: #FDE68A;
 
-  --accent-amber: #F59E0B;
-  --accent-amber-dim: rgba(245, 158, 11, 0.12);
-  --accent-amber-glow: rgba(245, 158, 11, 0.35);
+  --crimson-clash: #991B1B;
+  --crimson-clash-bg: #FEF2F2;
+  --crimson-clash-border: #FECACA;
 
-  --accent-crimson: #F43F5E;
-  --accent-crimson-dim: rgba(244, 63, 94, 0.15);
-  --accent-crimson-glow: rgba(244, 63, 94, 0.45);
-
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --text-dim: #475569;
-
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  /* Typography Stacks */
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+
+  /* Soft Ambient Elevations */
+  --shadow-subtle: 0 1px 3px rgba(24, 23, 22, 0.04);
+  --shadow-card: 0 4px 20px -2px rgba(24, 23, 22, 0.05);
+  --shadow-dropdown: 0 12px 36px -4px rgba(24, 23, 22, 0.08);
 }
 
-/* Base Document Styling */
 * {
   box-sizing: border-box;
 }
@@ -56,347 +61,164 @@ html, body {
   padding: 0;
   background-color: var(--bg-canvas);
   color: var(--text-primary);
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  line-height: 1.5;
   scrollbar-width: thin;
-  scrollbar-color: rgba(204, 255, 0, 0.25) #0A0D12;
+  scrollbar-color: #D6D2CA var(--bg-canvas);
 }
 
-/* Custom Tactical Scrollbars */
+/* Custom Minimalist Scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #08090A;
+  background: var(--bg-canvas);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 3px;
+  background: #DCD8D0;
+  border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-lime);
+  background: #B8B2A7;
 }
 
-/* Background Blueprint Mesh & Ambient Radiance */
-.cyber-canvas-bg {
-  background-color: var(--bg-canvas);
-  background-image: 
-    radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 60%),
-    radial-gradient(circle at 100% 50%, rgba(204, 255, 0, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 0% 100%, rgba(192, 132, 252, 0.06) 0%, transparent 50%),
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 32px 32px, 32px 32px;
-  background-position: 0 0, 0 0, 0 0, -1px -1px, -1px -1px;
+/* Typography Classes */
+.font-serif {
+  font-family: var(--font-serif);
 }
-
-/* Subtle CRT Scanlines Effect Overlay */
-.crt-scanlines {
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.25) 50%
-  );
-  background-size: 100% 4px;
-  pointer-events: none;
-}
-
-/* High-Tech Tactical Glassmorphic Panel */
-.cyber-panel {
-  background: var(--bg-panel);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  position: relative;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.cyber-panel:hover {
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
-.cyber-panel-active {
-  border-color: var(--border-active);
-  box-shadow: 0 0 24px -6px var(--accent-lime-dim);
-}
-
-/* Corner Telemetry Bracket Glyphs */
-.cyber-brackets {
-  position: relative;
-}
-.cyber-brackets::before,
-.cyber-brackets::after {
-  content: "";
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-color: rgba(204, 255, 0, 0.45);
-  pointer-events: none;
-  transition: border-color 0.2s ease;
-}
-.cyber-brackets::before {
-  top: -1px;
-  left: -1px;
-  border-top: 1.5px solid;
-  border-left: 1.5px solid;
-}
-.cyber-brackets::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 1.5px solid;
-  border-right: 1.5px solid;
-}
-.cyber-brackets:hover::before,
-.cyber-brackets:hover::after {
-  border-color: var(--accent-lime);
-}
-
-/* Tactical Crosshairs Icon */
-.crosshair-corner {
-  position: absolute;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.2);
-  line-height: 1;
-  user-select: none;
-}
-
-/* Futuristic Typography Classes */
-.font-display {
-  font-family: var(--font-display);
-}
-.font-body {
-  font-family: var(--font-body);
+.font-sans {
+  font-family: var(--font-sans);
 }
 .font-mono {
   font-family: var(--font-mono);
 }
 
-/* Glowing Neon Badges */
-.badge-lime {
-  background: var(--accent-lime-dim);
-  color: var(--accent-lime);
-  border: 1px solid rgba(204, 255, 0, 0.35);
-  font-family: var(--font-mono);
+/* Luxury Editorial Cards */
+.editorial-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: 12px;
+  box-shadow: var(--shadow-subtle);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.badge-azure {
-  background: var(--accent-azure-dim);
-  color: var(--accent-azure);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  font-family: var(--font-mono);
+
+.editorial-card:hover {
+  border-color: var(--border-subtle);
+  box-shadow: var(--shadow-card);
 }
-.badge-lavender {
-  background: var(--accent-lavender-dim);
-  color: var(--accent-lavender);
-  border: 1px solid rgba(192, 132, 252, 0.35);
+
+/* Restrained Badges */
+.badge-verified {
+  background-color: var(--forest-green-bg);
+  color: var(--forest-green);
+  border: 1px solid var(--forest-green-border);
   font-family: var(--font-mono);
+  font-weight: 500;
 }
-.badge-amber {
-  background: var(--accent-amber-dim);
-  color: var(--accent-amber);
-  border: 1px solid rgba(245, 158, 11, 0.35);
+
+.badge-interval {
+  background-color: var(--amber-interval-bg);
+  color: var(--amber-interval);
+  border: 1px solid var(--amber-interval-border);
   font-family: var(--font-mono);
+  font-weight: 500;
 }
-.badge-crimson {
-  background: var(--accent-crimson-dim);
-  color: var(--accent-crimson);
-  border: 1px solid rgba(244, 63, 94, 0.45);
+
+.badge-clash {
+  background-color: var(--crimson-clash-bg);
+  color: var(--crimson-clash);
+  border: 1px solid var(--crimson-clash-border);
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.badge-neutral {
+  background-color: var(--bg-inset);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-hairline);
   font-family: var(--font-mono);
 }
 
-/* Tactical HUD Buttons */
-.btn-cyber-primary {
-  background: var(--accent-lime);
-  color: #08090A;
-  font-family: var(--font-display);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 1px solid var(--accent-lime);
+/* Luxury Buttons */
+.btn-editorial-primary {
+  background-color: #181716;
+  color: #FFFFFF;
+  border: 1px solid #181716;
   border-radius: 8px;
+  font-weight: 500;
+  font-size: 12px;
   padding: 8px 16px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 16px -4px var(--accent-lime-glow);
+  transition: all 0.15s ease;
+  letter-spacing: 0.01em;
 }
-.btn-cyber-primary:hover {
-  background: #E0FF33;
-  transform: translateY(-1px);
-  box-shadow: 0 0 24px -2px var(--accent-lime-glow);
+.btn-editorial-primary:hover {
+  background-color: #2E2B28;
+  border-color: #2E2B28;
+  transform: translateY(-0.5px);
 }
-.btn-cyber-primary:active {
+.btn-editorial-primary:active {
   transform: translateY(0);
 }
 
-.btn-cyber-secondary {
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--text-primary);
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  border: 1px solid var(--border-subtle);
+.btn-editorial-secondary {
+  background-color: #FFFFFF;
+  color: #181716;
+  border: 1px solid var(--border-hairline);
   border-radius: 8px;
+  font-weight: 500;
+  font-size: 12px;
   padding: 8px 16px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
-.btn-cyber-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #FFFFFF;
-}
-
-.btn-cyber-danger {
-  background: var(--accent-crimson-dim);
-  color: var(--accent-crimson);
-  border: 1px solid rgba(244, 63, 94, 0.4);
-  font-family: var(--font-display);
-  font-weight: 600;
-  border-radius: 8px;
-  padding: 8px 16px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.btn-cyber-danger:hover {
-  background: rgba(244, 63, 94, 0.25);
-  border-color: var(--accent-crimson);
-  box-shadow: 0 0 16px var(--accent-crimson-glow);
+.btn-editorial-secondary:hover {
+  background-color: var(--bg-inset);
+  border-color: var(--border-subtle);
 }
 
-/* Cinematic Shutter Curtain Transition */
-#boot-shutter-container {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  pointer-events: all;
-  display: flex;
-  flex-direction: column;
-}
-
-.shutter-curtain {
-  flex: 1;
-  background: #08090A;
-  position: relative;
-  transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
-  will-change: transform;
-}
-
-.shutter-top {
-  border-bottom: 2px solid var(--accent-lime);
-  box-shadow: 0 4px 30px var(--accent-lime-glow);
-}
-
-.shutter-bottom {
-  border-top: 2px solid var(--accent-lime);
-  box-shadow: 0 -4px 30px var(--accent-lime-glow);
-}
-
-#boot-shutter-container.shutter-open .shutter-top {
-  transform: translateY(-100%);
-}
-#boot-shutter-container.shutter-open .shutter-bottom {
-  transform: translateY(100%);
-}
-
-/* Anomaly Override Strobe Mode */
-body.anomaly-alert-mode {
-  animation: perimeterPulse 1.8s infinite alternate ease-in-out;
-}
-@keyframes perimeterPulse {
+/* Anomaly Glow Animation on Target Timeline Card */
+@keyframes softAmberPulse {
   0% {
-    box-shadow: inset 0 0 40px rgba(244, 63, 94, 0.2);
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+    border-color: #DC2626;
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(220, 38, 38, 0.12);
+    border-color: #DC2626;
   }
   100% {
-    box-shadow: inset 0 0 120px rgba(244, 63, 94, 0.55);
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+    border-color: var(--border-hairline);
   }
 }
-
-/* Mechanical Safety Latch Switch */
-.safety-latch-cover {
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform-origin: top center;
-}
-.safety-latch-cover.flipped-open {
-  transform: rotateX(120deg);
+.timeline-card-highlighted {
+  animation: softAmberPulse 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Dynamic Sensor Docking Animations */
-.dock-node {
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+/* Smooth Drawer Transition */
+.drawer-enter {
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.dock-node.floating {
-  opacity: 0.6;
-  transform: translateY(14px) scale(0.98);
-  filter: blur(1px);
-}
-.dock-node.docked {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
+.drawer-enter-active {
+  transform: translateX(0);
 }
 
-/* Interactive Time-Dial Scrubber Track */
-.time-scrubber-track {
-  background: linear-gradient(
-    90deg, 
-    rgba(56, 189, 248, 0.2) 0%, 
-    rgba(204, 255, 0, 0.3) 50%, 
-    rgba(192, 132, 252, 0.2) 100%
-  );
-  border-radius: 9999px;
-  height: 6px;
-  position: relative;
-  cursor: pointer;
+/* Soft Fade In */
+.editorial-fade {
+  animation: fadeIn 0.4s ease forwards;
 }
-.time-scrubber-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--accent-lime);
-  border: 2px solid #08090A;
-  box-shadow: 0 0 12px var(--accent-lime-glow);
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  cursor: grab;
-  transition: transform 0.1s ease;
-}
-.time-scrubber-thumb:active {
-  cursor: grabbing;
-  transform: translate(-50%, -50%) scale(1.25);
-}
-
-/* Radar Sweep Keyframe */
-@keyframes radarSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-.radar-sweep-beam {
-  transform-origin: center;
-  animation: radarSpin 4s linear infinite;
-}
-
-/* Glitch Text Micro-Animation */
-@keyframes textGlitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-1px, 1px); }
-  40% { transform: translate(1px, -1px); }
-  60% { transform: translate(-1px, -1px); }
-  80% { transform: translate(1px, 1px); }
-  100% { transform: translate(0); }
-}
-.glitch-on-hover:hover {
-  animation: textGlitch 0.25s infinite;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
