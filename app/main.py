@@ -8,7 +8,7 @@ from typing import List, Dict, Any, Optional
 
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -56,6 +56,14 @@ def serve_index():
     if index_path.exists():
         return index_path.read_text(encoding="utf-8")
     return "<h1>CHRONOFACT System is running. Open /static/index.html</h1>"
+
+@app.get("/styles.css")
+def serve_styles():
+    return FileResponse(STATIC_DIR / "styles.css", media_type="text/css")
+
+@app.get("/app.js")
+def serve_app_js():
+    return FileResponse(STATIC_DIR / "app.js", media_type="application/javascript")
 
 @app.get("/api/health")
 def health_check():
