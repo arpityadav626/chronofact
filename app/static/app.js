@@ -772,6 +772,11 @@ function renderInconsistencyRadar() {
       </div>
     `;
   }).join('');
+
+  if (window.lucide) lucide.createIcons();
+}
+
+
 // =============================================================================
 // 6B. MACHINE LEARNING LOG ANOMALY RADAR (ISOLATION FOREST)
 // =============================================================================
