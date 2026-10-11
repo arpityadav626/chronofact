@@ -140,33 +140,17 @@ const hapticEngine = new LuxuryHapticAudio();
 
 
 // =============================================================================
-// 2. SLEEK INITIAL OPENING SPLASH ANIMATION
+// 2. INSTANT FORENSIC WORKBENCH MOUNT
 // =============================================================================
 function runSleekOpeningAnimation() {
-  const overlay = document.getElementById('initial-splash-overlay');
-  const bar = document.getElementById('splash-progress-bar');
-  if (!overlay || !bar) return;
-
-  let progress = 0;
-  const interval = setInterval(() => {
-    progress += 8;
-    if (progress > 100) progress = 100;
-    bar.style.width = `${progress}%`;
-
-    if (progress >= 100) {
-      clearInterval(interval);
-      setTimeout(() => {
-        dismissSleekSplash();
-      }, 180);
-    }
-  }, 45);
+  dismissSleekSplash();
 }
 
 function dismissSleekSplash() {
   const overlay = document.getElementById('initial-splash-overlay');
-  if (overlay && !overlay.classList.contains('splash-hidden')) {
-    overlay.classList.add('splash-hidden');
-    hapticEngine.playChime(660);
+  if (overlay) {
+    overlay.style.display = 'none';
+    overlay.remove();
   }
 }
 
@@ -420,6 +404,22 @@ function updateCaseSummaryMetrics() {
   if (elInc) elInc.textContent = allInconsistencies.length;
   if (elConf) elConf.textContent = conf;
   if (elUnc) elUnc.textContent = unc;
+
+  // Update sidebar badge counters
+  const badgeVault = document.getElementById('sidebar-badge-vault');
+  const badgeTimeline = document.getElementById('sidebar-badge-timeline');
+  const badgeAi = document.getElementById('sidebar-badge-ai');
+  const headerVaultPill = document.getElementById('header-vault-status-pill');
+
+  if (badgeVault) badgeVault.textContent = allEvidenceItems.length;
+  if (badgeTimeline) badgeTimeline.textContent = allTimelineEvents.length;
+  if (badgeAi) badgeAi.textContent = allInconsistencies.length + allMLAnomalies.length;
+  if (headerVaultPill) {
+    headerVaultPill.innerHTML = `
+      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+      <span>Vault Sealed &bull; ${allEvidenceItems.length} Exhibits &bull; Merkle Root Active</span>
+    `;
+  }
 }
 
 
@@ -432,28 +432,24 @@ function renderEvidenceTable() {
 
   if (allEvidenceItems.length === 0) {
     container.innerHTML = `
-      <tr>
-        <td colspan="7" class="py-12 text-center">
-          <div class="max-w-md mx-auto space-y-3">
-            <div class="w-10 h-10 rounded-full bg-[#F3F1EC] text-[#78716C] flex items-center justify-center mx-auto">
-              <i data-lucide="archive" class="w-5 h-5"></i>
-            </div>
-            <div class="space-y-1">
-              <h4 class="text-sm font-medium text-[#181716]">Vault is Empty</h4>
-              <p class="text-xs text-[#78716C]">No evidence exhibits are currently loaded into this case session.</p>
-            </div>
-            <div class="flex items-center justify-center gap-2 pt-2">
-              <button onclick="openIngestModal()" class="btn-editorial-primary text-xs py-1.5 px-3">
-                <i data-lucide="file-up" class="w-3.5 h-3.5"></i>
-                <span>Ingest First Exhibit</span>
-              </button>
-              <button onclick="loadSampleCaseData()" class="btn-editorial-secondary text-xs py-1.5 px-3">
-                <span>Load Sample Case</span>
-              </button>
-            </div>
-          </div>
-        </td>
-      </tr>
+      <div class="p-10 text-center border border-dashed border-[#222E44] rounded-xl text-slate-400 bg-[#0E1422] space-y-3">
+        <div class="w-10 h-10 rounded-full bg-[#182338] text-[#60A5FA] flex items-center justify-center mx-auto">
+          <i data-lucide="archive" class="w-5 h-5"></i>
+        </div>
+        <div class="space-y-1">
+          <h4 class="text-sm font-semibold text-slate-100">Evidence Vault Empty</h4>
+          <p class="text-xs text-slate-400">No digital exhibits currently staged in this case session.</p>
+        </div>
+        <div class="flex items-center justify-center gap-2 pt-1">
+          <button onclick="openIngestModal()" class="btn-editorial-primary text-xs py-1.5 px-3">
+            <i data-lucide="file-up" class="w-3.5 h-3.5"></i>
+            <span>Ingest Exhibit</span>
+          </button>
+          <button onclick="loadSampleCaseData()" class="btn-editorial-secondary text-xs py-1.5 px-3">
+            <span>Load Sample Case</span>
+          </button>
+        </div>
+      </div>
     `;
     if (window.lucide) lucide.createIcons();
     return;
@@ -461,47 +457,68 @@ function renderEvidenceTable() {
 
   container.innerHTML = allEvidenceItems.map((item) => {
     const isSelected = activeExhibitFilter === item.id;
+    const hashShort = item.sha256 ? `${item.sha256.substring(0, 10)}...${item.sha256.substring(item.sha256.length - 8)}` : 'N/A';
     return `
-      <tr 
-        class="border-b border-[#E8E5DF] hover:bg-[#F9F8F6] transition cursor-pointer ${isSelected ? 'bg-[#F2EFE9]' : ''}"
+      <div 
+        class="evidence-card-row ${isSelected ? 'selected' : ''}"
         onclick="openEvidenceDetail('${item.id}')"
       >
-        <td class="py-3.5 px-4">
-          <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] badge-verified">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#15803D]"></span>
-            <span>${item.integrity_status || 'Untampered'}</span>
-          </span>
-        </td>
-        <td class="py-3.5 px-4 font-mono text-xs font-semibold text-[#181716] tracking-wide">${item.id}</td>
-        <td class="py-3.5 px-4 text-xs font-medium text-[#2B2825]">${item.filename}</td>
-        <td class="py-3.5 px-4">
-          <span class="px-2 py-0.5 rounded text-[11px] badge-neutral font-mono">
-            ${item.file_type}
-          </span>
-        </td>
-        <td class="py-3.5 px-4 font-mono text-xs text-[#57534E]">${item.size_bytes} B</td>
-        <td class="py-3.5 px-4 font-mono text-[11px] text-[#78716C]">
-          <span class="select-all">${item.sha256.substring(0, 12)}...${item.sha256.substring(item.sha256.length - 8)}</span>
-        </td>
-        <td class="py-3.5 px-4 text-right">
-          <div class="inline-flex items-center gap-2">
+        <!-- Left: Custody Sealed Pill + Exhibit ID + Filename -->
+        <div class="flex items-center gap-3.5 min-w-0">
+          <div class="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 flex items-center justify-center shrink-0" title="Cryptographically Sealed (Bitstream Intact)">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+          </div>
+
+          <div class="space-y-0.5 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-2 py-0.5 rounded font-mono font-bold text-xs bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                ${item.id}
+              </span>
+              <span class="font-medium text-xs text-slate-100 truncate">${item.filename}</span>
+              <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                ${item.file_type}
+              </span>
+            </div>
+            <div class="text-[11px] text-slate-400 font-mono flex items-center gap-2">
+              <span>${item.size_bytes} B (${(item.size_bytes/1024).toFixed(1)} KB)</span>
+              <span class="text-slate-600">&bull;</span>
+              <span class="text-emerald-400 font-sans font-medium">Sealed &amp; Untampered</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Monospace Hash Pill + Actions -->
+        <div class="flex items-center gap-3 shrink-0">
+          <button 
+            onclick="event.stopPropagation(); copyToClipboard('${item.sha256}', 'NIST SHA-256 hash copied')"
+            class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0A0E18] hover:bg-[#141B2D] border border-[#1E293E] font-mono text-[11px] text-slate-300 transition"
+            title="Click to copy full SHA-256 hash digest"
+          >
+            <span class="text-slate-500">SHA-256:</span>
+            <span>${hashShort}</span>
+            <i data-lucide="copy" class="w-3 h-3 text-slate-500"></i>
+          </button>
+
+          <div class="flex items-center gap-1.5">
             <button 
               onclick="event.stopPropagation(); filterTimelineByExhibit('${item.id}', '${item.filename}')" 
-              class="px-2.5 py-1 rounded text-xs font-sans text-[#57534E] hover:text-[#181716] hover:bg-[#EAE7E0] transition" 
+              class="px-2.5 py-1 rounded bg-[#172033] hover:bg-[#1F2C46] text-xs font-sans text-slate-200 border border-[#23314E] transition flex items-center gap-1" 
               title="Filter Timeline by this Exhibit"
             >
-              Filter Timeline
+              <i data-lucide="filter" class="w-3 h-3 text-blue-400"></i>
+              <span class="hidden sm:inline">Timeline</span>
             </button>
             <button 
               onclick="event.stopPropagation(); openHexInspector('${item.id}')" 
-              class="px-2.5 py-1 rounded text-xs font-mono text-[#1E293B] hover:bg-[#EAE7E0] transition" 
-              title="Audit Hex"
+              class="px-2.5 py-1 rounded bg-[#121824] hover:bg-[#1A2335] text-xs font-mono text-slate-300 border border-[#222E44] transition flex items-center gap-1" 
+              title="Audit Hex Stream"
             >
-              Hex
+              <i data-lucide="binary" class="w-3 h-3 text-slate-400"></i>
+              <span>Hex</span>
             </button>
           </div>
-        </td>
-      </tr>
+        </div>
+      </div>
     `;
   }).join('');
   if (window.lucide) lucide.createIcons();
@@ -715,7 +732,7 @@ function renderInconsistencyRadar() {
 
   if (allInconsistencies.length === 0) {
     container.innerHTML = `
-      <div class="p-6 text-center border border-dashed border-[#E8E5DF] rounded-xl text-xs text-[#78716C]">
+      <div class="p-6 text-center border border-dashed border-[#222E44] rounded-xl text-xs text-slate-400 bg-[#0E1422]">
         Zero temporal anomalies flagged. All evidence events align within Allen partial order algebra bounds.
       </div>
     `;
@@ -725,45 +742,45 @@ function renderInconsistencyRadar() {
   container.innerHTML = allInconsistencies.map((inc) => {
     return `
       <div 
-        class="editorial-card p-5 border border-[#FECACA] bg-[#FFFBFB] rounded-xl space-y-4 cursor-pointer hover:border-[#F87171] transition"
+        class="editorial-card p-5 border border-rose-500/30 bg-rose-950/20 rounded-xl space-y-4 cursor-pointer hover:border-rose-500/50 transition"
         onclick="scrollToTimelineEvents(['${inc.fact_ids[0]}', '${inc.fact_ids[1]}'])"
       >
-        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#FEE2E2] pb-3">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-rose-500/20 pb-3">
           <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-[#DC2626]"></span>
-            <span class="text-xs font-semibold text-[#991B1B] uppercase tracking-wide">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
+            <span class="text-xs font-bold text-rose-300 uppercase tracking-wide">
               ${inc.title}
             </span>
           </div>
-          <span class="badge-clash text-[10px] px-2 py-0.5 rounded font-mono">
+          <span class="badge-clash text-[11px] px-2.5 py-0.5 rounded font-mono">
             ${inc.discrepancy_delta || 'Concurrent Conflict'}
           </span>
         </div>
 
-        <p class="text-xs text-[#44403C] leading-relaxed">
+        <p class="text-xs text-slate-300 leading-relaxed font-sans">
           ${inc.description}
         </p>
 
-        <!-- Comparison -->
+        <!-- Comparison Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-          <div class="p-3.5 rounded-lg bg-white border border-[#E8E5DF] space-y-1">
-            <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">Claimed Alibi Statement (WhatsApp)</span>
-            <p class="text-[#1E293B] font-serif italic text-xs leading-relaxed">"${inc.claimed_statement}"</p>
+          <div class="p-3.5 rounded-lg bg-[#0E1424] border border-[#232F46] space-y-1">
+            <span class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block">Claimed Alibi Statement (WhatsApp)</span>
+            <p class="text-slate-200 font-sans italic text-xs leading-relaxed">"${escapeHTML(inc.claimed_statement)}"</p>
           </div>
-          <div class="p-3.5 rounded-lg bg-white border border-[#E8E5DF] space-y-1">
-            <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">Objective System Reality (Server Log)</span>
-            <p class="text-[#15803D] font-mono text-xs font-semibold leading-relaxed">${inc.system_reality}</p>
+          <div class="p-3.5 rounded-lg bg-[#0E1424] border border-[#232F46] space-y-1">
+            <span class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block">Objective System Reality (Server Log)</span>
+            <p class="text-emerald-400 font-mono text-xs font-semibold leading-relaxed">${escapeHTML(inc.system_reality)}</p>
           </div>
         </div>
 
-        <div class="pt-2 border-t border-[#FEE2E2] flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div class="flex items-center gap-2 text-[#78716C] text-[11px]">
-            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#15803D]"></i>
+        <div class="pt-2 border-t border-rose-500/20 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2 text-slate-400 text-[11px]">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
             <span>3 Benign Explanations Evaluated (Clock Drift, Daemon, Shared Credential)</span>
           </div>
           <button 
             onclick="event.stopPropagation(); scrollToTimelineEvents(['${inc.fact_ids[0]}'])" 
-            class="text-xs font-medium text-[#1E293B] hover:text-[#DC2626] flex items-center gap-1 transition"
+            class="text-xs font-semibold text-rose-400 hover:text-rose-300 flex items-center gap-1 transition"
           >
             <span>Jump to Conflict in Timeline</span>
             <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
@@ -832,7 +849,7 @@ function renderMLAnomalies() {
 
   if (allMLAnomalies.length === 0) {
     container.innerHTML = `
-      <div class="p-6 text-center border border-dashed border-[#E8E5DF] rounded-xl text-xs text-[#78716C]">
+      <div class="p-6 text-center border border-dashed border-[#222E44] rounded-xl text-xs text-slate-400 bg-[#0E1422]">
         No server telemetry logs ingested yet. Upload an access log or load sample case to run Isolation Forest analysis.
       </div>
     `;
@@ -842,33 +859,33 @@ function renderMLAnomalies() {
   container.innerHTML = allMLAnomalies.map((anom, idx) => {
     const isCrit = anom.anomaly_score >= 80;
     const isHigh = anom.anomaly_score >= 60 && anom.anomaly_score < 80;
-    const borderCol = isCrit ? 'border-[#FECACA] bg-[#FFFBFB]' : isHigh ? 'border-[#FED7AA] bg-[#FFFDF7]' : 'border-[#E8E5DF] bg-white';
-    const badgeCol = isCrit ? 'bg-[#FEE2E2] text-[#991B1B] border-[#FECACA]' : isHigh ? 'bg-[#FFEDD5] text-[#C2410C] border-[#FED7AA]' : 'bg-[#F3F4F6] text-[#4B5563] border-[#E5E7EB]';
+    const borderCol = isCrit ? 'border-rose-500/30 bg-rose-950/20' : isHigh ? 'border-amber-500/30 bg-amber-950/20' : 'border-[#222E44] bg-[#111724]';
+    const badgeCol = isCrit ? 'bg-rose-950/60 text-rose-300 border-rose-500/40' : isHigh ? 'bg-amber-950/60 text-amber-300 border-amber-500/40' : 'bg-slate-800 text-slate-300 border-slate-700';
 
     return `
-      <div class="editorial-card p-4 border ${borderCol} rounded-xl space-y-3 transition hover:shadow-xs">
-        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#F4F1EA] pb-2">
+      <div class="editorial-card p-4 border ${borderCol} rounded-xl space-y-3 transition hover:shadow-lg">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-2">
           <div class="flex items-center gap-2">
-            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono font-semibold border ${badgeCol}">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-mono font-semibold border ${badgeCol}">
               <i data-lucide="${isCrit ? 'alert-triangle' : 'activity'}" class="w-3 h-3"></i>
               <span>Outlier Score: ${anom.anomaly_score}%</span>
             </span>
-            <span class="text-xs font-semibold text-[#181716]">${escapeHTML(anom.locator || `Row ${idx+1}`)}</span>
+            <span class="text-xs font-semibold text-slate-200">${escapeHTML(anom.locator || `Row ${idx+1}`)}</span>
           </div>
-          <span class="text-[10px] font-mono text-[#78716C] bg-white px-2 py-0.5 rounded border border-[#E8E5DF]">
+          <span class="text-[10px] font-mono text-slate-400 bg-[#0B0F17] px-2 py-0.5 rounded border border-[#1E293E]">
             Algorithm: ${escapeHTML(anom.confidence_level || 'IsolationForest')}
           </span>
         </div>
 
-        <div class="p-2.5 rounded-lg bg-[#FAF9F6] border border-[#E8E5DF] font-mono text-xs text-[#1E293B] overflow-x-auto">
+        <div class="p-2.5 rounded-lg bg-[#0A0E18] border border-[#1E293E] font-mono text-xs text-slate-200 overflow-x-auto">
           <code>${escapeHTML(anom.raw_text)}</code>
         </div>
 
         <div class="space-y-1.5">
-          <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">ML Decision Factors:</span>
+          <span class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block font-semibold">ML Decision Factors:</span>
           <div class="flex flex-wrap gap-1.5">
             ${(anom.contributing_factors || []).map(f => `
-              <span class="text-[11px] font-sans px-2 py-0.5 rounded-md bg-white border border-[#E8E5DF] text-[#44403C]">
+              <span class="text-[11px] font-sans px-2.5 py-1 rounded-md bg-[#0F1626] border border-[#23314E] text-slate-300">
                 &bull; ${escapeHTML(f)}
               </span>
             `).join('')}
@@ -923,25 +940,25 @@ function renderTimeline() {
     const displayTime = currentTimelineCalibration === 'ntp' ? ev.t_ist : ev.t_utc;
 
     return `
-      <div id="timeline-node-${ev.id}" class="editorial-card p-5 rounded-xl border border-[#E8E5DF] space-y-3 transition">
+      <div id="timeline-node-${ev.id}" class="editorial-card p-5 rounded-xl border border-[#1E293E] bg-[#121826] space-y-3 transition hover:border-[#2E3D5C]">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div class="flex items-center gap-2.5">
-            <span class="w-2 h-2 rounded-full ${isExact ? 'bg-[#15803D]' : 'bg-[#D97706]'}"></span>
-            <span class="font-mono text-xs font-semibold text-[#181716]">${displayTime}</span>
-            <span class="text-[11px] font-mono text-[#78716C] bg-[#F4F2ED] px-2 py-0.5 rounded">${ev.actor || 'SYSTEM'}</span>
+            <span class="w-2.5 h-2.5 rounded-full ${isExact ? 'bg-emerald-400' : 'bg-amber-400'}"></span>
+            <span class="font-mono text-xs font-bold text-slate-100">${displayTime}</span>
+            <span class="text-[11px] font-mono text-slate-300 bg-[#1C2538] px-2 py-0.5 rounded border border-[#2B3956]">${ev.actor || 'SYSTEM'}</span>
           </div>
-          <span class="${badgeClass} text-[10px] px-2 py-0.5 rounded font-mono">${label}</span>
+          <span class="${badgeClass} text-[10px] px-2.5 py-0.5 rounded font-mono">${label}</span>
         </div>
 
-        <div class="text-xs text-[#2B2825] font-mono leading-relaxed bg-[#FAF9F6] p-3 rounded-lg border border-[#E8E5DF] select-all">
+        <div class="text-xs text-slate-200 font-mono leading-relaxed bg-[#0A0E18] p-3 rounded-lg border border-[#1E293E] select-all">
           ${escapeHTML(ev.content)}
         </div>
 
-        <div class="flex items-center justify-between text-[11px] text-[#78716C] pt-1">
-          <span class="font-mono">Exhibit: <strong>${ev.evidence_id}</strong> &bull; Locator: ${ev.locator}</span>
+        <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/5">
+          <span class="font-mono">Exhibit: <strong class="text-blue-400">${ev.evidence_id}</strong> &bull; Locator: <span class="text-slate-300">${ev.locator}</span></span>
           <button 
             onclick="openCitationInspector('Fact Anchor: ${ev.locator}', '${ev.evidence_id}', '${ev.locator}', '${escapeAttr(ev.content)}')" 
-            class="text-xs font-medium text-[#1E293B] hover:underline flex items-center gap-1"
+            class="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1 transition"
           >
             <span>Inspect Anchor</span>
             <i data-lucide="external-link" class="w-3 h-3"></i>
@@ -1335,28 +1352,28 @@ function renderVerificationResult(data) {
   if (isRejected) {
     hapticEngine.playWhoosh();
     container.innerHTML = `
-      <div class="editorial-card p-4 md:p-5 border border-[#FECACA] bg-[#FEF2F2]/80 rounded-xl space-y-3 shadow-xs">
-        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#FCA5A5]/40 pb-2.5">
+      <div class="editorial-card p-5 border border-rose-500/40 bg-rose-950/25 rounded-xl space-y-3.5 shadow-lg">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-rose-500/20 pb-3">
           <div class="flex items-center gap-2">
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono font-semibold bg-[#FEE2E2] text-[#991B1B] border border-[#FECACA]">
-              <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono font-bold bg-rose-950/80 text-rose-300 border border-rose-500/40">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-rose-400"></i>
               <span>${escapeHTML(data.title || "PROMPT HALLUCINATION REJECTED")}</span>
             </span>
           </div>
-          <span class="text-xs font-mono font-semibold text-[#991B1B] bg-white/70 px-2.5 py-0.5 rounded border border-[#FECACA]">
+          <span class="text-xs font-mono font-bold text-rose-400 bg-rose-950/50 px-2.5 py-1 rounded border border-rose-500/30">
             Grounding Score: 0.0% &bull; Inadmissible
           </span>
         </div>
 
-        <p class="text-xs text-[#7F1D1D] leading-relaxed">
+        <p class="text-xs text-rose-200 leading-relaxed font-sans">
           ${escapeHTML(data.finding || "The asserted premise does not appear in any seized evidence exhibits.")}
         </p>
 
-        <div class="p-2.5 rounded-lg bg-white/80 border border-[#FECACA] text-[11px] font-mono text-[#991B1B] flex items-start gap-2">
-          <i data-lucide="alert-triangle" class="w-4 h-4 text-[#DC2626] shrink-0 mt-0.5"></i>
+        <div class="p-3 rounded-lg bg-[#0A0E18] border border-rose-500/30 text-xs font-mono text-rose-300 flex items-start gap-2.5">
+          <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
           <div>
-            <span class="font-bold">Statutory Legal Bar (BSA 2023 §63(4)):</span>
-            <div class="mt-0.5 text-[#B91C1C]">${escapeHTML(data.legal_basis || "Zero token or byte span substring match in evidence vault. Assertion strictly inadmissible under law.")}</div>
+            <span class="font-bold text-rose-200">Statutory Legal Bar (BSA 2023 §63(4)):</span>
+            <div class="mt-0.5 text-rose-300">${escapeHTML(data.legal_basis || "Zero token or byte span substring match in evidence vault. Assertion strictly inadmissible under law.")}</div>
           </div>
         </div>
       </div>
@@ -1364,22 +1381,22 @@ function renderVerificationResult(data) {
   } else {
     hapticEngine.playPing();
     const claimsHtml = (data.claims || []).map(c => `
-      <div class="p-3 rounded-lg bg-white border border-[#DCFCE7] space-y-2">
+      <div class="p-3.5 rounded-lg bg-[#0E1524] border border-emerald-500/25 space-y-2">
         <div class="flex flex-wrap items-center justify-between gap-2">
-          <div class="flex items-center gap-1.5 text-xs font-semibold text-[#15803D]">
-            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#16A34A]"></i>
+          <div class="flex items-center gap-2 text-xs font-semibold text-emerald-400">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
             <span>${escapeHTML(c.claim_text)}</span>
           </div>
-          <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-[#DCFCE7] text-[#15803D]">
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-500/30 font-semibold">
             ${escapeHTML(c.badge || "100% Mechanical Match")}
           </span>
         </div>
         ${(c.matched_quote || c.exact_quote) ? `
-          <div class="p-2 rounded bg-[#F8FAFC] border border-[#E2E8F0] font-mono text-[11px] text-[#334155] flex flex-wrap md:flex-nowrap items-center justify-between gap-2">
+          <div class="p-2.5 rounded bg-[#080C14] border border-[#1E293E] font-mono text-xs text-slate-200 flex flex-wrap md:flex-nowrap items-center justify-between gap-2">
             <span class="truncate"><code>[${escapeHTML(c.evidence_id || 'EXHIBIT')} &bull; ${escapeHTML(c.locator || 'Row 1')}]: "${escapeHTML(c.matched_quote || c.exact_quote)}"</code></span>
             <button 
               onclick="openCitationInspector('${escapeHTML(c.claim_text).replace(/'/g, "\\'")}', '${escapeHTML(c.evidence_id || 'EV-01')}', '${escapeHTML(c.locator || 'Row 1')}', '${escapeHTML(c.matched_quote || c.exact_quote).replace(/'/g, "\\'")}')"
-              class="shrink-0 px-2 py-1 rounded bg-white hover:bg-[#F1F5F9] border border-[#CBD5E1] text-[11px] font-sans text-[#1E293B] font-medium transition shadow-2xs"
+              class="shrink-0 px-2.5 py-1 rounded bg-[#172033] hover:bg-[#202C46] border border-[#2B3956] text-xs font-sans text-slate-200 font-medium transition"
             >
               Inspect Byte Anchor
             </button>
@@ -1389,13 +1406,13 @@ function renderVerificationResult(data) {
     `).join('');
 
     const anchorsHtml = (data.anchors || []).length > 0 ? `
-      <div class="pt-2 border-t border-[#DCFCE7] flex flex-wrap gap-2">
+      <div class="pt-2 border-t border-emerald-500/20 flex flex-wrap gap-2">
         ${data.anchors.map(a => `
           <button 
             onclick="openCitationInspector('${escapeHTML(a.label).replace(/'/g, "\\'")}', '${escapeHTML(a.evidence_id)}', '${escapeHTML(a.locator)}', '${escapeHTML(a.quote).replace(/'/g, "\\'")}')" 
-            class="btn-editorial-secondary text-xs py-1 px-2.5 inline-flex items-center gap-1.5"
+            class="btn-editorial-secondary text-xs py-1 px-3 inline-flex items-center gap-1.5"
           >
-            <i data-lucide="file-text" class="w-3 h-3 text-[#15803D]"></i>
+            <i data-lucide="file-text" class="w-3.5 h-3.5 text-emerald-400"></i>
             <span>Inspect ${escapeHTML(a.label || a.evidence_id)}</span>
           </button>
         `).join('')}
@@ -1403,28 +1420,28 @@ function renderVerificationResult(data) {
     ` : '';
 
     container.innerHTML = `
-      <div class="editorial-card p-4 md:p-5 border border-[#BBF7D0] bg-[#F0FDF4]/90 rounded-xl space-y-3.5 shadow-xs">
-        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#86EFAC]/40 pb-2.5">
+      <div class="editorial-card p-5 border border-emerald-500/35 bg-emerald-950/20 rounded-xl space-y-4 shadow-lg">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-emerald-500/20 pb-3">
           <div class="flex items-center gap-2">
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono font-semibold bg-[#DCFCE7] text-[#15803D] border border-[#BBF7D0]">
-              <i data-lucide="check-check" class="w-3.5 h-3.5"></i>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/40">
+              <i data-lucide="check-check" class="w-4 h-4 text-emerald-400"></i>
               <span>${escapeHTML(data.title || "100% BYTE-GROUNDED FORENSIC VERDICT")}</span>
             </span>
           </div>
-          <span class="text-xs font-mono font-semibold text-[#15803D] bg-white/80 px-2.5 py-0.5 rounded border border-[#BBF7D0]">
+          <span class="text-xs font-mono font-bold text-emerald-400 bg-emerald-950/60 px-3 py-1 rounded border border-emerald-500/30">
             Grounding Score: ${data.grounding_score ?? 100}% &bull; Court Admissible
           </span>
         </div>
 
-        <p class="text-xs text-[#1F2937] leading-relaxed font-sans">
+        <p class="text-xs text-slate-200 leading-relaxed font-sans">
           ${escapeHTML(data.finding || "")}
         </p>
 
-        <div class="p-2.5 rounded-lg bg-white/70 border border-[#DCFCE7] text-[11px] font-sans text-[#15803D] flex items-start gap-2">
-          <i data-lucide="scale" class="w-4 h-4 text-[#16A34A] shrink-0 mt-0.5"></i>
+        <div class="p-3 rounded-lg bg-[#0A0E18] border border-emerald-500/30 text-xs font-sans text-emerald-300 flex items-start gap-2.5">
+          <i data-lucide="scale" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
           <div>
-            <span class="font-bold">Statutory Admissibility Basis:</span>
-            <div class="mt-0.5 text-[#166534]">${escapeHTML(data.legal_basis || "Direct verbatim byte matches retrieved from vault exhibits under BSA 2023 §63(4).")}</div>
+            <span class="font-bold text-emerald-200">Statutory Admissibility Basis:</span>
+            <div class="mt-0.5 text-emerald-300">${escapeHTML(data.legal_basis || "Direct verbatim byte matches retrieved from vault exhibits under BSA 2023 §63(4).")}</div>
           </div>
         </div>
 
@@ -1733,10 +1750,59 @@ function escapeAttr(str) {
   return String(str).replace(/'/g, "\\'").replace(/"/g, "&quot;");
 }
 
+function navigateToSection(sectionId) {
+  hapticEngine.playSoftTap();
+  const el = document.getElementById(sectionId);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  document.querySelectorAll('.sidebar-nav-item').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  const activeBtn = document.getElementById(`nav-${sectionId}`);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  // Close mobile sidebar if open
+  const sidebar = document.getElementById('workbench-sidebar');
+  if (sidebar && window.innerWidth < 1024) {
+    sidebar.classList.add('-translate-x-full');
+  }
+}
+
+function toggleSidebarMobile() {
+  hapticEngine.playSoftTap();
+  const sidebar = document.getElementById('workbench-sidebar');
+  if (sidebar) {
+    sidebar.classList.toggle('-translate-x-full');
+  }
+}
+
 // Master Lifecycle Initializer
 window.addEventListener('DOMContentLoaded', () => {
   runSleekOpeningAnimation();
   loadCaseData();
   setupDragAndDropZone();
   if (window.lucide) lucide.createIcons();
+
+  // Setup scroll spy for persistent sidebar active state
+  const scrollContainer = document.getElementById('workbench-scroll-area');
+  const sections = ['section-overview', 'section-vault', 'section-timeline', 'section-ai', 'section-export'];
+
+  if (scrollContainer) {
+    scrollContainer.addEventListener('scroll', () => {
+      let currentSection = sections[0];
+      const scrollPos = scrollContainer.scrollTop + 180;
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPos) {
+          currentSection = id;
+        }
+      }
+      document.querySelectorAll('.sidebar-nav-item').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      const activeBtn = document.getElementById(`nav-${currentSection}`);
+      if (activeBtn) activeBtn.classList.add('active');
+    }, { passive: true });
+  }
 });
