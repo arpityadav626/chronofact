@@ -38,13 +38,74 @@
     }
   </script>
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css" onerror="this.onerror=null;this.href='/static/styles.css'">
+  <!-- Primary Stylesheet with Cache-Buster -->
+  <link rel="stylesheet" href="styles.css?v=20261011_pure_theme_v3" onerror="this.onerror=null;this.href='/static/styles.css?v=20261011_pure_theme_v3'">
+
+  <!-- Critical Theme Rules (Prevents Stale Browser Cache from Ever Showing White Cards) -->
+  <style>
+    :root, [data-theme="dark"] {
+      --bg-canvas: #0B0F17 !important;
+      --bg-sidebar: #0D121F !important;
+      --bg-surface: #101625 !important;
+      --bg-card: #121826 !important;
+      --bg-card-hover: #162033 !important;
+      --bg-inset: #0E1422 !important;
+      --border-subtle: #1E283E !important;
+      --border-hairline: #26334D !important;
+      --text-primary: #F8FAFC !important;
+      --text-secondary: #94A3B8 !important;
+    }
+    [data-theme="light"] {
+      --bg-canvas: #F8F7F4 !important;
+      --bg-sidebar: #F1EFEA !important;
+      --bg-surface: #FFFFFF !important;
+      --bg-card: #FFFFFF !important;
+      --bg-card-hover: #F8FAFC !important;
+      --bg-inset: #FAF9F6 !important;
+      --border-subtle: #E2DFD7 !important;
+      --border-hairline: #D5D1C6 !important;
+      --text-primary: #0F172A !important;
+      --text-secondary: #475569 !important;
+    }
+    body {
+      background-color: var(--bg-canvas) !important;
+      color: var(--text-primary) !important;
+    }
+    #workbench-sidebar {
+      background-color: var(--bg-sidebar) !important;
+      border-color: var(--border-subtle) !important;
+    }
+    header {
+      background-color: var(--bg-sidebar) !important;
+      border-color: var(--border-subtle) !important;
+    }
+    #workbench-scroll-area, .master-container {
+      background-color: var(--bg-canvas) !important;
+    }
+    .editorial-card {
+      background-color: var(--bg-card) !important;
+      border: 1px solid var(--border-subtle) !important;
+      color: var(--text-primary) !important;
+    }
+    .evidence-card-row {
+      background-color: var(--bg-inset) !important;
+      border: 1px solid var(--border-subtle) !important;
+    }
+    .btn-editorial-secondary {
+      background-color: var(--bg-card) !important;
+      border: 1px solid var(--border-subtle) !important;
+      color: var(--text-primary) !important;
+    }
+    .hero-qa-card {
+      background-color: var(--bg-card) !important;
+      border: 1px solid var(--border-subtle) !important;
+    }
+  </style>
 </head>
-<body class="bg-[#0B0F17] text-slate-100 font-sans min-h-screen antialiased selection:bg-blue-600/30 selection:text-white">
+<body class="font-sans min-h-screen antialiased selection:bg-blue-600/30 selection:text-white">
 
   <!-- Master Split Container (Sidebar + Content) -->
-  <div class="flex h-screen overflow-hidden bg-[#0B0F17]">
+  <div class="master-container flex h-screen overflow-hidden">
 
     <!-- ========================================================================= -->
     <!-- 1. PERSISTENT LEFT SIDEBAR NAVIGATION (CELLEBRITE × PALANTIR WORKBENCH) -->
@@ -181,7 +242,7 @@
           <span>Export Case Dossier</span>
         </button>
 
-        <!-- Sound & Air-Gapped Session Indicators -->
+        <!-- Sound, Theme & Air-Gapped Session Indicators -->
         <div class="flex items-center justify-between text-xs pt-1">
           <button 
             id="sound-toggle-btn"
@@ -190,6 +251,15 @@
           >
             <i id="sound-toggle-icon" data-lucide="volume-2" class="w-3.5 h-3.5 text-blue-400"></i>
             <span id="sound-toggle-label">Audio ON</span>
+          </button>
+
+          <button 
+            onclick="toggleTheme()" 
+            class="flex items-center gap-1 text-[11px] text-slate-400 hover:text-slate-200 transition"
+            title="Toggle 100% Dark / Light Mode"
+          >
+            <i class="theme-toggle-icon w-3.5 h-3.5 text-blue-400" data-lucide="moon"></i>
+            <span class="theme-toggle-label font-mono">Dark</span>
           </button>
 
           <div class="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400">
@@ -255,6 +325,16 @@
           >
             <i data-lucide="search" class="w-3.5 h-3.5"></i>
             <span class="hidden md:inline font-mono text-[11px]">Ctrl+K</span>
+          </button>
+
+          <!-- Theme Switcher (100% Pure Dark / Light Mode) -->
+          <button 
+            onclick="toggleTheme()" 
+            class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#111726] border border-[#1E283E] hover:border-slate-500 text-slate-300 transition"
+            title="Toggle 100% Pure Dark / Light Mode"
+          >
+            <i class="theme-toggle-icon w-3.5 h-3.5 text-blue-400" data-lucide="moon"></i>
+            <span class="theme-toggle-label font-mono text-[11px] hidden sm:inline">Dark</span>
           </button>
 
           <!-- Ingest Exhibit Action -->
@@ -1414,8 +1494,8 @@
   </div>
 
 
-  <!-- Main Application Logic Script -->
-  <script src="app.js" onerror="this.onerror=null;this.src='/static/app.js'"></script>
+  <!-- Main Application Logic Script (with Cache-Buster) -->
+  <script src="app.js?v=20261011_pure_theme_v3" onerror="this.onerror=null;this.src='/static/app.js?v=20261011_pure_theme_v3'"></script>
 
 </body>
 </html>

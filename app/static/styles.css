@@ -1,67 +1,105 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 /* ==========================================================================
    CHRONOFACT 2.0 // CELLEBRITE × PALANTIR HIGH-AUTHORITY FORENSIC WORKBENCH
-   Theme: Precision Dark / Warm Obsidian / Meaningful Semantic States
-   Target: Judicial Admissibility (BSA 2023 §63(4)) • High Officer Dignity
+   Theme Support: 100% Pure Dark (Default) OR 100% Pure Light (Zero Checkerboard)
+   Target: Judicial Admissibility (BSA 2023 §63(4)) • High Officer Authority
    ========================================================================== */
 
-:root {
+/* --------------------------------------------------------------------------
+   1. COLOR PALETTES (PURE DARK & PURE LIGHT)
+   -------------------------------------------------------------------------- */
+:root, [data-theme="dark"] {
   /* Warm Obsidian Canvas & Surface */
   --bg-canvas: #0B0F17;
   --bg-sidebar: #0D121F;
   --bg-surface: #101625;
-  --bg-card: #141B2B;
-  --bg-card-hover: #182236;
-  --bg-inset: #090D15;
+  --bg-card: #121826;
+  --bg-card-hover: #162033;
+  --bg-inset: #0E1422;
+  --bg-input: #090D15;
   --bg-elevated: #161E30;
 
   /* Precision Slate Hairline Borders */
-  --border-subtle: #1B2436;
-  --border-hairline: #222D44;
+  --border-subtle: #1E283E;
+  --border-hairline: #26334D;
   --border-focus: #3B82F6;
-  --border-divider: #172032;
+  --border-divider: #1A2336;
 
   /* Authoritative Typography */
-  --text-primary: #F1F5F9;
+  --text-primary: #F8FAFC;
   --text-secondary: #94A3B8;
   --text-muted: #64748B;
   --text-dim: #475569;
 
-  /* Strict Semantic Color System (Color = Meaning) */
-  /* Red: Tampering / Inconsistency / Hallucination / Violation */
+  /* Strict Semantic Color System */
   --color-danger: #EF4444;
-  --color-danger-bg: rgba(239, 68, 68, 0.12);
-  --color-danger-border: rgba(239, 68, 68, 0.28);
+  --color-danger-bg: rgba(239, 68, 68, 0.15);
+  --color-danger-border: rgba(239, 68, 68, 0.35);
   --color-danger-text: #FCA5A5;
 
-  /* Amber: Unverified / Partial / Bounded Interval (±4h) / Warning */
   --color-warning: #F59E0B;
-  --color-warning-bg: rgba(245, 158, 11, 0.12);
-  --color-warning-border: rgba(245, 158, 11, 0.28);
+  --color-warning-bg: rgba(245, 158, 11, 0.15);
+  --color-warning-border: rgba(245, 158, 11, 0.35);
   --color-warning-text: #FCD34D;
 
-  /* Green: Confirmed / Sealed / Untampered / 100% Byte-Grounded */
   --color-success: #10B981;
-  --color-success-bg: rgba(16, 185, 129, 0.12);
-  --color-success-border: rgba(16, 185, 129, 0.28);
+  --color-success-bg: rgba(16, 185, 129, 0.15);
+  --color-success-border: rgba(16, 185, 129, 0.35);
   --color-success-text: #6EE7B7;
 
-  /* Blue / Indigo: System Info / Metadata / Primary Action */
   --color-info: #3B82F6;
-  --color-info-bg: rgba(59, 130, 246, 0.12);
-  --color-info-border: rgba(59, 130, 246, 0.28);
+  --color-info-bg: rgba(59, 130, 246, 0.15);
+  --color-info-border: rgba(59, 130, 246, 0.35);
   --color-info-text: #93C5FD;
 
-  /* Font Roles */
-  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-
-  /* High-Tech Ambient Shadows */
   --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.35);
-  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.45);
-  --shadow-dropdown: 0 16px 40px -4px rgba(0, 0, 0, 0.65);
+  --shadow-card: 0 8px 24px -2px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="light"] {
+  /* 100% Pure Editorial Light Palette */
+  --bg-canvas: #F8F7F4;
+  --bg-sidebar: #F2EFE9;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F8FAFC;
+  --bg-inset: #FAF9F6;
+  --bg-input: #FFFFFF;
+  --bg-elevated: #F4F2EC;
+
+  --border-subtle: #E2DFD7;
+  --border-hairline: #D5D1C6;
+  --border-focus: #2563EB;
+  --border-divider: #EAE7E0;
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --text-dim: #94A3B8;
+
+  --color-danger: #DC2626;
+  --color-danger-bg: #FEF2F2;
+  --color-danger-border: #FECACA;
+  --color-danger-text: #991B1B;
+
+  --color-warning: #D97706;
+  --color-warning-bg: #FFFBEB;
+  --color-warning-border: #FDE68A;
+  --color-warning-text: #92400E;
+
+  --color-success: #16A34A;
+  --color-success-bg: #F0FDF4;
+  --color-success-border: #BBF7D0;
+  --color-success-text: #166534;
+
+  --color-info: #2563EB;
+  --color-info-bg: #EFF6FF;
+  --color-info-border: #BFDBFE;
+  --color-info-text: #1D4ED8;
+
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 4px 16px -2px rgba(0, 0, 0, 0.06);
 }
 
 * {
@@ -71,17 +109,17 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: var(--bg-canvas);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
+  background-color: var(--bg-canvas) !important;
+  color: var(--text-primary) !important;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
   scrollbar-width: thin;
-  scrollbar-color: #232D42 var(--bg-canvas);
+  scrollbar-color: var(--border-hairline) var(--bg-canvas);
 }
 
-/* Custom Minimalist Dark Scrollbars */
+/* Custom Minimalist Dark/Light Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -90,194 +128,27 @@ html, body {
   background: var(--bg-canvas);
 }
 ::-webkit-scrollbar-thumb {
-  background: #232E44;
+  background: var(--border-hairline);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #374461;
+  background: var(--text-dim);
 }
 
-/* Typography Classes */
-.font-display {
-  font-family: var(--font-display);
-}
-.font-sans {
-  font-family: var(--font-sans);
-}
-.font-mono {
-  font-family: var(--font-mono);
-}
-
-/* High-Authority Forensic Cards */
+/* --------------------------------------------------------------------------
+   2. CORE WORKBENCH CARD & CONTAINER CLASSES
+   -------------------------------------------------------------------------- */
 .editorial-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-subtle) !important;
+  color: var(--text-primary) !important;
+  border-radius: 14px;
   box-shadow: var(--shadow-card);
   transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .editorial-card:hover {
-  border-color: var(--border-hairline);
-}
-
-/* Semantic Badges (Color = Meaning) */
-.badge-verified {
-  background-color: var(--color-success-bg);
-  color: var(--color-success-text);
-  border: 1px solid var(--color-success-border);
-  font-family: var(--font-mono);
-  font-weight: 500;
-}
-
-.badge-clash {
-  background-color: var(--color-danger-bg);
-  color: var(--color-danger-text);
-  border: 1px solid var(--color-danger-border);
-  font-family: var(--font-mono);
-  font-weight: 500;
-}
-
-.badge-interval {
-  background-color: var(--color-warning-bg);
-  color: var(--color-warning-text);
-  border: 1px solid var(--color-warning-border);
-  font-family: var(--font-mono);
-  font-weight: 500;
-}
-
-.badge-neutral {
-  background-color: rgba(148, 163, 184, 0.1);
-  color: #94A3B8;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  font-family: var(--font-mono);
-  font-weight: 500;
-}
-
-/* Buttons */
-.btn-editorial-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: #2563EB;
-  color: #FFFFFF;
-  border: 1px solid #3B82F6;
-  border-radius: 8px;
-  padding: 0.45rem 0.875rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.25);
-  transition: all 0.15s ease;
-}
-
-.btn-editorial-primary:hover {
-  background-color: #1D4ED8;
-  border-color: #60A5FA;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
-}
-
-.btn-editorial-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: #141B2B;
-  color: #E2E8F0;
-  border: 1px solid var(--border-subtle);
-  border-radius: 8px;
-  padding: 0.45rem 0.875rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.btn-editorial-secondary:hover {
-  background-color: #192236;
-  border-color: var(--border-hairline);
-  color: #FFFFFF;
-}
-
-.btn-editorial-blue {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: #1D4ED8;
-  color: #FFFFFF;
-  border: 1px solid #3B82F6;
-  border-radius: 8px;
-  padding: 0.45rem 0.875rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.btn-editorial-blue:hover {
-  background-color: #2563EB;
-  border-color: #60A5FA;
-}
-
-/* Sidebar Navigation Items */
-.sidebar-nav-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.625rem 0.875rem;
-  border-radius: 8px;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: #94A3B8;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.sidebar-nav-item:hover {
-  color: #F1F5F9;
-  background-color: rgba(255, 255, 255, 0.04);
-}
-
-.sidebar-nav-item.active {
-  color: #60A5FA;
-  background-color: rgba(37, 99, 235, 0.12);
-  border-color: rgba(59, 130, 246, 0.28);
-}
-
-/* Cellebrite Card-Row Exhibit Style */
-.evidence-card-row {
-  background-color: #121826;
-  border: 1px solid #1C2538;
-  border-radius: 10px;
-  padding: 0.875rem 1.125rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  transition: all 0.18s ease;
-  cursor: pointer;
-}
-
-.evidence-card-row:hover {
-  background-color: #162032;
-  border-color: #2D3A54;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-}
-
-.evidence-card-row.selected {
-  background-color: #182338;
-  border-color: #3B82F6;
-  box-shadow: 0 0 0 1px #3B82F6;
-}
-
-/* Perplexity-Style Hero Q&A Banner */
-.hero-qa-card {
-  background: linear-gradient(180deg, #131A2C 0%, #0F1524 100%);
-  border: 1px solid rgba(59, 130, 246, 0.25);
-  box-shadow: 0 8px 32px -4px rgba(15, 23, 42, 0.6);
-  border-radius: 14px;
+  border-color: var(--border-hairline) !important;
 }
 
 /* Stat KPI Cards (Case Health at a Glance) */
@@ -293,19 +164,203 @@ html, body {
 
 .stat-kpi-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow-card);
+}
+
+/* Cellebrite Card-Row Exhibit Style */
+.evidence-card-row {
+  background-color: var(--bg-inset) !important;
+  border: 1px solid var(--border-subtle) !important;
+  color: var(--text-primary) !important;
+  border-radius: 10px;
+  padding: 0.875rem 1.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: all 0.18s ease;
+  cursor: pointer;
+}
+
+.evidence-card-row:hover {
+  background-color: var(--bg-card-hover) !important;
+  border-color: var(--border-hairline) !important;
+  transform: translateY(-1px);
+}
+
+.evidence-card-row.selected {
+  border-color: var(--color-info) !important;
+  box-shadow: 0 0 0 1px var(--color-info);
+}
+
+/* Perplexity-Style Hero Q&A Card */
+.hero-qa-card {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-subtle) !important;
+  box-shadow: var(--shadow-card);
+  border-radius: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   3. STRICT SEMANTIC BADGES (COLOR = MEANING)
+   -------------------------------------------------------------------------- */
+.badge-verified {
+  background-color: var(--color-success-bg) !important;
+  color: var(--color-success-text) !important;
+  border: 1px solid var(--color-success-border) !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+}
+
+.badge-clash {
+  background-color: var(--color-danger-bg) !important;
+  color: var(--color-danger-text) !important;
+  border: 1px solid var(--color-danger-border) !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+}
+
+.badge-interval {
+  background-color: var(--color-warning-bg) !important;
+  color: var(--color-warning-text) !important;
+  border: 1px solid var(--color-warning-border) !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+}
+
+.badge-neutral {
+  background-color: rgba(148, 163, 184, 0.12) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-subtle) !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   4. BUTTONS & CONTROLS
+   -------------------------------------------------------------------------- */
+.btn-editorial-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #2563EB !important;
+  color: #FFFFFF !important;
+  border: 1px solid #3B82F6 !important;
+  border-radius: 8px;
+  padding: 0.45rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.25);
+  transition: all 0.15s ease;
+}
+
+.btn-editorial-primary:hover {
+  background-color: #1D4ED8 !important;
+  border-color: #60A5FA !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+}
+
+.btn-editorial-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px;
+  padding: 0.45rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-editorial-secondary:hover {
+  background-color: var(--bg-card-hover) !important;
+  border-color: var(--border-hairline) !important;
+}
+
+.btn-editorial-blue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #1D4ED8 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #3B82F6 !important;
+  border-radius: 8px;
+  padding: 0.45rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-editorial-blue:hover {
+  background-color: #2563EB !important;
+  border-color: #60A5FA !important;
+}
+
+/* Sidebar Navigation Items */
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sidebar-nav-item:hover {
+  color: var(--text-primary);
+  background-color: rgba(148, 163, 184, 0.08);
+}
+
+.sidebar-nav-item.active {
+  color: #60A5FA;
+  background-color: rgba(37, 99, 235, 0.12);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   5. LIGHT THEME OVERRIDES (PURE EDITORIAL WARMTH)
+   -------------------------------------------------------------------------- */
+[data-theme="light"] #workbench-sidebar {
+  background-color: var(--bg-sidebar) !important;
+  border-color: var(--border-subtle) !important;
+}
+
+[data-theme="light"] header {
+  background-color: rgba(248, 247, 244, 0.92) !important;
+  border-color: var(--border-subtle) !important;
+}
+
+[data-theme="light"] #workbench-scroll-area {
+  background-color: var(--bg-canvas) !important;
+}
+
+[data-theme="light"] .sidebar-nav-item.active {
+  color: #1D4ED8;
+  background-color: #EFF6FF;
+  border-color: #BFDBFE;
 }
 
 /* Drag & Drop Zone */
 .dropzone-container {
-  border: 1.5px dashed #243048;
-  background-color: #0E1422;
+  border: 1.5px dashed var(--border-hairline) !important;
+  background-color: var(--bg-inset) !important;
   transition: all 0.18s ease;
 }
 
 .dropzone-container:hover, .dropzone-container.drag-over {
-  border-color: #3B82F6;
-  background-color: #131B2E;
+  border-color: var(--color-info) !important;
+  background-color: var(--bg-card-hover) !important;
 }
 
 /* Drawer Transitions */
@@ -328,14 +383,13 @@ html, body {
   bottom: 24px;
   right: 24px;
   z-index: 9999;
-  background-color: #101625;
-  color: #F1F5F9;
-  border: 1px solid #232E44;
-  box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.5);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-hairline);
+  box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.4);
   padding: 0.625rem 1rem;
   border-radius: 8px;
   font-size: 0.8125rem;
-  font-family: var(--font-sans);
   pointer-events: none;
   opacity: 0;
   transform: translateY(12px);
