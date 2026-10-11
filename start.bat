@@ -1,21 +1,39 @@
 @echo off
-title CHRONOFACT - Digital Forensic Workbench
-echo ======================================================================
-echo          Starting CHRONOFACT Digital Forensic Workbench...
-echo ======================================================================
-echo.
-cd /d "%~dp0"
+REM CHRONOFACT Windows Quick Start Script
 
-REM Try default python, fallback to installed Python 3.12 path
-where python >nul 2>nul
-if %ERRORLEVEL% equ 0 (
-    python run.py
-) else (
-    if exist "%LOCALAPPDATA%\Programs\Python\Python312\python.exe" (
-        "%LOCALAPPDATA%\Programs\Python\Python312\python.exe" run.py
-    ) else (
-        echo [ERROR] Python 3.12 not found! Please ensure Python is installed.
-        pause
-    )
+echo ================================
+echo CHRONOFACT Forensic Workbench
+echo ================================
+
+REM Create data directories
+mkdir data 2>nul
+mkdir data\vault 2>nul
+mkdir data\evidence_storage 2>nul
+
+REM Check Python
+python --version >nul 2>&1
+if %errorlevel% neq 0 (
+    echo ERROR: Python not found. Install Python 3.10+
+    pause
+    exit /b 1
 )
+
+REM Install dependencies if needed
+if not exist venv (
+    echo Installing dependencies...
+    python -m pip install --upgrade pip
+    python -m venv venv
+    call venv\Scripts\activate
+    pip install -r requirements.txt
+) else (
+    call venv\Scripts\activate
+)
+
+REM Start the application
+echo Starting CHRONOFACT...
+echo Open http://127.0.0.1:8000 in your browser
+echo ================================
+
+python run.py
+
 pause

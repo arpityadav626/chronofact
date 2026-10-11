@@ -335,6 +335,50 @@
 
 
     <!-- ======================================================================= -->
+    <!-- 2B. MACHINE LEARNING LOG ANOMALY RADAR (ISOLATION FOREST) -->
+    <!-- ======================================================================= -->
+    <section class="editorial-card p-6 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#E8E5DF] pb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-lg font-serif font-medium text-[#181716]">ML Behavioral Anomaly Radar</h2>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#EDE9FE] text-[#6D28D9] font-medium border border-[#DDD6FE]">
+              Scikit-Learn IsolationForest
+            </span>
+          </div>
+          <p class="text-xs text-[#57534E]">Unsupervised outlier detection across temporal cycles, burst rates, and exfiltration actions</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="refreshMLAnomalies()" class="btn-editorial-secondary py-1.5 px-3" title="Re-train Isolation Forest on active telemetry">
+            <i data-lucide="cpu" class="w-3.5 h-3.5 text-[#6D28D9]"></i>
+            <span>Run ML Analysis</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ML Status Summary Bar -->
+      <div id="ml-status-bar" class="p-3 rounded-lg bg-[#FAF9F6] border border-[#E8E5DF] flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-[#15803D]"></span>
+          <span class="text-[#57534E]">Model:</span>
+          <span class="font-bold text-[#181716]">IsolationForest (100 Estimators)</span>
+        </div>
+        <div class="flex items-center gap-4 text-[#78716C]">
+          <span>Analyzed: <strong id="ml-stat-analyzed" class="text-[#181716]">0</strong> records</span>
+          <span>Outliers Flagged: <strong id="ml-stat-outliers" class="text-[#DC2626]">0</strong></span>
+          <span>RAG Vocab: <strong id="ml-stat-vocab" class="text-[#181716]">0</strong> tokens</span>
+        </div>
+      </div>
+
+      <!-- ML Anomaly Cards Container -->
+      <div id="ml-anomalies-container" class="space-y-3">
+        <!-- Rendered ML Anomaly Cards -->
+      </div>
+    </section>
+
+
+    <!-- ======================================================================= -->
     <!-- 3. RECONSTRUCTED CHRONOLOGICAL EVENT TIMELINE -->
     <!-- ======================================================================= -->
     <section class="editorial-card p-6 space-y-5">

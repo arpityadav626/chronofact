@@ -140,7 +140,7 @@ class InconsistencyRadarEngine:
                 time_diff_sec = (log_dt - chat_dt).total_seconds()
                 if -1800 <= time_diff_sec <= 43200:
                     # Check if action is an active user operation
-                    if any(term in log_text.upper() for term in ["LOGIN", "DOWNLOAD", "EXPORT", "SSH", "SESSION"]):
+                    if any(term in log_text.upper() for term in ["LOGIN", "DOWNLOAD", "EXPORT", "SSH", "SESSION", "TRANSFER"]):
                         inc_id = f"INC-TMP-{uuid.uuid4().hex[:6].upper()}"
                         
                         # Calculate human discrepancy delta
@@ -151,11 +151,22 @@ class InconsistencyRadarEngine:
                             f"{'after' if time_diff_sec >= 0 else 'before'} claimed sleep statement."
                         )
 
-                        # Extract log fields (CSV: ts, user, ip, action, status)
-                        log_parts = log_text.split(",")
-                        user = log_parts[1] if len(log_parts) > 1 else log.get("actor", "Suspect")
-                        ip = log_parts[2] if len(log_parts) > 2 else "192.168.1.105"
-                        action = log_parts[3] if len(log_parts) > 3 else "LOGIN OK"
+                        # Extract dynamic log fields
+                        ip_match = re.search(r"\b(?:\d{1,3}\.){3}\d{1,3}\b", log_text)
+                        ip = ip_match.group(0) if ip_match else "Assigned Network Endpoint"
+                        
+                        user = log.get("actor")
+                        if not user or user == "System":
+                            # Try parsing username from CSV or log text
+                            parts = [p.strip() for p in log_text.split(",")]
+                            if len(parts) >= 2 and "@" in parts[1] or "." in parts[1]:
+                                user = parts[1]
+                            else:
+                                user = "Authenticated Subject"
+
+                        # Extract action
+                        action_match = re.search(r"\b(LOGIN|DOWNLOAD_FILE|EXPORT_PATENT_DRAFT|EXPORT|SSH|SESSION|TRANSFER)\b", log_text.upper())
+                        action = action_match.group(0) if action_match else "SYSTEM_OPERATION"
 
                         chat_ist = format_utc_and_ist(chat_dt)["ist_display"]
                         log_ist = format_utc_and_ist(log_dt)["ist_display"]
@@ -165,23 +176,23 @@ class InconsistencyRadarEngine:
                             "rule_id": "RULE_ALIBI_VS_SERVER_LOG",
                             "category": "Alibi Inconsistency",
                             "severity": "CRITICAL",
-                            "title": "Temporal Contradiction: Suspect active during claimed sleep",
+                            "title": "Temporal Contradiction: Suspect active during claimed sleep/offline period",
                             "description": (
-                                f"WhatsApp export ({chat.get('locator', 'Line 2')}) records suspect claiming: '{chat.get('raw_text')}'. "
-                                f"However, Server Authentication Log ({log.get('locator', 'CSV Row 1')}) records active session "
-                                f"for user '{user}' from IP {ip} ({action}) at {log_ist}."
+                                f"Statement ({chat.get('locator', 'Record')}) records subject claiming: '{chat.get('raw_text')}'. "
+                                f"However, Server Telemetry ({log.get('locator', 'Log Record')}) records active operation "
+                                f"for '{user}' from IP {ip} ({action}) at {log_ist}."
                             ),
                             "discrepancy_delta": delta_str,
                             "fact_ids": [chat["id"], log["id"]],
                             "claimed_statement": {
-                                "source": f"WhatsApp Export • {chat.get('locator', 'Line 2')}",
+                                "source": f"{chat.get('fact_type', 'COMMUNICATION')} • {chat.get('locator', 'Ref')}",
                                 "text": chat.get("raw_text") or "",
                                 "timestamp_ist": chat_ist,
                                 "timestamp_utc": chat_dt.isoformat()
                             },
                             "server_reality": {
-                                "source": f"Auth Log • {log.get('locator', 'CSV Row 1')}",
-                                "action": f"{action} ({log_parts[4] if len(log_parts)>4 else 'OK'})",
+                                "source": f"Telemetry • {log.get('locator', 'Log')}",
+                                "action": action,
                                 "user": user,
                                 "ip": ip,
                                 "timestamp_ist": log_ist,
@@ -208,25 +219,29 @@ class InconsistencyRadarEngine:
         chat_facts: List[Dict[str, Any]],
         log_facts: List[Dict[str, Any]]
     ) -> List[Dict[str, Any]]:
+        """
+        Detects physical impossibility when two distinct geographic locations are claimed
+        or recorded within a time delta that would require physically impossible transit speeds (> 800 km/h).
+        Requires genuine evidence-grounded geographic entities (no synthetic city assumptions).
+        """
         anomalies = []
-        # Check location statements against server IP coordinates
-        # Example: Suspect claims "Delhi" but IP geolocation or CDR tower is "Mumbai" within 30 minutes
+        
+        # Helper to extract real locations mentioned in text
+        def extract_known_location(text: str) -> Optional[Tuple[str, Tuple[float, float]]]:
+            text_lower = text.lower()
+            for city_name, coords in LOCATION_COORDINATES.items():
+                # Word boundary check to prevent substring false matches
+                if re.search(r"\b" + re.escape(city_name) + r"\b", text_lower):
+                    return city_name, coords
+            return None
+
         for chat in chat_facts:
-            chat_text = (chat.get("raw_text") or "").lower()
-            claimed_city = None
-            for city in LOCATION_COORDINATES:
-                if city in chat_text:
-                    claimed_city = city
-                    break
-
-            if not claimed_city:
-                # Default case sample: Suspect claims physical location at home in Delhi
-                if "fever" in chat_text or "asleep" in chat_text:
-                    claimed_city = "delhi"
-
-            if not claimed_city:
+            chat_text = (chat.get("raw_text") or "")
+            claimed_loc = extract_known_location(chat_text)
+            if not claimed_loc:
                 continue
 
+            claimed_city, (lat1, lon1) = claimed_loc
             chat_dt = parse_iso_datetime(chat.get("t_min") or "")
             if not chat_dt:
                 continue
@@ -237,19 +252,21 @@ class InconsistencyRadarEngine:
                     continue
 
                 log_text = log.get("raw_text", "")
-                # Sample exhibits use IP 192.168.1.105 mapped to Mumbai ISP Gateway
-                ip_city = "mumbai"
+                network_loc = extract_known_location(log_text)
+                if not network_loc:
+                    continue
+
+                network_city, (lat2, lon2) = network_loc
+                if network_city == claimed_city:
+                    continue
 
                 time_diff_hours = abs((log_dt - chat_dt).total_seconds()) / 3600.0
-                if 0.01 <= time_diff_hours <= 1.5:  # Under 90 minutes
-                    lat1, lon1 = LOCATION_COORDINATES[claimed_city]
-                    lat2, lon2 = LOCATION_COORDINATES[ip_city]
+                if 0.001 <= time_diff_hours <= 2.0:  # Under 2 hours
                     dist_km = calculate_haversine_distance_km(lat1, lon1, lat2, lon2)
-
                     velocity_kmh = dist_km / max(0.01, time_diff_hours)
 
-                    # Commercial flight cruise speed ~ 850 km/h; supersonic > 1000 km/h is impossible
-                    if velocity_kmh > 800.0 and dist_km > 100.0:
+                    # Commercial flight cruise speed ~ 850 km/h; supersonic > 850 km/h is impossible for civilians
+                    if velocity_kmh > 800.0 and dist_km > 50.0:
                         inc_id = f"INC-GEO-{uuid.uuid4().hex[:6].upper()}"
                         anomalies.append({
                             "id": inc_id,
@@ -258,15 +275,15 @@ class InconsistencyRadarEngine:
                             "severity": "CRITICAL",
                             "title": f"Geographic Impossibility Flag: Physical location mismatch ({int(dist_km)} km)",
                             "description": (
-                                f"Suspect claimed to be physically located in {claimed_city.title()} at {format_utc_and_ist(chat_dt)['ist_display']}, "
-                                f"yet ISP Gateway / Server log places connection endpoint in {ip_city.title()} "
-                                f"{int(time_diff_hours*60)} minutes later. Required physical transit speed: {int(velocity_kmh)} km/h."
+                                f"Subject was recorded at {claimed_city.title()} at {format_utc_and_ist(chat_dt)['ist_display']}, "
+                                f"yet Telemetry places activity at {network_city.title()} "
+                                f"{int(time_diff_hours * 60)} minutes later. Required physical transit speed: {int(velocity_kmh)} km/h."
                             ),
-                            "discrepancy_delta": f"Distance {int(dist_km)} km in {int(time_diff_hours*60)} min (Implied Velocity: {int(velocity_kmh)} km/h - Physically Impossible).",
+                            "discrepancy_delta": f"Distance {int(dist_km)} km in {int(time_diff_hours * 60)} min (Implied Velocity: {int(velocity_kmh)} km/h - Physically Impossible).",
                             "fact_ids": [chat["id"], log["id"]],
                             "geo_telemetry": {
                                 "claimed_location": {"city": claimed_city.title(), "lat": lat1, "lon": lon1},
-                                "network_location": {"city": ip_city.title(), "lat": lat2, "lon": lon2},
+                                "network_location": {"city": network_city.title(), "lat": lat2, "lon": lon2},
                                 "distance_km": round(dist_km, 1),
                                 "transit_hours": round(time_diff_hours, 2),
                                 "required_speed_kmh": round(velocity_kmh, 1)

@@ -1,37 +1,47 @@
-# Byte-compiled / optimized files
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
-
-# Local database and uploaded evidence files (runtime generated)
-data/*.db
-data/*.sqlite
-data/*.sqlite3
-data/evidence_storage/*
-!data/evidence_storage/.gitkeep
-data/vault/*
-!data/vault/.gitkeep
-
-# Python virtual environments
-.env
-.venv
+*.so
+.Python
 env/
 venv/
 ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Operating System files
-.DS_Store
-Thumbs.db
-desktop.ini
+# Data
+data/*.db
+data/*.db-journal
+data/vault/*
+data/evidence_storage/*
+chronofact-data/*.sqlite3*
+chronofact-data/vault/*
+training_results/
 
-# Editor & IDE artifacts
+# Environment
+.env
+*.env.local
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# Test & coverage caches
-.pytest_cache/
-.coverage
-htmlcov/
-*.log
+# OS
+.DS_Store
+Thumbs.db

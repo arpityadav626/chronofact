@@ -1,0 +1,52 @@
+{
+  "schema": "chronofact-phase5-output-manifest-v1",
+  "created_at_utc": "2026-10-10T18:52:43Z",
+  "files": [
+    {
+      "file": "analysis_runs.csv",
+      "bytes": 75,
+      "sha256": "8e8afc6275f38aa1ac2fe18e02376e9ca44d17ce98bb129493836e68cf27d1a7"
+    },
+    {
+      "file": "case_report.docx",
+      "bytes": 37395,
+      "sha256": "eb00138cde95a739bfb12b39a6f4a0823544e2cd624bf8bd3c5d1ef61080bc8d"
+    },
+    {
+      "file": "case_report.html",
+      "bytes": 2040,
+      "sha256": "fc687d0af849937805c3356172bf626cd4d9a70f3e256169f56d3d2727ccc82c"
+    },
+    {
+      "file": "case_report.json",
+      "bytes": 1349,
+      "sha256": "fdfb22601327d5d41d64c30024243120b82cd6253fda17c55d0749af310a3111"
+    },
+    {
+      "file": "case_report.pdf",
+      "bytes": 2601,
+      "sha256": "a98c18be42f52155c16bd037feab3ffdb78b4f7d5ddecefa2f665d0c2d77a515"
+    },
+    {
+      "file": "custody.csv",
+      "bytes": 170,
+      "sha256": "aaf7c1b4910451ab1bfc50bf8b4489cb0f779e050ff42cb2a5d8701d4652df35"
+    },
+    {
+      "file": "evidence.csv",
+      "bytes": 303,
+      "sha256": "66899151517c4391cf618fa65ae63bfec3d818a4a1427fd109f3f782eae54348"
+    },
+    {
+      "file": "finding_sources.csv",
+      "bytes": 76,
+      "sha256": "0887b7901e29d5d3e71e2abab7434b047ae24641eb9fc90add7ad30990a77090"
+    },
+    {
+      "file": "findings.csv",
+      "bytes": 83,
+      "sha256": "c52affe136ea7619ffa1071fcdc333ffc34aeb9efb355b35b3117f3a46976ad4"
+    }
+  ],
+  "note": "Local output checksums only; not a digital signature or trusted timestamp."
+}

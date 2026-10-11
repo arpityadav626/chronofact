@@ -1,0 +1,19 @@
+{
+  "schema": "chronofact-phase6-model-v1",
+  "created_at_utc": "2026-10-11T06:31:55Z",
+  "model_type": "RandomForestClassifier",
+  "target_column": "label",
+  "group_column": "scenario_id",
+  "feature_columns": [
+    "bytes",
+    "hour_utc",
+    "day_of_week",
+    "source",
+    "action"
+  ],
+  "positive_label_definition": "Malicious data exfiltration events",
+  "dataset_sha256": "35bf4bb0fcd35483eec39a5287f661846356164e0815dd05a423d5380052617e",
+  "training_metrics_file": "metrics.json",
+  "warning": "Load only model.joblib files produced by a trusted local training run. Joblib/pickle model files must not be loaded from untrusted sources.",
+  "model_sha256": "d7d95dde7d9f21f7ff56194cd16b4f831f1df75fa918839e6512f143016622e9"
+}

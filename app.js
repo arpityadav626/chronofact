@@ -349,12 +349,17 @@ function clearEvidenceVault() {
   }
 }
 
+let allMLAnomalies = [];
+let allMLStatus = null;
+
 async function loadCaseData() {
   try {
-    const [resEv, resTl, resInc] = await Promise.all([
+    const [resEv, resTl, resInc, resAnom, resStat] = await Promise.all([
       fetch("/api/evidence").catch(() => null),
       fetch("/api/timeline").catch(() => null),
-      fetch("/api/inconsistencies").catch(() => null)
+      fetch("/api/inconsistencies").catch(() => null),
+      fetch("/api/ml/anomalies").catch(() => null),
+      fetch("/api/ml/status").catch(() => null)
     ]);
 
     if (resEv && resEv.ok) {
@@ -377,6 +382,15 @@ async function loadCaseData() {
     } else {
       allInconsistencies = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.inconsistencies));
     }
+
+    if (resAnom && resAnom.ok) {
+      const data = await resAnom.json();
+      allMLAnomalies = data.anomalies || [];
+    }
+
+    if (resStat && resStat.ok) {
+      allMLStatus = await resStat.json();
+    }
   } catch (_) {
     allEvidenceItems = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.evidence));
     allTimelineEvents = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.timeline));
@@ -385,6 +399,7 @@ async function loadCaseData() {
 
   renderEvidenceTable();
   renderInconsistencyRadar();
+  renderMLAnomalies();
   renderTimelineFilters();
   renderTimeline();
   updateCaseSummaryMetrics();
@@ -603,11 +618,35 @@ async function commitUploadedExhibit() {
   const fileName = file ? file.name : "custom_exhibit_" + Date.now() + ".log";
   const fileSize = file ? file.size : 312;
   const deviceType = document.getElementById('ingest-device-type')?.value || "Workstation Terminal";
-  const owner = document.getElementById('ingest-owner')?.value || "Vikram Malhotra";
+  const owner = document.getElementById('ingest-owner')?.value || "Inspector / Forensic Examiner";
   const tool = document.getElementById('ingest-tool')?.value || "FTK Imager v4.7";
   const notes = document.getElementById('ingest-notes')?.value || "Seized under Panchnama Memo";
 
-  // Generate deterministic hash simulation
+  if (file) {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('source_description', notes);
+      formData.append('uploaded_by', owner);
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+      if (res.ok) {
+        const data = await res.json();
+        await loadCaseData();
+        closeIngestModal();
+        hapticEngine.playSuccess();
+        showToast(`Exhibit ${data.evidence_id || data.filename} ingested with dual NIST hashes & ML vectors.`);
+        return;
+      }
+    } catch (err) {
+      console.warn("Backend upload failed, utilizing local fallback:", err);
+    }
+  }
+
+  // Generate deterministic hash simulation for offline/static fallback
   const randomHex = Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('');
   const randomSha3 = Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('');
   const newId = "EV-" + Math.random().toString(16).substring(2, 8).toUpperCase();
@@ -733,6 +772,107 @@ function renderInconsistencyRadar() {
       </div>
     `;
   }).join('');
+// =============================================================================
+// 6B. MACHINE LEARNING LOG ANOMALY RADAR (ISOLATION FOREST)
+// =============================================================================
+async function refreshMLAnomalies() {
+  hapticEngine.playSoftTap();
+  const container = document.getElementById('ml-anomalies-container');
+  if (container) {
+    container.innerHTML = `
+      <div class="py-4 text-center text-xs text-[#57534E] flex items-center justify-center gap-2">
+        <i data-lucide="loader-2" class="w-4 h-4 animate-spin text-[#6D28D9]"></i>
+        <span>Training Scikit-Learn IsolationForest model & fitting telemetry...</span>
+      </div>
+    `;
+    if (window.lucide) lucide.createIcons();
+  }
+
+  try {
+    const [resAnom, resStat] = await Promise.all([
+      fetch("/api/ml/anomalies").catch(() => null),
+      fetch("/api/ml/status").catch(() => null)
+    ]);
+
+    if (resAnom && resAnom.ok) {
+      const data = await resAnom.json();
+      allMLAnomalies = data.anomalies || [];
+    }
+    if (resStat && resStat.ok) {
+      allMLStatus = await resStat.json();
+    }
+  } catch (err) {
+    console.warn("Failed fetching ML anomalies:", err);
+  }
+
+  renderMLAnomalies();
+  hapticEngine.playSuccess();
+  showToast("ML Isolation Forest anomaly detection complete.");
+}
+
+function renderMLAnomalies() {
+  const container = document.getElementById('ml-anomalies-container');
+  const elAnalyzed = document.getElementById('ml-stat-analyzed');
+  const elOutliers = document.getElementById('ml-stat-outliers');
+  const elVocab = document.getElementById('ml-stat-vocab');
+  const elRisk = document.getElementById('stat-ml-risk');
+
+  if (elAnalyzed) elAnalyzed.textContent = allMLAnomalies.length;
+  const outlierCount = allMLAnomalies.filter(a => a.is_anomaly).length;
+  if (elOutliers) elOutliers.textContent = outlierCount;
+  if (elVocab && allMLStatus) elVocab.textContent = allMLStatus.vocabulary_features || 0;
+  if (elRisk) elRisk.textContent = outlierCount > 0 ? `${outlierCount} High Risk` : "Nominal";
+
+  if (!container) return;
+
+  if (allMLAnomalies.length === 0) {
+    container.innerHTML = `
+      <div class="p-6 text-center border border-dashed border-[#E8E5DF] rounded-xl text-xs text-[#78716C]">
+        No server telemetry logs ingested yet. Upload an access log or load sample case to run Isolation Forest analysis.
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = allMLAnomalies.map((anom, idx) => {
+    const isCrit = anom.anomaly_score >= 80;
+    const isHigh = anom.anomaly_score >= 60 && anom.anomaly_score < 80;
+    const borderCol = isCrit ? 'border-[#FECACA] bg-[#FFFBFB]' : isHigh ? 'border-[#FED7AA] bg-[#FFFDF7]' : 'border-[#E8E5DF] bg-white';
+    const badgeCol = isCrit ? 'bg-[#FEE2E2] text-[#991B1B] border-[#FECACA]' : isHigh ? 'bg-[#FFEDD5] text-[#C2410C] border-[#FED7AA]' : 'bg-[#F3F4F6] text-[#4B5563] border-[#E5E7EB]';
+
+    return `
+      <div class="editorial-card p-4 border ${borderCol} rounded-xl space-y-3 transition hover:shadow-xs">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#F4F1EA] pb-2">
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono font-semibold border ${badgeCol}">
+              <i data-lucide="${isCrit ? 'alert-triangle' : 'activity'}" class="w-3 h-3"></i>
+              <span>Outlier Score: ${anom.anomaly_score}%</span>
+            </span>
+            <span class="text-xs font-semibold text-[#181716]">${escapeHTML(anom.locator || `Row ${idx+1}`)}</span>
+          </div>
+          <span class="text-[10px] font-mono text-[#78716C] bg-white px-2 py-0.5 rounded border border-[#E8E5DF]">
+            Algorithm: ${escapeHTML(anom.confidence_level || 'IsolationForest')}
+          </span>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-[#FAF9F6] border border-[#E8E5DF] font-mono text-xs text-[#1E293B] overflow-x-auto">
+          <code>${escapeHTML(anom.raw_text)}</code>
+        </div>
+
+        <div class="space-y-1.5">
+          <span class="text-[10px] font-mono uppercase text-[#78716C] tracking-wider block">ML Decision Factors:</span>
+          <div class="flex flex-wrap gap-1.5">
+            ${(anom.contributing_factors || []).map(f => `
+              <span class="text-[11px] font-sans px-2 py-0.5 rounded-md bg-white border border-[#E8E5DF] text-[#44403C]">
+                &bull; ${escapeHTML(f)}
+              </span>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
   if (window.lucide) lucide.createIcons();
 }
 
