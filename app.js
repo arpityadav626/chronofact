@@ -1946,33 +1946,22 @@ function toggleSidebarMobile() {
   }
 }
 
-// 100% Pure Theme Controller (Pure Dark OR Pure Light)
-function setTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
+// Permanent 100% Pure Light Mode Controller (GOI Judicial Workbench)
+function setTheme(theme = 'light') {
+  document.documentElement.setAttribute('data-theme', 'light');
   try {
-    localStorage.setItem('chronofact-theme', theme);
+    localStorage.setItem('chronofact-theme', 'light');
   } catch (_) {}
-  
-  const labels = document.querySelectorAll('.theme-toggle-label');
-  const icons = document.querySelectorAll('.theme-toggle-icon');
-  labels.forEach(l => l.textContent = theme === 'dark' ? 'Dark Mode' : 'Light Mode');
-  icons.forEach(i => i.setAttribute('data-lucide', theme === 'dark' ? 'moon' : 'sun'));
-  if (window.lucide) lucide.createIcons();
 }
 
 function toggleTheme() {
-  hapticEngine.playSoftTap();
-  const current = document.documentElement.getAttribute('data-theme') || 'dark';
-  const next = current === 'dark' ? 'light' : 'dark';
-  setTheme(next);
-  showToast(`Theme switched to 100% Pure ${next.toUpperCase()}`);
+  setTheme('light');
 }
 
 // Master Lifecycle Initializer
 window.addEventListener('DOMContentLoaded', () => {
-  // Initialize theme from storage (default to pure dark)
-  const savedTheme = (typeof localStorage !== 'undefined' && localStorage.getItem('chronofact-theme')) || 'dark';
-  setTheme(savedTheme);
+  // Permanent Pure Light Theme Lock
+  setTheme('light');
 
   runSleekOpeningAnimation();
   loadCaseData();

@@ -10,56 +10,8 @@
 /* --------------------------------------------------------------------------
    1. COLOR PALETTES (PURE DARK & PURE LIGHT)
    -------------------------------------------------------------------------- */
-:root, [data-theme="dark"] {
-  /* Warm Obsidian Canvas & Surface */
-  --bg-canvas: #0B0F17;
-  --bg-sidebar: #0D121F;
-  --bg-surface: #101625;
-  --bg-card: #121826;
-  --bg-card-hover: #162033;
-  --bg-inset: #0E1422;
-  --bg-input: #090D15;
-  --bg-elevated: #161E30;
-
-  /* Precision Slate Hairline Borders */
-  --border-subtle: #1E283E;
-  --border-hairline: #26334D;
-  --border-focus: #3B82F6;
-  --border-divider: #1A2336;
-
-  /* Authoritative Typography */
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --text-dim: #475569;
-
-  /* Strict Semantic Color System */
-  --color-danger: #EF4444;
-  --color-danger-bg: rgba(239, 68, 68, 0.15);
-  --color-danger-border: rgba(239, 68, 68, 0.35);
-  --color-danger-text: #FCA5A5;
-
-  --color-warning: #F59E0B;
-  --color-warning-bg: rgba(245, 158, 11, 0.15);
-  --color-warning-border: rgba(245, 158, 11, 0.35);
-  --color-warning-text: #FCD34D;
-
-  --color-success: #10B981;
-  --color-success-bg: rgba(16, 185, 129, 0.15);
-  --color-success-border: rgba(16, 185, 129, 0.35);
-  --color-success-text: #6EE7B7;
-
-  --color-info: #3B82F6;
-  --color-info-bg: rgba(59, 130, 246, 0.15);
-  --color-info-border: rgba(59, 130, 246, 0.35);
-  --color-info-text: #93C5FD;
-
-  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.35);
-  --shadow-card: 0 8px 24px -2px rgba(0, 0, 0, 0.45);
-}
-
-[data-theme="light"] {
-  /* 100% Pure Editorial Light Palette */
+:root, [data-theme="light"] {
+  /* 100% Pure Editorial Light Palette (Permanent Court Workbench) */
   --bg-canvas: #F8F7F4;
   --bg-sidebar: #F2EFE9;
   --bg-surface: #FFFFFF;
@@ -101,6 +53,7 @@
 
   --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04);
   --shadow-card: 0 4px 16px -2px rgba(0, 0, 0, 0.06);
+  color-scheme: light;
 }
 
 * {
@@ -324,235 +277,227 @@ html, body {
 }
 
 .sidebar-nav-item.active {
-  color: #60A5FA;
-  background-color: rgba(37, 99, 235, 0.12);
-  border-color: rgba(59, 130, 246, 0.3);
+  color: #1D4ED8;
+  background-color: #FFFFFF;
+  border-color: #BFDBFE;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 /* --------------------------------------------------------------------------
-   5. LIGHT THEME OVERRIDES (100% PURE JUDICIAL EDITORIAL PAPER THEME)
+   5. PERMANENT 100% PURE JUDICIAL LIGHT MODE (GOI EDITORIAL COURT BENCH)
    -------------------------------------------------------------------------- */
-[data-theme="light"] {
-  color-scheme: light;
-}
-
-[data-theme="light"] #workbench-sidebar {
+#workbench-sidebar {
   background-color: var(--bg-sidebar) !important;
   border-color: var(--border-subtle) !important;
 }
 
-[data-theme="light"] header {
-  background-color: rgba(248, 247, 244, 0.95) !important;
+header {
+  background-color: #FFFFFF !important;
   border-color: var(--border-subtle) !important;
+  color: var(--text-primary) !important;
 }
 
-[data-theme="light"] #workbench-scroll-area,
-[data-theme="light"] .master-container {
+#workbench-scroll-area,
+.master-container {
   background-color: var(--bg-canvas) !important;
 }
 
-/* Comprehensive override of hardcoded Tailwind dark background classes in Light Mode */
-[data-theme="light"] .bg-\[\#0B0F17\],
-[data-theme="light"] .bg-\[\#0D121F\],
-[data-theme="light"] .bg-\[\#101625\],
-[data-theme="light"] .bg-\[\#111726\],
-[data-theme="light"] .bg-\[\#121826\],
-[data-theme="light"] .bg-\[\#141B2B\],
-[data-theme="light"] .bg-\[\#161F33\],
-[data-theme="light"] .bg-\[\#0E1422\],
-[data-theme="light"] .bg-\[\#0E1424\],
-[data-theme="light"] .bg-\[\#0E1524\],
-[data-theme="light"] .bg-\[\#0A0E18\],
-[data-theme="light"] .bg-\[\#080C14\],
-[data-theme="light"] .bg-\[\#182338\],
-[data-theme="light"] .bg-\[\#1C2538\],
-[data-theme="light"] .bg-\[\#0F1626\],
-[data-theme="light"] .bg-\[\#111724\],
-[data-theme="light"] .bg-\[\#172033\],
-[data-theme="light"] .bg-\[\#121824\],
-[data-theme="light"] .bg-\[\#1C253B\],
-[data-theme="light"] .bg-\[\#181716\],
-[data-theme="light"] .bg-slate-800,
-[data-theme="light"] .bg-slate-900,
-[data-theme="light"] .bg-slate-950 {
+/* Comprehensive override of hardcoded Tailwind dark background classes */
+.bg-\[\#0B0F17\],
+.bg-\[\#0D121F\],
+.bg-\[\#101625\],
+.bg-\[\#111726\],
+.bg-\[\#121826\],
+.bg-\[\#141B2B\],
+.bg-\[\#161F33\],
+.bg-\[\#0E1422\],
+.bg-\[\#0E1424\],
+.bg-\[\#0E1524\],
+.bg-\[\#0A0E18\],
+.bg-\[\#080C14\],
+.bg-\[\#182338\],
+.bg-\[\#1C2538\],
+.bg-\[\#0F1626\],
+.bg-\[\#111724\],
+.bg-\[\#172033\],
+.bg-\[\#121824\],
+.bg-\[\#1C253B\],
+.bg-\[\#181716\],
+.bg-slate-800,
+.bg-slate-900,
+.bg-slate-950 {
   background-color: var(--bg-inset) !important;
   border-color: var(--border-subtle) !important;
   color: var(--text-primary) !important;
 }
 
 /* Hardcoded dark borders */
-[data-theme="light"] .border-\[\#1E283E\],
-[data-theme="light"] .border-\[\#1B2336\],
-[data-theme="light"] .border-\[\#1A2336\],
-[data-theme="light"] .border-\[\#222E44\],
-[data-theme="light"] .border-\[\#232F46\],
-[data-theme="light"] .border-\[\#222E46\],
-[data-theme="light"] .border-\[\#2B3956\],
-[data-theme="light"] .border-\[\#23314E\],
-[data-theme="light"] .border-\[\#1E293E\],
-[data-theme="light"] .border-\[\#2E3D5C\],
-[data-theme="light"] .border-slate-800,
-[data-theme="light"] .border-slate-700 {
+.border-\[\#1E283E\],
+.border-\[\#1B2336\],
+.border-\[\#1A2336\],
+.border-\[\#222E44\],
+.border-\[\#232F46\],
+.border-\[\#222E46\],
+.border-\[\#2B3956\],
+.border-\[\#23314E\],
+.border-\[\#1E293E\],
+.border-\[\#2E3D5C\],
+.border-slate-800,
+.border-slate-700 {
   border-color: var(--border-subtle) !important;
 }
 
-/* Hardcoded light text on light canvas */
-[data-theme="light"] .text-white,
-[data-theme="light"] .text-slate-100,
-[data-theme="light"] .text-slate-200 {
+/* High contrast text */
+.text-white,
+.text-slate-100,
+.text-slate-200 {
   color: var(--text-primary) !important;
 }
 
-[data-theme="light"] .text-slate-300,
-[data-theme="light"] .text-slate-400 {
+.text-slate-300,
+.text-slate-400 {
   color: var(--text-secondary) !important;
 }
 
-[data-theme="light"] .text-slate-500,
-[data-theme="light"] .text-slate-600 {
+.text-slate-500,
+.text-slate-600 {
   color: var(--text-muted) !important;
 }
 
 /* Light Mode Input Elements */
-[data-theme="light"] input,
-[data-theme="light"] select,
-[data-theme="light"] textarea {
+input,
+select,
+textarea {
   background-color: #FFFFFF !important;
   color: #0F172A !important;
   border-color: var(--border-subtle) !important;
 }
-[data-theme="light"] input::placeholder {
+input::placeholder {
   color: #94A3B8 !important;
 }
 
-/* KPI Cards in Light Mode */
-[data-theme="light"] .stat-kpi-card.bg-emerald-950\/20 {
+/* KPI Cards */
+.stat-kpi-card.bg-emerald-950\/20 {
   background-color: #ECFDF5 !important;
   border-color: #A7F3D0 !important;
 }
-[data-theme="light"] .stat-kpi-card.bg-emerald-950\/20 .text-emerald-400 {
+.stat-kpi-card.bg-emerald-950\/20 .text-emerald-400 {
   color: #047857 !important;
 }
-[data-theme="light"] .stat-kpi-card.bg-blue-950\/20 {
+.stat-kpi-card.bg-blue-950\/20 {
   background-color: #EFF6FF !important;
   border-color: #BFDBFE !important;
 }
-[data-theme="light"] .stat-kpi-card.bg-blue-950\/20 .text-blue-400 {
+.stat-kpi-card.bg-blue-950\/20 .text-blue-400 {
   color: #1D4ED8 !important;
 }
-[data-theme="light"] .stat-kpi-card.bg-rose-950\/25 {
+.stat-kpi-card.bg-rose-950\/25 {
   background-color: #FEF2F2 !important;
   border-color: #FECACA !important;
 }
-[data-theme="light"] .stat-kpi-card.bg-rose-950\/25 .text-rose-400 {
+.stat-kpi-card.bg-rose-950\/25 .text-rose-400 {
   color: #B91C1C !important;
 }
-[data-theme="light"] .stat-kpi-card.bg-amber-950\/20 {
+.stat-kpi-card.bg-amber-950\/20 {
   background-color: #FFFBEB !important;
   border-color: #FDE68A !important;
 }
-[data-theme="light"] .stat-kpi-card.bg-amber-950\/20 .text-amber-400 {
+.stat-kpi-card.bg-amber-950\/20 .text-amber-400 {
   color: #B45309 !important;
 }
 
-/* Court Package Status Pill in Light Mode */
-[data-theme="light"] header .rounded-full.bg-emerald-950\/40,
-[data-theme="light"] #header-vault-status-pill {
+/* Court Package Status Pill */
+header .rounded-full.bg-emerald-950\/40,
+#header-vault-status-pill {
   background-color: #ECFDF5 !important;
   border-color: #A7F3D0 !important;
   color: #047857 !important;
 }
-[data-theme="light"] header .rounded-full.bg-emerald-950\/40 strong {
+header .rounded-full.bg-emerald-950\/40 strong {
   color: #064E3B !important;
 }
 
-/* Audit Chain Integrity Banner in Light & Dark Mode */
-[data-theme="light"] .audit-chain-box {
+/* Audit Chain Integrity Banner */
+.audit-chain-box {
   background-color: #ECFDF5 !important;
   border-color: #A7F3D0 !important;
 }
-[data-theme="light"] .audit-chain-box .text-emerald-400 {
+.audit-chain-box .text-emerald-400 {
   color: #047857 !important;
 }
-[data-theme="light"] .audit-chain-box .text-slate-400 {
+.audit-chain-box .text-slate-400 {
   color: #065F46 !important;
 }
-[data-theme="light"] .audit-chain-box .text-slate-200 {
+.audit-chain-box .text-slate-200 {
   color: #064E3B !important;
 }
-[data-theme="dark"] .audit-chain-box {
-  background-color: #0E1422 !important;
-  border-color: #1E283E !important;
-}
 
-/* Schedule Table in Light & Dark Mode */
-[data-theme="light"] .schedule-table-wrap {
+/* Schedule Table */
+.schedule-table-wrap {
   background-color: #FFFFFF !important;
   border-color: var(--border-subtle) !important;
 }
-[data-theme="light"] .schedule-table-wrap table thead tr {
+.schedule-table-wrap table thead tr {
   background-color: #F4F2EC !important;
   color: #475569 !important;
   border-color: var(--border-subtle) !important;
 }
-[data-theme="light"] #cert-schedule-table-body tr {
+#cert-schedule-table-body tr {
   background-color: #FFFFFF !important;
   color: #0F172A !important;
   border-color: #E2DFD7 !important;
 }
-[data-theme="light"] #cert-schedule-table-body tr:hover {
+#cert-schedule-table-body tr:hover {
   background-color: #F8FAFC !important;
 }
-[data-theme="dark"] .schedule-table-wrap {
-  background-color: #0E1422 !important;
-  border-color: #1E283E !important;
-}
-[data-theme="dark"] .schedule-table-wrap table thead tr {
-  background-color: #0B0F17 !important;
-  color: #94A3B8 !important;
-  border-color: #1E283E !important;
-}
-[data-theme="dark"] #cert-schedule-table-body tr {
-  background-color: #0E1422 !important;
-  color: #F8FAFC !important;
-  border-color: #1E283E !important;
-}
-[data-theme="dark"] #cert-schedule-table-body tr:hover {
-  background-color: #162033 !important;
-}
 
-/* Header & Sidebar Action Buttons in Light Mode */
-[data-theme="light"] header button:not(.btn-editorial-primary),
-[data-theme="light"] #workbench-sidebar button:not(.btn-editorial-primary) {
+/* Header & Sidebar Action Buttons */
+header button:not(.btn-editorial-primary),
+#workbench-sidebar button:not(.btn-editorial-primary) {
   background-color: #FFFFFF !important;
   border-color: var(--border-subtle) !important;
   color: var(--text-primary) !important;
 }
-[data-theme="light"] header button:not(.btn-editorial-primary):hover,
-[data-theme="light"] #workbench-sidebar button:not(.btn-editorial-primary):hover {
+header button:not(.btn-editorial-primary):hover,
+#workbench-sidebar button:not(.btn-editorial-primary):hover {
   background-color: #F8FAFC !important;
   border-color: var(--border-hairline) !important;
 }
 
 /* Active Case Card in Sidebar */
-[data-theme="light"] .sidebar-case-card {
+.sidebar-case-card {
   background-color: #FFFFFF !important;
   border-color: var(--border-subtle) !important;
 }
 
-/* Sidebar navigation item states in Light Mode */
-[data-theme="light"] .sidebar-nav-item {
+/* Sidebar navigation item states */
+.sidebar-nav-item {
   color: #475569 !important;
 }
-[data-theme="light"] .sidebar-nav-item:hover {
+.sidebar-nav-item:hover {
   background-color: #EAE7E0 !important;
   color: #0F172A !important;
 }
-[data-theme="light"] .sidebar-nav-item.active {
+.sidebar-nav-item.active {
   color: #1D4ED8 !important;
   background-color: #FFFFFF !important;
   border-color: #BFDBFE !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Modal Dialogs & Drawers in Light Mode */
+.editorial-card.bg-\[\#111726\],
+div[id$="-modal"] .editorial-card,
+div[id$="-drawer"] .editorial-card,
+#officer-dropdown-menu {
+  background-color: #FFFFFF !important;
+  border-color: var(--border-subtle) !important;
+  color: #0F172A !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.12) !important;
+}
+
+#officer-dropdown-menu button:hover {
+  background-color: #F8FAFC !important;
 }
 
 /* Empty state banners */

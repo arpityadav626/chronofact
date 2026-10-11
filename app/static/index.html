@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,15 +18,14 @@
   <!-- Tailwind CSS Custom Configuration -->
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            canvas: '#0B0F17',
-            sidebar: '#0D121F',
-            surface: '#101625',
-            card: '#141B2B',
-            borderHairline: '#1E2638'
+            canvas: '#F8F7F4',
+            sidebar: '#F1EFEA',
+            surface: '#FFFFFF',
+            card: '#FFFFFF',
+            borderHairline: '#E2DFD7'
           },
           fontFamily: {
             display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
@@ -39,23 +38,11 @@
   </script>
 
   <!-- Primary Stylesheet with Cache-Buster -->
-  <link rel="stylesheet" href="styles.css?v=20261011_pure_theme_v4" onerror="this.onerror=null;this.href='/static/styles.css?v=20261011_pure_theme_v4'">
+  <link rel="stylesheet" href="styles.css?v=20261011_pure_light_v5" onerror="this.onerror=null;this.href='/static/styles.css?v=20261011_pure_light_v5'">
 
-  <!-- Critical Theme Rules (Prevents Stale Browser Cache from Showing Broken Light/Dark Themes) -->
+  <!-- Critical Theme Rules (Permanent 100% Pure Judicial Light Mode) -->
   <style>
-    :root, [data-theme="dark"] {
-      --bg-canvas: #0B0F17 !important;
-      --bg-sidebar: #0D121F !important;
-      --bg-surface: #101625 !important;
-      --bg-card: #121826 !important;
-      --bg-card-hover: #162033 !important;
-      --bg-inset: #0E1422 !important;
-      --border-subtle: #1E283E !important;
-      --border-hairline: #26334D !important;
-      --text-primary: #F8FAFC !important;
-      --text-secondary: #94A3B8 !important;
-    }
-    [data-theme="light"] {
+    :root, [data-theme="light"], html, body {
       --bg-canvas: #F8F7F4 !important;
       --bg-sidebar: #F1EFEA !important;
       --bg-surface: #FFFFFF !important;
@@ -77,7 +64,7 @@
       border-color: var(--border-subtle) !important;
     }
     header {
-      background-color: var(--bg-sidebar) !important;
+      background-color: #FFFFFF !important;
       border-color: var(--border-subtle) !important;
     }
     #workbench-scroll-area, .master-container {
@@ -108,132 +95,143 @@
       color: var(--text-secondary) !important;
     }
 
-    /* Light Theme Hard-Lock Overrides for Embedded Dark Utilities */
-    [data-theme="light"] .bg-\[\#0B0F17\],
-    [data-theme="light"] .bg-\[\#0D121F\],
-    [data-theme="light"] .bg-\[\#101625\],
-    [data-theme="light"] .bg-\[\#111726\],
-    [data-theme="light"] .bg-\[\#121826\],
-    [data-theme="light"] .bg-\[\#141B2B\],
-    [data-theme="light"] .bg-\[\#161F33\],
-    [data-theme="light"] .bg-\[\#0E1422\],
-    [data-theme="light"] .bg-\[\#0E1424\],
-    [data-theme="light"] .bg-\[\#0E1524\],
-    [data-theme="light"] .bg-\[\#0A0E18\],
-    [data-theme="light"] .bg-\[\#080C14\],
-    [data-theme="light"] .bg-\[\#182338\],
-    [data-theme="light"] .bg-\[\#1C2538\],
-    [data-theme="light"] .bg-\[\#0F1626\],
-    [data-theme="light"] .bg-\[\#111724\],
-    [data-theme="light"] .bg-\[\#172033\],
-    [data-theme="light"] .bg-\[\#121824\],
-    [data-theme="light"] .bg-\[\#1C253B\],
-    [data-theme="light"] .bg-\[\#181716\],
-    [data-theme="light"] .bg-slate-800,
-    [data-theme="light"] .bg-slate-900,
-    [data-theme="light"] .bg-slate-950 {
+    /* Universal Pure Light Overrides for Embedded Dark Utilities */
+    .bg-\[\#0B0F17\],
+    .bg-\[\#0D121F\],
+    .bg-\[\#101625\],
+    .bg-\[\#111726\],
+    .bg-\[\#121826\],
+    .bg-\[\#141B2B\],
+    .bg-\[\#161F33\],
+    .bg-\[\#0E1422\],
+    .bg-\[\#0E1424\],
+    .bg-\[\#0E1524\],
+    .bg-\[\#0A0E18\],
+    .bg-\[\#080C14\],
+    .bg-\[\#182338\],
+    .bg-\[\#1C2538\],
+    .bg-\[\#0F1626\],
+    .bg-\[\#111724\],
+    .bg-\[\#172033\],
+    .bg-\[\#121824\],
+    .bg-\[\#1C253B\],
+    .bg-\[\#181716\],
+    .bg-slate-800,
+    .bg-slate-900,
+    .bg-slate-950 {
       background-color: var(--bg-inset) !important;
       border-color: var(--border-subtle) !important;
       color: var(--text-primary) !important;
     }
-    [data-theme="light"] .border-\[\#1E283E\],
-    [data-theme="light"] .border-\[\#1B2336\],
-    [data-theme="light"] .border-\[\#1A2336\],
-    [data-theme="light"] .border-\[\#222E44\],
-    [data-theme="light"] .border-\[\#232F46\],
-    [data-theme="light"] .border-\[\#222E46\],
-    [data-theme="light"] .border-\[\#2B3956\],
-    [data-theme="light"] .border-\[\#23314E\],
-    [data-theme="light"] .border-\[\#1E293E\],
-    [data-theme="light"] .border-\[\#2E3D5C\],
-    [data-theme="light"] .border-slate-800,
-    [data-theme="light"] .border-slate-700 {
+    .border-\[\#1E283E\],
+    .border-\[\#1B2336\],
+    .border-\[\#1A2336\],
+    .border-\[\#222E44\],
+    .border-\[\#232F46\],
+    .border-\[\#222E46\],
+    .border-\[\#2B3956\],
+    .border-\[\#23314E\],
+    .border-\[\#1E293E\],
+    .border-\[\#2E3D5C\],
+    .border-slate-800,
+    .border-slate-700 {
       border-color: var(--border-subtle) !important;
     }
-    [data-theme="light"] .text-white,
-    [data-theme="light"] .text-slate-100,
-    [data-theme="light"] .text-slate-200 {
+    .text-white,
+    .text-slate-100,
+    .text-slate-200 {
       color: var(--text-primary) !important;
     }
-    [data-theme="light"] .text-slate-300,
-    [data-theme="light"] .text-slate-400 {
+    .text-slate-300,
+    .text-slate-400 {
       color: var(--text-secondary) !important;
     }
-    [data-theme="light"] input,
-    [data-theme="light"] select,
-    [data-theme="light"] textarea {
+    input,
+    select,
+    textarea {
       background-color: #FFFFFF !important;
       color: #0F172A !important;
       border-color: var(--border-subtle) !important;
     }
-    [data-theme="light"] .stat-kpi-card.bg-emerald-950\/20 {
+    .stat-kpi-card.bg-emerald-950\/20 {
       background-color: #ECFDF5 !important;
       border-color: #A7F3D0 !important;
     }
-    [data-theme="light"] .stat-kpi-card.bg-emerald-950\/20 .text-emerald-400 {
+    .stat-kpi-card.bg-emerald-950\/20 .text-emerald-400 {
       color: #047857 !important;
     }
-    [data-theme="light"] .stat-kpi-card.bg-blue-950\/20 {
+    .stat-kpi-card.bg-blue-950\/20 {
       background-color: #EFF6FF !important;
       border-color: #BFDBFE !important;
     }
-    [data-theme="light"] .stat-kpi-card.bg-blue-950\/20 .text-blue-400 {
+    .stat-kpi-card.bg-blue-950\/20 .text-blue-400 {
       color: #1D4ED8 !important;
     }
-    [data-theme="light"] .stat-kpi-card.bg-rose-950\/25 {
+    .stat-kpi-card.bg-rose-950\/25 {
       background-color: #FEF2F2 !important;
       border-color: #FECACA !important;
     }
-    [data-theme="light"] .stat-kpi-card.bg-rose-950\/25 .text-rose-400 {
+    .stat-kpi-card.bg-rose-950\/25 .text-rose-400 {
       color: #B91C1C !important;
     }
-    [data-theme="light"] .stat-kpi-card.bg-amber-950\/20 {
+    .stat-kpi-card.bg-amber-950\/20 {
       background-color: #FFFBEB !important;
       border-color: #FDE68A !important;
     }
-    [data-theme="light"] .stat-kpi-card.bg-amber-950\/20 .text-amber-400 {
+    .stat-kpi-card.bg-amber-950\/20 .text-amber-400 {
       color: #B45309 !important;
     }
-    [data-theme="light"] header .rounded-full.bg-emerald-950\/40,
-    [data-theme="light"] #header-vault-status-pill {
+    header .rounded-full.bg-emerald-950\/40,
+    #header-vault-status-pill {
       background-color: #ECFDF5 !important;
       border-color: #A7F3D0 !important;
       color: #047857 !important;
     }
-    [data-theme="light"] header .rounded-full.bg-emerald-950\/40 strong {
+    header .rounded-full.bg-emerald-950\/40 strong {
       color: #064E3B !important;
     }
-    [data-theme="light"] header button:not(.btn-editorial-primary),
-    [data-theme="light"] #workbench-sidebar button:not(.btn-editorial-primary) {
+    header button:not(.btn-editorial-primary),
+    #workbench-sidebar button:not(.btn-editorial-primary) {
       background-color: #FFFFFF !important;
       border-color: var(--border-subtle) !important;
       color: var(--text-primary) !important;
     }
-    [data-theme="light"] .audit-chain-box {
+    .audit-chain-box {
       background-color: #ECFDF5 !important;
       border-color: #A7F3D0 !important;
     }
-    [data-theme="light"] .audit-chain-box .text-emerald-400 {
+    .audit-chain-box .text-emerald-400 {
       color: #047857 !important;
     }
-    [data-theme="light"] .audit-chain-box .text-slate-400 {
+    .audit-chain-box .text-slate-400 {
       color: #065F46 !important;
     }
-    [data-theme="light"] .audit-chain-box .text-slate-200 {
+    .audit-chain-box .text-slate-200 {
       color: #064E3B !important;
     }
-    [data-theme="light"] .schedule-table-wrap {
+    .schedule-table-wrap {
       background-color: #FFFFFF !important;
       border-color: var(--border-subtle) !important;
     }
-    [data-theme="light"] .schedule-table-wrap table thead tr {
+    .schedule-table-wrap table thead tr {
       background-color: #F4F2EC !important;
       color: #475569 !important;
     }
-    [data-theme="light"] #cert-schedule-table-body tr {
+    #cert-schedule-table-body tr {
       background-color: #FFFFFF !important;
       color: #0F172A !important;
       border-color: #E2DFD7 !important;
+    }
+
+    /* Modals & Drawers in Pure Light Mode */
+    .editorial-card.bg-\[\#111726\],
+    div[id$="-modal"] .editorial-card,
+    div[id$="-drawer"] .editorial-card,
+    #officer-dropdown-menu {
+      background-color: #FFFFFF !important;
+      border-color: var(--border-subtle) !important;
+      color: #0F172A !important;
+      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.12) !important;
     }
   </style>
 </head>
@@ -516,13 +514,6 @@
                 <div class="font-bold text-slate-100">Inspector A. Yadav</div>
                 <div class="text-[10px] text-slate-400 font-mono">Lead Examiner &bull; PS Cyber Crime</div>
               </div>
-              <button onclick="toggleTheme()" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-[#161F33] text-slate-300 transition">
-                <span class="flex items-center gap-2">
-                  <i data-lucide="sun-moon" class="w-3.5 h-3.5 text-amber-400"></i>
-                  <span>Toggle Theme</span>
-                </span>
-                <span class="theme-toggle-label text-[10px] font-mono text-slate-400">Dark</span>
-              </button>
               <button onclick="hapticEngine.toggle()" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-[#161F33] text-slate-300 transition">
                 <span class="flex items-center gap-2">
                   <i data-lucide="volume-2" class="w-3.5 h-3.5 text-blue-400"></i>
