@@ -521,6 +521,7 @@ function renderEvidenceTable() {
       </div>
     `;
   }).join('');
+  renderCertScheduleTable();
   if (window.lucide) lucide.createIcons();
 }
 
@@ -732,7 +733,7 @@ function renderInconsistencyRadar() {
 
   if (allInconsistencies.length === 0) {
     container.innerHTML = `
-      <div class="p-6 text-center border border-dashed border-[#222E44] rounded-xl text-xs text-slate-400 bg-[#0E1422]">
+      <div class="temporal-empty-banner p-6 text-center border border-dashed rounded-xl text-xs">
         Zero temporal anomalies flagged. All evidence events align within Allen partial order algebra bounds.
       </div>
     `;
@@ -849,7 +850,7 @@ function renderMLAnomalies() {
 
   if (allMLAnomalies.length === 0) {
     container.innerHTML = `
-      <div class="p-6 text-center border border-dashed border-[#222E44] rounded-xl text-xs text-slate-400 bg-[#0E1422]">
+      <div class="temporal-empty-banner p-6 text-center border border-dashed rounded-xl text-xs">
         No server telemetry logs ingested yet. Upload an access log or load sample case to run Isolation Forest analysis.
       </div>
     `;
@@ -1537,26 +1538,26 @@ function copyCertificateCSV() {
   copyToClipboard(csv, "Section 63(4) Schedule CSV copied to clipboard");
 }
 
-// Matches Screenshot 1 & 4
+function renderCertScheduleTable() {
+  const tableBody = document.getElementById('cert-schedule-table-body');
+  if (!tableBody) return;
+  tableBody.innerHTML = allEvidenceItems.map((ex, idx) => `
+    <tr class="border-b transition text-xs font-mono">
+      <td class="py-2.5 px-3 text-center opacity-70">${idx + 1}</td>
+      <td class="py-2.5 px-3 font-semibold text-blue-500">${escapeHTML(ex.id)}</td>
+      <td class="py-2.5 px-3 font-medium">${escapeHTML(ex.filename)}</td>
+      <td class="py-2.5 px-3 opacity-80">${escapeHTML(ex.file_type)}</td>
+      <td class="py-2.5 px-3 opacity-80">${ex.size_bytes} B</td>
+      <td class="py-2.5 px-3 text-[11px] break-all select-all font-mono opacity-90">${escapeHTML(ex.sha256)}</td>
+    </tr>
+  `).join('');
+}
+
 function openCertificateModal() {
   hapticEngine.playWhoosh();
   const modal = document.getElementById('cert-modal');
-  const tableBody = document.getElementById('cert-schedule-table-body');
-
   syncCertificateFields();
-
-  if (tableBody) {
-    tableBody.innerHTML = allEvidenceItems.map((ex, idx) => `
-      <tr class="border-b border-[#E8E5DF] text-xs font-mono">
-        <td class="py-2.5 px-3 text-center text-[#57534E]">${idx + 1}</td>
-        <td class="py-2.5 px-3 font-semibold text-[#181716]">${ex.id}</td>
-        <td class="py-2.5 px-3 text-[#2B2825]">${ex.filename}</td>
-        <td class="py-2.5 px-3 text-[#57534E]">${ex.file_type}</td>
-        <td class="py-2.5 px-3 text-[#57534E]">${ex.size_bytes} B</td>
-        <td class="py-2.5 px-3 text-[11px] text-[#181716] break-all select-all font-mono">${ex.sha256}</td>
-      </tr>
-    `).join('');
-  }
+  renderCertScheduleTable();
 
   if (modal) {
     modal.classList.remove('hidden');

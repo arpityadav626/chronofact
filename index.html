@@ -39,9 +39,9 @@
   </script>
 
   <!-- Primary Stylesheet with Cache-Buster -->
-  <link rel="stylesheet" href="styles.css?v=20261011_pure_theme_v3" onerror="this.onerror=null;this.href='/static/styles.css?v=20261011_pure_theme_v3'">
+  <link rel="stylesheet" href="styles.css?v=20261011_pure_theme_v4" onerror="this.onerror=null;this.href='/static/styles.css?v=20261011_pure_theme_v4'">
 
-  <!-- Critical Theme Rules (Prevents Stale Browser Cache from Ever Showing White Cards) -->
+  <!-- Critical Theme Rules (Prevents Stale Browser Cache from Showing Broken Light/Dark Themes) -->
   <style>
     :root, [data-theme="dark"] {
       --bg-canvas: #0B0F17 !important;
@@ -66,6 +66,7 @@
       --border-hairline: #D5D1C6 !important;
       --text-primary: #0F172A !important;
       --text-secondary: #475569 !important;
+      color-scheme: light;
     }
     body {
       background-color: var(--bg-canvas) !important;
@@ -90,6 +91,7 @@
     .evidence-card-row {
       background-color: var(--bg-inset) !important;
       border: 1px solid var(--border-subtle) !important;
+      color: var(--text-primary) !important;
     }
     .btn-editorial-secondary {
       background-color: var(--bg-card) !important;
@@ -99,6 +101,139 @@
     .hero-qa-card {
       background-color: var(--bg-card) !important;
       border: 1px solid var(--border-subtle) !important;
+    }
+    .temporal-empty-banner {
+      background-color: var(--bg-inset) !important;
+      border-color: var(--border-hairline) !important;
+      color: var(--text-secondary) !important;
+    }
+
+    /* Light Theme Hard-Lock Overrides for Embedded Dark Utilities */
+    [data-theme="light"] .bg-\[\#0B0F17\],
+    [data-theme="light"] .bg-\[\#0D121F\],
+    [data-theme="light"] .bg-\[\#101625\],
+    [data-theme="light"] .bg-\[\#111726\],
+    [data-theme="light"] .bg-\[\#121826\],
+    [data-theme="light"] .bg-\[\#141B2B\],
+    [data-theme="light"] .bg-\[\#161F33\],
+    [data-theme="light"] .bg-\[\#0E1422\],
+    [data-theme="light"] .bg-\[\#0E1424\],
+    [data-theme="light"] .bg-\[\#0E1524\],
+    [data-theme="light"] .bg-\[\#0A0E18\],
+    [data-theme="light"] .bg-\[\#080C14\],
+    [data-theme="light"] .bg-\[\#182338\],
+    [data-theme="light"] .bg-\[\#1C2538\],
+    [data-theme="light"] .bg-\[\#0F1626\],
+    [data-theme="light"] .bg-\[\#111724\],
+    [data-theme="light"] .bg-\[\#172033\],
+    [data-theme="light"] .bg-\[\#121824\],
+    [data-theme="light"] .bg-\[\#1C253B\],
+    [data-theme="light"] .bg-\[\#181716\],
+    [data-theme="light"] .bg-slate-800,
+    [data-theme="light"] .bg-slate-900,
+    [data-theme="light"] .bg-slate-950 {
+      background-color: var(--bg-inset) !important;
+      border-color: var(--border-subtle) !important;
+      color: var(--text-primary) !important;
+    }
+    [data-theme="light"] .border-\[\#1E283E\],
+    [data-theme="light"] .border-\[\#1B2336\],
+    [data-theme="light"] .border-\[\#1A2336\],
+    [data-theme="light"] .border-\[\#222E44\],
+    [data-theme="light"] .border-\[\#232F46\],
+    [data-theme="light"] .border-\[\#222E46\],
+    [data-theme="light"] .border-\[\#2B3956\],
+    [data-theme="light"] .border-\[\#23314E\],
+    [data-theme="light"] .border-\[\#1E293E\],
+    [data-theme="light"] .border-\[\#2E3D5C\],
+    [data-theme="light"] .border-slate-800,
+    [data-theme="light"] .border-slate-700 {
+      border-color: var(--border-subtle) !important;
+    }
+    [data-theme="light"] .text-white,
+    [data-theme="light"] .text-slate-100,
+    [data-theme="light"] .text-slate-200 {
+      color: var(--text-primary) !important;
+    }
+    [data-theme="light"] .text-slate-300,
+    [data-theme="light"] .text-slate-400 {
+      color: var(--text-secondary) !important;
+    }
+    [data-theme="light"] input,
+    [data-theme="light"] select,
+    [data-theme="light"] textarea {
+      background-color: #FFFFFF !important;
+      color: #0F172A !important;
+      border-color: var(--border-subtle) !important;
+    }
+    [data-theme="light"] .stat-kpi-card.bg-emerald-950\/20 {
+      background-color: #ECFDF5 !important;
+      border-color: #A7F3D0 !important;
+    }
+    [data-theme="light"] .stat-kpi-card.bg-emerald-950\/20 .text-emerald-400 {
+      color: #047857 !important;
+    }
+    [data-theme="light"] .stat-kpi-card.bg-blue-950\/20 {
+      background-color: #EFF6FF !important;
+      border-color: #BFDBFE !important;
+    }
+    [data-theme="light"] .stat-kpi-card.bg-blue-950\/20 .text-blue-400 {
+      color: #1D4ED8 !important;
+    }
+    [data-theme="light"] .stat-kpi-card.bg-rose-950\/25 {
+      background-color: #FEF2F2 !important;
+      border-color: #FECACA !important;
+    }
+    [data-theme="light"] .stat-kpi-card.bg-rose-950\/25 .text-rose-400 {
+      color: #B91C1C !important;
+    }
+    [data-theme="light"] .stat-kpi-card.bg-amber-950\/20 {
+      background-color: #FFFBEB !important;
+      border-color: #FDE68A !important;
+    }
+    [data-theme="light"] .stat-kpi-card.bg-amber-950\/20 .text-amber-400 {
+      color: #B45309 !important;
+    }
+    [data-theme="light"] header .rounded-full.bg-emerald-950\/40,
+    [data-theme="light"] #header-vault-status-pill {
+      background-color: #ECFDF5 !important;
+      border-color: #A7F3D0 !important;
+      color: #047857 !important;
+    }
+    [data-theme="light"] header .rounded-full.bg-emerald-950\/40 strong {
+      color: #064E3B !important;
+    }
+    [data-theme="light"] header button:not(.btn-editorial-primary),
+    [data-theme="light"] #workbench-sidebar button:not(.btn-editorial-primary) {
+      background-color: #FFFFFF !important;
+      border-color: var(--border-subtle) !important;
+      color: var(--text-primary) !important;
+    }
+    [data-theme="light"] .audit-chain-box {
+      background-color: #ECFDF5 !important;
+      border-color: #A7F3D0 !important;
+    }
+    [data-theme="light"] .audit-chain-box .text-emerald-400 {
+      color: #047857 !important;
+    }
+    [data-theme="light"] .audit-chain-box .text-slate-400 {
+      color: #065F46 !important;
+    }
+    [data-theme="light"] .audit-chain-box .text-slate-200 {
+      color: #064E3B !important;
+    }
+    [data-theme="light"] .schedule-table-wrap {
+      background-color: #FFFFFF !important;
+      border-color: var(--border-subtle) !important;
+    }
+    [data-theme="light"] .schedule-table-wrap table thead tr {
+      background-color: #F4F2EC !important;
+      color: #475569 !important;
+    }
+    [data-theme="light"] #cert-schedule-table-body tr {
+      background-color: #FFFFFF !important;
+      color: #0F172A !important;
+      border-color: #E2DFD7 !important;
     }
   </style>
 </head>
@@ -130,7 +265,7 @@
         </div>
 
         <!-- Active Case Context Card -->
-        <div class="p-3.5 rounded-xl bg-[#111726] border border-[#1E283E] space-y-2">
+        <div class="sidebar-case-card p-3.5 rounded-xl bg-[#111726] border border-[#1E283E] space-y-2">
           <div class="flex items-center justify-between text-[10px] font-mono uppercase text-slate-400 tracking-wider">
             <span>ACTIVE CASE FILE</span>
             <span class="text-emerald-400 flex items-center gap-1">
@@ -818,7 +953,7 @@
               <span class="font-mono text-[10px] text-slate-400">SECTION 63(4) PART B SCHEDULE</span>
             </div>
 
-            <div class="rounded-xl border border-[#1E283E] overflow-x-auto bg-[#0E1422]">
+            <div class="schedule-table-wrap rounded-xl border border-[#1E283E] overflow-x-auto bg-[#0E1422]">
               <table class="w-full text-left border-collapse text-xs">
                 <thead>
                   <tr class="border-b border-[#1E283E] text-[10px] font-mono uppercase text-slate-400 bg-[#0B0F17]">
@@ -838,7 +973,7 @@
           </div>
 
           <!-- Audit Chain Integrity Box -->
-          <div class="p-3.5 rounded-xl bg-[#0E1422] border border-[#1E283E] text-xs font-mono space-y-1">
+          <div class="audit-chain-box p-3.5 rounded-xl bg-[#0E1422] border border-[#1E283E] text-xs font-mono space-y-1">
             <div class="text-emerald-400 flex items-center gap-1.5 font-medium">
               <i data-lucide="check-circle" class="w-4 h-4"></i>
               <span>Audit Chain Integrity: 4 sequential tamper-evident ledger blocks confirmed unbroken.</span>
@@ -1495,7 +1630,7 @@
 
 
   <!-- Main Application Logic Script (with Cache-Buster) -->
-  <script src="app.js?v=20261011_pure_theme_v3" onerror="this.onerror=null;this.src='/static/app.js?v=20261011_pure_theme_v3'"></script>
+  <script src="app.js?v=20261011_pure_theme_v4" onerror="this.onerror=null;this.src='/static/app.js?v=20261011_pure_theme_v4'"></script>
 
 </body>
 </html>
