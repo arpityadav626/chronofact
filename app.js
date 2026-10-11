@@ -2061,14 +2061,35 @@ function updateOfficerProfile(name = "Inspector Arpit Yadav", initials = "AY") {
   const menuBtn = document.getElementById('officer-menu-btn');
   if (menuBtn) {
     const avatar = menuBtn.querySelector('.rounded-full');
-    const label = menuBtn.querySelector('.font-medium');
+    const label = menuBtn.querySelector('.officer-label') || menuBtn.querySelector('.font-medium');
     if (avatar) avatar.textContent = initials;
-    if (label) label.textContent = name;
+    if (label) label.textContent = (initials === "AY" || name.includes("Arpit")) ? "Insp. Arpit" : name;
   }
   const dropdownName = document.querySelector('#officer-dropdown-menu .font-bold');
   if (dropdownName) dropdownName.textContent = name;
   const certSig = document.getElementById('cert-sig-officer');
   if (certSig) certSig.textContent = name;
+}
+
+function updateHeaderSoundIcon() {
+  const icon = document.getElementById('header-audio-icon');
+  const label = document.getElementById('officer-sound-label');
+  const isMuted = (typeof hapticEngine !== 'undefined' && hapticEngine.muted);
+  if (icon) {
+    if (isMuted) {
+      icon.setAttribute('data-lucide', 'volume-x');
+      icon.classList.remove('text-[#006B5F]');
+      icon.classList.add('text-slate-400');
+    } else {
+      icon.setAttribute('data-lucide', 'volume-2');
+      icon.classList.remove('text-slate-400');
+      icon.classList.add('text-[#006B5F]');
+    }
+  }
+  if (label) {
+    label.textContent = isMuted ? "OFF" : "ON";
+  }
+  if (window.lucide) lucide.createIcons();
 }
 
 // Master Lifecycle Initializer

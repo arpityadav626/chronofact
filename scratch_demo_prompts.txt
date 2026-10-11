@@ -1,0 +1,259 @@
+Bhai, ye lo **ultra-detailed, Hollywood-grade production script & AI video prompts**! Har ek 15-second chunk ko camera movement, exact second-by-second cursor actions, word-for-word voiceover, on-screen text overlays, sound effects (SFX), aur AI video tools (Runway Gen-3 / Kling / Sora / CapCut) ke exact prompts ke sath design kiya hai.
+
+---
+
+### 📂 CASE SCENARIO BRIEFING (Before You Shoot)
+* **Title:** *State of NCT of Delhi v. Vikram Malhotra & Ors.* (FIR No. 204/2026, PS Cyber Crime)
+* **Crime:** Corporate financial espionage & patent theft before market hours.
+* **The Alibi (The Lie):** Suspect WhatsApp par bolta hai: *"Sir, I am suffering from high fever, I am asleep in bed and completely offline since 15:25 IST."*
+* **The Forensic Truth:** 15:28 IST par Vikram ke dedicated IP `192.168.1.105` se confidential financial files export hoti hain aur 15:30 IST par protonmail par leak hoti hain.
+* **The Solution:** **ChronoFact 2.0** — India’s first AI Forensic Workbench under Bharatiya Sakshya Adhiniyam, 2023 §63(4).
+
+---
+
+## 🎬 CLIP 1 (0:00 – 0:15) | The Crisis: Digital Evidence Inadmissibility
+
+### 1. Camera & Visual Direction
+* **Framing:** Macro close-up (4K resolution, 60fps) starting on the top-left **Ashoka Chakra National Emblem** SVG aur **"CHRONOFACT • विधि विज्ञान कार्यपीठ"** branding.
+* **Lighting/Aesthetic:** Pure editorial judicial light theme (`#F8F7F4`), sharp contrast, no dark mode artifacts.
+* **Camera Movement:** Slow cinematic pull-back (zoom out) from the emblem to reveal the full top header: `State v. Vikram Malhotra • FIR No. 204/2026` aur right status pill `[🔒 Vault Sealed • 3 Exhibits]`.
+
+### 2. Second-by-Second Action Choreography
+* **0:00 – 0:04:** Camera focused on Ashoka Chakra emblem aur title header.
+* **0:05 – 0:09:** Cursor smoothly glides across the header, hovering briefly on the green `[🔒 Vault Sealed • 3 Exhibits]` pill.
+* **0:10 – 0:15:** Cursor moves down to the case title: *State of NCT of Delhi v. Vikram Malhotra*. Red alert badge appears on screen overlay.
+
+### 3. Voiceover Script (Word-for-Word, 32 Words — 14.2 Seconds)
+> **[Serious, authoritative tone]**  
+> *"Under the new Bharatiya Sakshya Adhiniyam 2023, seventy percent of cyber evidence gets challenged in Indian courts due to broken custody and fabricated alibis. Judges demand mathematical proof, not raw logs."*
+
+### 4. On-Screen Graphics & Captions
+* **Lower-Third Text:** `LEGAL STATUTE: BHARATIYA SAKSHYA ADHINIYAM, 2023 §63(4)`
+* **Callout Tag:** `CRISIS: 70% Digital Evidence Fails Chain-of-Custody Scrutiny`
+
+### 5. Sound Design (SFX)
+* `[0:01]` Deep bass cinematic thud / gavel strike.
+* `[0:06]` Soft tactile acoustic tick as cursor touches the Vault Sealed pill.
+
+### 6. AI Video Generator Prompt (Runway Gen-3 / Kling / Sora)
+> `4K photorealistic UI screen recording, pristine light mode editorial judicial software, white canvas (#F8F7F4), Government of India Ashoka Chakra golden-navy emblem macro zoom out to top navigation header, crisp slate black Inter font typography, subtle UI hover micro-animation, high-end government forensic workbench interface, 60fps, studio depth of field.`
+
+---
+
+## 🎬 CLIP 2 (0:15 – 0:30) | Case Health at a Glance (The 5 Executive KPIs)
+
+### 1. Camera & Visual Direction
+* **Framing:** Medium shot centered on **Zone 1: Case Overview** dashboard.
+* **Camera Movement:** Smooth diagonal pan from left to right across the **5 Executive KPI Cards** with large 40px numbers.
+
+### 2. Second-by-Second Action Choreography
+* **0:15 – 0:18:** Cursor lands on KPI Card 1: `3 Ingested Exhibits` (Green `#ECFDF5`).
+* **0:19 – 0:22:** Cursor slides to KPI Card 2: `5 Causal Events` (Blue `#EFF6FF`).
+* **0:23 – 0:26:** Cursor stops abruptly on KPI Card 3: `1 Inconsistencies` (Bright Red `#FEF2F2` with alert triangle: *"Alibi Contradiction Found"*).
+* **0:27 – 0:30:** Quick hover over the Master Merkle Root summary card showing SHA-256 hash `90ebf0e...2fd290c`.
+
+### 3. Voiceover Script (Word-for-Word, 34 Words — 14.5 Seconds)
+> **[Dynamic, tech-confident tone]**  
+> *"Enter ChronoFact — Cellebrite meets Palantir for law enforcement. Instantly, the Case Health dashboard summarizes three seized exhibits, five causal events, and immediately flags one severe temporal alibi contradiction."*
+
+### 4. On-Screen Graphics & Captions
+* **Badge Overlay:** `INSTANT STATUS READ: 1 ALIBI CONTRADICTION FLAGGED`
+* **Metric Callout:** `MASTER MERKLE ROOT: 90ebf0e5...2fd290c (NIST FIPS 180-4)`
+
+### 5. Sound Design (SFX)
+* `[0:23]` Subtle warning chime when red inconsistency card is highlighted.
+* `[0:27]` Clean paper-flip sound as Merkle Root card receives focus.
+
+### 6. AI Video Generator Prompt
+> `Screen capture of a clean modern government intelligence software dashboard in pure light mode, five elevated KPI stat cards with bold 40px numbers in green, blue, and red semantic pastel containers, smooth mouse cursor tracking across cards, high-contrast dark navy text (#0F172A) on white cards, ultra-crisp vector icons, 4K.`
+
+---
+
+## 🎬 CLIP 3 (0:30 – 0:45) | Evidence Vault & Cellebrite Hybrid Card-Rows
+
+### 1. Camera & Visual Direction
+* **Framing:** Left sidebar navigation to **Evidence Vault** main pane transition.
+* **Camera Movement:** Click on sidebar item `साक्ष्य भंडार (Evidence Vault)`, instant smooth tab swap into the Cellebrite card-row list.
+
+### 2. Second-by-Second Action Choreography
+* **0:30 – 0:33:** Mouse clicks **Evidence Vault** on sidebar; page instantly swaps without scrolling.
+* **0:34 – 0:38:** Camera zooms into the 3 card-rows (`EV-25C119 server_access.csv`, `EV-C4D948 whatsapp_chat.txt`, `EV-8BF745 confidential_leak.eml`).
+* **0:39 – 0:42:** Cursor clicks the **SHA-256 Copy Pill** on `EV-25C119`. A clean toast notification pops up: *"NIST SHA-256 hash copied"*.
+* **0:43 – 0:45:** Cursor hovers on the top-right button: `+ Upload Another Exhibit`.
+
+### 3. Voiceover Script (Word-for-Word, 33 Words — 14.0 Seconds)
+> **[Analytical, authoritative tone]**  
+> *"Inside the Evidence Vault, exhibits are presented as Cellebrite Reader card-rows. Every seized artifact is sealed with NIST dual hashing, displaying verifiable custody metadata, acquisition tools, and instant copyable bitstream hashes."*
+
+### 4. On-Screen Graphics & Captions
+* **Pill Overlay:** `DUAL HASH SEALS: SHA-256 + SHA3-256 (0-BYTE SKEW)`
+* **Examiner Tag:** `CUSTODIAN: Insp. A. Yadav (PS Cyber Crime)`
+
+### 5. Sound Design (SFX)
+* `[0:31]` Tactical UI click sound on sidebar button.
+* `[0:40]` Harmonic crystalline chime (`660Hz`) upon copying SHA-256 digest.
+
+### 6. AI Video Generator Prompt
+> `Modern judicial desktop software evidence management screen, white theme, elevated hybrid card rows with green security lock icons, monospace cryptographic hash pills, mouse click triggers green toast notification at bottom right, Cellebrite Reader aesthetic combined with Apple UI minimalism, 4K resolution.`
+
+---
+
+## 🎬 CLIP 4 (0:45 – 1:00) | Causal Timeline & The Alibi Clash (Inconsistency Radar)
+
+### 1. Camera & Visual Direction
+* **Framing:** Split focus on **Reconstructed Event Timeline** and the **Inconsistency Radar** container.
+* **Camera Movement:** Cursor navigates from the clock calibration toggle (`NTP Calibrated IST`) down to the red Inconsistency Card.
+
+### 2. Second-by-Second Action Choreography
+* **0:45 – 0:48:** Click **Event Timeline** on sidebar. Cursor toggles clock between NTP (IST) and Raw Device (UTC).
+* **0:49 – 0:54:** Camera zooms into **INC-001 Card**: Red border, alert icon. Shows Suspect Statement vs System Reality collision.
+* **0:55 – 0:58:** Screen highlights the conflict: *Statement: "Asleep with high fever from 15:25 IST"* vs *Server Log: "Session LOGIN OK, File Export Active at 15:28 IST"*.
+* **0:59 – 1:00:** Discrepancy badge pulses: `Concurrent Conflict (+5h 28m Skew)`.
+
+### 3. Voiceover Script (Word-for-Word, 35 Words — 14.8 Seconds)
+> **[Dramatic, investigative reveal tone]**  
+> *"The Timeline engine uses Allen’s Interval Algebra to reconstruct objective truth. The Inconsistency Radar catches the suspect red-handed: while Vikram claimed he was incapacitated asleep with fever, server telemetry logs prove concurrent file exfiltration!"*
+
+### 4. On-Screen Graphics & Captions
+* **Banner Alert:** `INCONSISTENCY RADAR: ALIBI DIRECTLY REFUTED BY WORKSTATION LOGS`
+* **Timeline Anchor:** `FACT-001 (SERVER LOG) vs FACT-002 (WHATSAPP ALIBI)`
+
+### 5. Sound Design (SFX)
+* `[0:48]` Clock tick sound during NTP calibration toggle.
+* `[0:53]` Low-frequency radar ping as the conflict box highlights.
+
+### 6. AI Video Generator Prompt
+> `High-contrast timeline interface in government forensic application, vertical chronologic event nodes, alert box flashing crimson red (#DC2626) showing contradiction between WhatsApp chat excerpt and server authentication timestamp, data visualization graph, clean light palette, 4K.`
+
+---
+
+## 🎬 CLIP 5 (1:00 – 1:15) | Telemetry ML Radar: Unsupervised Isolation Forest
+
+### 1. Camera & Visual Direction
+* **Framing:** Centered on the **Telemetry ML Radar** section inside AI Analysis.
+* **Camera Movement:** Close-up on the purple button `Run Isolation Forest Analysis`, followed by an animated expansion of anomaly decision factor pills.
+
+### 2. Second-by-Second Action Choreography
+* **1:00 – 1:03:** Show the clean state banner: *"Telemetry ML Radar Awaiting Execution"*.
+* **1:04 – 1:06:** Cursor clicks the primary button: `Run Isolation Forest Analysis`.
+* **1:07 – 1:11:** Loading spinner flashes, then an elevated card appears with **"Outlier Score: 87%"** (Rose `#FEF2F2`).
+* **1:12 – 1:15:** Cursor hovers over decision factor pills: *Out-of-band byte magnitude (+4.2σ)* and *Privileged exfiltration during declared alibi*.
+
+### 3. Voiceover Script (Word-for-Word, 33 Words — 14.2 Seconds)
+> **[Cutting-edge tech tone]**  
+> *"Next, the Unsupervised Machine Learning Radar. With zero manual rules, the Isolation Forest model scans ingested telemetry, calculating an eighty-seven percent anomaly score for abnormal off-hours exfiltration and unauthorized external ProtonMail routing."*
+
+### 4. On-Screen Graphics & Captions
+* **ML Model Badge:** `ALGORITHM: ISOLATION FOREST (n_estimators=100, contamination=0.15)`
+* **Telemetry Score:** `OUTLIER SCORE: 87% (HIGH ANOMALOUS RISK)`
+
+### 5. Sound Design (SFX)
+* `[1:05]` Tactile click on button.
+* `[1:08]` Subtle futuristic data-crunching swoosh.
+* `[1:11]` Confirmatory haptic chime.
+
+### 6. AI Video Generator Prompt
+> `Modern enterprise cybersecurity dashboard, clicking a primary blue button executes machine learning analysis, animated transition revealing an 87% outlier anomaly score badge, code snippet of access log with highlighted factor tags, light editorial UI theme, high fidelity.`
+
+---
+
+## 🎬 CLIP 6 (1:15 – 1:30) | Grounded AI Q&A: The Zero-Hallucination Hero
+
+### 1. Camera & Visual Direction
+* **Framing:** Centered on the **Perplexity-Style Grounded Evidence Q&A** panel.
+* **Camera Movement:** Smooth zoom into the search bar, text types out, answer expands, and cursor clicks a citation chip to open the byte inspector modal.
+
+### 2. Second-by-Second Action Choreography
+* **1:15 – 1:18:** Natural language question appears in input: *"Did Vikram access company servers during his claimed medical alibi window?"* Click `Verify & Ground`.
+* **1:19 – 1:23:** Emerald card animates: `100% BYTE-GROUNDED FORENSIC VERDICT` with badge `BSA §63(4) Gate: Admissible`.
+* **1:24 – 1:27:** Zoom into Perplexity citation chip: `[¹ EV-25C119, Row 1]`. Cursor clicks the chip.
+* **1:28 – 1:30:** **Citation Inspector Modal** pops up displaying the exact physical byte row from the seized CSV file!
+
+### 3. Voiceover Script (Word-for-Word, 34 Words — 14.5 Seconds)
+> **[Confident, pitch-winning hero tone]**  
+> *"Our hero differentiator: Perplexity-style Grounded AI Q&A. Every single factual claim is mechanically locked to exact byte anchors. Click any citation chip to inspect the physical seized record at byte-level precision — zero hallucination guaranteed."*
+
+### 4. On-Screen Graphics & Captions
+* **Statutory Compliance:** `ZERO-HALLUCINATION POLICY: MANDATORY BSA 2023 §63(4) GROUNDING GATE`
+* **Interactive Chip:** `CITED ANCHOR [¹]: EV-25C119 (ROW 1, BYTE OFFSET 0x00A4)`
+
+### 5. Sound Design (SFX)
+* `[1:18]` Gentle whoosh as query submits.
+* `[1:22]` Dual-frequency verified bell sound.
+* `[1:27]` Modal pop-in crisp paper sound.
+
+### 6. AI Video Generator Prompt
+> `Perplexity AI-style search interface inside a legal forensic application, typing natural language inquiry, green verified verdict card surfaces with source citation chips [1] and [2], mouse clicks citation chip opening a sleek modal showing verbatim source code highlight, 4K crisp light interface.`
+
+---
+
+## 🎬 CLIP 7 (1:30 – 1:45) | Mathematical Admissibility: Merkle Tree & Hex Auditor
+
+### 1. Camera & Visual Direction
+* **Framing:** Quick two-part visual: First, the **Merkle Tree Modal**, followed by the **Hex Bitstream Inspector Modal**.
+* **Camera Movement:** Quick pop-in modal of tree structure, then switch to a 16-column raw hex bitstream table.
+
+### 2. Second-by-Second Action Choreography
+* **1:30 – 1:37:** Click `Audit Merkle Tree`. Modal opens showing root `90ebf0e...` with cryptographic inclusion paths for each exhibit leaf.
+* **1:38 – 1:45:** Close Merkle modal, click `Hex` button on `confidential_leak.eml`. Clean monospace hex viewer appears with memory offsets (`00000000`), hex bytes, and ASCII plaintext preview.
+
+### 3. Voiceover Script (Word-for-Word, 32 Words — 14.0 Seconds)
+> **[Deeply technical, defense-proof tone]**  
+> *"When opposing defense attorneys challenge integrity, ChronoFact provides a deterministic Merkle Provenance Tree and live Hex Bitstream inspection. You mathematically prove that not a single byte changed since police seizure."*
+
+### 4. On-Screen Graphics & Captions
+* **Mathematical Proof:** `DETERMINISTIC MERKLE PROVENANCE: ORDER-INVARIANT CRYPTOGRAPHY`
+* **Bitstream Integrity:** `HEX INSPECTOR: 100% BIT-PERFECT BITSTREAM RECOVERY`
+
+### 5. Sound Design (SFX)
+* `[1:32]` Gentle cryptographic lock sound.
+* `[1:39]` Subtle computer terminal click as hex columns populate.
+
+### 6. AI Video Generator Prompt
+> `Cryptographic Merkle tree provenance diagram modal popping up with green verified nodes, transitioning to a high-contrast clean white hex editor viewing 16-byte hex dump and ASCII columns, JetBrains Mono font, forensic software authenticity, 4K.`
+
+---
+
+## 🎬 CLIP 8 (1:45 – 2:00) | Court Admissibility: BSA §63(4) Certificate & Outro
+
+### 1. Camera & Visual Direction
+* **Framing:** Transition to **Export / BSA Cert** tab, ending with the official Government Court Certificate A4 print layout and Dossier download.
+* **Camera Movement:** Slow zoom-in on the official legal certificate table (Part A & Part B), ending with cursor clicking `Print Certificate` and a final logo lockup.
+
+### 2. Second-by-Second Action Choreography
+* **1:45 – 1:49:** Switch to **Export / BSA Cert** tab. Show the formal court schedule with Ashoka Chakra emblem: *Schedule Part A (Custodian) & Part B (Technical Examiner)*.
+* **1:50 – 1:53:** Cursor clicks `Print Certificate`. Clean print-ready A4 document preview shows up with legal declarations and signature lines.
+* **1:54 – 1:57:** Cursor clicks `Export Dossier (ZIP)`. Green progress bar generates court-ready ZIP package.
+* **1:58 – 2:00:** Final centered logo lockup: **CHRONOFACT 2.0 • Digital Forensics for Indian Law Enforcement**.
+
+### 3. Voiceover Script (Word-for-Word, 34 Words — 14.6 Seconds)
+> **[Triumphant, hackathon-winning pitch finale]**  
+> *"Finally, one click generates the official Section 63(4) Certificate and Court Evidence Dossier. Hours of painful log analysis turned into an airtight conviction in seconds. ChronoFact: Truth, Grounded in Bytes."*
+
+### 4. On-Screen Graphics & Captions
+* **Statutory Form:** `OFFICIAL SCHEDULE: BSA 2023 §63(4) COURT CERTIFICATE READY`
+* **Final Tagline:** `CHRONOFACT — TRUTH, GROUNDED IN BYTES.`
+
+### 5. Sound Design (SFX)
+* `[1:50]` Crisp mechanical printer sound / seal stamp sound.
+* `[1:58]` Inspiring cinematic orchestral rise and final clean branding chime.
+
+### 6. AI Video Generator Prompt
+> `Print-ready formal Government legal certificate on high-contrast white A4 paper format with Ashoka Chakra seal, signed court affidavit schedule, transition to bold minimalist logo CHRONOFACT in royal navy and gold, professional commercial outro, 4K studio render.`
+
+---
+
+### 🛠️ Production Master Checklist
+
+| Clip | Duration | Screen Location | Core Message |
+|:---:|:---:|:---|:---|
+| **Clip 1** | `0:00 - 0:15` | Header & Case Context | BSA 2023 §63(4) Digital evidence crisis |
+| **Clip 2** | `0:15 - 0:30` | Case Overview (5 KPIs) | Instant Case Health at a glance |
+| **Clip 3** | `0:30 - 0:45` | Evidence Vault | Cellebrite card-rows + Dual FIPS hashes |
+| **Clip 4** | `0:45 - 1:00` | Timeline & Inconsistency Radar | Catching the suspect's WhatsApp alibi lie |
+| **Clip 5** | `1:00 - 1:15` | Telemetry ML Radar | Isolation Forest unsupervised outlier model |
+| **Clip 6** | `1:15 - 1:30` | Grounded AI Q&A | Perplexity citations + Physical byte inspection |
+| **Clip 7** | `1:30 - 1:45` | Merkle Tree & Hex Inspector | Proving zero tampering to defense attorneys |
+| **Clip 8** | `1:45 - 2:00` | Export Section 63(4) Cert | Court-admissible certificate & ZIP dossier |
+
+Ye 8 clips record karke merge kar lijiye — aapka demo video judges ko impress karne ke liye 100% bulletproof hoga!

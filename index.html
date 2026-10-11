@@ -481,20 +481,21 @@
     <!-- ========================================================================= -->
     <div id="workbench-scroll-area" class="flex-1 flex flex-col h-screen overflow-y-auto min-w-0 bg-[#0B0F17]">
       
-      <!-- 60px Fixed Header with Strict Judicial Hierarchy (Emergency Mitra Aesthetic) -->
-      <header class="sticky top-0 z-30 w-full h-15 bg-white border-b border-[#DCE3DF] px-5 lg:px-8 flex items-center justify-between gap-4 shadow-xs">
+      <!-- De-Cluttered Precision Header (Symbols & Minimalist Semantics) -->
+      <header class="sticky top-0 z-30 w-full h-14 bg-white border-b border-[#DCE3DF] px-4 sm:px-6 flex items-center justify-between gap-3 shadow-xs select-none">
         
-        <!-- Left: Ashoka Chakra Emblem + Brand + Bilingual Ministry Label -->
-        <div class="flex items-center gap-3 shrink-0">
+        <!-- Left: Ashoka Chakra Emblem + Brand + BSA Badge -->
+        <div class="flex items-center gap-2.5 shrink-0">
           <button 
             onclick="toggleSidebarMobile()" 
-            class="lg:hidden p-1.5 rounded-lg bg-white border border-[#BEC9C5] text-[#131B2E]"
+            class="lg:hidden p-1.5 rounded-lg bg-white border border-[#BEC9C5] text-[#131B2E] hover:bg-slate-50 transition"
+            title="Toggle Menu"
           >
             <i data-lucide="menu" class="w-4 h-4"></i>
           </button>
 
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-xl bg-[#00453D] text-[#71F8E4] border border-[#005A50] flex items-center justify-center p-1.5 shadow-xs">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-[#00453D] text-[#71F8E4] border border-[#005A50] flex items-center justify-center p-1.5 shadow-2xs shrink-0">
               <svg viewBox="0 0 100 100" class="w-full h-full" fill="currentColor">
                 <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="4"/>
                 <circle cx="50" cy="50" r="8" fill="currentColor"/>
@@ -514,68 +515,72 @@
                 </g>
               </svg>
             </div>
-            <div>
-              <div class="flex items-center gap-1.5">
-                <span class="font-display font-bold text-sm tracking-tight text-[#00453D]">CHRONOFACT</span>
-                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#E6F4F1] text-[#00453D] border border-[#A7F3D0] font-bold">BSA 2023 §63(4)</span>
-              </div>
-              <p class="text-[10px] text-[#5E6C68] leading-none" data-i18n-en="Digital Forensic Workbench • DFSS Standard" data-i18n-hi="डिजिटल फॉरेंसिक कार्यपीठ • भारतीय साक्ष्य">Digital Forensic Workbench • DFSS Standard</p>
+            <div class="flex items-center gap-1.5 whitespace-nowrap">
+              <span class="font-display font-black text-sm tracking-tight text-[#00453D]">CHRONOFACT</span>
+              <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#E6F4F1] text-[#00453D] border border-[#A7F3D0] font-bold">§63(4)</span>
             </div>
           </div>
         </div>
 
-        <!-- Center: Active Case Context (Muted, Authoritative) -->
-        <div class="hidden md:flex items-center gap-2 text-xs text-[#3F4946] bg-[#F8F6F0] px-3 py-1 rounded-lg border border-[#DCE3DF] truncate">
+        <!-- Center: Active Case Context (Clean, Unclustered Pill) -->
+        <div class="hidden md:flex items-center gap-2 text-xs text-[#3F4946] bg-[#F8F6F0] px-3 py-1 rounded-full border border-[#DCE3DF] whitespace-nowrap shadow-2xs">
+          <i data-lucide="briefcase" class="w-3.5 h-3.5 text-[#006B5F] shrink-0"></i>
           <span class="font-bold text-[#131B2E]">State v. Vikram Malhotra</span>
-          <span class="text-slate-400">&bull;</span>
-          <span class="font-mono text-[#00453D] font-semibold">FIR No. 204/2026</span>
-          <span class="text-slate-400">&bull;</span>
-          <span class="text-[#5E6C68]">PS Cyber Crime</span>
+          <span class="text-slate-300">|</span>
+          <span class="font-mono text-[#00453D] font-bold text-[11px]">FIR 204/2026</span>
         </div>
 
-        <!-- Right: Strict 3 Elements Max -->
-        <div class="flex items-center gap-2.5 text-xs">
+        <!-- Right: Unclustered Symbol Actions & Profile -->
+        <div class="flex items-center gap-2 text-xs shrink-0 whitespace-nowrap">
           
-          <!-- Element 1: Persistent Vault Sealed Status Pill -->
-          <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E6F4F1] border border-[#A7F3D0] text-[11px] font-mono text-[#00453D] shadow-xs" title="Cryptographic Bitstream Verified">
-            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#006B5F]"></i>
-            <span class="font-semibold">Vault Sealed</span>
-            <span class="text-slate-400">&bull;</span>
-            <span class="text-[#00453D] font-bold" id="header-exhibit-stat">3 Exhibits</span>
+          <!-- Symbol 1: Vault Sealed Counter Pill -->
+          <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#E6F4F1] border border-[#A7F3D0] text-[#00453D] shadow-2xs" title="Cryptographic Vault Sealed: 3 Exhibits Intact">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#006B5F] shrink-0"></i>
+            <span class="font-mono font-bold text-xs" id="header-exhibit-stat">3</span>
+            <span class="text-[11px] font-semibold text-[#006B5F]">Sealed</span>
           </div>
 
-          <!-- Element 2: BSA §63(4) Certificate Status Badge -->
+          <!-- Symbol 2: §63(4) Certificate Action Button -->
           <button 
             onclick="navigateToSection('section-export')" 
-            class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#00453D] hover:bg-[#075E54] text-white text-[11px] font-medium shadow-xs transition"
-            title="Jump to BSA §63(4) Certificate Schedule"
+            class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white hover:bg-[#F4F1EA] border border-[#BEC9C5] hover:border-[#00453D] text-[#00453D] text-xs font-bold transition shadow-2xs"
+            title="Open BSA §63(4) Certificate"
           >
-            <i data-lucide="file-check" class="w-3.5 h-3.5"></i>
-            <span>§63(4) Certificate</span>
+            <i data-lucide="file-badge" class="w-3.5 h-3.5 text-[#006B5F] shrink-0"></i>
+            <span>§63(4)</span>
           </button>
 
-          <!-- Element 3: Officer Profile & Settings Menu Dropdown -->
+          <!-- Symbol 3: Audio / Haptic Sound Toggle -->
+          <button 
+            onclick="hapticEngine.toggle(); updateHeaderSoundIcon();" 
+            class="w-7 h-7 rounded-lg bg-white hover:bg-[#F4F1EA] border border-[#BEC9C5] text-[#3F4946] hover:text-[#00453D] flex items-center justify-center transition shadow-2xs shrink-0"
+            title="Toggle Sound Effects"
+          >
+            <i id="header-audio-icon" data-lucide="volume-2" class="w-3.5 h-3.5 text-[#006B5F]"></i>
+          </button>
+
+          <!-- Symbol 4: Officer Profile Button & Dropdown Menu -->
           <div class="relative">
             <button 
               id="officer-menu-btn"
               onclick="toggleOfficerDropdown()" 
-              class="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-white hover:bg-slate-50 border border-[#BEC9C5] text-[#131B2E] text-xs transition"
-              title="Examiner Profile & Settings"
+              class="flex items-center gap-1.5 pl-1 pr-2 py-1 rounded-full bg-white hover:bg-slate-50 border border-[#BEC9C5] text-[#131B2E] transition shadow-2xs"
+              title="Inspector Arpit Yadav"
             >
-              <div class="w-5 h-5 rounded-full bg-[#E6F4F1] border border-[#A7F3D0] text-[#00453D] flex items-center justify-center font-bold text-[10px]">
+              <div class="w-5.5 h-5.5 rounded-full bg-[#00453D] text-[#71F8E4] flex items-center justify-center font-bold text-[10px] shrink-0">
                 AY
               </div>
-              <span class="font-medium hidden sm:inline text-[11px]">Insp. A. Yadav</span>
-              <i data-lucide="chevron-down" class="w-3 h-3 text-[#5E6C68]"></i>
+              <span class="font-semibold text-xs text-[#131B2E] hidden lg:inline officer-label">Insp. Arpit</span>
+              <i data-lucide="chevron-down" class="w-3 h-3 text-[#5E6C68] shrink-0"></i>
             </button>
 
             <!-- Dropdown Menu -->
             <div id="officer-dropdown-menu" class="hidden absolute right-0 mt-2 w-56 rounded-xl bg-white border border-[#DCE3DF] shadow-xl p-2 z-50 text-xs space-y-1">
               <div class="p-2 border-b border-[#DCE3DF]">
-                <div class="font-bold text-[#131B2E]">Inspector A. Yadav</div>
+                <div class="font-bold text-[#131B2E]">Inspector Arpit Yadav</div>
                 <div class="text-[10px] text-[#5E6C68] font-mono">Lead Examiner &bull; PS Cyber Crime</div>
               </div>
-              <button onclick="hapticEngine.toggle()" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 text-[#131B2E] transition">
+              <button onclick="hapticEngine.toggle(); updateHeaderSoundIcon();" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 text-[#131B2E] transition">
                 <span class="flex items-center gap-2">
                   <i data-lucide="volume-2" class="w-3.5 h-3.5 text-[#00453D]"></i>
                   <span>Haptic Audio</span>
@@ -586,10 +591,10 @@
                 <i data-lucide="archive" class="w-3.5 h-3.5 text-[#0284C7]"></i>
                 <span>Export Case Dossier (ZIP)</span>
               </button>
-              <a href="login.html" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 text-[#131B2E] transition">
-                <i data-lucide="log-in" class="w-3.5 h-3.5 text-[#00453D]"></i>
-                <span>Examiner Sign-In / Switch</span>
-              </a>
+              <button onclick="lockTerminal()" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-red-50 text-[#B91C1C] transition font-semibold">
+                <i data-lucide="lock" class="w-3.5 h-3.5 text-[#DC2626]"></i>
+                <span>Lock Terminal (Sign Out)</span>
+              </button>
               <div class="pt-1 border-t border-[#DCE3DF] text-[10px] text-[#00453D] font-mono px-2 py-1 flex items-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#006B5F]"></span>
                 <span>Air-Gapped Node #CY-49</span>
