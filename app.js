@@ -1958,10 +1958,100 @@ function toggleTheme() {
   setTheme('light');
 }
 
+// =============================================================================
+// ACCESSIBILITY TEXT-SIZE CONTROLS (EMERGENCY MITRA ENGINE: A- A A+ A++)
+// =============================================================================
+const TEXT_SCALE_LEVELS = [0.85, 1.0, 1.15, 1.30];
+
+function setTextScale(levelIdx = 1) {
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
+  if (levelIdx < 0 || levelIdx >= TEXT_SCALE_LEVELS.length) levelIdx = 1;
+  const scale = TEXT_SCALE_LEVELS[levelIdx];
+  const root = document.documentElement;
+  try {
+    if (window.CSS && CSS.supports && CSS.supports('zoom', '1.15')) {
+      root.style.zoom = String(scale);
+    } else {
+      root.style.fontSize = (scale * 16) + 'px';
+    }
+    localStorage.setItem('chronofact_text_scale', String(levelIdx));
+  } catch (_) {}
+
+  // Update active state on buttons
+  [0, 1, 2, 3].forEach(i => {
+    const btn = document.getElementById(`ts-btn-${i}`);
+    if (btn) {
+      if (i === levelIdx) {
+        btn.classList.add('active');
+        btn.style.backgroundColor = '#00453D';
+        btn.style.color = '#FFFFFF';
+        btn.style.borderColor = '#00453D';
+      } else {
+        btn.classList.remove('active');
+        btn.style.backgroundColor = '#FFFFFF';
+        btn.style.color = '#131B2E';
+        btn.style.borderColor = '#BEC9C5';
+      }
+    }
+  });
+}
+
+// =============================================================================
+// BILINGUAL LANGUAGE CONTROLLER (EN / HI)
+// =============================================================================
+let currentLang = 'en';
+
+function setLanguage(lang = 'en') {
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
+  currentLang = lang;
+  try {
+    localStorage.setItem('chronofact_lang', lang);
+  } catch (_) {}
+
+  const btnEn = document.getElementById('lang-btn-en');
+  const btnHi = document.getElementById('lang-btn-hi');
+  if (btnEn && btnHi) {
+    if (lang === 'en') {
+      btnEn.className = "px-2.5 py-0.5 text-[11px] font-bold rounded bg-[#00453D] text-white border border-[#00453D] transition";
+      btnHi.className = "px-2.5 py-0.5 text-[11px] font-bold rounded bg-white text-[#131B2E] border border-[#BEC9C5] hover:bg-slate-50 transition";
+    } else {
+      btnHi.className = "px-2.5 py-0.5 text-[11px] font-bold rounded bg-[#00453D] text-white border border-[#00453D] transition";
+      btnEn.className = "px-2.5 py-0.5 text-[11px] font-bold rounded bg-white text-[#131B2E] border border-[#BEC9C5] hover:bg-slate-50 transition";
+    }
+  }
+
+  // Update translatable labels across UI
+  document.querySelectorAll('[data-i18n-en]').forEach(el => {
+    const enText = el.getAttribute('data-i18n-en');
+    const hiText = el.getAttribute('data-i18n-hi');
+    if (lang === 'hi' && hiText) {
+      el.textContent = hiText;
+    } else if (enText) {
+      el.textContent = enText;
+    }
+  });
+
+  if (typeof showToast === 'function') {
+    showToast(lang === 'hi' ? 'भाषा: हिन्दी सक्रिय की गई' : 'Language: English Active');
+  }
+}
+
 // Master Lifecycle Initializer
 window.addEventListener('DOMContentLoaded', () => {
   // Permanent Pure Light Theme Lock
   setTheme('light');
+
+  // Load saved accessibility text scale
+  try {
+    const savedScale = parseInt(localStorage.getItem('chronofact_text_scale') || '1', 10);
+    setTextScale(savedScale);
+  } catch (_) {}
+
+  // Load saved language
+  try {
+    const savedLang = localStorage.getItem('chronofact_lang') || 'en';
+    setLanguage(savedLang);
+  } catch (_) {}
 
   runSleekOpeningAnimation();
   loadCaseData();

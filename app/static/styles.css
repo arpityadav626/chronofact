@@ -11,27 +11,34 @@
    1. COLOR PALETTES (PURE DARK & PURE LIGHT)
    -------------------------------------------------------------------------- */
 :root, [data-theme="light"] {
-  /* 100% Pure Editorial Light Palette (Permanent Court Workbench) */
-  --bg-canvas: #F8F7F4;
-  --bg-sidebar: #F2EFE9;
+  /* Emergency Mitra × GOI Material-3 Forensic Court Workbench */
+  --primary: #00453D;
+  --primary-container: #E6F4F1;
+  --primary-hover: #075E54;
+  --on-primary: #FFFFFF;
+  --secondary: #006B5F;
+  --accent-cyan: #71F8E4;
+
+  --bg-canvas: #FBF9F5;
+  --bg-sidebar: #F4F1EA;
   --bg-surface: #FFFFFF;
   --bg-card: #FFFFFF;
   --bg-card-hover: #F8FAFC;
-  --bg-inset: #FAF9F6;
+  --bg-inset: #F8F6F0;
   --bg-input: #FFFFFF;
-  --bg-elevated: #F4F2EC;
+  --bg-elevated: #EDE8DE;
 
-  --border-subtle: #E2DFD7;
-  --border-hairline: #D5D1C6;
-  --border-focus: #2563EB;
-  --border-divider: #EAE7E0;
+  --border-subtle: #DCE3DF;
+  --border-hairline: #BEC9C5;
+  --border-focus: #00453D;
+  --border-divider: #E2DFD7;
 
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --text-muted: #64748B;
-  --text-dim: #94A3B8;
+  --text-primary: #131B2E;
+  --text-secondary: #3F4946;
+  --text-muted: #5E6C68;
+  --text-dim: #889692;
 
-  --color-danger: #DC2626;
+  --color-danger: #BA1A1A;
   --color-danger-bg: #FEF2F2;
   --color-danger-border: #FECACA;
   --color-danger-text: #991B1B;
@@ -41,18 +48,18 @@
   --color-warning-border: #FDE68A;
   --color-warning-text: #92400E;
 
-  --color-success: #16A34A;
-  --color-success-bg: #F0FDF4;
-  --color-success-border: #BBF7D0;
-  --color-success-text: #166534;
+  --color-success: #006B5F;
+  --color-success-bg: #E6F4F1;
+  --color-success-border: #A7F3D0;
+  --color-success-text: #00453D;
 
-  --color-info: #2563EB;
-  --color-info-bg: #EFF6FF;
-  --color-info-border: #BFDBFE;
-  --color-info-text: #1D4ED8;
+  --color-info: #0284C7;
+  --color-info-bg: #F0F9FF;
+  --color-info-border: #BAE6FD;
+  --color-info-text: #0369A1;
 
-  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-card: 0 4px 16px -2px rgba(0, 0, 0, 0.06);
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 18px -2px rgba(0, 69, 61, 0.08);
   color-scheme: light;
 }
 
@@ -191,66 +198,189 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   4. BUTTONS & CONTROLS
+   4. BUTTONS & CONTROLS (EMERGENCY MITRA AESTHETIC)
    -------------------------------------------------------------------------- */
 .btn-editorial-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #2563EB !important;
+  background-color: #00453D !important;
   color: #FFFFFF !important;
-  border: 1px solid #3B82F6 !important;
-  border-radius: 8px;
-  padding: 0.45rem 0.875rem;
-  font-size: 0.75rem;
+  border: 1px solid #005A50 !important;
+  border-radius: 10px;
+  padding: 0.5rem 0.95rem;
+  font-size: 0.775rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.25);
-  transition: all 0.15s ease;
+  box-shadow: 0 3px 12px rgba(0, 69, 61, 0.22);
+  transition: all 0.16s ease;
 }
 
 .btn-editorial-primary:hover {
-  background-color: #1D4ED8 !important;
-  border-color: #60A5FA !important;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+  background-color: #075E54 !important;
+  border-color: #71F8E4 !important;
+  box-shadow: 0 5px 16px rgba(0, 69, 61, 0.32);
+  transform: translateY(-1px);
 }
 
 .btn-editorial-secondary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: var(--bg-card) !important;
+  background-color: #FFFFFF !important;
   color: var(--text-primary) !important;
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: 8px;
-  padding: 0.45rem 0.875rem;
-  font-size: 0.75rem;
+  border: 1px solid var(--border-hairline) !important;
+  border-radius: 10px;
+  padding: 0.5rem 0.95rem;
+  font-size: 0.775rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.16s ease;
 }
 
 .btn-editorial-secondary:hover {
-  background-color: var(--bg-card-hover) !important;
-  border-color: var(--border-hairline) !important;
+  background-color: #F8FAFC !important;
+  border-color: var(--primary) !important;
+  color: var(--primary) !important;
+  transform: translateY(-1px);
 }
 
 .btn-editorial-blue {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #1D4ED8 !important;
+  background-color: #0284C7 !important;
   color: #FFFFFF !important;
-  border: 1px solid #3B82F6 !important;
-  border-radius: 8px;
-  padding: 0.45rem 0.875rem;
+  border: 1px solid #0369A1 !important;
+  border-radius: 10px;
+  padding: 0.5rem 0.95rem;
+  font-size: 0.775rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.btn-editorial-blue:hover {
+  background-color: #0369A1 !important;
+  border-color: #38BDF8 !important;
+}
+
+/* --------------------------------------------------------------------------
+   4B. EMERGENCY MITRA GOVERNMENT UTILITY & TRUST COMPONENTS
+   -------------------------------------------------------------------------- */
+.tricolor-strip {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #FF9933 0%, #FF9933 33.3%, #FFFFFF 33.3%, #FFFFFF 66.6%, #138808 66.6%, #138808 100%);
+  position: relative;
+  z-index: 50;
+}
+
+.gov-utility-strip {
+  background-color: #F4F1EA;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.35rem 1.25rem;
+  font-size: 0.725rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  z-index: 45;
+}
+
+.reassurance-strip {
+  background-color: var(--primary-container);
+  border-bottom: 1px solid rgba(0, 69, 61, 0.15);
+  padding: 0.45rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
   font-size: 0.75rem;
-  font-weight: 500;
+  color: #00453D;
+  font-weight: 600;
+}
+
+.reassurance-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.trust-legal-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+  border: 1.5px solid #F59E0B;
+  border-left: 5px solid #D97706;
+  border-radius: 12px;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: #78350F;
+  box-shadow: 0 1px 4px rgba(217, 119, 6, 0.08);
+}
+
+.trust-legal-banner strong {
+  color: #92400E;
+}
+
+/* Emergency Mitra Role Action Cards */
+.role-action-card {
+  background-color: #FFFFFF;
+  border: 2px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 69, 61, 0.04);
+}
+
+.role-action-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 69, 61, 0.12);
+}
+
+.squircle-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.22s ease;
+}
+
+.role-action-card:hover .squircle-badge {
+  transform: scale(1.08);
+}
+
+/* Accessibility Text-Size Controls */
+.text-size-btn {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.125rem 0.45rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-hairline);
+  background-color: #FFFFFF;
+  color: var(--text-primary);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
-.btn-editorial-blue:hover {
+.text-size-btn:hover, .text-size-btn.active {
+  background-color: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+}
   background-color: #2563EB !important;
   border-color: #60A5FA !important;
 }
@@ -479,10 +609,11 @@ header button:not(.btn-editorial-primary):hover,
   color: #0F172A !important;
 }
 .sidebar-nav-item.active {
-  color: #1D4ED8 !important;
+  color: var(--primary) !important;
   background-color: #FFFFFF !important;
-  border-color: #BFDBFE !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(0, 69, 61, 0.3) !important;
+  box-shadow: 0 1px 4px rgba(0, 69, 61, 0.08) !important;
+  font-weight: 600 !important;
 }
 
 /* Modal Dialogs & Drawers in Light Mode */
