@@ -268,6 +268,32 @@
           </div>
         </div>
 
+        <!-- Quick Vault Action Strip -->
+        <div class="flex items-center gap-1.5">
+          <button 
+            onclick="openIngestModal()" 
+            class="flex-1 btn-editorial-primary py-1.5 px-2 text-[11px] justify-center font-medium gap-1.5"
+            title="Upload another forensic exhibit"
+          >
+            <i data-lucide="file-up" class="w-3.5 h-3.5"></i>
+            <span>+ Ingest Exhibit</span>
+          </button>
+          <button 
+            onclick="loadSampleCaseData()" 
+            class="btn-editorial-secondary py-1.5 px-2 text-[11px] text-slate-300 hover:text-white"
+            title="Reload FIR 204/2026 sample case"
+          >
+            <i data-lucide="refresh-cw" class="w-3 h-3 text-slate-400"></i>
+          </button>
+          <button 
+            onclick="clearEvidenceVault()" 
+            class="btn-editorial-secondary py-1.5 px-2 text-[11px] text-rose-400 hover:text-rose-300 border-rose-500/30"
+            title="Clear all exhibits from vault"
+          >
+            <i data-lucide="trash-2" class="w-3 h-3 text-rose-400"></i>
+          </button>
+        </div>
+
         <!-- Sidebar Navigation Sections (5 Core Zones with Bilingual Labels) -->
         <nav class="space-y-1">
           <button 
@@ -565,6 +591,26 @@
                 <span>Standard: <strong class="text-slate-200">NIST FIPS 180-4 Dual Hashing</strong></span>
               </div>
             </div>
+
+            <!-- Case Primary Action Strip -->
+            <div class="pt-2 flex flex-wrap items-center gap-2.5">
+              <button onclick="openIngestModal()" class="btn-editorial-primary py-2 px-3.5 text-xs font-medium">
+                <i data-lucide="file-up" class="w-3.5 h-3.5"></i>
+                <span>+ Upload Another Exhibit</span>
+              </button>
+              <button onclick="navigateToSection('section-vault')" class="btn-editorial-secondary py-2 px-3 text-xs">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Inspect Evidence Vault</span>
+              </button>
+              <button onclick="loadSampleCaseData()" class="btn-editorial-secondary py-2 px-3 text-xs" title="Reload original FIR 204/2026 exhibits">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-slate-400"></i>
+                <span>Reload Sample Case</span>
+              </button>
+              <button onclick="clearEvidenceVault()" class="btn-editorial-secondary py-2 px-3 text-xs text-rose-400 hover:text-rose-300 border-rose-500/30 hover:border-rose-500/60" title="Wipe current case exhibits">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5 text-rose-400"></i>
+                <span>Clear All Evidence</span>
+              </button>
+            </div>
           </div>
 
           <!-- 5 Executive KPI Cards ("Case Health at a Glance" with 40px Numbers) -->
@@ -721,20 +767,20 @@
             </div>
 
             <!-- Vault Actions -->
-            <div class="flex items-center gap-2">
-              <button onclick="openIngestModal()" class="btn-editorial-primary py-1.5 px-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="openIngestModal()" class="btn-editorial-primary py-1.5 px-3 text-xs font-medium">
                 <i data-lucide="file-up" class="w-3.5 h-3.5"></i>
-                <span>Ingest Exhibit</span>
+                <span>+ Upload Another Exhibit</span>
               </button>
               
-              <button onclick="loadSampleCaseData()" class="btn-editorial-secondary py-1.5 px-3" title="Reload original FIR sample case">
+              <button onclick="loadSampleCaseData()" class="btn-editorial-secondary py-1.5 px-3 text-xs" title="Reload original FIR sample case">
                 <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-slate-400"></i>
-                <span class="hidden sm:inline">Reload Sample Case</span>
+                <span>Reload Sample Case</span>
               </button>
 
-              <button onclick="clearEvidenceVault()" class="btn-editorial-secondary py-1.5 px-2.5 text-rose-400 hover:text-rose-300" title="Clear vault exhibits">
-                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                <span class="hidden sm:inline">Clear</span>
+              <button onclick="clearEvidenceVault()" class="btn-editorial-secondary py-1.5 px-3 text-xs text-rose-400 hover:text-rose-300 border-rose-500/30 hover:border-rose-500/60" title="Clear all case exhibits from vault">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5 text-rose-400"></i>
+                <span>Clear All Evidence</span>
               </button>
             </div>
           </div>
