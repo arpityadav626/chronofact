@@ -113,6 +113,7 @@ def startup_event():
     init_db()
 
 @app.get("/", response_class=HTMLResponse)
+@app.get("/index.html", response_class=HTMLResponse)
 def serve_index():
     index_path = STATIC_DIR / "index.html"
     if index_path.exists():

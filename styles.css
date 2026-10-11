@@ -664,6 +664,16 @@ div[id$="-drawer"] .editorial-card,
   }
 }
 
+@keyframes shakeGate {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.gate-shake {
+  animation: shakeGate 0.32s ease-in-out !important;
+}
+
 /* Haptic Toast */
 #haptic-toast {
   position: fixed;

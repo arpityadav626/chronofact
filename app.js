@@ -2036,6 +2036,153 @@ function setLanguage(lang = 'en') {
   }
 }
 
+// =============================================================================
+// TERMINAL AUTHENTICATION GATE & POPUP CONTROLLER (BSA 2023 §63(4))
+// =============================================================================
+function initTerminalAuthGate() {
+  const modal = document.getElementById('terminal-auth-gate-modal');
+  if (!modal) return;
+
+  const authUser = sessionStorage.getItem("chronofact_auth_user");
+  if (authUser === "arpit" || authUser === "forensic_examiner") {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    updateOfficerProfile("Inspector Arpit Yadav", "AY");
+  } else {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    const uInput = document.getElementById('gate-username');
+    if (uInput) setTimeout(() => uInput.focus(), 150);
+  }
+}
+
+function handleGateAuthSubmit(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
+
+  const uInput = document.getElementById('gate-username');
+  const pInput = document.getElementById('gate-password');
+  const alertBox = document.getElementById('gate-auth-alert');
+  const card = document.getElementById('terminal-auth-card');
+  const modal = document.getElementById('terminal-auth-gate-modal');
+  const btn = document.getElementById('gate-submit-btn');
+  const btnText = document.getElementById('gate-btn-text');
+
+  if (!uInput || !pInput) return;
+
+  const username = uInput.value.toLowerCase().trim();
+  const password = pInput.value;
+
+  // Verification against required credentials (arpit / arpit626)
+  const isArpit = (username === "arpit" && password === "arpit626");
+  const isExaminer = (username === "forensic_examiner" && password === "SecurePassword123!");
+
+  if (isArpit || isExaminer) {
+    if (btn) btn.disabled = true;
+    if (btnText) btnText.textContent = "Verifying HSM Node #CY-49...";
+    if (alertBox) {
+      alertBox.className = "p-2.5 rounded-xl border text-xs font-semibold flex items-center gap-2 bg-[#ECFDF5] text-[#065F46] border-[#A7F3D0]";
+      alertBox.innerHTML = '<i data-lucide="shield-check" class="w-4 h-4 text-[#006B5F]"></i> <span>✓ Verified: Inspector Arpit Yadav (PS Cyber Crime). Terminal Unlocked!</span>';
+      alertBox.classList.remove('hidden');
+    }
+    if (window.lucide) lucide.createIcons();
+
+    sessionStorage.setItem("chronofact_auth_user", "arpit");
+    updateOfficerProfile("Inspector Arpit Yadav", "AY");
+
+    if (typeof hapticEngine !== 'undefined') hapticEngine.playSuccess();
+
+    setTimeout(() => {
+      if (card) card.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        if (modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+        if (card) card.classList.remove('scale-95', 'opacity-0');
+        if (btn) btn.disabled = false;
+        if (btnText) btnText.textContent = "Unlock Forensic Terminal";
+        if (alertBox) alertBox.classList.add('hidden');
+      }, 350);
+      showToast("Terminal Unlocked. Welcome Inspector Arpit Yadav.");
+    }, 450);
+
+  } else {
+    // Incorrect credentials
+    if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
+    if (alertBox) {
+      alertBox.className = "p-2.5 rounded-xl border text-xs font-semibold flex items-center gap-2 bg-[#FEF2F2] text-[#991B1B] border-[#FECACA]";
+      alertBox.innerHTML = '<i data-lucide="alert-circle" class="w-4 h-4 text-[#BA1A1A]"></i> <span>❌ Access Denied: Invalid Officer ID or Passcode. Allowed: arpit / arpit626</span>';
+      alertBox.classList.remove('hidden');
+    }
+    if (card) {
+      card.classList.remove('gate-shake');
+      void card.offsetWidth; // trigger reflow
+      card.classList.add('gate-shake');
+      setTimeout(() => card.classList.remove('gate-shake'), 400);
+    }
+    if (window.lucide) lucide.createIcons();
+  }
+}
+
+function oneClickGateFill() {
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
+  const uInput = document.getElementById('gate-username');
+  const pInput = document.getElementById('gate-password');
+  if (uInput) uInput.value = "arpit";
+  if (pInput) pInput.value = "arpit626";
+  handleGateAuthSubmit(new Event('submit'));
+}
+
+function toggleGatePassVisibility() {
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
+  const pInput = document.getElementById('gate-password');
+  const icon = document.getElementById('gate-pass-toggle-icon');
+  if (!pInput) return;
+  if (pInput.type === 'password') {
+    pInput.type = 'text';
+    if (icon) icon.setAttribute('data-lucide', 'eye-off');
+  } else {
+    pInput.type = 'password';
+    if (icon) icon.setAttribute('data-lucide', 'eye');
+  }
+  if (window.lucide) lucide.createIcons();
+}
+
+function lockTerminal() {
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playWhoosh();
+  sessionStorage.removeItem("chronofact_auth_user");
+  const modal = document.getElementById('terminal-auth-gate-modal');
+  const card = document.getElementById('terminal-auth-card');
+  const alertBox = document.getElementById('gate-auth-alert');
+  const pInput = document.getElementById('gate-password');
+  const dropdown = document.getElementById('officer-dropdown-menu');
+
+  if (dropdown) dropdown.classList.add('hidden');
+  if (pInput) pInput.value = '';
+  if (alertBox) alertBox.classList.add('hidden');
+  if (card) card.classList.remove('scale-95', 'opacity-0');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+  showToast("Terminal Locked. Authorization Required.");
+}
+
+function updateOfficerProfile(name = "Inspector Arpit Yadav", initials = "AY") {
+  const menuBtn = document.getElementById('officer-menu-btn');
+  if (menuBtn) {
+    const avatar = menuBtn.querySelector('.rounded-full');
+    const label = menuBtn.querySelector('.font-medium');
+    if (avatar) avatar.textContent = initials;
+    if (label) label.textContent = name;
+  }
+  const dropdownName = document.querySelector('#officer-dropdown-menu .font-bold');
+  if (dropdownName) dropdownName.textContent = name;
+  const certSig = document.getElementById('cert-sig-officer');
+  if (certSig) certSig.textContent = name;
+}
+
 // Master Lifecycle Initializer
 window.addEventListener('DOMContentLoaded', () => {
   // Permanent Pure Light Theme Lock
@@ -2052,6 +2199,9 @@ window.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('chronofact_lang') || 'en';
     setLanguage(savedLang);
   } catch (_) {}
+
+  // Initialize Terminal Gate (Popup Login)
+  initTerminalAuthGate();
 
   runSleekOpeningAnimation();
   loadCaseData();

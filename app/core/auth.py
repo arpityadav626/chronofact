@@ -62,6 +62,13 @@ fake_users_db = {
         "is_active": True,
         "is_superuser": True,
         "hashed_password": get_password_hash("SecurePassword123!")
+    },
+    "arpit": {
+        "username": "arpit",
+        "email": "arpit.yadav@cybercrime.gov.in",
+        "is_active": True,
+        "is_superuser": True,
+        "hashed_password": get_password_hash("arpit626")
     }
 }
 
