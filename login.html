@@ -160,80 +160,143 @@
 
 <body class="min-h-screen flex flex-col justify-between selection:bg-[#00453D] selection:text-white">
 
-  <!-- 1. Top Section: Tricolor Ribbon + Gov Utility Strip -->
-  <div>
-    <!-- Indian Tricolor Ribbon -->
-    <div class="tricolor-strip"></div>
+  <!-- 1. Indian Tricolor Ribbon (Saffron - White - Green) -->
+  <div class="tricolor-strip"></div>
 
-    <!-- Official Government of India Utility Strip -->
-    <div class="gov-utility-strip no-print">
-      <div class="flex items-center gap-2 sm:gap-3">
-        <div class="flex items-center gap-1.5 font-bold text-[#00453D]">
+  <!-- 2. Official Government of India Utility Strip (Cyber Crime Portal Common Wrapper) -->
+  <div class="common-wrapper px-4 sm:px-6 py-1.5 text-xs select-none no-print">
+    <div class="max-w-[1920px] mx-auto flex items-center justify-between flex-wrap gap-2">
+      <div class="flex items-center gap-2 sm:gap-3 text-white/95">
+        <div class="flex items-center gap-1.5 font-bold">
           <span class="text-xs">भारत सरकार</span>
-          <span class="text-slate-400">|</span>
+          <span class="text-white/40">|</span>
           <span class="text-xs">Government of India</span>
         </div>
-        <span class="hidden sm:inline text-slate-300">|</span>
-        <span class="hidden sm:inline text-[11px] text-[#3F4946] font-medium">विधि और न्याय मंत्रालय • Ministry of Law &amp; Justice</span>
+        <span class="hidden sm:inline text-white/40">|</span>
+        <span class="hidden sm:inline font-medium text-white/85 text-[11px]">गृह मंत्रालय • Ministry of Home Affairs</span>
+        <span class="hidden lg:inline text-white/40">|</span>
+        <span class="hidden lg:inline font-medium text-white/85 text-[11px]">विधि और न्याय मंत्रालय • Ministry of Law &amp; Justice</span>
       </div>
+      
       <div class="flex items-center gap-2 sm:gap-3">
-        <!-- Accessibility Controls -->
-        <div class="flex items-center gap-1 bg-white px-2 py-0.5 rounded border border-[#BEC9C5] shadow-xs">
-          <span class="text-[10px] text-slate-500 font-bold uppercase pr-0.5">Text:</span>
+        <!-- Accessibility Text Controls (A- A A+ A++) -->
+        <div class="flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded border border-white/20 shadow-xs">
+          <span class="text-[10px] text-white/70 font-bold uppercase pr-0.5">Text:</span>
           <button onclick="setTextScale(0)" id="ts-btn-0" class="text-size-btn" title="Small (85%)">A−</button>
           <button onclick="setTextScale(1)" id="ts-btn-1" class="text-size-btn active" title="Normal (100%)">A</button>
           <button onclick="setTextScale(2)" id="ts-btn-2" class="text-size-btn" title="Large (115%)">A+</button>
           <button onclick="setTextScale(3)" id="ts-btn-3" class="text-size-btn" title="Extra Large (130%)">A++</button>
         </div>
-        <!-- Language Switcher -->
+        <!-- Language Switcher (EN / HI) -->
         <div class="flex items-center gap-1" id="lang-switcher">
-          <button onclick="setLanguage('en')" id="lang-btn-en" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-[#00453D] text-white border border-[#00453D] transition">EN</button>
-          <button onclick="setLanguage('hi')" id="lang-btn-hi" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-white text-[#131B2E] border border-[#BEC9C5] hover:bg-slate-50 transition">हिन्दी</button>
+          <button onclick="setLanguage('en')" id="lang-btn-en" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-white text-[#0262af] transition shadow-xs">EN</button>
+          <button onclick="setLanguage('hi')" id="lang-btn-hi" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-transparent text-white border border-white/40 hover:bg-white/10 transition">हिन्दी</button>
         </div>
-        <!-- Air-Gapped Node Status -->
-        <div class="hidden md:flex items-center gap-1 text-[11px] font-mono font-medium text-[#00453D] bg-[#E6F4F1] px-2 py-0.5 rounded border border-[#A7F3D0]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#006B5F] animate-pulse"></span>
+        <!-- Air-Gapped Node Badge -->
+        <div class="hidden md:flex items-center gap-1.5 text-[11px] font-mono font-medium text-white bg-white/15 px-2.5 py-0.5 rounded border border-white/25">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
           <span>Node #CY-49 • Air-Gapped</span>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- 3. Main Government Logo Header (Header Wrapper) -->
+  <header class="header-wrapper px-4 sm:px-6 select-none bg-white border-b border-[#DCE3DF]">
+    <div class="max-w-[1920px] mx-auto flex items-center justify-between gap-4">
+      
+      <!-- Left: Lion Capital + I4C + Title -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <!-- National Emblem of India (Ashoka Lion Capital) -->
+        <a href="index.html" class="shrink-0 flex items-center" title="Government of India - National Emblem">
+          <img 
+            src="assets/images/national_emblem.png" 
+            alt="National Emblem of India" 
+            class="national_emblem"
+            onerror="this.onerror=null;this.src='/static/assets/images/national_emblem.png';"
+          />
+        </a>
 
-  <!-- 2. Main Content Area (Emergency Mitra Style Login Container) -->
-  <main class="flex-grow flex items-center justify-center p-4 sm:p-6 lg:p-8">
-    <div class="w-full max-w-lg mx-auto space-y-6">
+        <!-- I4C Logo -->
+        <div class="hidden sm:flex items-center shrink-0">
+          <img 
+            src="assets/images/i4c.png" 
+            alt="Indian Cyber Crime Coordination Centre (I4C)" 
+            class="i4cImg"
+            onerror="this.onerror=null;this.src='/static/assets/images/i4c.png';"
+          />
+        </div>
 
-      <!-- Official Branding Header -->
-      <div class="flex flex-col items-center text-center gap-2">
-        <div class="w-14 h-14 rounded-2xl bg-[#00453D] text-[#71F8E4] border border-[#005A50] flex items-center justify-center p-2.5 shadow-md">
-          <svg viewBox="0 0 100 100" class="w-full h-full" fill="currentColor">
-            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="4"/>
-            <circle cx="50" cy="50" r="8" fill="currentColor"/>
-            <g stroke="currentColor" stroke-width="2">
-              <line x1="50" y1="5" x2="50" y2="95"/>
-              <line x1="5" y1="50" x2="95" y2="50"/>
-              <line x1="18.2" y1="18.2" x2="81.8" y2="81.8"/>
-              <line x1="18.2" y1="81.8" x2="81.8" y2="18.2"/>
-              <line x1="28.4" y1="8.3" x2="71.6" y2="91.7"/>
-              <line x1="8.3" y1="28.4" x2="91.7" y2="71.6"/>
-              <line x1="8.3" y1="71.6" x2="91.7" y2="28.4"/>
-              <line x1="28.4" y1="91.7" x2="71.6" y2="8.3"/>
-              <line x1="38.7" y1="6.3" x2="61.3" y2="93.7"/>
-              <line x1="6.3" y1="38.7" x2="93.7" y2="61.3"/>
-              <line x1="6.3" y1="61.3" x2="93.7" y2="38.7"/>
-              <line x1="38.7" y1="93.7" x2="61.3" y2="6.3"/>
-            </g>
-          </svg>
+        <!-- Official Bilingual Platform Title -->
+        <div class="flex flex-col justify-center border-l border-slate-200 pl-3 sm:pl-4">
+          <div class="text-[13px] sm:text-[15px] font-black text-[#002654] leading-tight font-serif tracking-tight">
+            राष्ट्रीय न्यायिक साइबर फॉरेंसिक कार्यपीठ
+          </div>
+          <div class="text-[12px] sm:text-[14px] font-bold text-[#0262af] leading-tight">
+            National Judicial Cyber Forensic Intelligence Workbench
+          </div>
+          <div class="flex items-center gap-2 mt-0.5">
+            <span class="font-display font-extrabold text-[11px] tracking-wider text-[#131B2E]">CHRONOFACT 2.0</span>
+            <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-300">
+              BSA 2023 §63(4) COMPLIANT
+            </span>
+          </div>
         </div>
-        <div class="flex items-center gap-2 mt-1">
-          <h1 class="font-display text-2xl lg:text-3xl font-bold tracking-tight text-[#00453D]">CHRONOFACT</h1>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#E6F4F1] text-[#00453D] border border-[#A7F3D0] font-bold">BSA 2023 §63(4)</span>
-        </div>
-        <p class="text-xs sm:text-sm text-[#5E6C68]" data-i18n-en="Judicial Digital Forensic Investigation Workbench • DFSS" data-i18n-hi="न्यायिक डिजिटल फॉरेंसिक कार्यपीठ • भारतीय साक्ष्य अधिनियम">
-          Judicial Digital Forensic Investigation Workbench &bull; DFSS
-        </p>
       </div>
+
+      <!-- Right: Azadi Ka Amrit Mahotsav + National Cyber Helpline 1930 -->
+      <div class="flex items-center gap-3 sm:gap-5 shrink-0">
+        <!-- 75 Azadi Ka Amrit Mahotsav -->
+        <img 
+          src="assets/images/amritmahotsavnicin.jpeg" 
+          alt="Azadi Ka Amrit Mahotsav" 
+          class="amritImg hidden md:block"
+          onerror="this.onerror=null;this.src='/static/assets/images/amritmahotsavnicin.jpeg';"
+        />
+
+        <!-- Helpline 1930 Badge -->
+        <div class="helpline-box flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+            <i data-lucide="phone-call" class="w-4 h-4 text-white"></i>
+          </div>
+          <div>
+            <div class="text-[9px] uppercase font-bold tracking-wider text-amber-200 leading-tight">National Cyber Helpline</div>
+            <div class="text-lg font-black tracking-wider leading-none text-white">1930</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- 4. Official Mega Menu Header Bar -->
+  <nav class="megamenu-wraper px-4 sm:px-6 py-2.5 select-none z-30">
+    <div class="max-w-[1920px] mx-auto flex items-center justify-between gap-3 text-xs text-white">
+      <div class="flex items-center gap-2 font-semibold">
+        <i data-lucide="shield-check" class="w-4 h-4 text-amber-300"></i>
+        <span>Law Enforcement Authentication Terminal // Restricted Access</span>
+      </div>
+      <div class="hidden sm:flex items-center gap-3 text-[11px] text-white/80 font-mono">
+        <span>Station: PS Cyber Crime</span>
+        <span>•</span>
+        <span class="text-emerald-300">FIPS 140-3 Cryptographic Mode</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 5. Statutory Legal Ticker Strip -->
+  <div class="statutory-ticker flex items-center justify-between gap-3 select-none no-print">
+    <div class="flex items-center gap-2 overflow-hidden">
+      <span class="statutory-badge">RESTRICTED TERMINAL</span>
+      <span class="truncate font-medium text-amber-900 text-[11px] sm:text-xs">
+        Section 63(4) Bharatiya Sakshya Adhiniyam, 2023 (BSA) &bull; Digital Forensic Chain of Custody Audited &bull; Penal Liability under BNS §336
+      </span>
+    </div>
+    <div class="hidden lg:flex items-center gap-1 font-mono text-[11px] text-amber-800 shrink-0 font-semibold">
+      <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i>
+      <span>Air-Gapped Node #CY-49</span>
+    </div>
+  </div>
 
       <!-- Statutory Admissibility & Law Enforcement Warning Banner -->
       <div class="trust-legal-banner">
@@ -391,11 +454,20 @@
       </div>
     </div>
 
-    <!-- Official Copyright Notice -->
-    <div class="bg-[#00453D] text-white py-3 text-center text-xs">
-      <p class="opacity-90">
-        &copy; 2026 Directorate of Forensic Science Services (DFSS) &bull; Ministry of Law &amp; Justice, Government of India &bull; Sessions expire automatically after 8 hours
-      </p>
+    <!-- Official Cyber Crime Portal Copyright Notice -->
+    <div class="footer-bottom-wrapper px-6 py-4">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-400">
+        <div>
+          &copy; 2026 Indian Cyber Crime Coordination Centre (I4C), Ministry of Home Affairs, Government of India.
+        </div>
+        <div class="flex items-center gap-3">
+          <span>GIGW 3.0 Compliant</span>
+          <span>&bull;</span>
+          <span>Bharatiya Sakshya Adhiniyam, 2023 §63(4)</span>
+          <span>&bull;</span>
+          <span class="text-emerald-400 font-mono">Terminal CY-49</span>
+        </div>
+      </div>
     </div>
   </footer>
 

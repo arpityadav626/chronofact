@@ -416,9 +416,11 @@ function updateCaseSummaryMetrics() {
   if (badgeAi) badgeAi.textContent = allInconsistencies.length + allMLAnomalies.length;
   if (headerVaultPill) {
     headerVaultPill.innerHTML = `
-      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-      <span>Vault Sealed &bull; ${allEvidenceItems.length} Exhibits &bull; Merkle Root Active</span>
+      <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+      <span class="font-mono font-bold text-xs" id="header-exhibit-stat">${allEvidenceItems.length}</span>
+      <span class="text-[11px] font-semibold text-white/90">Sealed</span>
     `;
+    if (window.lucide) lucide.createIcons();
   }
 }
 
@@ -1909,6 +1911,13 @@ function navigateToSection(sectionId) {
   });
   const activeBtn = document.getElementById(`nav-${sectionId}`);
   if (activeBtn) activeBtn.classList.add('active');
+
+  // Update top portal navbar active indicator
+  document.querySelectorAll('.portal-nav-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  const portalBtn = document.getElementById(`portal-nav-${sectionId}`);
+  if (portalBtn) portalBtn.classList.add('active');
 
   // Close mobile sidebar drawer if open
   const sidebar = document.getElementById('workbench-sidebar');

@@ -256,38 +256,261 @@
   <!-- 1. Indian Tricolor Ribbon (Saffron - White - Green) -->
   <div class="tricolor-strip"></div>
 
-  <!-- 2. Official Government of India Utility Strip with Accessibility & Language Controls -->
-  <div class="gov-utility-strip no-print">
-    <div class="flex items-center gap-2 sm:gap-3">
-      <div class="flex items-center gap-1.5 font-bold text-[#00453D]">
-        <span class="text-xs">भारत सरकार</span>
-        <span class="text-slate-400">|</span>
-        <span class="text-xs">Government of India</span>
+  <!-- 2. Official Government of India Utility Strip (Cyber Crime Portal Common Wrapper) -->
+  <div class="common-wrapper px-4 sm:px-6 py-1.5 text-xs select-none no-print">
+    <div class="max-w-[1920px] mx-auto flex items-center justify-between flex-wrap gap-2">
+      <div class="flex items-center gap-2 sm:gap-3 text-white/95">
+        <div class="flex items-center gap-1.5 font-bold">
+          <span class="text-xs">भारत सरकार</span>
+          <span class="text-white/40">|</span>
+          <span class="text-xs">Government of India</span>
+        </div>
+        <span class="hidden sm:inline text-white/40">|</span>
+        <span class="hidden sm:inline font-medium text-white/85 text-[11px]">गृह मंत्रालय • Ministry of Home Affairs</span>
+        <span class="hidden lg:inline text-white/40">|</span>
+        <span class="hidden lg:inline font-medium text-white/85 text-[11px]">विधि और न्याय मंत्रालय • Ministry of Law &amp; Justice</span>
       </div>
-      <span class="hidden sm:inline text-slate-300">|</span>
-      <span class="hidden sm:inline text-[11px] text-[#3F4946] font-medium">विधि और न्याय मंत्रालय • Ministry of Law &amp; Justice</span>
-    </div>
-    <div class="flex items-center gap-2 sm:gap-3">
-      <!-- Accessibility Text Controls (A- A A+ A++) -->
-      <div class="flex items-center gap-1 bg-white px-2 py-0.5 rounded border border-[#BEC9C5] shadow-xs">
-        <span class="text-[10px] text-slate-500 font-bold uppercase pr-0.5">Text:</span>
-        <button onclick="setTextScale(0)" id="ts-btn-0" class="text-size-btn" title="Small (85%)">A−</button>
-        <button onclick="setTextScale(1)" id="ts-btn-1" class="text-size-btn active" title="Normal (100%)">A</button>
-        <button onclick="setTextScale(2)" id="ts-btn-2" class="text-size-btn" title="Large (115%)">A+</button>
-        <button onclick="setTextScale(3)" id="ts-btn-3" class="text-size-btn" title="Extra Large (130%)">A++</button>
-      </div>
-      <!-- Language Switcher (EN / HI) -->
-      <div class="flex items-center gap-1" id="lang-switcher">
-        <button onclick="setLanguage('en')" id="lang-btn-en" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-[#00453D] text-white border border-[#00453D] transition">EN</button>
-        <button onclick="setLanguage('hi')" id="lang-btn-hi" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-white text-[#131B2E] border border-[#BEC9C5] hover:bg-slate-50 transition">हिन्दी</button>
-      </div>
-      <!-- Air-Gapped Node -->
-      <div class="hidden md:flex items-center gap-1 text-[11px] font-mono font-medium text-[#00453D] bg-[#E6F4F1] px-2 py-0.5 rounded border border-[#A7F3D0]">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#006B5F] animate-pulse"></span>
-        <span>Air-Gapped Node #CY-49</span>
+      
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Accessibility Text Controls (A- A A+ A++) -->
+        <div class="flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded border border-white/20 shadow-xs">
+          <span class="text-[10px] text-white/70 font-bold uppercase pr-0.5">Text:</span>
+          <button onclick="setTextScale(0)" id="ts-btn-0" class="text-size-btn" title="Small (85%)">A−</button>
+          <button onclick="setTextScale(1)" id="ts-btn-1" class="text-size-btn active" title="Normal (100%)">A</button>
+          <button onclick="setTextScale(2)" id="ts-btn-2" class="text-size-btn" title="Large (115%)">A+</button>
+          <button onclick="setTextScale(3)" id="ts-btn-3" class="text-size-btn" title="Extra Large (130%)">A++</button>
+        </div>
+        <!-- Language Switcher (EN / HI) -->
+        <div class="flex items-center gap-1" id="lang-switcher">
+          <button onclick="setLanguage('en')" id="lang-btn-en" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-white text-[#0262af] transition shadow-xs">EN</button>
+          <button onclick="setLanguage('hi')" id="lang-btn-hi" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-transparent text-white border border-white/40 hover:bg-white/10 transition">हिन्दी</button>
+        </div>
+        <!-- Air-Gapped Node Badge -->
+        <div class="hidden md:flex items-center gap-1.5 text-[11px] font-mono font-medium text-white bg-white/15 px-2.5 py-0.5 rounded border border-white/25">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Node #CY-49 • Air-Gapped</span>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- 3. Main Government Logo Header (Header Wrapper) -->
+  <header class="header-wrapper px-4 sm:px-6 select-none bg-white border-b border-[#DCE3DF]">
+    <div class="max-w-[1920px] mx-auto flex items-center justify-between gap-4">
+      
+      <!-- Left: Lion Capital + I4C + Title -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <!-- National Emblem of India (Ashoka Lion Capital) -->
+        <a href="index.html" class="shrink-0 flex items-center" title="Government of India - National Emblem">
+          <img 
+            src="assets/images/national_emblem.png" 
+            alt="National Emblem of India" 
+            class="national_emblem"
+            onerror="this.onerror=null;this.src='/static/assets/images/national_emblem.png';"
+          />
+        </a>
+
+        <!-- I4C Logo -->
+        <div class="hidden sm:flex items-center shrink-0">
+          <img 
+            src="assets/images/i4c.png" 
+            alt="Indian Cyber Crime Coordination Centre (I4C)" 
+            class="i4cImg"
+            onerror="this.onerror=null;this.src='/static/assets/images/i4c.png';"
+          />
+        </div>
+
+        <!-- Official Bilingual Platform Title -->
+        <div class="flex flex-col justify-center border-l border-slate-200 pl-3 sm:pl-4">
+          <div class="text-[13px] sm:text-[15px] font-black text-[#002654] leading-tight font-serif tracking-tight">
+            राष्ट्रीय न्यायिक साइबर फॉरेंसिक कार्यपीठ
+          </div>
+          <div class="text-[12px] sm:text-[14px] font-bold text-[#0262af] leading-tight">
+            National Judicial Cyber Forensic Intelligence Workbench
+          </div>
+          <div class="flex items-center gap-2 mt-0.5">
+            <span class="font-display font-extrabold text-[11px] tracking-wider text-[#131B2E]">CHRONOFACT 2.0</span>
+            <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-300">
+              BSA 2023 §63(4) COMPLIANT
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Azadi Ka Amrit Mahotsav + National Cyber Helpline 1930 -->
+      <div class="flex items-center gap-3 sm:gap-5 shrink-0">
+        <!-- 75 Azadi Ka Amrit Mahotsav -->
+        <img 
+          src="assets/images/amritmahotsavnicin.jpeg" 
+          alt="Azadi Ka Amrit Mahotsav" 
+          class="amritImg hidden md:block"
+          onerror="this.onerror=null;this.src='/static/assets/images/amritmahotsavnicin.jpeg';"
+        />
+
+        <!-- Helpline 1930 Badge -->
+        <div class="helpline-box flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+            <i data-lucide="phone-call" class="w-4 h-4 text-white"></i>
+          </div>
+          <div>
+            <div class="text-[9px] uppercase font-bold tracking-wider text-amber-200 leading-tight">National Cyber Helpline</div>
+            <div class="text-lg font-black tracking-wider leading-none text-white">1930</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- 4. Official Mega Menu Navbar (megamenu-wraper) -->
+  <nav class="megamenu-wraper px-4 sm:px-6 select-none z-30">
+    <div class="max-w-[1920px] mx-auto flex items-center justify-between gap-3 overflow-x-auto no-scrollbar">
+      
+      <!-- Left: Mobile Sidebar Toggle + Core Portal Navigation Tabs -->
+      <div class="flex items-center gap-1 shrink-0">
+        <button 
+          onclick="toggleSidebarMobile()" 
+          class="lg:hidden p-2 rounded text-white hover:bg-white/10 transition mr-1"
+          title="Toggle Navigation Sidebar"
+        >
+          <i data-lucide="menu" class="w-4 h-4"></i>
+        </button>
+
+        <button 
+          id="portal-nav-section-overview" 
+          onclick="navigateToSection('section-overview')" 
+          class="portal-nav-btn active"
+        >
+          <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>
+          <span>Case Overview</span>
+        </button>
+
+        <button 
+          id="portal-nav-section-vault" 
+          onclick="navigateToSection('section-vault')" 
+          class="portal-nav-btn"
+        >
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          <span>Evidence Vault</span>
+        </button>
+
+        <button 
+          id="portal-nav-section-timeline" 
+          onclick="navigateToSection('section-timeline')" 
+          class="portal-nav-btn"
+        >
+          <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+          <span>Event Timeline</span>
+        </button>
+
+        <button 
+          id="portal-nav-section-ai" 
+          onclick="navigateToSection('section-ai')" 
+          class="portal-nav-btn"
+        >
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+          <span>Grounded AI Q&amp;A</span>
+        </button>
+
+        <button 
+          id="portal-nav-section-export" 
+          onclick="navigateToSection('section-export')" 
+          class="portal-nav-btn"
+        >
+          <i data-lucide="file-badge" class="w-3.5 h-3.5"></i>
+          <span>BSA §63(4) Certificate</span>
+        </button>
+      </div>
+
+      <!-- Right: Vault Status + Active Case Context + Audio + Officer Profile -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0 py-1">
+        
+        <!-- Vault Sealed Pill -->
+        <div id="header-vault-status-pill" class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded bg-black/25 text-emerald-300 text-xs border border-white/20 whitespace-nowrap" title="Cryptographic Vault Sealed">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+          <span class="font-mono font-bold text-xs" id="header-exhibit-stat">3</span>
+          <span class="text-[11px] font-semibold text-white/90">Sealed</span>
+        </div>
+
+        <!-- Active Case Pill -->
+        <div class="hidden xl:flex items-center gap-2 px-3 py-1 rounded bg-black/25 text-white/90 text-xs border border-white/20 whitespace-nowrap">
+          <i data-lucide="briefcase" class="w-3.5 h-3.5 text-amber-300 shrink-0"></i>
+          <span class="font-bold text-white">State v. Vikram Malhotra</span>
+          <span class="text-white/40">|</span>
+          <span class="font-mono text-emerald-300 font-semibold text-[11px]">FIR 204/2026</span>
+        </div>
+
+        <!-- Audio / Haptic Toggle -->
+        <button 
+          onclick="hapticEngine.toggle(); updateHeaderSoundIcon();" 
+          class="w-7 h-7 rounded bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition border border-white/20 shrink-0"
+          title="Toggle Sound Effects"
+        >
+          <i id="header-audio-icon" data-lucide="volume-2" class="w-3.5 h-3.5 text-white"></i>
+        </button>
+
+        <!-- Officer Profile & Terminal Gate Button -->
+        <div class="relative">
+          <button 
+            id="officer-menu-btn"
+            onclick="toggleOfficerDropdown()" 
+            class="flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 rounded-full bg-white/15 hover:bg-white/25 border border-white/30 text-white transition shadow-2xs"
+            title="Inspector Arpit Yadav"
+          >
+            <div class="w-5.5 h-5.5 rounded-full bg-amber-400 text-[#002654] flex items-center justify-center font-black text-[10px] shrink-0">
+              AY
+            </div>
+            <span class="font-semibold text-xs text-white hidden md:inline officer-label">Insp. Arpit</span>
+            <i data-lucide="chevron-down" class="w-3 h-3 text-white/80 shrink-0"></i>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div id="officer-dropdown-menu" class="hidden absolute right-0 mt-2 w-60 rounded-xl bg-white border border-[#DCE3DF] shadow-2xl p-2 z-50 text-xs space-y-1">
+            <div class="p-2.5 border-b border-[#DCE3DF] bg-slate-50 rounded-lg">
+              <div class="font-bold text-[#131B2E]">Inspector Arpit Yadav</div>
+              <div class="text-[10px] text-[#5E6C68] font-mono">Lead Forensic Examiner &bull; PS Cyber Crime</div>
+            </div>
+            <button onclick="hapticEngine.toggle(); updateHeaderSoundIcon();" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-[#131B2E] transition">
+              <span class="flex items-center gap-2">
+                <i data-lucide="volume-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
+                <span>Haptic Audio</span>
+              </span>
+              <span id="officer-sound-label" class="text-[10px] font-mono text-[#5E6C68]">ON</span>
+            </button>
+            <button onclick="openDossierModal()" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100 text-[#131B2E] transition">
+              <i data-lucide="archive" class="w-3.5 h-3.5 text-[#0284C7]"></i>
+              <span>Export Case Dossier (ZIP)</span>
+            </button>
+            <button onclick="lockTerminal()" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-red-50 text-[#B91C1C] transition font-semibold">
+              <i data-lucide="lock" class="w-3.5 h-3.5 text-[#DC2626]"></i>
+              <span>Lock Terminal (Sign Out)</span>
+            </button>
+            <div class="pt-1 border-t border-[#DCE3DF] text-[10px] text-[#0262af] font-mono px-2 py-1 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span>Air-Gapped Node #CY-49</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- 5. Statutory Legal Ticker Strip -->
+  <div class="statutory-ticker flex items-center justify-between gap-3 select-none no-print">
+    <div class="flex items-center gap-2 overflow-hidden">
+      <span class="statutory-badge">STATUTORY LEGAL NOTICE</span>
+      <span class="truncate font-medium text-amber-900 text-[11px] sm:text-xs">
+        Section 63(4) Bharatiya Sakshya Adhiniyam, 2023 (BSA) &bull; Cryptographic Bitstream Hash Registry Sealed &bull; State v. Vikram Malhotra (FIR 204/2026) &bull; Admissible Evidence under BNS §336
+      </span>
+    </div>
+    <div class="hidden lg:flex items-center gap-1 font-mono text-[11px] text-amber-800 shrink-0 font-semibold">
+      <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i>
+      <span>FIPS 180-4 Dual Hash Intact</span>
+    </div>
+  </div>
+
 
   <!-- Master Split Container (Sidebar + Content) -->
   <div class="master-container flex flex-1 min-h-0 overflow-hidden">
@@ -481,130 +704,7 @@
     <!-- ========================================================================= -->
     <div id="workbench-scroll-area" class="flex-1 flex flex-col h-screen overflow-y-auto min-w-0 bg-[#0B0F17]">
       
-      <!-- De-Cluttered Precision Header (Symbols & Minimalist Semantics) -->
-      <header class="sticky top-0 z-30 w-full h-14 bg-white border-b border-[#DCE3DF] px-4 sm:px-6 flex items-center justify-between gap-3 shadow-xs select-none">
-        
-        <!-- Left: Ashoka Chakra Emblem + Brand + BSA Badge -->
-        <div class="flex items-center gap-2.5 shrink-0">
-          <button 
-            onclick="toggleSidebarMobile()" 
-            class="lg:hidden p-1.5 rounded-lg bg-white border border-[#BEC9C5] text-[#131B2E] hover:bg-slate-50 transition"
-            title="Toggle Menu"
-          >
-            <i data-lucide="menu" class="w-4 h-4"></i>
-          </button>
 
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-xl bg-[#00453D] text-[#71F8E4] border border-[#005A50] flex items-center justify-center p-1.5 shadow-2xs shrink-0">
-              <svg viewBox="0 0 100 100" class="w-full h-full" fill="currentColor">
-                <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="4"/>
-                <circle cx="50" cy="50" r="8" fill="currentColor"/>
-                <g stroke="currentColor" stroke-width="2">
-                  <line x1="50" y1="5" x2="50" y2="95"/>
-                  <line x1="5" y1="50" x2="95" y2="50"/>
-                  <line x1="18.2" y1="18.2" x2="81.8" y2="81.8"/>
-                  <line x1="18.2" y1="81.8" x2="81.8" y2="18.2"/>
-                  <line x1="28.4" y1="8.3" x2="71.6" y2="91.7"/>
-                  <line x1="8.3" y1="28.4" x2="91.7" y2="71.6"/>
-                  <line x1="8.3" y1="71.6" x2="91.7" y2="28.4"/>
-                  <line x1="28.4" y1="91.7" x2="71.6" y2="8.3"/>
-                  <line x1="38.7" y1="6.3" x2="61.3" y2="93.7"/>
-                  <line x1="6.3" y1="38.7" x2="93.7" y2="61.3"/>
-                  <line x1="6.3" y1="61.3" x2="93.7" y2="38.7"/>
-                  <line x1="38.7" y1="93.7" x2="61.3" y2="6.3"/>
-                </g>
-              </svg>
-            </div>
-            <div class="flex items-center gap-1.5 whitespace-nowrap">
-              <span class="font-display font-black text-sm tracking-tight text-[#00453D]">CHRONOFACT</span>
-              <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#E6F4F1] text-[#00453D] border border-[#A7F3D0] font-bold">§63(4)</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Center: Active Case Context (Clean, Unclustered Pill) -->
-        <div class="hidden md:flex items-center gap-2 text-xs text-[#3F4946] bg-[#F8F6F0] px-3 py-1 rounded-full border border-[#DCE3DF] whitespace-nowrap shadow-2xs">
-          <i data-lucide="briefcase" class="w-3.5 h-3.5 text-[#006B5F] shrink-0"></i>
-          <span class="font-bold text-[#131B2E]">State v. Vikram Malhotra</span>
-          <span class="text-slate-300">|</span>
-          <span class="font-mono text-[#00453D] font-bold text-[11px]">FIR 204/2026</span>
-        </div>
-
-        <!-- Right: Unclustered Symbol Actions & Profile -->
-        <div class="flex items-center gap-2 text-xs shrink-0 whitespace-nowrap">
-          
-          <!-- Symbol 1: Vault Sealed Counter Pill -->
-          <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#E6F4F1] border border-[#A7F3D0] text-[#00453D] shadow-2xs" title="Cryptographic Vault Sealed: 3 Exhibits Intact">
-            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#006B5F] shrink-0"></i>
-            <span class="font-mono font-bold text-xs" id="header-exhibit-stat">3</span>
-            <span class="text-[11px] font-semibold text-[#006B5F]">Sealed</span>
-          </div>
-
-          <!-- Symbol 2: §63(4) Certificate Action Button -->
-          <button 
-            onclick="navigateToSection('section-export')" 
-            class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white hover:bg-[#F4F1EA] border border-[#BEC9C5] hover:border-[#00453D] text-[#00453D] text-xs font-bold transition shadow-2xs"
-            title="Open BSA §63(4) Certificate"
-          >
-            <i data-lucide="file-badge" class="w-3.5 h-3.5 text-[#006B5F] shrink-0"></i>
-            <span>§63(4)</span>
-          </button>
-
-          <!-- Symbol 3: Audio / Haptic Sound Toggle -->
-          <button 
-            onclick="hapticEngine.toggle(); updateHeaderSoundIcon();" 
-            class="w-7 h-7 rounded-lg bg-white hover:bg-[#F4F1EA] border border-[#BEC9C5] text-[#3F4946] hover:text-[#00453D] flex items-center justify-center transition shadow-2xs shrink-0"
-            title="Toggle Sound Effects"
-          >
-            <i id="header-audio-icon" data-lucide="volume-2" class="w-3.5 h-3.5 text-[#006B5F]"></i>
-          </button>
-
-          <!-- Symbol 4: Officer Profile Button & Dropdown Menu -->
-          <div class="relative">
-            <button 
-              id="officer-menu-btn"
-              onclick="toggleOfficerDropdown()" 
-              class="flex items-center gap-1.5 pl-1 pr-2 py-1 rounded-full bg-white hover:bg-slate-50 border border-[#BEC9C5] text-[#131B2E] transition shadow-2xs"
-              title="Inspector Arpit Yadav"
-            >
-              <div class="w-5.5 h-5.5 rounded-full bg-[#00453D] text-[#71F8E4] flex items-center justify-center font-bold text-[10px] shrink-0">
-                AY
-              </div>
-              <span class="font-semibold text-xs text-[#131B2E] hidden lg:inline officer-label">Insp. Arpit</span>
-              <i data-lucide="chevron-down" class="w-3 h-3 text-[#5E6C68] shrink-0"></i>
-            </button>
-
-            <!-- Dropdown Menu -->
-            <div id="officer-dropdown-menu" class="hidden absolute right-0 mt-2 w-56 rounded-xl bg-white border border-[#DCE3DF] shadow-xl p-2 z-50 text-xs space-y-1">
-              <div class="p-2 border-b border-[#DCE3DF]">
-                <div class="font-bold text-[#131B2E]">Inspector Arpit Yadav</div>
-                <div class="text-[10px] text-[#5E6C68] font-mono">Lead Examiner &bull; PS Cyber Crime</div>
-              </div>
-              <button onclick="hapticEngine.toggle(); updateHeaderSoundIcon();" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 text-[#131B2E] transition">
-                <span class="flex items-center gap-2">
-                  <i data-lucide="volume-2" class="w-3.5 h-3.5 text-[#00453D]"></i>
-                  <span>Haptic Audio</span>
-                </span>
-                <span id="officer-sound-label" class="text-[10px] font-mono text-[#5E6C68]">ON</span>
-              </button>
-              <button onclick="openDossierModal()" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 text-[#131B2E] transition">
-                <i data-lucide="archive" class="w-3.5 h-3.5 text-[#0284C7]"></i>
-                <span>Export Case Dossier (ZIP)</span>
-              </button>
-              <button onclick="lockTerminal()" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-red-50 text-[#B91C1C] transition font-semibold">
-                <i data-lucide="lock" class="w-3.5 h-3.5 text-[#DC2626]"></i>
-                <span>Lock Terminal (Sign Out)</span>
-              </button>
-              <div class="pt-1 border-t border-[#DCE3DF] text-[10px] text-[#00453D] font-mono px-2 py-1 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#006B5F]"></span>
-                <span>Air-Gapped Node #CY-49</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </header>
 
       <!-- Emergency Mitra Horizontal Reassurance Trust Strip -->
       <div class="reassurance-strip no-print">
@@ -1302,6 +1402,81 @@
         </section>
 
       </main>
+
+      <!-- ===================================================================== -->
+      <!-- OFFICIAL CYBER CRIME PORTAL GOI FOOTER (MHA / I4C / DFSS) -->
+      <!-- ===================================================================== -->
+      <footer class="w-full mt-12 no-print select-none">
+        <div class="footer-top-wrapper px-6 py-8">
+          <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 text-xs text-slate-300">
+            <div class="space-y-2">
+              <div class="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                <i data-lucide="shield" class="w-4 h-4 text-[#71F8E4]"></i>
+                <span>About ChronoFact • I4C</span>
+              </div>
+              <p class="text-slate-400 text-[11px] leading-relaxed">
+                National Judicial Cyber Forensic Intelligence Workbench operated in adherence with the Indian Cyber Crime Coordination Centre (I4C), Ministry of Home Affairs, and Directorate of Forensic Science Services (DFSS).
+              </p>
+            </div>
+
+            <div class="space-y-2">
+              <div class="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                <i data-lucide="scale" class="w-4 h-4 text-amber-300"></i>
+                <span>Statutory Mandate</span>
+              </div>
+              <ul class="space-y-1 text-[11px] text-slate-400">
+                <li>&bull; Bharatiya Sakshya Adhiniyam, 2023 §63(4)</li>
+                <li>&bull; Bharatiya Nyaya Sanhita, 2023 §336</li>
+                <li>&bull; Information Technology Act, 2000 §65B/§79A</li>
+                <li>&bull; NIST FIPS 180-4 Dual Bitstream Cryptography</li>
+              </ul>
+            </div>
+
+            <div class="space-y-2">
+              <div class="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                <i data-lucide="phone-call" class="w-4 h-4 text-rose-300"></i>
+                <span>National Assistance</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 space-y-1">
+                <div class="text-[10px] uppercase text-amber-300 font-bold">National Cyber Helpline</div>
+                <div class="text-base font-black text-white">Toll-Free: 1930</div>
+                <div class="text-[10px] text-slate-400">Portal: cybercrime.gov.in</div>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <div class="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                <i data-lucide="server" class="w-4 h-4 text-emerald-400"></i>
+                <span>Forensic Terminal Status</span>
+              </div>
+              <div class="space-y-1 text-[11px] text-slate-400">
+                <div class="flex items-center gap-1.5 text-emerald-400 font-medium">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>Air-Gapped Node #CY-49 • Online</span>
+                </div>
+                <div>Examiner: Insp. Arpit Yadav (AY-4091)</div>
+                <div>Hash Verification: SHA-256 + SHA3-512</div>
+                <div>STQC Audit Compliance: Level 4 Certified</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom-wrapper px-6 py-4">
+          <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-400">
+            <div>
+              &copy; 2026 Indian Cyber Crime Coordination Centre (I4C), Ministry of Home Affairs, Government of India.
+            </div>
+            <div class="flex items-center gap-3">
+              <span>GIGW 3.0 Compliant</span>
+              <span>&bull;</span>
+              <span>ISO/IEC 27037:2012 Forensic Standard</span>
+              <span>&bull;</span>
+              <span class="text-emerald-400 font-mono">Merkle Root Verified</span>
+            </div>
+          </div>
+        </div>
+      </footer>
 
     </div>
 
