@@ -247,7 +247,7 @@
       </div>
 
       <!-- Primary Login Card (Emergency Mitra Material-3 Squircle Role Style) -->
-      <div class="bg-white rounded-2xl border-2 border-[#DCE3DF] shadow-xl p-6 sm:p-8 space-y-5">
+      <div id="login-card" class="bg-white rounded-2xl border-2 border-[#DCE3DF] shadow-xl p-6 sm:p-8 space-y-5 transition-all">
         
         <div class="flex items-center justify-between border-b border-[#DCE3DF] pb-4">
           <div class="flex items-center gap-3">
@@ -280,8 +280,7 @@
                 type="text"
                 required
                 autocomplete="username"
-                value="forensic_examiner"
-                placeholder="e.g. forensic_examiner"
+                placeholder="Enter Officer ID (e.g. arpit)"
                 class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#BEC9C5] bg-[#FBF9F5] focus:bg-white focus:ring-2 focus:ring-[#00453D] focus:border-[#00453D] outline-none text-sm font-medium text-[#131B2E] transition"
               />
             </div>
@@ -290,8 +289,8 @@
           <!-- Password Input -->
           <div class="space-y-1.5">
             <div class="flex items-center justify-between">
-              <label class="block text-xs font-bold text-[#3F4946] uppercase tracking-wide" for="login-password" data-i18n-en="Password / PKI Security Token" data-i18n-hi="पासवर्ड / सुरक्षा टोकन">
-                Password / PKI Security Token
+              <label class="block text-xs font-bold text-[#3F4946] uppercase tracking-wide" for="login-password" data-i18n-en="Passcode / Security Token" data-i18n-hi="पासवर्ड / सुरक्षा टोकन">
+                Passcode / Security Token
               </label>
               <span class="text-[10px] text-[#006B5F] font-mono font-semibold">FIPS 140-3 Mode</span>
             </div>
@@ -305,8 +304,7 @@
                 type="password"
                 required
                 autocomplete="current-password"
-                value="SecurePassword123!"
-                placeholder="••••••••••••"
+                placeholder="Enter passcode (e.g. arpit626)"
                 class="w-full pl-10 pr-11 py-2.5 rounded-xl border border-[#BEC9C5] bg-[#FBF9F5] focus:bg-white focus:ring-2 focus:ring-[#00453D] focus:border-[#00453D] outline-none text-sm font-medium text-[#131B2E] transition"
               />
               <button
@@ -341,29 +339,29 @@
           <!-- 1-Click Demo Fill Action -->
           <div class="p-3 rounded-xl bg-[#F4F1EA] border border-[#DCE3DF] flex items-center justify-between gap-3">
             <div class="text-[11px] text-[#3F4946] leading-tight">
-              <span class="font-bold text-[#131B2E] block">Demo Credentials:</span>
-              <span class="font-mono text-[#00453D]">forensic_examiner</span> / <span class="font-mono text-[#00453D]">SecurePassword123!</span>
+              <span class="font-bold text-[#131B2E] block">Officer Credentials:</span>
+              <span class="font-mono text-[#00453D] font-bold">arpit</span> / <span class="font-mono text-[#00453D] font-bold">arpit626</span>
             </div>
             <button
               type="button"
               onclick="oneClickDemoLogin()"
               class="px-2.5 py-1.5 rounded-lg bg-[#00453D] text-white text-[11px] font-bold hover:bg-[#075E54] flex items-center gap-1 shrink-0 transition"
-              title="Auto-fill and log in immediately"
+              title="Auto-fill arpit & arpit626 and log in immediately"
             >
               <i data-lucide="zap" class="w-3 h-3 text-[#71F8E4]"></i>
-              <span>1-Click Sign-In</span>
+              <span>1-Click Unlock</span>
             </button>
           </div>
 
         </form>
 
-        <!-- Navigation back to Public / Open Workbench View -->
+        <!-- Statutory Node Details -->
         <div class="pt-2 border-t border-[#DCE3DF] flex items-center justify-between text-xs text-[#5E6C68]">
-          <a href="index.html" class="flex items-center gap-1.5 text-[#00453D] hover:text-[#075E54] font-semibold hover:underline">
-            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-            <span data-i18n-en="Back to Case Workbench" data-i18n-hi="केस कार्यपीठ पर वापस जाएं">Back to Case Workbench</span>
-          </a>
-          <span class="font-mono text-[11px]">CC/2026/8492</span>
+          <span class="flex items-center gap-1.5 text-[#006B5F] font-semibold">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+            <span>Law Enforcement Node #CY-49</span>
+          </span>
+          <span class="font-mono text-[11px] bg-[#E6F4F1] text-[#00453D] px-2 py-0.5 rounded font-bold">BSA 2023 §63(4)</span>
         </div>
 
       </div>
@@ -542,70 +540,76 @@
       });
     }
 
-    // Form Submission & API Authentication
+    // Form Submission & Authentication Controller (BSA §63(4))
     async function handleLoginSubmit(e) {
-      e.preventDefault();
+      if (e && e.preventDefault) e.preventDefault();
       sound.playTap();
       
       const usernameInput = document.getElementById('login-username');
       const passwordInput = document.getElementById('login-password');
       const alertBox = document.getElementById('login-alert-box');
+      const card = document.getElementById('login-card');
       const btn = document.getElementById('login-submit-btn');
       const btnText = document.getElementById('login-btn-text');
 
-      const username = usernameInput.value.trim();
+      if (!usernameInput || !passwordInput) return;
+
+      const username = usernameInput.value.toLowerCase().trim();
       const password = passwordInput.value;
 
       btn.disabled = true;
-      btnText.textContent = "Verifying HSM & Credentials...";
+      btnText.textContent = "Verifying HSM Node #CY-49...";
 
-      try {
-        const formData = new FormData();
-        formData.append("username", username);
-        formData.append("password", password);
+      const isArpit = (username === "arpit" && password === "arpit626");
+      const isExaminer = (username === "forensic_examiner" && password === "SecurePassword123!");
 
-        const res = await fetch("/api/auth/login", {
-          method: "POST",
-          body: formData
-        });
+      if (isArpit || isExaminer) {
+        // Attempt background API auth if server is running
+        try {
+          const formData = new FormData();
+          formData.append("username", username);
+          formData.append("password", password);
 
-        if (res.ok) {
-          const data = await res.json();
-          try {
+          const res = await fetch("/api/auth/login", {
+            method: "POST",
+            body: formData
+          });
+          if (res.ok) {
+            const data = await res.json();
             sessionStorage.setItem("chronofact_auth_token", data.access_token);
-            sessionStorage.setItem("chronofact_officer", username);
-          } catch (_) {}
-          
-          sound.playSuccess();
-          showAlert("Authentication successful! Loading active case file...", "success");
-          setTimeout(() => {
-            window.location.href = "index.html";
-          }, 600);
-          return;
-        } else {
-          // If API returns 401 or failure, check local fallback credentials for air-gapped demo
-          if (username === "forensic_examiner" && password === "SecurePassword123!") {
-            sessionStorage.setItem("chronofact_auth_token", "demo-jwt-airgapped-token");
-            sessionStorage.setItem("chronofact_officer", username);
-            sound.playSuccess();
-            showAlert("Air-Gapped Attestation Verified! Entering Case File...", "success");
-            setTimeout(() => {
-              window.location.href = "index.html";
-            }, 600);
-            return;
           }
-          throw new Error("Invalid Officer ID or Security Token.");
+        } catch (_) {}
+
+        sessionStorage.setItem("chronofact_auth_user", "arpit");
+        sessionStorage.setItem("chronofact_officer", "Inspector Arpit Yadav");
+        if (!sessionStorage.getItem("chronofact_auth_token")) {
+          sessionStorage.setItem("chronofact_auth_token", "jwt-officer-arpit-node-cy49");
         }
-      } catch (err) {
-        sound.playError();
-        showAlert(err.message || "Authentication failed. Check credentials.", "error");
-        btn.disabled = false;
-        btnText.textContent = "Enter Forensic Workbench";
+        
+        sound.playSuccess();
+        showAlert("✓ Verified: Inspector Arpit Yadav (PS Cyber Crime). Opening Case File...", "success");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 500);
+        return;
       }
+
+      // If invalid credentials
+      sound.playError();
+      showAlert("❌ Access Denied: Invalid Officer ID or Passcode. Allowed: arpit / arpit626", "error");
+      if (card) {
+        card.classList.remove('gate-shake');
+        void card.offsetWidth;
+        card.classList.add('gate-shake');
+        setTimeout(() => card.classList.remove('gate-shake'), 400);
+      }
+      btn.disabled = false;
+      btnText.textContent = "Enter Forensic Workbench";
     }
 
     function showAlert(msg, type = "error") {
       const box = document.getElementById('login-alert-box');
+      if (!box) return;
       box.classList.remove('hidden', 'bg-[#FEF2F2]', 'text-[#991B1B]', 'border-[#FECACA]', 'bg-[#ECFDF5]', 'text-[#065F46]', 'border-[#A7F3D0]');
       
       if (type === "success") {
@@ -621,13 +625,32 @@
     // 1-Click Demo Login
     function oneClickDemoLogin() {
       sound.playTap();
-      document.getElementById('login-username').value = "forensic_examiner";
-      document.getElementById('login-password').value = "SecurePassword123!";
-      document.getElementById('forensic-login-form').requestSubmit();
+      const u = document.getElementById('login-username');
+      const p = document.getElementById('login-password');
+      if (u) u.value = "arpit";
+      if (p) p.value = "arpit626";
+      handleLoginSubmit(new Event('submit'));
     }
 
     // DOM Ready
     window.addEventListener('DOMContentLoaded', () => {
+      // Check query params for logout or session status
+      try {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('logout') === 'true') {
+          sessionStorage.removeItem("chronofact_auth_user");
+          sessionStorage.removeItem("chronofact_auth_token");
+          sessionStorage.removeItem("chronofact_officer");
+          showAlert("Terminal Locked. Authorization required to re-enter.", "error");
+        } else {
+          const authUser = sessionStorage.getItem("chronofact_auth_user");
+          if (authUser === "arpit" || authUser === "forensic_examiner") {
+            window.location.replace("index.html");
+            return;
+          }
+        }
+      } catch (_) {}
+
       // Restore saved text scale
       try {
         const savedScale = parseInt(localStorage.getItem('chronofact_text_scale') || '1', 10);

@@ -113,13 +113,6 @@ def startup_event():
     init_db()
 
 @app.get("/", response_class=HTMLResponse)
-@app.get("/index.html", response_class=HTMLResponse)
-def serve_index():
-    index_path = STATIC_DIR / "index.html"
-    if index_path.exists():
-        return index_path.read_text(encoding="utf-8")
-    return "<h1>CHRONOFACT System is running. Open /static/index.html</h1>"
-
 @app.get("/login", response_class=HTMLResponse)
 @app.get("/login.html", response_class=HTMLResponse)
 def serve_login():
@@ -127,6 +120,14 @@ def serve_login():
     if login_path.exists():
         return login_path.read_text(encoding="utf-8")
     return HTMLResponse("<h1>Login page not found</h1>", status_code=404)
+
+@app.get("/index.html", response_class=HTMLResponse)
+@app.get("/workbench", response_class=HTMLResponse)
+def serve_index():
+    index_path = STATIC_DIR / "index.html"
+    if index_path.exists():
+        return index_path.read_text(encoding="utf-8")
+    return "<h1>CHRONOFACT System is running. Open /static/index.html</h1>"
 
 @app.get("/styles.css")
 def serve_styles():
