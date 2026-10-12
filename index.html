@@ -27,22 +27,22 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
-  <!-- Tailwind CSS Custom Configuration (Emergency Mitra Material-3 Government Design System) -->
+  <!-- Tailwind CSS Custom Configuration (Government of India Cyber Crime Portal Design System) -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            primary: '#00453D',
-            'primary-container': '#E6F4F1',
+            primary: '#0262af',
+            'primary-container': '#EFF6FF',
             'on-primary': '#FFFFFF',
-            secondary: '#006B5F',
-            canvas: '#FBF9F5',
-            sidebar: '#F4F1EA',
+            secondary: '#002654',
+            canvas: '#F4F7FB',
+            sidebar: '#FFFFFF',
             surface: '#FFFFFF',
             card: '#FFFFFF',
-            borderHairline: '#BEC9C5',
-            borderSubtle: '#DCE3DF'
+            borderHairline: '#CBD5E1',
+            borderSubtle: '#E2E8F0'
           },
           fontFamily: {
             display: ['Inter', 'system-ui', 'sans-serif'],
@@ -57,19 +57,23 @@
   <!-- Primary Stylesheet with Cache-Buster -->
   <link rel="stylesheet" href="styles.css?v=20261011_emergency_mitra_v6" onerror="this.onerror=null;this.href='/static/styles.css?v=20261011_emergency_mitra_v6'">
 
-  <!-- Critical Theme Rules (Permanent 100% Pure Judicial Light Mode) -->
+  <!-- Critical Theme Rules (Official Government Cyber Crime Portal Theme) -->
   <style>
     :root, [data-theme="light"], html, body {
-      --bg-canvas: #FBF9F5 !important;
-      --bg-sidebar: #F4F1EA !important;
+      --primary: #0262af !important;
+      --primary-container: #EFF6FF !important;
+      --primary-hover: #004d8c !important;
+      --secondary: #002654 !important;
+      --bg-canvas: #F4F7FB !important;
+      --bg-sidebar: #FFFFFF !important;
       --bg-surface: #FFFFFF !important;
       --bg-card: #FFFFFF !important;
       --bg-card-hover: #F8FAFC !important;
-      --bg-inset: #F8F6F0 !important;
-      --border-subtle: #DCE3DF !important;
-      --border-hairline: #BEC9C5 !important;
-      --text-primary: #131B2E !important;
-      --text-secondary: #3F4946 !important;
+      --bg-inset: #F8FAFC !important;
+      --border-subtle: #E2E8F0 !important;
+      --border-hairline: #CBD5E1 !important;
+      --text-primary: #0F172A !important;
+      --text-secondary: #475569 !important;
       color-scheme: light;
     }
     body {
@@ -77,91 +81,94 @@
       color: var(--text-primary) !important;
     }
     #workbench-sidebar {
-      background-color: var(--bg-sidebar) !important;
-      border-color: var(--border-subtle) !important;
+      background-color: #FFFFFF !important;
+      border-color: #E2E8F0 !important;
     }
     header {
       background-color: #FFFFFF !important;
-      border-color: var(--border-subtle) !important;
+      border-color: #E2E8F0 !important;
     }
     #workbench-scroll-area, .master-container {
       background-color: var(--bg-canvas) !important;
     }
     .editorial-card {
-      background-color: var(--bg-card) !important;
-      border: 1px solid var(--border-subtle) !important;
+      background-color: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
       color: var(--text-primary) !important;
     }
     .evidence-card-row {
-      background-color: var(--bg-inset) !important;
-      border: 1px solid var(--border-subtle) !important;
+      background-color: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
       color: var(--text-primary) !important;
     }
     .btn-editorial-secondary {
-      background-color: var(--bg-card) !important;
-      border: 1px solid var(--border-subtle) !important;
+      background-color: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important;
       color: var(--text-primary) !important;
     }
     .hero-qa-card {
-      background-color: var(--bg-card) !important;
-      border: 1px solid var(--border-subtle) !important;
+      background-color: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
     }
     .temporal-empty-banner {
-      background-color: var(--bg-inset) !important;
-      border-color: var(--border-hairline) !important;
+      background-color: #F8FAFC !important;
+      border-color: #CBD5E1 !important;
       color: var(--text-secondary) !important;
     }
 
-    /* Universal Pure Light Overrides for Embedded Dark Utilities */
-    .bg-\[\#0B0F17\],
-    .bg-\[\#0D121F\],
-    .bg-\[\#101625\],
-    .bg-\[\#111726\],
-    .bg-\[\#121826\],
-    .bg-\[\#141B2B\],
-    .bg-\[\#161F33\],
-    .bg-\[\#0E1422\],
-    .bg-\[\#0E1424\],
-    .bg-\[\#0E1524\],
-    .bg-\[\#0A0E18\],
-    .bg-\[\#080C14\],
-    .bg-\[\#182338\],
-    .bg-\[\#1C2538\],
-    .bg-\[\#0F1626\],
-    .bg-\[\#111724\],
-    .bg-\[\#172033\],
-    .bg-\[\#121824\],
-    .bg-\[\#1C253B\],
-    .bg-\[\#181716\],
-    .bg-slate-800,
-    .bg-slate-900,
-    .bg-slate-950 {
-      background-color: var(--bg-inset) !important;
+    /* Universal Pure Light Overrides for Embedded Dark Utilities (Excluding Megamenu & Dark Headers) */
+    #workbench-scroll-area .bg-\[\#0B0F17\],
+    #workbench-scroll-area .bg-\[\#0D121F\],
+    #workbench-scroll-area .bg-\[\#101625\],
+    #workbench-scroll-area .bg-\[\#111726\],
+    #workbench-scroll-area .bg-\[\#121826\],
+    #workbench-scroll-area .bg-\[\#141B2B\],
+    #workbench-scroll-area .bg-\[\#161F33\],
+    #workbench-scroll-area .bg-\[\#0E1422\],
+    #workbench-scroll-area .bg-\[\#0E1424\],
+    #workbench-scroll-area .bg-\[\#0E1524\],
+    #workbench-scroll-area .bg-\[\#0A0E18\],
+    #workbench-scroll-area .bg-\[\#080C14\],
+    #workbench-scroll-area .bg-\[\#182338\],
+    #workbench-scroll-area .bg-\[\#1C2538\],
+    #workbench-scroll-area .bg-\[\#0F1626\],
+    #workbench-scroll-area .bg-\[\#111724\],
+    #workbench-scroll-area .bg-\[\#172033\],
+    #workbench-scroll-area .bg-\[\#121824\],
+    #workbench-scroll-area .bg-\[\#1C253B\],
+    #workbench-scroll-area .bg-\[\#181716\],
+    #workbench-scroll-area .bg-slate-800,
+    #workbench-scroll-area .bg-slate-900,
+    #workbench-scroll-area .bg-slate-950 {
+      background-color: #FFFFFF !important;
       border-color: var(--border-subtle) !important;
       color: var(--text-primary) !important;
     }
-    .border-\[\#1E283E\],
-    .border-\[\#1B2336\],
-    .border-\[\#1A2336\],
-    .border-\[\#222E44\],
-    .border-\[\#232F46\],
-    .border-\[\#222E46\],
-    .border-\[\#2B3956\],
-    .border-\[\#23314E\],
-    .border-\[\#1E293E\],
-    .border-\[\#2E3D5C\],
-    .border-slate-800,
-    .border-slate-700 {
+    #workbench-scroll-area .border-\[\#1E283E\],
+    #workbench-scroll-area .border-\[\#1B2336\],
+    #workbench-scroll-area .border-\[\#1A2336\],
+    #workbench-scroll-area .border-\[\#222E44\],
+    #workbench-scroll-area .border-\[\#232F46\],
+    #workbench-scroll-area .border-\[\#222E46\],
+    #workbench-scroll-area .border-\[\#2B3956\],
+    #workbench-scroll-area .border-\[\#23314E\],
+    #workbench-scroll-area .border-\[\#1E293E\],
+    #workbench-scroll-area .border-\[\#2E3D5C\],
+    #workbench-scroll-area .border-slate-800,
+    #workbench-scroll-area .border-slate-700 {
       border-color: var(--border-subtle) !important;
     }
-    .text-white,
-    .text-slate-100,
-    .text-slate-200 {
-      color: var(--text-primary) !important;
+
+    /* Megamenu High-Contrast Text Fix (Screenshot 1 & 2 Fix) */
+    .megamenu-wraper,
+    .megamenu-wraper .officer-label,
+    .megamenu-wraper span:not(#officer-dropdown-menu span),
+    .megamenu-wraper button:not(#officer-dropdown-menu button),
+    .megamenu-wraper i:not(#officer-dropdown-menu i) {
+      color: #FFFFFF !important;
     }
-    .text-slate-300,
-    .text-slate-400 {
-      color: var(--text-secondary) !important;
+    #officer-menu-btn .officer-label {
+      color: #FFFFFF !important;
     }
     input,
     select,
@@ -251,7 +258,7 @@
       box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.12) !important;
     }
   </style>
-<body class="font-sans h-screen flex flex-col overflow-hidden antialiased selection:bg-[#00453D] selection:text-white">
+<body class="font-sans h-screen flex flex-col overflow-hidden antialiased selection:bg-[#0262af] selection:text-white">
 
   <!-- 1. Indian Tricolor Ribbon (Saffron - White - Green) -->
   <div class="tricolor-strip"></div>
@@ -432,13 +439,18 @@
           <span class="text-[11px] font-semibold text-white/90">Sealed</span>
         </div>
 
-        <!-- Active Case Pill -->
-        <div class="hidden xl:flex items-center gap-2 px-3 py-1 rounded bg-black/25 text-white/90 text-xs border border-white/20 whitespace-nowrap">
-          <i data-lucide="briefcase" class="w-3.5 h-3.5 text-amber-300 shrink-0"></i>
-          <span class="font-bold text-white">State v. Vikram Malhotra</span>
+        <!-- Active Case Pill (Clickable Case Switcher) -->
+        <button 
+          onclick="openCaseSelectorModal()"
+          class="header-case-badge hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs whitespace-nowrap shadow-xs cursor-pointer"
+          title="Click to Switch / Load Case Samples"
+        >
+          <i data-lucide="folder-search" class="w-3.5 h-3.5 text-amber-300 shrink-0"></i>
+          <span id="header-active-case-name" class="font-bold text-white">State v. Vikram Malhotra</span>
           <span class="text-white/40">|</span>
-          <span class="font-mono text-emerald-300 font-semibold text-[11px]">FIR 204/2026</span>
-        </div>
+          <span id="header-active-case-fir" class="font-mono text-emerald-300 font-semibold text-[11px]">FIR 204/2026</span>
+          <i data-lucide="chevron-down" class="w-3 h-3 text-white/70 shrink-0"></i>
+        </button>
 
         <!-- Audio / Haptic Toggle -->
         <button 
@@ -449,43 +461,48 @@
           <i id="header-audio-icon" data-lucide="volume-2" class="w-3.5 h-3.5 text-white"></i>
         </button>
 
-        <!-- Officer Profile & Terminal Gate Button -->
+        <!-- Officer Profile & Terminal Gate Button (Screenshot 1 & 2 Fix) -->
         <div class="relative">
           <button 
             id="officer-menu-btn"
-            onclick="toggleOfficerDropdown()" 
-            class="flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 rounded-full bg-white/15 hover:bg-white/25 border border-white/30 text-white transition shadow-2xs"
+            onclick="toggleOfficerDropdown(event)" 
+            class="flex items-center gap-2 pl-1.5 pr-3 py-1 rounded-full text-white transition shadow-xs"
             title="Inspector Arpit Yadav"
           >
-            <div class="w-5.5 h-5.5 rounded-full bg-amber-400 text-[#002654] flex items-center justify-center font-black text-[10px] shrink-0">
+            <div class="w-6 h-6 rounded-full bg-amber-400 text-[#002654] flex items-center justify-center font-black text-[11px] shrink-0 shadow-xs">
               AY
             </div>
-            <span class="font-semibold text-xs text-white hidden md:inline officer-label">Insp. Arpit</span>
-            <i data-lucide="chevron-down" class="w-3 h-3 text-white/80 shrink-0"></i>
+            <span class="font-bold text-xs text-white hidden md:inline officer-label">Insp. Arpit</span>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-white/90 shrink-0"></i>
           </button>
 
           <!-- Dropdown Menu -->
-          <div id="officer-dropdown-menu" class="hidden absolute right-0 mt-2 w-60 rounded-xl bg-white border border-[#DCE3DF] shadow-2xl p-2 z-50 text-xs space-y-1">
-            <div class="p-2.5 border-b border-[#DCE3DF] bg-slate-50 rounded-lg">
-              <div class="font-bold text-[#131B2E]">Inspector Arpit Yadav</div>
-              <div class="text-[10px] text-[#5E6C68] font-mono">Lead Forensic Examiner &bull; PS Cyber Crime</div>
+          <div id="officer-dropdown-menu" class="hidden absolute right-0 mt-2 w-64 rounded-xl bg-white border border-[#CBD5E1] shadow-2xl p-2 z-50 text-xs space-y-1">
+            <div class="p-2.5 border-b border-[#E2E8F0] bg-slate-50 rounded-lg">
+              <div class="font-bold text-[#0F172A] text-sm">Inspector Arpit Yadav</div>
+              <div class="text-[10px] text-[#64748B] font-mono">Badge #AY-4091 &bull; PS Cyber Crime</div>
+              <div class="text-[10px] text-[#0262af] font-mono mt-0.5 font-semibold">Central District Jurisdiction</div>
             </div>
-            <button onclick="hapticEngine.toggle(); updateHeaderSoundIcon();" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-[#131B2E] transition">
+            <button onclick="openCaseSelectorModal(); toggleOfficerDropdown();" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition text-left font-medium">
+              <i data-lucide="folder-search" class="w-3.5 h-3.5 text-[#0262af]"></i>
+              <span>Switch / Load Case Samples</span>
+            </button>
+            <button onclick="hapticEngine.toggle(); updateHeaderSoundIcon();" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition">
               <span class="flex items-center gap-2">
                 <i data-lucide="volume-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
-                <span>Haptic Audio</span>
+                <span class="font-medium">Haptic Audio</span>
               </span>
-              <span id="officer-sound-label" class="text-[10px] font-mono text-[#5E6C68]">ON</span>
+              <span id="officer-sound-label" class="text-[10px] font-mono text-[#64748B] font-bold">ON</span>
             </button>
-            <button onclick="openDossierModal()" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100 text-[#131B2E] transition">
+            <button onclick="openDossierModal(); toggleOfficerDropdown();" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition font-medium">
               <i data-lucide="archive" class="w-3.5 h-3.5 text-[#0284C7]"></i>
               <span>Export Case Dossier (ZIP)</span>
             </button>
-            <button onclick="lockTerminal()" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-red-50 text-[#B91C1C] transition font-semibold">
+            <button onclick="lockTerminal()" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-red-50 text-[#DC2626] transition font-semibold">
               <i data-lucide="lock" class="w-3.5 h-3.5 text-[#DC2626]"></i>
               <span>Lock Terminal (Sign Out)</span>
             </button>
-            <div class="pt-1 border-t border-[#DCE3DF] text-[10px] text-[#0262af] font-mono px-2 py-1 flex items-center gap-1.5">
+            <div class="pt-1 border-t border-[#E2E8F0] text-[10px] text-[#0262af] font-mono px-2 py-1 flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               <span>Air-Gapped Node #CY-49</span>
             </div>
@@ -524,21 +541,29 @@
       <div class="flex flex-col gap-4 p-4">
         
         <!-- Active Case Context Card -->
-        <div class="sidebar-case-card p-3 rounded-xl bg-white border border-[#DCE3DF] space-y-2 shadow-xs">
-          <div class="flex items-center justify-between text-[9px] font-mono uppercase text-[#5E6C68] tracking-wider font-semibold">
+        <div class="sidebar-case-card p-3 rounded-xl bg-white border border-[#E2E8F0] space-y-2 shadow-xs">
+          <div class="flex items-center justify-between text-[9px] font-mono uppercase text-[#64748B] tracking-wider font-bold">
             <span>ACTIVE CASE FILE</span>
-            <span class="text-[#006B5F] flex items-center gap-1 font-bold">
-              <span class="w-1.5 h-1.5 rounded-full bg-[#006B5F] animate-pulse"></span>
+            <span class="text-emerald-600 flex items-center gap-1 font-bold">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               SEALED
             </span>
           </div>
-          <div class="font-bold text-xs text-[#131B2E] truncate">
+          <div id="sidebar-case-title" class="font-bold text-xs text-[#0F172A] truncate">
             State v. Vikram Malhotra
           </div>
-          <div class="text-[10px] text-[#5E6C68] font-mono flex items-center justify-between">
-            <span class="font-semibold text-[#00453D]">FIR 204/2026</span>
-            <span class="text-[#0284C7]">PS Cyber Crime</span>
+          <div class="text-[10px] text-[#64748B] font-mono flex items-center justify-between">
+            <span id="sidebar-case-fir" class="font-bold text-[#0262af]">FIR 204/2026</span>
+            <span id="sidebar-case-ps" class="text-slate-500">PS Cyber Crime</span>
           </div>
+          <button 
+            onclick="openCaseSelectorModal()" 
+            class="w-full mt-1 py-1 px-2 rounded-md bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#0262af] text-[10px] font-bold border border-[#BFDBFE] flex items-center justify-center gap-1.5 transition"
+            title="Switch case sample"
+          >
+            <i data-lucide="folder-search" class="w-3 h-3"></i>
+            <span>Switch Case Sample</span>
+          </button>
         </div>
 
         <!-- Quick Vault Action Strip -->
@@ -552,15 +577,15 @@
             <span>+ Ingest Exhibit</span>
           </button>
           <button 
-            onclick="loadSampleCaseData()" 
-            class="btn-editorial-secondary py-1.5 px-2 text-[11px] text-[#3F4946] hover:text-[#00453D]"
-            title="Reload FIR 204/2026 sample case"
+            onclick="openCaseSelectorModal()" 
+            class="btn-editorial-secondary py-1.5 px-2 text-[11px] text-[#0262af] hover:bg-[#EFF6FF]"
+            title="Load Case Samples"
           >
-            <i data-lucide="refresh-cw" class="w-3 h-3 text-[#5E6C68]"></i>
+            <i data-lucide="folder-search" class="w-3.5 h-3.5 text-[#0262af]"></i>
           </button>
           <button 
             onclick="clearEvidenceVault()" 
-            class="btn-editorial-secondary py-1.5 px-2 text-[11px] text-[#BA1A1A] hover:text-[#991B1B] border-[#FECACA]"
+            class="btn-editorial-secondary py-1.5 px-2 text-[11px] text-[#DC2626] hover:text-[#991B1B] border-[#FECACA]"
             title="Clear all exhibits from vault"
           >
             <i data-lucide="trash-2" class="w-3 h-3 text-[#BA1A1A]"></i>
@@ -682,7 +707,7 @@
           class="w-full flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg bg-white hover:bg-slate-50 text-[#131B2E] border border-[#BEC9C5] text-[11px] font-semibold transition shadow-xs"
           title="Sign into Examiner Account"
         >
-          <i data-lucide="log-in" class="w-3.5 h-3.5 text-[#00453D]"></i>
+          <i data-lucide="log-in" class="w-3.5 h-3.5 text-[#0262af]"></i>
           <span>Officer Sign-In</span>
         </a>
 
@@ -706,22 +731,22 @@
       
 
 
-      <!-- Emergency Mitra Horizontal Reassurance Trust Strip -->
+      <!-- Government Reassurance Trust Strip -->
       <div class="reassurance-strip no-print">
         <div class="reassurance-item">
-          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#006B5F]"></i>
+          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
           <span data-i18n-en="BSA 2023 §63(4) Certified Schedule" data-i18n-hi="बीएसए 2023 §63(4) प्रमाणित अनुसूची">BSA 2023 §63(4) Certified Schedule</span>
         </div>
         <div class="reassurance-item">
-          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#006B5F]"></i>
+          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
           <span data-i18n-en="NIST FIPS 180-4 Dual Hash Intact (SHA-256 + SHA3-512)" data-i18n-hi="एनआईएसटी दोहरा हैश सुरक्षित (SHA-256 + SHA3-512)">NIST FIPS 180-4 Dual Hash Intact (SHA-256 + SHA3-512)</span>
         </div>
         <div class="reassurance-item">
-          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#006B5F]"></i>
+          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
           <span data-i18n-en="Air-Gapped Forensic Node (Zero Data Leak)" data-i18n-hi="एयर-गैप्ड फॉरेंसिक नोड (शून्य डेटा रिसाव)">Air-Gapped Forensic Node (Zero Data Leak)</span>
         </div>
         <div class="reassurance-item">
-          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#006B5F]"></i>
+          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
           <span data-i18n-en="Zero-Hallucination Mechanical Grounding Gate" data-i18n-hi="शून्य-भ्रम यांत्रिक सत्यापन गेट">Zero-Hallucination Mechanical Grounding Gate</span>
         </div>
       </div>
@@ -733,273 +758,269 @@
         <!-- ===================================================================== -->
         <!-- ZONE 1: CASE OVERVIEW & HEALTH AT A GLANCE (TAB PANE 1) -->
         <!-- ===================================================================== -->
-        <section id="section-overview" class="tab-section-pane active space-y-7">
+        <section id="section-overview" class="tab-section-pane active space-y-8">
           
-          <!-- Emergency Mitra Legal Deterrent & Admissibility Banner -->
-          <div class="trust-legal-banner">
-            <i data-lucide="shield-alert" class="w-5 h-5 text-[#B45309] shrink-0 mt-0.5"></i>
-            <div>
-              <strong class="font-bold">STATUTORY FORENSIC ADMISSIBILITY NOTICE // BHARATIYA SAKSHYA ADHINIYAM, 2023 §63(4):</strong>
-              <p class="mt-0.5 text-xs text-[#78350F] leading-relaxed">
-                All electronic records, bitstreams, and chronological reconstructions ingested into ChronoFact are cryptographically sealed using <strong>NIST FIPS 180-4 Dual Bitstream Hashing (SHA-256 + SHA3-512)</strong> and Merkle provenance tree. Admissible as primary electronic evidence under Section 63(4) of Bharatiya Sakshya Adhiniyam, 2023. Unauthorized bitstream tampering or false testimony carries penal consequences under <strong>Section 336 of Bharatiya Nyaya Sanhita, 2023</strong>.
-              </p>
-            </div>
-          </div>
-
-          <!-- Case Header Title Block -->
-          <div class="space-y-4 border-b border-[#DCE3DF] pb-6">
-            <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-[#5E6C68]">
-              <div class="flex items-center gap-2">
-                <span class="font-mono uppercase text-[10px] tracking-wider text-[#00453D] bg-[#E6F4F1] px-2.5 py-0.5 rounded border border-[#A7F3D0] font-bold">
-                  SPECIAL COURT (CYBER CRIME) &bull; NEW DELHI JURISDICTION
+          <!-- Executive Case Header & Action Bar -->
+          <div class="editorial-card p-6 lg:p-8 space-y-6">
+            
+            <!-- Top Metadata Strip & Case Switcher Button -->
+            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#E2E8F0] pb-5">
+              <div class="flex flex-wrap items-center gap-2.5 text-xs">
+                <span id="overview-court-badge" class="font-mono uppercase text-[11px] tracking-wider text-[#0262af] bg-[#EFF6FF] px-3 py-1 rounded-md border border-[#BFDBFE] font-bold">
+                  SPECIAL COURT (CYBER CRIME) &bull; CC/2026/8492
                 </span>
-                <span class="text-slate-300">&bull;</span>
-                <span class="text-[#131B2E] font-mono font-semibold">CC/2026/8492</span>
+                <span id="overview-station-badge" class="font-mono uppercase text-[11px] tracking-wider text-[#002654] bg-[#F1F5F9] px-3 py-1 rounded-md border border-[#CBD5E1] font-semibold">
+                  PS CYBER CRIME, NEW DELHI
+                </span>
+                <span class="inline-flex items-center gap-1.5 font-mono text-[11px] text-[#059669] bg-[#ECFDF5] px-2.5 py-1 rounded-md border border-[#A7F3D0] font-semibold">
+                  <span class="w-2 h-2 rounded-full bg-[#059669]"></span>
+                  <span>Vault Sealed</span>
+                </span>
               </div>
-              <div id="header-vault-status-pill" class="flex items-center gap-2 font-mono text-[11px] text-[#00453D] bg-[#E6F4F1] px-2.5 py-0.5 rounded border border-[#A7F3D0] font-semibold">
-                <span class="w-2 h-2 rounded-full bg-[#006B5F]"></span>
-                <span>Vault Sealed &bull; 3 Exhibits &bull; Merkle Root Active</span>
+
+              <!-- Prominent Case Switcher Action Button -->
+              <div class="flex items-center gap-2.5">
+                <button onclick="openCaseSelectorModal()" class="btn-editorial-primary py-2 px-4 text-xs font-semibold shadow-sm flex items-center gap-2">
+                  <i data-lucide="folder-open" class="w-4 h-4"></i>
+                  <span>Load / Switch Case Samples</span>
+                  <i data-lucide="chevron-down" class="w-3.5 h-3.5 opacity-80"></i>
+                </button>
+                <button onclick="openIngestModal()" class="btn-editorial-secondary py-2 px-3 text-xs font-medium flex items-center gap-1.5">
+                  <i data-lucide="file-up" class="w-3.5 h-3.5 text-[#0262af]"></i>
+                  <span>+ Ingest Exhibit</span>
+                </button>
               </div>
             </div>
 
-            <div class="space-y-1">
-              <h1 class="text-2xl md:text-3xl font-display font-bold text-[#131B2E] tracking-tight">
-                State of NCT of Delhi <span class="text-[#5E6C68] font-normal">v.</span> Vikram Malhotra &amp; Ors.
+            <!-- Case Title & Crime Summary -->
+            <div class="space-y-2">
+              <div class="flex items-center gap-2 text-xs text-[#64748B] font-mono">
+                <span>GOVERNMENT OF INDIA DIGITAL FORENSIC RECORD</span>
+                <span>&bull;</span>
+                <span id="overview-fir-badge" class="font-bold text-[#0262af]">FIR No. 204/2026</span>
+              </div>
+              <h1 id="overview-case-title" class="text-2xl md:text-3xl font-display font-bold text-[#0F172A] tracking-tight">
+                State of NCT of Delhi <span class="text-[#64748B] font-normal">v.</span> Vikram Malhotra &amp; Ors.
               </h1>
-              <p class="text-xs md:text-sm text-[#3F4946] leading-relaxed max-w-4xl" data-i18n-en="Digital Evidence Provenance Ledger • Statutory Chronological Reconstruction under Section 63(4) of the Bharatiya Sakshya Adhiniyam, 2023 (Replaces Section 65B of Indian Evidence Act, 1872)." data-i18n-hi="डिजिटल साक्ष्य उत्पत्ति खाता • भारतीय साक्ष्य अधिनियम, 2023 की धारा 63(4) के तहत वैधानिक कालानुक्रमिक पुनर्निर्माण।">
-                Digital Evidence Provenance Ledger &bull; Statutory Chronological Reconstruction under <strong>Section 63(4) of the Bharatiya Sakshya Adhiniyam, 2023</strong> (Replaces Section 65B of Indian Evidence Act, 1872).
+              <p id="overview-crime-summary" class="text-xs md:text-sm text-[#475569] leading-relaxed max-w-5xl">
+                Digital Evidence Provenance Ledger &bull; Statutory Chronological Reconstruction under <strong>Section 63(4) of the Bharatiya Sakshya Adhiniyam, 2023</strong>. Suspect claimed medical alibi and total offline status, but concurrent forensic bitstreams establish unauthorized exfiltration from dedicated IP address and telecom BTS antenna (+24.8 km geographical conflict).
               </p>
             </div>
 
-            <div class="pt-1 flex flex-wrap items-center gap-4 text-xs text-[#5E6C68]">
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="user-check" class="w-3.5 h-3.5 text-[#00453D]"></i>
-                <span>Lead Examiner: <strong class="text-[#131B2E]">Insp. A. Yadav</strong> (Cyber Crime)</span>
+            <!-- Judicial Credential Metadata Row -->
+            <div class="pt-2 flex flex-wrap items-center gap-6 text-xs text-[#64748B] border-t border-[#F1F5F9]">
+              <div class="flex items-center gap-2">
+                <i data-lucide="user-check" class="w-4 h-4 text-[#0262af]"></i>
+                <span>Lead Examiner: <strong class="text-[#0F172A]">Insp. Arpit Yadav</strong> (Cyber Crime Cell)</span>
               </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="scale" class="w-3.5 h-3.5 text-[#006B5F]"></i>
-                <span>Statute: <strong class="text-[#131B2E]">BSA 2023 §63(4) Schedule Ready</strong></span>
+              <div class="flex items-center gap-2">
+                <i data-lucide="scale" class="w-4 h-4 text-[#059669]"></i>
+                <span>Statute: <strong id="overview-case-statute" class="text-[#0F172A]">BSA 2023 §63(4) Schedule Ready</strong></span>
               </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#0284C7]"></i>
-                <span>Standard: <strong class="text-[#131B2E]">NIST FIPS 180-4 Dual Hashing</strong></span>
+              <div class="flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-4 h-4 text-[#0262af]"></i>
+                <span>Cryptographic Standard: <strong class="text-[#0F172A]">NIST FIPS 180-4 Dual Hash (SHA-256 + SHA3)</strong></span>
               </div>
-            </div>
-
-            <!-- Case Primary Action Strip -->
-            <div class="pt-2 flex flex-wrap items-center gap-2.5">
-              <button onclick="openIngestModal()" class="btn-editorial-primary py-2 px-3.5 text-xs font-medium">
-                <i data-lucide="file-up" class="w-3.5 h-3.5"></i>
-                <span data-i18n-en="+ Upload Another Exhibit" data-i18n-hi="+ नया साक्ष्य अपलोड करें">+ Upload Another Exhibit</span>
-              </button>
-              <button onclick="navigateToSection('section-vault')" class="btn-editorial-secondary py-2 px-3 text-xs">
-                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#006B5F]"></i>
-                <span data-i18n-en="Inspect Evidence Vault" data-i18n-hi="साक्ष्य भंडार देखें">Inspect Evidence Vault</span>
-              </button>
-              <button onclick="loadSampleCaseData()" class="btn-editorial-secondary py-2 px-3 text-xs text-[#3F4946]" title="Reload original FIR 204/2026 exhibits">
-                <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-[#5E6C68]"></i>
-                <span data-i18n-en="Reload Sample Case" data-i18n-hi="सैंपल केस लोड करें">Reload Sample Case</span>
-              </button>
-              <button onclick="clearEvidenceVault()" class="btn-editorial-secondary py-2 px-3 text-xs text-[#BA1A1A] hover:text-[#991B1B] border-[#FECACA]" title="Wipe current case exhibits">
-                <i data-lucide="trash-2" class="w-3.5 h-3.5 text-[#BA1A1A]"></i>
-                <span data-i18n-en="Clear All Evidence" data-i18n-hi="सभी साक्ष्य साफ़ करें">Clear All Evidence</span>
-              </button>
             </div>
           </div>
 
-          <!-- 5 Executive KPI Cards ("Case Health at a Glance" with Emergency Mitra Squircle Role Styling) -->
-          <div class="grid grid-cols-2 lg:grid-cols-5 gap-3.5">
+          <!-- 4 Spacious Executive Metric Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             
             <!-- KPI 1: Ingested Exhibits -->
-            <div class="stat-kpi-card bg-white border-2 border-[#DCE3DF] hover:border-[#00453D] rounded-2xl p-4 shadow-xs transition-all flex flex-col justify-between gap-3">
+            <div class="editorial-card p-5 flex flex-col justify-between gap-3 bg-white hover:border-[#0262af] transition">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-mono uppercase text-[#5E6C68] font-bold tracking-wider" data-i18n-en="Ingested Exhibits" data-i18n-hi="साक्ष्य फाइलें">Ingested Exhibits</span>
-                <div class="w-8 h-8 rounded-xl bg-[#E6F4F1] text-[#00453D] flex items-center justify-center">
+                <span class="text-[11px] font-mono uppercase text-[#64748B] font-bold tracking-wider">Seized Exhibits</span>
+                <div class="w-9 h-9 rounded-xl bg-[#EFF6FF] text-[#0262af] flex items-center justify-center">
                   <i data-lucide="shield-check" class="w-4 h-4"></i>
                 </div>
               </div>
-              <div class="text-3xl lg:text-4xl font-bold font-mono text-[#00453D]" id="stat-evidence-count">3</div>
-              <div class="text-[11px] text-[#006B5F] font-semibold flex items-center gap-1">
+              <div class="text-3xl lg:text-4xl font-bold font-mono text-[#0262af]" id="stat-evidence-count">3</div>
+              <div class="text-[11px] text-[#059669] font-semibold flex items-center gap-1.5">
                 <i data-lucide="check" class="w-3.5 h-3.5"></i>
-                <span>100% Sealed &amp; Intact</span>
+                <span>100% Sealed &bull; Zero Byte Tamper</span>
               </div>
             </div>
 
-            <!-- KPI 2: Timeline Events -->
-            <div class="stat-kpi-card bg-white border-2 border-[#DCE3DF] hover:border-[#0284C7] rounded-2xl p-4 shadow-xs transition-all flex flex-col justify-between gap-3">
+            <!-- KPI 2: Reconstructed Timeline Events -->
+            <div class="editorial-card p-5 flex flex-col justify-between gap-3 bg-white hover:border-[#0262af] transition">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-mono uppercase text-[#5E6C68] font-bold tracking-wider" data-i18n-en="Causal Events" data-i18n-hi="घटनाक्रम">Causal Events</span>
-                <div class="w-8 h-8 rounded-xl bg-[#F0F9FF] text-[#0284C7] flex items-center justify-center">
+                <span class="text-[11px] font-mono uppercase text-[#64748B] font-bold tracking-wider">Causal Events</span>
+                <div class="w-9 h-9 rounded-xl bg-[#F0FDF4] text-[#059669] flex items-center justify-center">
                   <i data-lucide="git-commit" class="w-4 h-4"></i>
                 </div>
               </div>
-              <div class="text-3xl lg:text-4xl font-bold font-mono text-[#0284C7]" id="stat-timeline-count">5</div>
-              <div class="text-[11px] text-[#0369A1] font-semibold flex items-center gap-1">
-                <i data-lucide="check" class="w-3.5 h-3.5"></i>
-                <span>Partial Order Grounded</span>
+              <div class="text-3xl lg:text-4xl font-bold font-mono text-[#0F172A]" id="stat-timeline-count">5</div>
+              <div class="text-[11px] text-[#0262af] font-semibold flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                <span>Allen Interval Reconstructed</span>
               </div>
             </div>
 
-            <!-- KPI 3: Inconsistencies (Alibi Clash) -->
-            <div class="stat-kpi-card bg-white border-2 border-[#FECACA] hover:border-[#BA1A1A] rounded-2xl p-4 shadow-xs transition-all flex flex-col justify-between gap-3">
+            <!-- KPI 3: Inconsistencies / Alibi Clash -->
+            <div class="editorial-card p-5 flex flex-col justify-between gap-3 bg-white hover:border-[#DC2626] transition">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-mono uppercase text-[#BA1A1A] font-bold tracking-wider" data-i18n-en="Inconsistencies" data-i18n-hi="विरोधाभास">Inconsistencies</span>
-                <div class="w-8 h-8 rounded-xl bg-[#FEF2F2] text-[#BA1A1A] flex items-center justify-center">
+                <span class="text-[11px] font-mono uppercase text-[#DC2626] font-bold tracking-wider">Contradictions</span>
+                <div class="w-9 h-9 rounded-xl bg-[#FEF2F2] text-[#DC2626] flex items-center justify-center">
                   <i data-lucide="alert-triangle" class="w-4 h-4"></i>
                 </div>
               </div>
-              <div class="text-3xl lg:text-4xl font-bold font-mono text-[#BA1A1A]" id="stat-anomalies-count">1</div>
-              <div class="text-[11px] text-[#BA1A1A] font-semibold flex items-center gap-1">
-                <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i>
-                <span>Alibi Contradiction Found</span>
+              <div class="text-3xl lg:text-4xl font-bold font-mono text-[#DC2626]" id="stat-anomalies-count">1</div>
+              <div class="text-[11px] text-[#DC2626] font-semibold flex items-center gap-1.5">
+                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                <span id="stat-anomalies-label">Alibi Contradiction Grounded</span>
               </div>
             </div>
 
-            <!-- KPI 4: Confirmed Alignment -->
-            <div class="stat-kpi-card bg-white border-2 border-[#DCE3DF] hover:border-[#006B5F] rounded-2xl p-4 shadow-xs transition-all flex flex-col justify-between gap-3">
+            <!-- KPI 4: Court Admissibility -->
+            <div class="editorial-card p-5 flex flex-col justify-between gap-3 bg-white hover:border-[#059669] transition">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-mono uppercase text-[#5E6C68] font-bold tracking-wider" data-i18n-en="Confirmed (Zero Skew)" data-i18n-hi="प्रमाणित समय">Confirmed (Zero Skew)</span>
-                <div class="w-8 h-8 rounded-xl bg-[#E6F4F1] text-[#006B5F] flex items-center justify-center">
-                  <i data-lucide="clock-check" class="w-4 h-4"></i>
+                <span class="text-[11px] font-mono uppercase text-[#64748B] font-bold tracking-wider">Court Admissibility</span>
+                <div class="w-9 h-9 rounded-xl bg-[#ECFDF5] text-[#059669] flex items-center justify-center">
+                  <i data-lucide="scale" class="w-4 h-4"></i>
                 </div>
               </div>
-              <div class="text-3xl lg:text-4xl font-bold font-mono text-[#006B5F]" id="stat-confirmed-count">4</div>
-              <div class="text-[11px] text-[#5E6C68] font-medium">
-                Strict NTP Alignment
-              </div>
-            </div>
-
-            <!-- KPI 5: Bounded Intervals -->
-            <div class="stat-kpi-card bg-white border-2 border-[#DCE3DF] hover:border-[#D97706] rounded-2xl p-4 shadow-xs transition-all flex flex-col justify-between gap-3">
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] font-mono uppercase text-[#5E6C68] font-bold tracking-wider" data-i18n-en="Bounded Intervals" data-i18n-hi="अंतराल सीमा">Bounded Intervals</span>
-                <div class="w-8 h-8 rounded-xl bg-[#FFFBEB] text-[#D97706] flex items-center justify-center">
-                  <i data-lucide="hourglass" class="w-4 h-4"></i>
-                </div>
-              </div>
-              <div class="text-3xl lg:text-4xl font-bold font-mono text-[#D97706]" id="stat-uncertain-count">1</div>
-              <div class="text-[11px] text-[#B45309] font-medium">
-                &plusmn; 4h Partial Window
+              <div class="text-xl lg:text-2xl font-bold font-display text-[#059669]" id="stat-admissibility">BSA §63(4)</div>
+              <div class="text-[11px] text-[#059669] font-semibold flex items-center gap-1.5">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+                <span>Schedule Part A/B Ready</span>
               </div>
             </div>
 
           </div>
 
-          <!-- Chain of Custody & Master Merkle Root Audit Summary Card -->
-          <div class="editorial-card p-6 space-y-4">
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#DCE3DF] pb-3">
-              <div class="flex items-center gap-2">
-                <i data-lucide="shield-check" class="w-5 h-5 text-[#006B5F]"></i>
-                <h3 class="font-display font-bold text-sm text-[#131B2E]" data-i18n-en="Cryptographic Chain-of-Custody &amp; Merkle Root" data-i18n-hi="क्रिप्टोग्राफ़िक कस्टडी श्रृंखला एवं मर्कल रूट">Cryptographic Chain-of-Custody &amp; Merkle Root</h3>
-              </div>
-              <button 
-                onclick="copyToClipboard('90ebf0e585bae35df91984284cfbdbb981bfbb55c0e5a79afda3e30bf2fd290c', 'Master Merkle Root copied')" 
-                class="btn-editorial-secondary text-xs py-1 px-2.5 flex items-center gap-1.5"
-              >
-                <i data-lucide="copy" class="w-3 h-3 text-[#5E6C68]"></i>
-                <span>Copy Master Root</span>
-              </button>
-            </div>
+          <!-- Structured 2-Column Working Deck -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs font-mono">
-              <div class="p-3 rounded-xl bg-[#F8F6F0] border border-[#DCE3DF] space-y-1">
-                <span class="text-[10px] uppercase text-[#5E6C68] font-bold block">MASTER MERKLE ROOT (SHA-256)</span>
-                <span class="text-[#131B2E] font-semibold break-all text-[11px]">90ebf0e585bae35df91984284cfbdbb981bfbb55c0e5a79afda3e30bf2fd290c</span>
+            <!-- Left Deck: Active Case Forensic Briefing & Ground Truth (7 Cols) -->
+            <div class="lg:col-span-7 editorial-card p-6 space-y-4">
+              <div class="flex items-center justify-between border-b border-[#E2E8F0] pb-3">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded-lg bg-[#EFF6FF] text-[#0262af] flex items-center justify-center">
+                    <i data-lucide="radar" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-sm text-[#0F172A]">Evidentiary Conflict &amp; Ground Truth</h3>
+                    <p class="text-[11px] text-[#64748B]">Automated mechanical contradiction between suspect testimony &amp; bitstream reality</p>
+                  </div>
+                </div>
+                <button onclick="navigateToSection('section-radar')" class="text-xs text-[#0262af] font-semibold hover:underline flex items-center gap-1">
+                  <span>View Radar</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
               </div>
-              <div class="p-3 rounded-xl bg-[#F8F6F0] border border-[#DCE3DF] space-y-1">
-                <span class="text-[10px] uppercase text-[#5E6C68] font-bold block">SEIZURE HARDWARE ATTESTATION</span>
-                <span class="text-[#006B5F] font-semibold text-[11px]">NIST FIPS 180-4 Dual Hash Match (100%)</span>
-              </div>
-              <div class="p-3 rounded-xl bg-[#F8F6F0] border border-[#DCE3DF] space-y-1">
-                <span class="text-[10px] uppercase text-[#5E6C68] font-bold block">STATUTORY COURT SCHEDULE</span>
-                <span class="text-[#0284C7] font-semibold text-[11px]">BSA 2023 §63(4) Schedule Ready</span>
+
+              <!-- Dynamic Contradiction Summary Box -->
+              <div id="overview-contradiction-box" class="space-y-3">
+                <div class="p-3.5 rounded-xl bg-[#FEF2F2] border border-[#FECACA] space-y-1.5">
+                  <div class="flex items-center justify-between text-[11px] font-bold text-[#DC2626]">
+                    <span class="flex items-center gap-1.5">
+                      <i data-lucide="quote" class="w-3.5 h-3.5"></i>
+                      <span>SUSPECT CLAIMED STATEMENT</span>
+                    </span>
+                    <span class="font-mono text-[10px] bg-white px-2 py-0.5 rounded border border-[#FECACA]">Alibi Claim</span>
+                  </div>
+                  <p id="overview-suspect-claim" class="text-xs text-[#991B1B] italic font-serif leading-relaxed">
+                    "Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning."
+                  </p>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] space-y-1.5">
+                  <div class="flex items-center justify-between text-[11px] font-bold text-[#059669]">
+                    <span class="flex items-center gap-1.5">
+                      <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+                      <span>BITSTREAM FORENSIC REALITY</span>
+                    </span>
+                    <span class="font-mono text-[10px] bg-white px-2 py-0.5 rounded border border-[#BBF7D0]">Mechanically Grounded</span>
+                  </div>
+                  <p id="overview-ground-reality" class="text-xs text-[#166534] font-mono leading-relaxed">
+                    Concurrent authenticated session LOGIN OK from IP 192.168.1.105 with file exfiltration, confirmed by Sector 62 BTS tower antenna.
+                  </p>
+                </div>
+
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] text-xs font-mono text-[#475569]">
+                  <span class="font-semibold text-[#0F172A]">EVIDENTIARY DELTA:</span>
+                  <span id="overview-delta-text" class="text-[#DC2626] font-bold">+24.8 km Antenna Conflict &bull; +5h 28m Time Skew</span>
+                </div>
               </div>
             </div>
+
+            <!-- Right Deck: Cryptographic Chain of Custody & Judicial Deliverables (5 Cols) -->
+            <div class="lg:col-span-5 editorial-card p-6 space-y-4 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between border-b border-[#E2E8F0] pb-3 mb-4">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-[#0262af]"></i>
+                    <h3 class="font-display font-bold text-sm text-[#0F172A]">Cryptographic Chain of Custody</h3>
+                  </div>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#EFF6FF] text-[#0262af] font-bold border border-[#BFDBFE]">NIST FIPS</span>
+                </div>
+
+                <!-- Merkle Root Block -->
+                <div class="space-y-2.5">
+                  <div class="p-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1">
+                    <div class="flex items-center justify-between">
+                      <span class="text-[10px] font-mono uppercase text-[#64748B] font-bold">MASTER MERKLE ROOT (SHA-256)</span>
+                      <button onclick="copyCurrentMerkleRoot()" class="text-[11px] text-[#0262af] hover:underline font-semibold flex items-center gap-1">
+                        <i data-lucide="copy" class="w-3 h-3"></i>
+                        <span>Copy</span>
+                      </button>
+                    </div>
+                    <div id="overview-merkle-root" class="text-[11px] font-mono text-[#0F172A] break-all font-semibold select-all">
+                      90ebf0e585bae35df91984284cfbdbb981bfbb55c0e5a79afda3e30bf2fd290c
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                      <span class="text-[10px] uppercase text-[#64748B] font-bold block">Bitstream Digest</span>
+                      <span class="text-[11px] text-[#059669] font-bold">100% Match (0 B Skew)</span>
+                    </div>
+                    <div class="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                      <span class="text-[10px] uppercase text-[#64748B] font-bold block">Evidence Standard</span>
+                      <span class="text-[11px] text-[#0262af] font-bold">ISO/IEC 27037:2012</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Navigation Shortcuts -->
+              <div class="pt-3 border-t border-[#E2E8F0] space-y-2">
+                <button onclick="navigateToSection('section-vault')" class="w-full btn-editorial-secondary py-2 px-3 text-xs flex items-center justify-between">
+                  <span class="flex items-center gap-2">
+                    <i data-lucide="folder-lock" class="w-3.5 h-3.5 text-[#0262af]"></i>
+                    <span>Inspect Evidence Vault</span>
+                  </span>
+                  <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#94A3B8]"></i>
+                </button>
+                <button onclick="navigateToSection('section-timeline')" class="w-full btn-editorial-secondary py-2 px-3 text-xs flex items-center justify-between">
+                  <span class="flex items-center gap-2">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-[#0262af]"></i>
+                    <span>View Event Timeline</span>
+                  </span>
+                  <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#94A3B8]"></i>
+                </button>
+                <button onclick="navigateToSection('section-export')" class="w-full btn-editorial-primary py-2 px-3 text-xs flex items-center justify-between">
+                  <span class="flex items-center gap-2">
+                    <i data-lucide="file-badge" class="w-3.5 h-3.5 text-white"></i>
+                    <span>Generate Court Certificate (BSA §63)</span>
+                  </span>
+                  <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-white/80"></i>
+                </button>
+              </div>
+            </div>
+
           </div>
 
-          <!-- 4 Direct Workflow Action Tiles (Emergency Mitra Role-Card Style) -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            
-            <!-- Role 1: Evidence Vault -->
-            <div onclick="navigateToSection('section-vault')" class="role-action-card group">
-              <div class="flex items-center justify-between">
-                <div class="squircle-badge bg-[#E6F4F1] text-[#00453D]">
-                  <i data-lucide="shield-check" class="w-5 h-5"></i>
-                </div>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#E6F4F1] text-[#00453D] font-bold">VAULT</span>
-              </div>
-              <div>
-                <h3 class="font-bold text-base text-[#131B2E]" data-i18n-en="Evidence Vault" data-i18n-hi="साक्ष्य भंडार">Evidence Vault</h3>
-                <p class="text-xs text-[#5E6C68] mt-1 leading-relaxed" data-i18n-en="Inspect seized exhibits, NIST dual cryptographic bitstream digests, and chain-of-custody logs." data-i18n-hi="जब्त साक्ष्य, दोहरे हैश डाइजेस्ट और हिरासत श्रृंखला का निरीक्षण करें।">
-                  Inspect seized exhibits, NIST dual cryptographic bitstream digests, and chain-of-custody logs.
-                </p>
-              </div>
-              <span class="mt-auto bg-[#00453D] text-white font-bold px-3 py-2 rounded-xl flex items-center gap-1.5 text-xs justify-center group-hover:bg-[#075E54] transition-colors">
-                <span data-i18n-en="Open Evidence Vault" data-i18n-hi="साक्ष्य भंडार खोलें">Open Evidence Vault</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          <!-- Statutory Admissibility Footnote Banner -->
+          <div class="p-4 rounded-xl bg-[#EFF6FF] border border-[#BFDBFE] flex items-start gap-3 text-xs text-[#1E3A8A] leading-relaxed">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-[#0262af] shrink-0 mt-0.5"></i>
+            <div>
+              <strong>STATUTORY EVIDENCE CERTIFICATION // BHARATIYA SAKSHYA ADHINIYAM, 2023 §63(4):</strong>
+              <span class="text-[#3B82F6] ml-1">
+                All exhibits and chronological reconstructions ingested into ChronoFact are cryptographically sealed with dual bitstream digests (SHA-256 + SHA3-512). Admissible as primary electronic evidence before any Judicial Magistrate or Special Court in the Republic of India.
               </span>
             </div>
-
-            <!-- Role 2: Event Timeline -->
-            <div onclick="navigateToSection('section-timeline')" class="role-action-card group">
-              <div class="flex items-center justify-between">
-                <div class="squircle-badge bg-[#F0F9FF] text-[#0284C7]">
-                  <i data-lucide="clock" class="w-5 h-5"></i>
-                </div>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#F0F9FF] text-[#0284C7] font-bold">TIMELINE</span>
-              </div>
-              <div>
-                <h3 class="font-bold text-base text-[#131B2E]" data-i18n-en="Event Timeline" data-i18n-hi="घटनाक्रम समयरेखा">Event Timeline</h3>
-                <p class="text-xs text-[#5E6C68] mt-1 leading-relaxed" data-i18n-en="Allen interval algebra causal reconstruction with NTP calibration and bounding bounds." data-i18n-hi="एलन अंतराल बीजगणित द्वारा कालानुक्रमिक पुनर्निर्माण।">
-                  Allen interval algebra causal reconstruction with NTP calibration and bounding bounds.
-                </p>
-              </div>
-              <span class="mt-auto bg-[#00453D] text-white font-bold px-3 py-2 rounded-xl flex items-center gap-1.5 text-xs justify-center group-hover:bg-[#075E54] transition-colors">
-                <span data-i18n-en="View Event Timeline" data-i18n-hi="समयरेखा देखें">View Event Timeline</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-              </span>
-            </div>
-
-            <!-- Role 3: Grounded AI Q&A -->
-            <div onclick="navigateToSection('section-ai')" class="role-action-card group">
-              <div class="flex items-center justify-between">
-                <div class="squircle-badge bg-[#FAF5FF] text-[#9333EA]">
-                  <i data-lucide="cpu" class="w-5 h-5"></i>
-                </div>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FAF5FF] text-[#9333EA] font-bold">PERPLEXITY-AI</span>
-              </div>
-              <div>
-                <h3 class="font-bold text-base text-[#131B2E]" data-i18n-en="Grounded AI Q&amp;A" data-i18n-hi="न्यायिक प्रश्नोत्तरी">Grounded AI Q&amp;A</h3>
-                <p class="text-xs text-[#5E6C68] mt-1 leading-relaxed" data-i18n-en="Query evidence with zero-hallucination mechanical verification and verbatim byte anchors." data-i18n-hi="शून्य-भ्रम और सटीक साक्ष्य संदर्भों के साथ प्रश्न पूछें।">
-                  Query evidence with zero-hallucination mechanical verification and verbatim byte anchors.
-                </p>
-              </div>
-              <span class="mt-auto bg-[#00453D] text-white font-bold px-3 py-2 rounded-xl flex items-center gap-1.5 text-xs justify-center group-hover:bg-[#075E54] transition-colors">
-                <span data-i18n-en="Query Judicial AI" data-i18n-hi="न्यायिक AI से पूछें">Query Judicial AI</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-              </span>
-            </div>
-
-            <!-- Role 4: Export BSA Cert -->
-            <div onclick="navigateToSection('section-export')" class="role-action-card group">
-              <div class="flex items-center justify-between">
-                <div class="squircle-badge bg-[#FFFBEB] text-[#D97706]">
-                  <i data-lucide="file-badge" class="w-5 h-5"></i>
-                </div>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FFFBEB] text-[#D97706] font-bold">BSA §63(4)</span>
-              </div>
-              <div>
-                <h3 class="font-bold text-base text-[#131B2E]" data-i18n-en="Export Court Certificate" data-i18n-hi="न्यायालय प्रमाणन">Export Court Certificate</h3>
-                <p class="text-xs text-[#5E6C68] mt-1 leading-relaxed" data-i18n-en="Generate and print statutory Schedule under BSA 2023 §63(4) with cryptographic signatures." data-i18n-hi="बीएसए 2023 §63(4) के तहत डिजिटल साक्ष्य अनुसूची तैयार करें।">
-                  Generate and print statutory Schedule under BSA 2023 §63(4) with cryptographic signatures.
-                </p>
-              </div>
-              <span class="mt-auto bg-[#00453D] text-white font-bold px-3 py-2 rounded-xl flex items-center gap-1.5 text-xs justify-center group-hover:bg-[#075E54] transition-colors">
-                <span data-i18n-en="Generate BSA Cert" data-i18n-hi="प्रमाणपत्र बनाएं">Generate BSA Cert</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-              </span>
-            </div>
-
           </div>
 
         </section>
@@ -2114,6 +2135,42 @@
         <button onclick="showToast('Packaging legal dossier archive with cryptographic manifests...'); closeDossierModal()" class="btn-editorial-primary text-xs">
           <i data-lucide="download" class="w-3.5 h-3.5"></i>
           <span>Download Bundle (ZIP)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL: Official Cyber Crime Case Samples Selector -->
+  <div id="case-selector-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="editorial-card w-full max-w-4xl bg-white border border-[#CBD5E1] rounded-2xl shadow-2xl p-6 lg:p-8 space-y-5 max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between border-b border-[#E2E8F0] pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-[#EFF6FF] text-[#0262af] flex items-center justify-center">
+            <i data-lucide="folder-open" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-lg text-[#0F172A]">Official Cyber Crime Case Vaults</h3>
+            <p class="text-xs text-[#64748B]">Select a verified statutory investigation sample to mount in the forensic workbench</p>
+          </div>
+        </div>
+        <button onclick="closeCaseSelectorModal()" class="p-1.5 rounded-lg hover:bg-[#F1F5F9] text-[#64748B] hover:text-[#0F172A] transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Case Grid Container -->
+      <div id="case-selector-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto pr-1 flex-1 py-1">
+        <!-- Rendered dynamically by app.js: renderCaseSelectorCards() -->
+      </div>
+
+      <div class="flex items-center justify-between pt-4 border-t border-[#E2E8F0] text-xs text-[#64748B]">
+        <div class="flex items-center gap-1.5">
+          <i data-lucide="shield-check" class="w-4 h-4 text-[#059669]"></i>
+          <span>All sample exhibits comply with Bharatiya Sakshya Adhiniyam, 2023 §63(4)</span>
+        </div>
+        <button onclick="closeCaseSelectorModal()" class="btn-editorial-secondary text-xs px-4 py-2">
+          Close
         </button>
       </div>
     </div>

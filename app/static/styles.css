@@ -11,34 +11,35 @@
    1. COLOR PALETTES (PURE DARK & PURE LIGHT)
    -------------------------------------------------------------------------- */
 :root, [data-theme="light"] {
-  /* Emergency Mitra × GOI Material-3 Forensic Court Workbench */
-  --primary: #00453D;
-  --primary-container: #E6F4F1;
-  --primary-hover: #075E54;
+  /* Official Government of India Cyber Crime Portal (MHA / I4C / DFSS Design System) */
+  --primary: #0262af;
+  --primary-container: #EFF6FF;
+  --primary-hover: #004d8c;
   --on-primary: #FFFFFF;
-  --secondary: #006B5F;
-  --accent-cyan: #71F8E4;
+  --secondary: #002654;
+  --accent-cyan: #38BDF8;
+  --accent-gold: #F59E0B;
 
-  --bg-canvas: #FBF9F5;
-  --bg-sidebar: #F4F1EA;
+  --bg-canvas: #F4F7FB;
+  --bg-sidebar: #FFFFFF;
   --bg-surface: #FFFFFF;
   --bg-card: #FFFFFF;
   --bg-card-hover: #F8FAFC;
-  --bg-inset: #F8F6F0;
+  --bg-inset: #F8FAFC;
   --bg-input: #FFFFFF;
-  --bg-elevated: #EDE8DE;
+  --bg-elevated: #F1F5F9;
 
-  --border-subtle: #DCE3DF;
-  --border-hairline: #BEC9C5;
-  --border-focus: #00453D;
-  --border-divider: #E2DFD7;
+  --border-subtle: #E2E8F0;
+  --border-hairline: #CBD5E1;
+  --border-focus: #0262af;
+  --border-divider: #E2E8F0;
 
-  --text-primary: #131B2E;
-  --text-secondary: #3F4946;
-  --text-muted: #5E6C68;
-  --text-dim: #889692;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --text-dim: #94A3B8;
 
-  --color-danger: #BA1A1A;
+  --color-danger: #DC2626;
   --color-danger-bg: #FEF2F2;
   --color-danger-border: #FECACA;
   --color-danger-text: #991B1B;
@@ -48,18 +49,18 @@
   --color-warning-border: #FDE68A;
   --color-warning-text: #92400E;
 
-  --color-success: #006B5F;
-  --color-success-bg: #E6F4F1;
+  --color-success: #059669;
+  --color-success-bg: #ECFDF5;
   --color-success-border: #A7F3D0;
-  --color-success-text: #00453D;
+  --color-success-text: #065F46;
 
-  --color-info: #0284C7;
-  --color-info-bg: #F0F9FF;
-  --color-info-border: #BAE6FD;
-  --color-info-text: #0369A1;
+  --color-info: #0262af;
+  --color-info-bg: #EFF6FF;
+  --color-info-border: #BFDBFE;
+  --color-info-text: #1D4ED8;
 
   --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-card: 0 4px 18px -2px rgba(0, 69, 61, 0.08);
+  --shadow-card: 0 4px 14px -2px rgba(2, 98, 175, 0.08);
   color-scheme: light;
 }
 
@@ -204,22 +205,22 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #00453D !important;
+  background-color: #0262af !important;
   color: #FFFFFF !important;
-  border: 1px solid #005A50 !important;
-  border-radius: 10px;
-  padding: 0.5rem 0.95rem;
-  font-size: 0.775rem;
+  border: 1px solid #004d8c !important;
+  border-radius: 9px;
+  padding: 0.55rem 1rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 3px 12px rgba(0, 69, 61, 0.22);
+  box-shadow: 0 2px 6px rgba(2, 98, 175, 0.25);
   transition: all 0.16s ease;
 }
 
 .btn-editorial-primary:hover {
-  background-color: #075E54 !important;
-  border-color: #71F8E4 !important;
-  box-shadow: 0 5px 16px rgba(0, 69, 61, 0.32);
+  background-color: #004d8c !important;
+  border-color: #F59E0B !important;
+  box-shadow: 0 4px 14px rgba(2, 98, 175, 0.35);
   transform: translateY(-1px);
 }
 
@@ -291,8 +292,8 @@ html, body {
 }
 
 .reassurance-strip {
-  background-color: var(--primary-container);
-  border-bottom: 1px solid rgba(0, 69, 61, 0.15);
+  background-color: #EFF6FF;
+  border-bottom: 1px solid #DBEAFE;
   padding: 0.45rem 1.5rem;
   display: flex;
   align-items: center;
@@ -300,7 +301,7 @@ html, body {
   flex-wrap: wrap;
   gap: 1.5rem;
   font-size: 0.75rem;
-  color: #00453D;
+  color: #0262af;
   font-weight: 600;
 }
 
@@ -380,9 +381,6 @@ html, body {
   background-color: var(--primary);
   color: #FFFFFF;
   border-color: var(--primary);
-}
-  background-color: #2563EB !important;
-  border-color: #60A5FA !important;
 }
 
 /* Sidebar Navigation Items */
@@ -605,14 +603,15 @@ header button:not(.btn-editorial-primary):hover,
   color: #475569 !important;
 }
 .sidebar-nav-item:hover {
-  background-color: #EAE7E0 !important;
-  color: #0F172A !important;
+  background-color: #F1F5F9 !important;
+  color: #0262af !important;
 }
 .sidebar-nav-item.active {
-  color: var(--primary) !important;
-  background-color: #FFFFFF !important;
-  border-color: rgba(0, 69, 61, 0.3) !important;
-  box-shadow: 0 1px 4px rgba(0, 69, 61, 0.08) !important;
+  color: #0262af !important;
+  background-color: #EFF6FF !important;
+  border-left: 3px solid #0262af !important;
+  border-color: #BFDBFE !important;
+  box-shadow: 0 1px 3px rgba(2, 98, 175, 0.08) !important;
   font-weight: 600 !important;
 }
 
@@ -986,5 +985,93 @@ div[id$="-drawer"] .editorial-card,
   background-color: #0262af !important;
   color: #FFFFFF !important;
   border-color: #0262af !important;
+}
+
+/* High-Specificity Megamenu & Officer Button Styles */
+.megamenu-wraper,
+.megamenu-wraper * {
+  color: #FFFFFF;
+}
+
+.megamenu-wraper .officer-label {
+  color: #FFFFFF !important;
+  font-weight: 600;
+}
+
+#officer-menu-btn {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: #FFFFFF !important;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+#officer-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+}
+
+#officer-dropdown-menu {
+  background-color: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2) !important;
+}
+
+#officer-dropdown-menu * {
+  color: #0F172A;
+}
+
+#officer-dropdown-menu .officer-detail-subtext {
+  color: #64748B !important;
+}
+
+#officer-dropdown-menu button {
+  color: #0F172A !important;
+  background-color: transparent !important;
+}
+
+#officer-dropdown-menu button:hover {
+  background-color: #F1F5F9 !important;
+}
+
+#officer-dropdown-menu button.text-danger:hover {
+  background-color: #FEF2F2 !important;
+  color: #DC2626 !important;
+}
+
+/* Case Selector Pill & Modal Styles */
+.header-case-badge {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #FFFFFF !important;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.header-case-badge:hover {
+  background: rgba(0, 0, 0, 0.45) !important;
+  border-color: #F59E0B !important;
+  transform: translateY(-1px);
+}
+
+.case-card-option {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.case-card-option:hover {
+  border-color: #0262af;
+  box-shadow: 0 8px 24px -4px rgba(2, 98, 175, 0.15);
+  transform: translateY(-2px);
+}
+
+.case-card-option.active-case {
+  border-color: #0262af;
+  background: #F0F7FF;
+  box-shadow: 0 0 0 2px rgba(2, 98, 175, 0.2);
 }
 

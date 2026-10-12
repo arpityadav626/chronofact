@@ -172,130 +172,717 @@ let activeIntegrityFilters = new Set();
 let timelineSearchDebounceTimer = null;
 let selectedUploadFile = null;
 
-const INITIAL_SAMPLE_DATA = {
-  evidence: [
-    {
-      id: "EV-25C119",
-      filename: "server_access.csv",
-      file_type: "SERVER_LOG",
-      size_bytes: 275,
-      sha256: "c67d5b8552c2a5e11c76ff9691d483b233d2c8f6ae617702b8732a76f122618",
-      sha3_256: "ce98141049acabcb9b8f51deb0f7d0f6f04c975536ffdc0ad63dff3cfd3e409e",
-      uploaded_at: "03 Oct 2026, 02:11 am",
-      integrity_status: "Untampered (0 B Skew)",
-      device_type: "Workstation Terminal",
-      custodian: "Inspector A. Yadav, PS Cyber Crime",
-      tool: "FTK Imager v4.7 (Bitstream Image)"
-    },
-    {
-      id: "EV-C4D948",
-      filename: "whatsapp_chat.txt",
-      file_type: "CHAT_EXPORT",
-      size_bytes: 277,
-      sha256: "c5153b32e18148a1d65dfc2d4b1fa3d677284addd200126d9069817b47f4",
-      sha3_256: "a120dc95817290bc938217bb41a0b36e8492048591823700147981249bcf3312",
-      uploaded_at: "03 Oct 2026, 02:11 am",
-      integrity_status: "Untampered (0 B Skew)",
-      device_type: "Phone / Mobile Device",
-      custodian: "Inspector A. Yadav, PS Cyber Crime",
-      tool: "Cellebrite UFED 4PC v7.68"
-    },
-    {
-      id: "EV-8BF745",
-      filename: "confidential_leak.eml",
-      file_type: "EMAIL",
-      size_bytes: 355,
-      sha256: "78d055d681dc41c28c899d123491baee0231cfb562a1048892ca82579e312b",
-      sha3_256: "ff8310ba791823700147981249bcf122618c67d5b83921074a38217bb41a0b36",
-      uploaded_at: "03 Oct 2026, 02:11 am",
-      integrity_status: "Untampered (0 B Skew)",
-      device_type: "Corporate Email Server",
-      custodian: "Inspector A. Yadav, PS Cyber Crime",
-      tool: "MailStore Forensic Imager"
-    }
-  ],
-  timeline: [
-    {
-      id: "FACT-001",
-      evidence_id: "EV-25C119",
-      t_utc: "2025-09-12T15:24:10Z",
-      t_ist: "12 Sep 2025, 20:54:10 IST",
-      actor: "vikram.malhotra",
-      locator: "Row 1",
-      fact_type: "SERVER_LOG",
-      is_interval: false,
-      title: "Authenticated System Session Established",
-      content: "2025-09-12T15:24:10Z,vikram.malhotra,192.168.1.105,LOGIN,OK"
-    },
-    {
-      id: "FACT-002",
-      evidence_id: "EV-C4D948",
-      t_utc: "2025-09-12T09:55:40Z",
-      t_ist: "12 Sep 2025, 15:25:40 IST",
-      actor: "Vikram Malhotra",
-      locator: "Line 2",
-      fact_type: "CHAT_EXPORT",
-      is_interval: true,
-      title: "Suspect Claim of Medical Incapacitation (Alibi Statement)",
-      content: "[12/09/2025, 15:25:40] Vikram Malhotra: Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning."
-    },
-    {
-      id: "FACT-003",
-      evidence_id: "EV-25C119",
-      t_utc: "2025-09-12T15:28:45Z",
-      t_ist: "12 Sep 2025, 20:58:45 IST",
-      actor: "vikram.malhotra",
-      locator: "Row 2",
-      fact_type: "SERVER_LOG",
-      is_interval: false,
-      title: "Privileged File Exfiltration Detected",
-      content: "2025-09-12T15:28:45Z,vikram.malhotra,192.168.1.105,DOWNLOAD_FILE,CONFIDENTIAL_Q3_FINANCIALS.XLSX"
-    },
-    {
-      id: "FACT-004",
-      evidence_id: "EV-8BF745",
-      t_utc: "2025-09-12T10:00:00Z",
-      t_ist: "12 Sep 2025, 15:30:00 IST",
-      actor: "vikram.malhotra@techcorp.in",
-      locator: "Line 7",
-      fact_type: "EMAIL",
-      is_interval: false,
-      title: "Outbound Leak Transmission to External Recipient",
-      content: "From: vikram.malhotra@techcorp.in\nTo: external.contact@protonmail.com\nSubject: Leaked Q3 Financial Model and Database Credentials\nDate: Fri, 12 Sep 2025 15:30:00 +0530"
-    },
-    {
-      id: "FACT-005",
-      evidence_id: "EV-25C119",
-      t_utc: "2025-09-12T15:31:00Z",
-      t_ist: "12 Sep 2025, 21:01:00 IST",
-      actor: "vikram.malhotra",
-      locator: "Row 3",
-      fact_type: "SERVER_LOG",
-      is_interval: false,
-      title: "Intellectual Property Export & Session Logout",
-      content: "2025-09-12T15:31:00Z,vikram.malhotra,192.168.1.105,EXPORT_PATENT_DRAFT,OK"
-    }
-  ],
-  inconsistencies: [
-    {
-      id: "INC-001",
-      rule_id: "ALIBI_CONTRADICTION",
-      category: "TEMPORAL_CLASH",
-      title: "Causal Anomaly: Document Exported on Server After Claimed Incapacitation",
-      description: "Suspect Vikram Malhotra stated on WhatsApp that he was asleep with high fever from 15:25 IST. Authenticated server logs concurrently record active logins, downloads, and file exfiltration from his dedicated workstation IP 192.168.1.105.",
-      fact_ids: ["FACT-001", "FACT-002"],
-      discrepancy_delta: "Concurrent Conflict (+5h 28m Skew)",
-      claimed_statement: "Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning.",
-      system_reality: "Session LOGIN OK, File Export Active. IP 192.168.1.105"
-    }
-  ]
+// =============================================================================
+// 3. MULTI-CASE SAMPLES DATABASE (BHARATIYA SAKSHYA ADHINIYAM, 2023 §63(4))
+// =============================================================================
+const SAMPLE_CASES = {
+  CASE_VIKRAM: {
+    key: "CASE_VIKRAM",
+    case_id: "CC/2026/8492",
+    fir_number: "FIR No. 204/2026",
+    case_title: "State of NCT of Delhi v. Vikram Malhotra & Ors.",
+    short_title: "State v. Vikram Malhotra",
+    court_name: "SPECIAL COURT (CYBER CRIME) • CC/2026/8492",
+    police_station: "PS CYBER CRIME, NEW DELHI",
+    statute: "BSA 2023 §63(4) • IT Act §66/43 • BNS 2023 §316(5)",
+    crime_category: "Corporate Intellectual Property Exfiltration",
+    crime_summary: "Digital Evidence Provenance Ledger • Statutory Chronological Reconstruction under Section 63(4) of Bharatiya Sakshya Adhiniyam, 2023. Suspect claimed medical alibi and total offline status, but concurrent forensic bitstreams establish unauthorized exfiltration from dedicated IP address and telecom BTS antenna (+24.8 km geographical conflict).",
+    claimed_statement: "Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning.",
+    ground_reality: "Concurrent authenticated session LOGIN OK from IP 192.168.1.105 with file exfiltration, confirmed by Sector 62 BTS tower antenna.",
+    delta_text: "+24.8 km Antenna Conflict • +5h 28m Time Skew",
+    anomalies_label: "Alibi Contradiction Grounded",
+    merkle_root: "90ebf0e585bae35df91984284cfbdbb981bfbb55c0e5a79afda3e30bf2fd290c",
+    evidence: [
+      {
+        id: "EV-25C119",
+        filename: "server_access.csv",
+        file_type: "SERVER_LOG",
+        size_bytes: 275,
+        sha256: "c67d5b8552c2a5e11c76ff9691d483b233d2c8f6ae617702b8732a76f122618",
+        sha3_256: "ce98141049acabcb9b8f51deb0f7d0f6f04c975536ffdc0ad63dff3cfd3e409e",
+        uploaded_at: "03 Oct 2026, 02:11 am",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "Workstation Terminal",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "FTK Imager v4.7 (Bitstream Image)"
+      },
+      {
+        id: "EV-C4D948",
+        filename: "whatsapp_chat.txt",
+        file_type: "CHAT_EXPORT",
+        size_bytes: 277,
+        sha256: "c5153b32e18148a1d65dfc2d4b1fa3d677284addd200126d9069817b47f4",
+        sha3_256: "a120dc95817290bc938217bb41a0b36e8492048591823700147981249bcf3312",
+        uploaded_at: "03 Oct 2026, 02:11 am",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "Phone / Mobile Device",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "Cellebrite UFED 4PC v7.68"
+      },
+      {
+        id: "EV-8BF745",
+        filename: "confidential_leak.eml",
+        file_type: "EMAIL",
+        size_bytes: 355,
+        sha256: "78d055d681dc41c28c899d123491baee0231cfb562a1048892ca82579e312b",
+        sha3_256: "ff8310ba791823700147981249bcf122618c67d5b83921074a38217bb41a0b36",
+        uploaded_at: "03 Oct 2026, 02:11 am",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "Corporate Email Server",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "MailStore Forensic Imager"
+      }
+    ],
+    timeline: [
+      {
+        id: "FACT-001",
+        evidence_id: "EV-25C119",
+        t_utc: "2025-09-12T15:24:10Z",
+        t_ist: "12 Sep 2025, 20:54:10 IST",
+        actor: "vikram.malhotra",
+        locator: "Row 1",
+        fact_type: "SERVER_LOG",
+        is_interval: false,
+        title: "Authenticated System Session Established",
+        content: "2025-09-12T15:24:10Z,vikram.malhotra,192.168.1.105,LOGIN,OK"
+      },
+      {
+        id: "FACT-002",
+        evidence_id: "EV-C4D948",
+        t_utc: "2025-09-12T09:55:40Z",
+        t_ist: "12 Sep 2025, 15:25:40 IST",
+        actor: "Vikram Malhotra",
+        locator: "Line 2",
+        fact_type: "CHAT_EXPORT",
+        is_interval: true,
+        title: "Suspect Claim of Medical Incapacitation (Alibi Statement)",
+        content: "[12/09/2025, 15:25:40] Vikram Malhotra: Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning."
+      },
+      {
+        id: "FACT-003",
+        evidence_id: "EV-25C119",
+        t_utc: "2025-09-12T15:28:45Z",
+        t_ist: "12 Sep 2025, 20:58:45 IST",
+        actor: "vikram.malhotra",
+        locator: "Row 2",
+        fact_type: "SERVER_LOG",
+        is_interval: false,
+        title: "Privileged File Exfiltration Detected",
+        content: "2025-09-12T15:28:45Z,vikram.malhotra,192.168.1.105,DOWNLOAD_FILE,CONFIDENTIAL_Q3_FINANCIALS.XLSX"
+      },
+      {
+        id: "FACT-004",
+        evidence_id: "EV-8BF745",
+        t_utc: "2025-09-12T10:00:00Z",
+        t_ist: "12 Sep 2025, 15:30:00 IST",
+        actor: "vikram.malhotra@techcorp.in",
+        locator: "Line 7",
+        fact_type: "EMAIL",
+        is_interval: false,
+        title: "Outbound Leak Transmission to External Recipient",
+        content: "From: vikram.malhotra@techcorp.in\nTo: external.contact@protonmail.com\nSubject: Leaked Q3 Financial Model and Database Credentials\nDate: Fri, 12 Sep 2025 15:30:00 +0530"
+      },
+      {
+        id: "FACT-005",
+        evidence_id: "EV-25C119",
+        t_utc: "2025-09-12T15:31:00Z",
+        t_ist: "12 Sep 2025, 21:01:00 IST",
+        actor: "vikram.malhotra",
+        locator: "Row 3",
+        fact_type: "SERVER_LOG",
+        is_interval: false,
+        title: "Intellectual Property Export & Session Logout",
+        content: "2025-09-12T15:31:00Z,vikram.malhotra,192.168.1.105,EXPORT_PATENT_DRAFT,OK"
+      }
+    ],
+    inconsistencies: [
+      {
+        id: "INC-001",
+        rule_id: "ALIBI_CONTRADICTION",
+        category: "TEMPORAL_CLASH",
+        title: "Causal Anomaly: Document Exported on Server After Claimed Incapacitation",
+        description: "Suspect Vikram Malhotra stated on WhatsApp that he was asleep with high fever from 15:25 IST. Authenticated server logs concurrently record active logins, downloads, and file exfiltration from his dedicated workstation IP 192.168.1.105.",
+        fact_ids: ["FACT-001", "FACT-002"],
+        discrepancy_delta: "Concurrent Conflict (+5h 28m Skew)",
+        claimed_statement: "Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning.",
+        system_reality: "Session LOGIN OK, File Export Active. IP 192.168.1.105"
+      }
+    ]
+  },
+
+  CASE_RAJESH: {
+    key: "CASE_RAJESH",
+    case_id: "CC/2026/3104",
+    fir_number: "FIR No. 088/2026",
+    case_title: "State of Maharashtra v. Rajesh Sharma & Anr.",
+    short_title: "State v. Rajesh Sharma",
+    court_name: "CHIEF METROPOLITAN MAGISTRATE COURT • CC/2026/3104",
+    police_station: "PS CYBER CRIME, BKC MUMBAI",
+    statute: "BSA 2023 §63(4) • IT Act §66C/66D • BNS 2023 §318(4)",
+    crime_category: "UPI Banking Trojan APK & Siphoning Syndicate",
+    crime_summary: "Automated UPI siphoning via malicious banking Trojan APK and rogue SMS forwarder. Accused claimed his phone was stolen in Swargate, Pune on 14 Jan 2026, yet the banking session bearer token was issued to IMEI 864902049182041 with an active SMS OTP relay captured at 18:42 IST at Dadar Railway Station (+148 km conflict).",
+    claimed_statement: "My phone was stolen in Swargate, Pune at 17:30 IST. I did not initiate or authorize any banking transactions.",
+    ground_reality: "Bearer token active on seized device IMEI with automated SMS OTP hook, validated by Dadar West Sector 2 BTS at 18:44 IST.",
+    delta_text: "+148 km Location Clash • Zero-Latency SMS Relay (<500ms)",
+    anomalies_label: "Telecom BTS Tower Conflict",
+    merkle_root: "d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5",
+    evidence: [
+      {
+        id: "EV-BKC01",
+        filename: "trojan_payload.apk",
+        file_type: "APPLICATION_PKG",
+        size_bytes: 421800,
+        sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        sha3_256: "1f82b7c4d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6",
+        uploaded_at: "14 Jan 2026, 09:20 pm",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "Phone / Mobile Device",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "Belkasoft Evidence Center v12.1"
+      },
+      {
+        id: "EV-BKC02",
+        filename: "upi_gateway_webhook.json",
+        file_type: "SERVER_LOG",
+        size_bytes: 1240,
+        sha256: "8f4b2a3c7d1e6f5a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a",
+        sha3_256: "c7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8",
+        uploaded_at: "14 Jan 2026, 09:25 pm",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "NPCI Switch Gateway",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "Wireshark PCAP Stream Dump"
+      },
+      {
+        id: "EV-BKC03",
+        filename: "cdr_tower_telemetry.csv",
+        file_type: "TELECOM_CDR",
+        size_bytes: 46080,
+        sha256: "a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e",
+        sha3_256: "5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c",
+        uploaded_at: "14 Jan 2026, 09:30 pm",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "Airtel LSA BTS Tower",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "EnCase Forensic v21.4"
+      },
+      {
+        id: "EV-BKC04",
+        filename: "sms_forwarder_sqlite.db",
+        file_type: "DATABASE",
+        size_bytes: 524288,
+        sha256: "9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b",
+        sha3_256: "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b",
+        uploaded_at: "14 Jan 2026, 09:35 pm",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "Phone SQLite Cache",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "Oxygen Forensic Detective v15.2"
+      }
+    ],
+    timeline: [
+      {
+        id: "FACT-R01",
+        evidence_id: "EV-BKC01",
+        t_utc: "2026-01-14T11:15:00Z",
+        t_ist: "14 Jan 2026, 16:45:00 IST",
+        actor: "com.fastloan.instant",
+        locator: "Android Manifest",
+        fact_type: "APPLICATION_PKG",
+        is_interval: false,
+        title: "Malicious APK Dropper Executed & Hook Activated",
+        content: "Package com.fastloan.instant granted RECEIVE_SMS and BIND_ACCESSIBILITY_SERVICE silently."
+      },
+      {
+        id: "FACT-R02",
+        evidence_id: "EV-BKC04",
+        t_utc: "2026-01-14T12:00:00Z",
+        t_ist: "14 Jan 2026, 17:30:00 IST",
+        actor: "Rajesh Sharma",
+        locator: "Police NC Entry",
+        fact_type: "CHAT_EXPORT",
+        is_interval: true,
+        title: "Suspect Sworn Statement of Handset Loss in Swargate, Pune",
+        content: "Non-Cognizable Report filed: 'I lost my OnePlus handset in Pune bus terminal at 17:30 IST.'"
+      },
+      {
+        id: "FACT-R03",
+        evidence_id: "EV-BKC04",
+        t_utc: "2026-01-14T13:12:10Z",
+        t_ist: "14 Jan 2026, 18:42:10 IST",
+        actor: "Trojan SMS Hook",
+        locator: "sms.db Row 441",
+        fact_type: "DATABASE",
+        is_interval: false,
+        title: "Inbound Bank OTP Intercepted by Background Hook",
+        content: "HDFC Bank Alert: OTP 849201 for INR 4,80,000 transaction intercepted and forwarded via HTTP POST."
+      },
+      {
+        id: "FACT-R04",
+        evidence_id: "EV-BKC02",
+        t_utc: "2026-01-14T13:12:15Z",
+        t_ist: "14 Jan 2026, 18:42:15 IST",
+        actor: "NPCI Gateway",
+        locator: "Txn #84019284",
+        fact_type: "SERVER_LOG",
+        is_interval: false,
+        title: "Instant UPI Fast-Checkout Credited to Mule Account",
+        content: "Txn ID UPI/2026/84019284: INR 4,80,000 successfully debited to mule.icici@upi."
+      },
+      {
+        id: "FACT-R05",
+        evidence_id: "EV-BKC03",
+        t_utc: "2026-01-14T13:14:00Z",
+        t_ist: "14 Jan 2026, 18:44:00 IST",
+        actor: "BTS Dadar West",
+        locator: "CDR Row 892",
+        fact_type: "TELECOM_CDR",
+        is_interval: false,
+        title: "Suspect Handset Communication with Dadar West Sector 2 BTS",
+        content: "IMEI 864902049182041 actively connected to BTS Cell ID 404-45-902 Dadar West, Mumbai (+148 km from Pune)."
+      },
+      {
+        id: "FACT-R06",
+        evidence_id: "EV-BKC02",
+        t_utc: "2026-01-14T13:30:00Z",
+        t_ist: "14 Jan 2026, 19:00:00 IST",
+        actor: "ATM Dadar TT",
+        locator: "Switch Terminal 09",
+        fact_type: "SERVER_LOG",
+        is_interval: false,
+        title: "ATM Cash Withdrawal Captured on CCTV at Dadar TT Circle",
+        content: "Cash withdrawal of INR 50,000 executed at Dadar TT ATM. CCTV timestamp synchronizes with device presence."
+      }
+    ],
+    inconsistencies: [
+      {
+        id: "INC-R01",
+        rule_id: "BTS_TELEMETRY_CLASH",
+        category: "SPATIAL_CLASH",
+        title: "BTS Tower Telemetry Clashes with Pune Loss Alibi (+148 km Delta)",
+        description: "Suspect Rajesh Sharma claimed handset was lost in Swargate, Pune at 17:30 IST. Telecom CDR records device IMEI actively transmitting through Dadar West BTS tower in Mumbai at 18:44 IST during transaction confirmation.",
+        fact_ids: ["FACT-R02", "FACT-R05"],
+        discrepancy_delta: "Spatial Contradiction (+148 km Location Skew)",
+        claimed_statement: "My phone was stolen in Swargate, Pune at 17:30 IST. I did not authorize any transactions.",
+        system_reality: "IMEI 864902049182041 active on Dadar West Sector 2 BTS at 18:44 IST."
+      },
+      {
+        id: "INC-R02",
+        rule_id: "HOOK_LATENCY_MISMATCH",
+        category: "PROCESS_TAMPER",
+        title: "Zero-Latency (<500ms) Automated SMS Hook Execution",
+        description: "Inbound OTP dispatch and HTTP POST exfiltration by malicious package occurred within 480ms, proving programmatic redirection rather than manual interaction.",
+        fact_ids: ["FACT-R03", "FACT-R04"],
+        discrepancy_delta: "Machine-Speed Exfiltration (<500ms latency)",
+        claimed_statement: "Victim's bank claims user manually shared OTP.",
+        system_reality: "Intercepted by com.fastloan.instant background hook in 480ms."
+      }
+    ]
+  },
+
+  CASE_KULKARNI: {
+    key: "CASE_KULKARNI",
+    case_id: "CC/2026/9128",
+    fir_number: "FIR No. 312/2026",
+    case_title: "State of Karnataka v. Dr. Sameer Kulkarni",
+    short_title: "State v. Dr. S. Kulkarni",
+    court_name: "SPECIAL CYBER & CBI COURT • CC/2026/9128",
+    police_station: "CID CYBER CRIME PS, BENGALURU",
+    statute: "BSA 2023 §63(4) • IT Act §66F (Cyber Terrorism) • BNS 2023 §324(4)",
+    crime_category: "Hospital ICU Network Ransomware & $MFT Timestomping",
+    crime_summary: "Apex Healthcare Hospital ICU network ransomware attack and clinical database extortion. Accused System Administrator claimed ransomware binary was planted externally by Russian APT, but NTFS $MFT parsing revealed internal $STANDARD_INFORMATION timestomping from the physical administrator console.",
+    claimed_statement: "The hospital servers were hit by an external Russian LockBit ransomware zero-day payload via external VPN tunnel.",
+    ground_reality: "Sysmon Event 4624 confirms Interactive Physical Console Logon (Type 2). $MFT $STANDARD_INFORMATION antedated by 760 days.",
+    delta_text: "760-Day $MFT Antedating • Interactive Console Logon",
+    anomalies_label: "NTFS $MFT Timestomp Detected",
+    merkle_root: "7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c",
+    evidence: [
+      {
+        id: "EV-KUL01",
+        filename: "icu_server_mft_parsed.raw",
+        file_type: "FILE_SYSTEM_IMAGE",
+        size_bytes: 134217728,
+        sha256: "71a82c4d9e0f1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c",
+        sha3_256: "4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f",
+        uploaded_at: "08 Feb 2026, 11:45 pm",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "Windows Server 2022",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "X-Ways Forensics v20.8"
+      },
+      {
+        id: "EV-KUL02",
+        filename: "lockbit_custom_binary.bin",
+        file_type: "MALWARE_BINARY",
+        size_bytes: 860160,
+        sha256: "5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e",
+        sha3_256: "1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
+        uploaded_at: "08 Feb 2026, 11:50 pm",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "Quarantine Sandbox VM",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "Ghidra Disassembler v11.0"
+      },
+      {
+        id: "EV-KUL03",
+        filename: "sysmon_eventlog.evtx",
+        file_type: "SERVER_LOG",
+        size_bytes: 14680064,
+        sha256: "3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d",
+        sha3_256: "9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c1b0a9f8e",
+        uploaded_at: "08 Feb 2026, 11:55 pm",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "Domain Controller AD",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "KAPE Live Triage v1.3"
+      },
+      {
+        id: "EV-KUL04",
+        filename: "monero_ransom_note.txt",
+        file_type: "TEXT_DOCUMENT",
+        size_bytes: 1843,
+        sha256: "1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f",
+        sha3_256: "8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b",
+        uploaded_at: "09 Feb 2026, 12:05 am",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "Hospital SAN Storage",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "FTK Imager v4.7"
+      }
+    ],
+    timeline: [
+      {
+        id: "FACT-K01",
+        evidence_id: "EV-KUL03",
+        t_utc: "2026-02-08T18:15:20Z",
+        t_ist: "08 Feb 2026, 23:45:20 IST",
+        actor: "admin.skulkarni",
+        locator: "EventID 4624",
+        fact_type: "SERVER_LOG",
+        is_interval: false,
+        title: "Sysmon 4624: Local Physical Interactive Console Logon",
+        content: "Interactive Console Logon (LogonType=2) recorded on local console terminal of ICU SAN Storage."
+      },
+      {
+        id: "FACT-K02",
+        evidence_id: "EV-KUL04",
+        t_utc: "2026-02-08T18:30:00Z",
+        t_ist: "09 Feb 2026, 00:00:00 IST",
+        actor: "Dr. Sameer Kulkarni",
+        locator: "Official Incident Report",
+        fact_type: "CHAT_EXPORT",
+        is_interval: true,
+        title: "Official Incident Report Claiming External Russian APT Ingress",
+        content: "'Hospital ICU network was penetrated via zero-day exploit by external Russian APT group via VPN.'"
+      },
+      {
+        id: "FACT-K03",
+        evidence_id: "EV-KUL02",
+        t_utc: "2026-02-08T18:32:14Z",
+        t_ist: "09 Feb 2026, 00:02:14 IST",
+        actor: "admin.skulkarni",
+        locator: "Sysmon Event 1",
+        fact_type: "MALWARE_BINARY",
+        is_interval: false,
+        title: "Execution of Custom Locker Binary with Administrative Privileges",
+        content: "Process Create: locker_encrypt.exe spawned with SYSTEM integrity token from D:\\AdminTools\\."
+      },
+      {
+        id: "FACT-K04",
+        evidence_id: "EV-KUL01",
+        t_utc: "2026-02-08T18:34:50Z",
+        t_ist: "09 Feb 2026, 00:04:50 IST",
+        actor: "NTFS Kernel",
+        locator: "$MFT Record 84920",
+        fact_type: "FILE_SYSTEM_IMAGE",
+        is_interval: false,
+        title: "Timestomp Artifact: $STANDARD_INFORMATION Forged to 2024",
+        content: "$STANDARD_INFORMATION creation time manipulated to 2024-01-10 while $FILE_NAME retains 2026-02-08."
+      },
+      {
+        id: "FACT-K05",
+        evidence_id: "EV-KUL04",
+        t_utc: "2026-02-08T18:40:00Z",
+        t_ist: "09 Feb 2026, 00:10:00 IST",
+        actor: "Cryptolocker",
+        locator: "Ransom Payload",
+        fact_type: "TEXT_DOCUMENT",
+        is_interval: false,
+        title: "1,420 Patient Life-Support Telemetry Databases Encrypted",
+        content: "Extortion ransom note demanding 45 Monero (XMR) deposited in SAN volume root."
+      }
+    ],
+    inconsistencies: [
+      {
+        id: "INC-K01",
+        rule_id: "TIMESTOMP_DETECTED",
+        category: "FILE_SYSTEM_TAMPER",
+        title: "NTFS $MFT Timestamp Forgery (Antedating $STANDARD_INFO vs $FILE_NAME)",
+        description: "Creation timestamp in $STANDARD_INFORMATION attribute was deliberately altered by 760 days to make the ransomware binary appear as an old diagnostic utility.",
+        fact_ids: ["FACT-K03", "FACT-K04"],
+        discrepancy_delta: "760-Day Timestamp Inversion",
+        claimed_statement: "Ransomware binary was downloaded by remote attackers hours before the attack.",
+        system_reality: "$MFT $FILE_NAME true creation is 2026-02-08 00:02:14 IST."
+      },
+      {
+        id: "INC-K02",
+        rule_id: "LOGON_TYPE_CLASH",
+        category: "ACCESS_ANOMALY",
+        title: "Physical Interactive Console Logon Disproves Remote VPN Ingress",
+        description: "Sysmon Event 4624 proves physical interactive presence at the physical hospital data center rack (LogonType=2), directly contradicting the claim of external VPN penetration (LogonType=10).",
+        fact_ids: ["FACT-K01", "FACT-K02"],
+        discrepancy_delta: "Local Physical vs Remote VPN Contradiction",
+        claimed_statement: "Penetrated via external VPN zero-day from overseas IP.",
+        system_reality: "Physical keyboard and screen interactive logon (LogonType 2)."
+      }
+    ]
+  },
+
+  CASE_PRIYANKA: {
+    key: "CASE_PRIYANKA",
+    case_id: "CC/2026/5521",
+    fir_number: "FIR No. 156/2026",
+    case_title: "State of NCT of Delhi v. Priyanka Verma & Ors.",
+    short_title: "State v. Priyanka Verma",
+    court_name: "COURT OF ADDL SESSIONS JUDGE • CC/2026/5521",
+    police_station: "PS SPECIAL CELL (IFSO), DWARKA",
+    statute: "BSA 2023 §63(4) • IT Act §66E/67A • BNS 2023 §308(2)",
+    crime_category: "Generative AI Deepfake Sextortion & Defamation",
+    crime_summary: "Generative AI deepfake sextortion and synthetic video defamation syndicate. Accused claimed video call was genuine and recorded live in real-time, but frame-level frequency spectrum analysis proved synthetic diffusion face-swap artifacts and audio-video jitter delta of +420ms.",
+    claimed_statement: "The victim initiated the live video call willingly and committed obscene acts unprompted on the live video stream.",
+    ground_reality: "18 keyframes contain synthetic facial boundary warping; audio spectrogram displays 8.0 kHz cutoff and +420ms AV desync.",
+    delta_text: "+420ms Audio-Video Desync • 18 Synthetic Keyframes",
+    anomalies_label: "Synthetic Deepfake Jitter Grounded",
+    merkle_root: "2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b",
+    evidence: [
+      {
+        id: "EV-PV01",
+        filename: "extortion_video_call.mp4",
+        file_type: "VIDEO_RECORDING",
+        size_bytes: 19293798,
+        sha256: "6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b",
+        sha3_256: "2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d",
+        uploaded_at: "01 Mar 2026, 08:30 pm",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "iPhone 15 Pro",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "Amped FIVE Video Forensics Suite"
+      },
+      {
+        id: "EV-PV02",
+        filename: "voice_sample_spectrum.wav",
+        file_type: "AUDIO_WAVEFORM",
+        size_bytes: 6501171,
+        sha256: "4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d",
+        sha3_256: "7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f",
+        uploaded_at: "01 Mar 2026, 08:35 pm",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "Audio Extraction",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "iZotope RX Pro Forensic Edition"
+      },
+      {
+        id: "EV-PV03",
+        filename: "crypto_usdt_ledger.csv",
+        file_type: "BLOCKCHAIN_LOG",
+        size_bytes: 8294,
+        sha256: "8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f",
+        sha3_256: "1a3c5e7g9i1k3m5o7q9s1u3w5y7a9c1e3g5i7k9m1o3q5s7u9w1y3a5c7e9g1i3k",
+        uploaded_at: "01 Mar 2026, 08:40 pm",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "TRC-20 Blockchain Node",
+        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        tool: "Chainalysis Reactor v4.8"
+      }
+    ],
+    timeline: [
+      {
+        id: "FACT-P01",
+        evidence_id: "EV-PV01",
+        t_utc: "2026-03-01T14:10:00Z",
+        t_ist: "01 Mar 2026, 19:40:00 IST",
+        actor: "priyanka.v",
+        locator: "Signal Call Log",
+        fact_type: "VIDEO_RECORDING",
+        is_interval: false,
+        title: "Incoming Video Call Request Initiated to Complainant",
+        content: "Signal Messenger session handshake established from suspect account priyanka.v."
+      },
+      {
+        id: "FACT-P02",
+        evidence_id: "EV-PV01",
+        t_utc: "2026-03-01T14:12:30Z",
+        t_ist: "01 Mar 2026, 19:42:30 IST",
+        actor: "Priyanka Verma",
+        locator: "Written Police Statement",
+        fact_type: "CHAT_EXPORT",
+        is_interval: true,
+        title: "Accused Sworn Statement Claiming Unprompted Obscene Conduct",
+        content: "'The complainant called me and stripped on camera completely voluntarily.'"
+      },
+      {
+        id: "FACT-P03",
+        evidence_id: "EV-PV01",
+        t_utc: "2026-03-01T14:13:00Z",
+        t_ist: "01 Mar 2026, 19:43:00 IST",
+        actor: "Deepfake Model",
+        locator: "Frame #482 to #610",
+        fact_type: "VIDEO_RECORDING",
+        is_interval: false,
+        title: "Synthetic Diffusion Face-Swap Artifacts Detected (18 Keyframes)",
+        content: "Amped FIVE analysis: Pupillary corneal reflections absent; edge warping detected along jawline boundary."
+      },
+      {
+        id: "FACT-P04",
+        evidence_id: "EV-PV02",
+        t_utc: "2026-03-01T14:14:12Z",
+        t_ist: "01 Mar 2026, 19:44:12 IST",
+        actor: "Audio Spectrum",
+        locator: "Spectrogram Waveform",
+        fact_type: "AUDIO_WAVEFORM",
+        is_interval: false,
+        title: "Synthetic Voice Synthesis Artifact: Artificial 8.0 kHz Cutoff",
+        content: "Fourier transform reveals synthetic neural vocoder spectral cutoff at 8.0 kHz and +420ms acoustic lipsync jitter."
+      },
+      {
+        id: "FACT-P05",
+        evidence_id: "EV-PV03",
+        t_utc: "2026-03-01T14:30:00Z",
+        t_ist: "01 Mar 2026, 20:00:00 IST",
+        actor: "Extortion Syndicate",
+        locator: "TRON Txn 0x9482..",
+        fact_type: "BLOCKCHAIN_LOG",
+        is_interval: false,
+        title: "Extortion Demand for 5,000 USDT Transmitted via Telegram",
+        content: "Telegram extortion message demanding 5,000 USDT to prevent publishing composite video online."
+      }
+    ],
+    inconsistencies: [
+      {
+        id: "INC-P01",
+        rule_id: "SYNTHETIC_DIFFUSION_JITTER",
+        category: "MEDIA_FORGERY",
+        title: "Generative AI Diffusion Face-Swap Inconsistency (18 Keyframes)",
+        description: "18 keyframes exhibit unnatural pupillary light reflection absence and morphological boundary jitter inconsistent with physical camera optics.",
+        fact_ids: ["FACT-P01", "FACT-P03"],
+        discrepancy_delta: "Biological Optics Mismatch (18 Frames)",
+        claimed_statement: "Video was recorded genuine live without modification.",
+        system_reality: "Neural face-swap model diffusion warping verified."
+      },
+      {
+        id: "INC-P02",
+        rule_id: "AUDIO_VIDEO_DESYNC",
+        category: "TEMPORAL_CLASH",
+        title: "Audio-Video Desynchronization (+420ms Acoustic Jitter)",
+        description: "Audio waveform phonemes lag behind lip movement by +420ms, proving secondary synthetic audio track splicing.",
+        fact_ids: ["FACT-P03", "FACT-P04"],
+        discrepancy_delta: "+420ms Splicing Jitter Delta",
+        claimed_statement: "Audio and video are simultaneous real-time recording.",
+        system_reality: "+420ms synthetic neural vocoder desynchronization."
+      }
+    ]
+  }
 };
 
-function loadSampleCaseData() {
+let currentCaseKey = 'CASE_VIKRAM';
+
+// Backward compatibility alias for any existing reference
+const INITIAL_SAMPLE_DATA = SAMPLE_CASES.CASE_VIKRAM;
+
+// =============================================================================
+// CASE SWITCHER & DYNAMIC VAULT CONTROLLER
+// =============================================================================
+function openCaseSelectorModal() {
+  hapticEngine.playWhoosh();
+  const modal = document.getElementById('case-selector-modal');
+  renderCaseSelectorCards();
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+}
+
+function closeCaseSelectorModal() {
   hapticEngine.playSoftTap();
-  allEvidenceItems = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.evidence));
-  allTimelineEvents = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.timeline));
-  allInconsistencies = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.inconsistencies));
+  const modal = document.getElementById('case-selector-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+function renderCaseSelectorCards() {
+  const container = document.getElementById('case-selector-grid');
+  if (!container) return;
+
+  const cases = Object.values(SAMPLE_CASES);
+  container.innerHTML = cases.map(c => {
+    const isActive = (c.key === currentCaseKey);
+    return `
+      <div 
+        onclick="loadSpecificCase('${c.key}')" 
+        class="case-card-option ${isActive ? 'active-case' : ''} flex flex-col justify-between gap-3 p-4 rounded-xl border transition cursor-pointer"
+      >
+        <div class="space-y-2">
+          <div class="flex items-center justify-between gap-2">
+            <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-[#EFF6FF] text-[#0262af] border border-[#BFDBFE]">
+              ${escapeHTML(c.case_id)}
+            </span>
+            ${isActive ? `
+              <span class="flex items-center gap-1 font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0]">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#059669]"></span>
+                ACTIVE
+              </span>
+            ` : `
+              <span class="font-mono text-[10px] text-[#64748B]">
+                ${escapeHTML(c.fir_number)}
+              </span>
+            `}
+          </div>
+
+          <div>
+            <h4 class="font-display font-bold text-sm text-[#0F172A] leading-snug">
+              ${escapeHTML(c.case_title)}
+            </h4>
+            <div class="text-[11px] font-medium text-[#0262af] mt-0.5">
+              ${escapeHTML(c.crime_category)}
+            </div>
+          </div>
+
+          <p class="text-xs text-[#64748B] line-clamp-2 leading-relaxed">
+            ${escapeHTML(c.crime_summary)}
+          </p>
+        </div>
+
+        <div class="pt-2 border-t border-[#E2E8F0] flex items-center justify-between text-[11px]">
+          <div class="flex items-center gap-3 text-[#64748B] font-mono">
+            <span><strong>${c.evidence.length}</strong> Exhibits</span>
+            <span>&bull;</span>
+            <span><strong>${c.timeline.length}</strong> Facts</span>
+            <span>&bull;</span>
+            <span class="text-[#DC2626]"><strong>${c.inconsistencies.length}</strong> Clash</span>
+          </div>
+          <button class="${isActive ? 'text-[#059669] font-bold' : 'text-[#0262af] font-semibold hover:underline'} flex items-center gap-1">
+            <span>${isActive ? 'Mounted' : 'Load Case'}</span>
+            <i data-lucide="${isActive ? 'check' : 'arrow-right'}" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  if (window.lucide) lucide.createIcons();
+}
+
+function loadSpecificCase(caseKey) {
+  if (!SAMPLE_CASES[caseKey]) return;
+  currentCaseKey = caseKey;
+  const c = SAMPLE_CASES[caseKey];
+
+  hapticEngine.playSoftTap();
+  allEvidenceItems = JSON.parse(JSON.stringify(c.evidence));
+  allTimelineEvents = JSON.parse(JSON.stringify(c.timeline));
+  allInconsistencies = JSON.parse(JSON.stringify(c.inconsistencies));
   activeExhibitFilter = null;
   timelineSearchQuery = "";
   activeIntegrityFilters.clear();
@@ -305,13 +892,84 @@ function loadSampleCaseData() {
   const filterBar = document.getElementById('timeline-filter-bar');
   if (filterBar) filterBar.classList.add('hidden');
 
+  updateCaseDOM(c);
   renderEvidenceTable();
   renderInconsistencyRadar();
   renderTimelineFilters();
   renderTimeline();
   updateCaseSummaryMetrics();
+  
+  // Sync BSA Certificate schedule and fields
+  renderCertScheduleTable();
+  syncCertificateFields();
+
+  closeCaseSelectorModal();
   hapticEngine.playSuccess();
-  showToast("Sample Case FIR No. 204/2026 exhibits loaded into vault.");
+  showToast(`Loaded Case: ${c.short_title} (${c.fir_number})`);
+}
+
+function updateCaseDOM(c) {
+  if (!c) c = SAMPLE_CASES[currentCaseKey];
+
+  // Navbar Case Pill
+  const headerCaseName = document.getElementById('header-active-case-name');
+  const headerCaseFir = document.getElementById('header-active-case-fir');
+  if (headerCaseName) headerCaseName.textContent = c.short_title;
+  if (headerCaseFir) headerCaseFir.textContent = c.fir_number;
+
+  // Sidebar Case Card
+  const sidebarCaseTitle = document.getElementById('sidebar-case-title');
+  const sidebarCaseFir = document.getElementById('sidebar-case-fir');
+  const sidebarCasePs = document.getElementById('sidebar-case-ps');
+  if (sidebarCaseTitle) sidebarCaseTitle.textContent = c.case_title;
+  if (sidebarCaseFir) sidebarCaseFir.textContent = c.fir_number;
+  if (sidebarCasePs) sidebarCasePs.textContent = c.police_station;
+
+  // Case Overview Section
+  const elCourt = document.getElementById('overview-court-badge');
+  const elStation = document.getElementById('overview-station-badge');
+  const elFir = document.getElementById('overview-fir-badge');
+  const elTitle = document.getElementById('overview-case-title');
+  const elSummary = document.getElementById('overview-crime-summary');
+  const elStatute = document.getElementById('overview-case-statute');
+  const elAnomLabel = document.getElementById('stat-anomalies-label');
+  const elClaim = document.getElementById('overview-suspect-claim');
+  const elReality = document.getElementById('overview-ground-reality');
+  const elDelta = document.getElementById('overview-delta-text');
+  const elMerkle = document.getElementById('overview-merkle-root');
+
+  if (elCourt) elCourt.innerHTML = `${escapeHTML(c.court_name)}`;
+  if (elStation) elStation.textContent = c.police_station;
+  if (elFir) elFir.textContent = c.fir_number;
+  if (elTitle) elTitle.innerHTML = `${escapeHTML(c.case_title)}`;
+  if (elSummary) elSummary.innerHTML = `${escapeHTML(c.crime_summary)}`;
+  if (elStatute) elStatute.textContent = c.statute;
+  if (elAnomLabel) elAnomLabel.textContent = c.anomalies_label;
+  if (elClaim) elClaim.textContent = `"${c.claimed_statement}"`;
+  if (elReality) elReality.textContent = c.ground_reality;
+  if (elDelta) elDelta.textContent = c.delta_text;
+  if (elMerkle) elMerkle.textContent = c.merkle_root;
+
+  // Certificate Section Inputs
+  const certInputFir = document.getElementById('cert-input-fir');
+  const certInputCourt = document.getElementById('cert-input-court');
+  const certInputPs = document.getElementById('cert-input-ps');
+  if (certInputFir) certInputFir.value = `${c.fir_number}, ${c.police_station}`;
+  if (certInputCourt) certInputCourt.value = c.court_name;
+  if (certInputPs) certInputPs.value = c.police_station;
+
+  if (window.lucide) lucide.createIcons();
+}
+
+function copyCurrentMerkleRoot() {
+  const c = SAMPLE_CASES[currentCaseKey];
+  if (c && c.merkle_root) {
+    copyToClipboard(c.merkle_root, 'Master Merkle Root copied to clipboard');
+  }
+}
+
+function loadSampleCaseData() {
+  loadSpecificCase(currentCaseKey);
 }
 
 function clearEvidenceVault() {
@@ -329,6 +987,7 @@ function clearEvidenceVault() {
     renderTimelineFilters();
     renderTimeline();
     updateCaseSummaryMetrics();
+    renderCertScheduleTable();
     showToast("Case vault cleared. Ready for fresh exhibit ingestion.");
   }
 }
@@ -381,12 +1040,15 @@ async function loadCaseData() {
     allInconsistencies = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.inconsistencies));
   }
 
+  updateCaseDOM(SAMPLE_CASES[currentCaseKey]);
   renderEvidenceTable();
   renderInconsistencyRadar();
   renderMLAnomalies();
   renderTimelineFilters();
   renderTimeline();
   updateCaseSummaryMetrics();
+  renderCertScheduleTable();
+  syncCertificateFields();
 }
 
 function updateCaseSummaryMetrics() {
@@ -1928,7 +2590,8 @@ function navigateToSection(sectionId) {
   if (window.lucide) lucide.createIcons();
 }
 
-function toggleOfficerDropdown() {
+function toggleOfficerDropdown(event) {
+  if (event) event.stopPropagation();
   hapticEngine.playSoftTap();
   const dropdown = document.getElementById('officer-dropdown-menu');
   if (dropdown) {

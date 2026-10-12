@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#00453D">
+  <meta name="theme-color" content="#002654">
   <title>Examiner Sign-In — CHRONOFACT AI Forensic Workbench (BSA 2023 §63(4))</title>
 
   <!-- Google Fonts: Inter (UI & Display), Noto Sans Devanagari (Official GoI), JetBrains Mono (Forensic Cryptography) -->
@@ -15,22 +15,22 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Tailwind CSS Custom Configuration (Emergency Mitra Material-3 Government Design System) -->
+  <!-- Tailwind CSS Custom Configuration (Government of India Cyber Crime Portal Design System) -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            primary: '#00453D',
-            'primary-container': '#E6F4F1',
+            primary: '#0262af',
+            'primary-container': '#EFF6FF',
             'on-primary': '#FFFFFF',
-            secondary: '#006B5F',
-            canvas: '#FBF9F5',
-            sidebar: '#F4F1EA',
+            secondary: '#002654',
+            canvas: '#F4F7FB',
+            sidebar: '#FFFFFF',
             surface: '#FFFFFF',
             card: '#FFFFFF',
-            borderHairline: '#BEC9C5',
-            borderSubtle: '#DCE3DF'
+            borderHairline: '#CBD5E1',
+            borderSubtle: '#E2E8F0'
           },
           fontFamily: {
             display: ['Inter', 'system-ui', 'sans-serif'],
@@ -47,12 +47,12 @@
 
   <style>
     :root, html, body {
-      --bg-canvas: #FBF9F5 !important;
+      --bg-canvas: #F4F7FB !important;
       --bg-surface: #FFFFFF !important;
-      --border-subtle: #DCE3DF !important;
-      --border-hairline: #BEC9C5 !important;
-      --text-primary: #131B2E !important;
-      --text-secondary: #3F4946 !important;
+      --border-subtle: #E2E8F0 !important;
+      --border-hairline: #CBD5E1 !important;
+      --text-primary: #0F172A !important;
+      --text-secondary: #475569 !important;
       background-color: var(--bg-canvas) !important;
       color: var(--text-primary) !important;
       font-family: 'Inter', '"Noto Sans Devanagari"', system-ui, sans-serif;
@@ -103,35 +103,35 @@
       transition: all 0.15s ease;
     }
     .text-size-btn:hover, .text-size-btn.active {
-      background-color: #00453D;
+      background-color: #0262af;
       color: #FFFFFF;
-      border-color: #00453D;
+      border-color: #0262af;
     }
     .btn-editorial-primary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      background-color: #00453D !important;
+      background-color: #0262af !important;
       color: #FFFFFF !important;
-      border: 1px solid #005A50 !important;
+      border: 1px solid #004d8c !important;
       border-radius: 12px;
       padding: 0.85rem 1.25rem;
       font-size: 0.875rem;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 3px 12px rgba(0, 69, 61, 0.22);
+      box-shadow: 0 3px 12px rgba(2, 98, 175, 0.22);
       transition: all 0.16s ease;
     }
     .btn-editorial-primary:hover {
-      background-color: #075E54 !important;
-      border-color: #71F8E4 !important;
-      box-shadow: 0 5px 18px rgba(0, 69, 61, 0.32);
+      background-color: #004d8c !important;
+      border-color: #38BDF8 !important;
+      box-shadow: 0 5px 18px rgba(2, 98, 175, 0.32);
       transform: translateY(-1px);
     }
     .reassurance-strip {
-      background-color: #E6F4F1;
-      border-top: 1px solid rgba(0, 69, 61, 0.15);
+      background-color: #EFF6FF;
+      border-top: 1px solid #DBEAFE;
       padding: 0.65rem 1.5rem;
       display: flex;
       align-items: center;
@@ -139,7 +139,7 @@
       flex-wrap: wrap;
       gap: 1.5rem;
       font-size: 0.75rem;
-      color: #00453D;
+      color: #0262af;
       font-weight: 600;
     }
     .reassurance-item {
