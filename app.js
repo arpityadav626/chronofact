@@ -1078,9 +1078,9 @@ function updateCaseSummaryMetrics() {
   if (badgeAi) badgeAi.textContent = allInconsistencies.length + allMLAnomalies.length;
   if (headerVaultPill) {
     headerVaultPill.innerHTML = `
-      <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
-      <span class="font-mono font-bold text-xs" id="header-exhibit-stat">${allEvidenceItems.length}</span>
-      <span class="text-[11px] font-semibold text-white/90">Sealed</span>
+      <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+      <span class="font-mono font-bold text-xs text-white" id="header-exhibit-stat">${allEvidenceItems.length}</span>
+      <span class="text-[11px] font-semibold text-emerald-300">Vault Sealed</span>
     `;
     if (window.lucide) lucide.createIcons();
   }
@@ -2711,14 +2711,202 @@ function setLanguage(lang = 'en') {
 // =============================================================================
 // TERMINAL AUTHENTICATION GUARD & SESSION LOCK (BSA 2023 §63(4))
 // =============================================================================
+let currentOfficer = {
+  name: "Inspector Arpit Yadav",
+  initials: "AY",
+  badge: "AY-4091",
+  designation: "Inspector of Police (Cyber Crime Cell)",
+  ps: "PS Cyber Crime, Central District"
+};
+
 function checkAuthGuard() {
   const authUser = sessionStorage.getItem("chronofact_auth_user");
   if (!authUser || (authUser !== "arpit" && authUser !== "forensic_examiner")) {
     window.location.replace("login.html");
     return false;
   }
-  updateOfficerProfile("Inspector Arpit Yadav", "AY");
+
+  // Restore custom officer if previously saved in localStorage
+  try {
+    const saved = localStorage.getItem("chronofact_custom_officer");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed && parsed.name) {
+        currentOfficer = { ...currentOfficer, ...parsed };
+      }
+    }
+  } catch (_) {}
+
+  updateOfficerProfile(
+    currentOfficer.name, 
+    currentOfficer.initials, 
+    currentOfficer.badge, 
+    currentOfficer.designation, 
+    currentOfficer.ps
+  );
   return true;
+}
+
+function deriveOfficerInitials(name = "") {
+  const clean = name.replace(/^(insp|inspector|dsp|si|asi|sp|shri|smt|dr)\.?\s+/i, '').trim();
+  const parts = clean.split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  } else if (parts.length === 1 && parts[0].length >= 2) {
+    return parts[0].slice(0, 2).toUpperCase();
+  }
+  return "AY";
+}
+
+function deriveOfficerShortLabel(name = "") {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) {
+    const firstLower = parts[0].toLowerCase();
+    if (firstLower.startsWith("insp") || firstLower === "inspector") {
+      return "Insp. " + parts[1];
+    } else if (firstLower === "dsp" || firstLower === "si" || firstLower === "sp") {
+      return parts[0].toUpperCase() + " " + parts[1];
+    }
+    return parts[0] + " " + parts[1];
+  }
+  return name.trim() || "Insp. Arpit";
+}
+
+function updateOfficerProfile(name, initials, badge, designation, ps) {
+  if (name) currentOfficer.name = name;
+  if (!initials) initials = deriveOfficerInitials(currentOfficer.name);
+  currentOfficer.initials = initials;
+  if (badge) currentOfficer.badge = badge;
+  if (designation) currentOfficer.designation = designation;
+  if (ps) currentOfficer.ps = ps;
+
+  try {
+    localStorage.setItem("chronofact_custom_officer", JSON.stringify(currentOfficer));
+  } catch (_) {}
+
+  const shortLabel = deriveOfficerShortLabel(currentOfficer.name);
+
+  // 1. Update Navbar button
+  const menuBtn = document.getElementById('officer-menu-btn');
+  if (menuBtn) {
+    const avatar = menuBtn.querySelector('.rounded-full');
+    const label = menuBtn.querySelector('.officer-label') || menuBtn.querySelector('.font-bold');
+    if (avatar) avatar.textContent = currentOfficer.initials;
+    if (label) label.textContent = shortLabel;
+    menuBtn.title = currentOfficer.name;
+  }
+
+  // 2. Update Dropdown Header
+  const dropdownName = document.getElementById('officer-display-name');
+  const dropdownBadge = document.getElementById('officer-display-badge');
+  const customInput = document.getElementById('officer-custom-name-input');
+  if (dropdownName) dropdownName.textContent = currentOfficer.name;
+  if (dropdownBadge) dropdownBadge.textContent = `Badge #${currentOfficer.badge} • ${currentOfficer.ps}`;
+  if (customInput) customInput.value = currentOfficer.name;
+
+  // 3. Update Case Overview Lead Examiner
+  const overviewLead = document.getElementById('overview-lead-examiner');
+  if (overviewLead) overviewLead.textContent = currentOfficer.name;
+
+  // 4. Update BSA Section 63(4) Certificate Fields
+  const certInputOfficer = document.getElementById('cert-input-officer');
+  const certInputDesig = document.getElementById('cert-input-designation');
+  const certInputPs = document.getElementById('cert-input-ps');
+  if (certInputOfficer) certInputOfficer.value = currentOfficer.name;
+  if (certInputDesig) certInputDesig.value = currentOfficer.designation;
+  if (certInputPs) certInputPs.value = currentOfficer.ps;
+
+  const certBodyOfficer = document.getElementById('cert-body-officer');
+  const certBodyDesig = document.getElementById('cert-body-designation');
+  const certBodyPs = document.getElementById('cert-body-ps');
+  if (certBodyOfficer) certBodyOfficer.textContent = currentOfficer.name;
+  if (certBodyDesig) certBodyDesig.textContent = currentOfficer.designation;
+  if (certBodyPs) certBodyPs.textContent = currentOfficer.ps;
+
+  const certSig = document.getElementById('cert-sig-officer');
+  const sigDesig = document.getElementById('cert-sig-designation');
+  const sigPs = document.getElementById('cert-sig-ps');
+  if (certSig) certSig.textContent = currentOfficer.name;
+  if (sigDesig) sigDesig.textContent = currentOfficer.designation;
+  if (sigPs) sigPs.textContent = currentOfficer.ps;
+}
+
+function toggleOfficerEditForm(event) {
+  if (event) event.stopPropagation();
+  hapticEngine.playSoftTap();
+  const form = document.getElementById('officer-inline-edit');
+  if (form) {
+    const isHidden = form.classList.contains('hidden');
+    form.classList.toggle('hidden');
+    if (isHidden) {
+      const input = document.getElementById('officer-custom-name-input');
+      if (input) {
+        input.value = currentOfficer.name;
+        setTimeout(() => input.focus(), 50);
+      }
+    }
+  }
+}
+
+function saveOfficerCustomName() {
+  hapticEngine.playSoftTap();
+  const input = document.getElementById('officer-custom-name-input');
+  const newName = input?.value.trim() || "Inspector Arpit Yadav";
+  
+  updateOfficerProfile(newName);
+
+  const form = document.getElementById('officer-inline-edit');
+  if (form) form.classList.add('hidden');
+
+  const dropdown = document.getElementById('officer-dropdown-menu');
+  if (dropdown) dropdown.classList.add('hidden');
+
+  hapticEngine.playSuccess();
+  showToast(`Examiner Name Updated: ${newName}`);
+}
+
+function openOfficerModal() {
+  hapticEngine.playWhoosh();
+  const modal = document.getElementById('edit-officer-modal');
+  const elName = document.getElementById('modal-officer-name');
+  const elBadge = document.getElementById('modal-officer-badge');
+  const elInitials = document.getElementById('modal-officer-initials');
+  const elDesig = document.getElementById('modal-officer-designation');
+  const elPs = document.getElementById('modal-officer-ps');
+
+  if (elName) elName.value = currentOfficer.name;
+  if (elBadge) elBadge.value = currentOfficer.badge;
+  if (elInitials) elInitials.value = currentOfficer.initials;
+  if (elDesig) elDesig.value = currentOfficer.designation;
+  if (elPs) elPs.value = currentOfficer.ps;
+
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+}
+
+function closeOfficerModal() {
+  hapticEngine.playSoftTap();
+  const modal = document.getElementById('edit-officer-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+function saveOfficerModalProfile() {
+  hapticEngine.playSoftTap();
+  const elName = document.getElementById('modal-officer-name')?.value.trim() || currentOfficer.name;
+  const elBadge = document.getElementById('modal-officer-badge')?.value.trim() || currentOfficer.badge;
+  const elInitials = document.getElementById('modal-officer-initials')?.value.trim() || deriveOfficerInitials(elName);
+  const elDesig = document.getElementById('modal-officer-designation')?.value.trim() || currentOfficer.designation;
+  const elPs = document.getElementById('modal-officer-ps')?.value.trim() || currentOfficer.ps;
+
+  updateOfficerProfile(elName, elInitials, elBadge, elDesig, elPs);
+  closeOfficerModal();
+  hapticEngine.playSuccess();
+  showToast(`Examiner Profile Saved: ${elName}`);
 }
 
 function lockTerminal() {
@@ -2727,20 +2915,6 @@ function lockTerminal() {
   sessionStorage.removeItem("chronofact_auth_token");
   sessionStorage.removeItem("chronofact_officer");
   window.location.href = "login.html?logout=true";
-}
-
-function updateOfficerProfile(name = "Inspector Arpit Yadav", initials = "AY") {
-  const menuBtn = document.getElementById('officer-menu-btn');
-  if (menuBtn) {
-    const avatar = menuBtn.querySelector('.rounded-full');
-    const label = menuBtn.querySelector('.officer-label') || menuBtn.querySelector('.font-medium');
-    if (avatar) avatar.textContent = initials;
-    if (label) label.textContent = (initials === "AY" || name.includes("Arpit")) ? "Insp. Arpit" : name;
-  }
-  const dropdownName = document.querySelector('#officer-dropdown-menu .font-bold');
-  if (dropdownName) dropdownName.textContent = name;
-  const certSig = document.getElementById('cert-sig-officer');
-  if (certSig) certSig.textContent = name;
 }
 
 function updateHeaderSoundIcon() {

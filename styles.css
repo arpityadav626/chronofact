@@ -535,14 +535,10 @@ input::placeholder {
 }
 
 /* Court Package Status Pill */
-header .rounded-full.bg-emerald-950\/40,
 #header-vault-status-pill {
-  background-color: #ECFDF5 !important;
-  border-color: #A7F3D0 !important;
-  color: #047857 !important;
-}
-header .rounded-full.bg-emerald-950\/40 strong {
-  color: #064E3B !important;
+  background: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #FFFFFF !important;
 }
 
 /* Audit Chain Integrity Banner */
