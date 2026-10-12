@@ -2292,9 +2292,9 @@ function closeCitationInspector() {
 // Synchronizes the 5 editable certificate header inputs with the legal affirmation body and signature
 function syncCertificateFields() {
   const firVal = document.getElementById('cert-input-fir')?.value || "FIR No. 204/2026, PS Cyber Crime";
-  const officerVal = document.getElementById('cert-input-officer')?.value || "Inspector A. Yadav";
-  const desigVal = document.getElementById('cert-input-designation')?.value || "Inspector of Police (Cyber Crime)";
-  const psVal = document.getElementById('cert-input-ps')?.value || "PS Cyber Crime, Central District";
+  const officerVal = document.getElementById('cert-input-officer')?.value || currentOfficer.name;
+  const desigVal = document.getElementById('cert-input-designation')?.value || currentOfficer.designation;
+  const psVal = document.getElementById('cert-input-ps')?.value || currentOfficer.ps;
   const dateVal = document.getElementById('cert-input-date')?.value || "12-Sep-2025 at Suspect Premises";
 
   // Sync body text
@@ -2319,9 +2319,9 @@ function syncCertificateFields() {
 }
 
 function copyCertificateCSV() {
-  hapticEngine.playSoftTap();
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
   const firVal = document.getElementById('cert-input-fir')?.value || "FIR No. 204/2026, PS Cyber Crime";
-  const officerVal = document.getElementById('cert-input-officer')?.value || "Inspector A. Yadav";
+  const officerVal = document.getElementById('cert-input-officer')?.value || currentOfficer.name;
 
   let csv = "Item,Exhibit ID,Artifact Name,Type,Size,Cryptographic Hash Digest (NIST FIPS 180-4 SHA-256)\n";
   allEvidenceItems.forEach((ex, idx) => {
@@ -2726,13 +2726,19 @@ function checkAuthGuard() {
     return false;
   }
 
-  // Restore custom officer if previously saved in localStorage
+  // Restore custom officer if previously saved in localStorage or sessionStorage
   try {
     const saved = localStorage.getItem("chronofact_custom_officer");
     if (saved) {
       const parsed = JSON.parse(saved);
       if (parsed && parsed.name) {
         currentOfficer = { ...currentOfficer, ...parsed };
+      }
+    } else {
+      const sessionOff = sessionStorage.getItem("chronofact_officer");
+      if (sessionOff && sessionOff.trim()) {
+        currentOfficer.name = sessionOff.trim();
+        currentOfficer.initials = deriveOfficerInitials(currentOfficer.name);
       }
     }
   } catch (_) {}
@@ -2754,61 +2760,95 @@ function deriveOfficerInitials(name = "") {
     return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
   } else if (parts.length === 1 && parts[0].length >= 2) {
     return parts[0].slice(0, 2).toUpperCase();
+  } else if (parts.length === 1 && parts[0].length === 1) {
+    return parts[0].toUpperCase();
   }
   return "AY";
 }
 
 function deriveOfficerShortLabel(name = "") {
-  const parts = name.trim().split(/\s+/).filter(Boolean);
-  if (parts.length >= 2) {
-    const firstLower = parts[0].toLowerCase();
-    if (firstLower.startsWith("insp") || firstLower === "inspector") {
-      return "Insp. " + parts[1];
-    } else if (firstLower === "dsp" || firstLower === "si" || firstLower === "sp") {
-      return parts[0].toUpperCase() + " " + parts[1];
+  const trimmed = name.trim();
+  if (!trimmed) return "Insp. Examiner";
+  const clean = trimmed.replace(/^(inspector|insp|dsp|si|asi|sp|shri|smt|dr)\.?\s+/i, '').trim();
+  const parts = clean.split(/\s+/).filter(Boolean);
+  const firstWord = trimmed.split(/\s+/)[0];
+  const isTitle = /^(inspector|insp|dsp|si|asi|sp|dr)\.?$/i.test(firstWord);
+
+  if (parts.length > 0) {
+    if (isTitle) {
+      const prefix = firstWord.toLowerCase().startsWith('insp') ? 'Insp.' : firstWord;
+      return `${prefix} ${parts[0]}`;
     }
-    return parts[0] + " " + parts[1];
+    return `Insp. ${parts[0]}`;
   }
-  return name.trim() || "Insp. Arpit";
+  return trimmed;
 }
 
 function updateOfficerProfile(name, initials, badge, designation, ps) {
-  if (name) currentOfficer.name = name;
+  if (name) currentOfficer.name = name.trim();
   if (!initials) initials = deriveOfficerInitials(currentOfficer.name);
   currentOfficer.initials = initials;
-  if (badge) currentOfficer.badge = badge;
-  if (designation) currentOfficer.designation = designation;
-  if (ps) currentOfficer.ps = ps;
+  if (badge) currentOfficer.badge = badge.trim();
+  if (designation) currentOfficer.designation = designation.trim();
+  if (ps) currentOfficer.ps = ps.trim();
 
   try {
     localStorage.setItem("chronofact_custom_officer", JSON.stringify(currentOfficer));
+    sessionStorage.setItem("chronofact_officer", currentOfficer.name);
   } catch (_) {}
 
   const shortLabel = deriveOfficerShortLabel(currentOfficer.name);
 
-  // 1. Update Navbar button
+  // 1. Update Navbar elements
+  const avatarEl = document.getElementById('officer-badge-avatar');
+  if (avatarEl) avatarEl.textContent = currentOfficer.initials;
+
+  const labelEl = document.getElementById('officer-badge-label');
+  if (labelEl) labelEl.textContent = shortLabel;
+
   const menuBtn = document.getElementById('officer-menu-btn');
   if (menuBtn) {
+    menuBtn.title = currentOfficer.name;
     const avatar = menuBtn.querySelector('.rounded-full');
     const label = menuBtn.querySelector('.officer-label') || menuBtn.querySelector('.font-bold');
     if (avatar) avatar.textContent = currentOfficer.initials;
     if (label) label.textContent = shortLabel;
-    menuBtn.title = currentOfficer.name;
   }
 
-  // 2. Update Dropdown Header
-  const dropdownName = document.getElementById('officer-display-name');
-  const dropdownBadge = document.getElementById('officer-display-badge');
+  // 2. Update Dropdown Header and Inputs
+  const quickInput = document.getElementById('officer-quick-input');
+  if (quickInput) quickInput.value = currentOfficer.name;
+
   const customInput = document.getElementById('officer-custom-name-input');
-  if (dropdownName) dropdownName.textContent = currentOfficer.name;
-  if (dropdownBadge) dropdownBadge.textContent = `Badge #${currentOfficer.badge} • ${currentOfficer.ps}`;
   if (customInput) customInput.value = currentOfficer.name;
 
-  // 3. Update Case Overview Lead Examiner
+  const dropdownName = document.getElementById('officer-display-name');
+  if (dropdownName) dropdownName.textContent = currentOfficer.name;
+
+  const dropdownBadge = document.getElementById('officer-display-badge');
+  if (dropdownBadge) dropdownBadge.textContent = `Badge #${currentOfficer.badge} • ${currentOfficer.ps}`;
+
+  // 3. Update Modal Inputs
+  const modalName = document.getElementById('modal-officer-name');
+  if (modalName) modalName.value = currentOfficer.name;
+  const modalBadge = document.getElementById('modal-officer-badge');
+  if (modalBadge) modalBadge.value = currentOfficer.badge;
+  const modalInitials = document.getElementById('modal-officer-initials');
+  if (modalInitials) modalInitials.value = currentOfficer.initials;
+  const modalDesig = document.getElementById('modal-officer-designation');
+  if (modalDesig) modalDesig.value = currentOfficer.designation;
+  const modalPs = document.getElementById('modal-officer-ps');
+  if (modalPs) modalPs.value = currentOfficer.ps;
+
+  // 4. Update Case Overview Lead Examiner
   const overviewLead = document.getElementById('overview-lead-examiner');
   if (overviewLead) overviewLead.textContent = currentOfficer.name;
 
-  // 4. Update BSA Section 63(4) Certificate Fields
+  // 5. Update Footer Examiner Info
+  const footerExaminer = document.getElementById('footer-examiner-info');
+  if (footerExaminer) footerExaminer.textContent = `Examiner: ${currentOfficer.name} (${currentOfficer.badge})`;
+
+  // 6. Update BSA Section 63(4) Certificate Fields
   const certInputOfficer = document.getElementById('cert-input-officer');
   const certInputDesig = document.getElementById('cert-input-designation');
   const certInputPs = document.getElementById('cert-input-ps');
@@ -2831,15 +2871,46 @@ function updateOfficerProfile(name, initials, badge, designation, ps) {
   if (sigPs) sigPs.textContent = currentOfficer.ps;
 }
 
+function openEditOfficerNameDialog(event) {
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  openOfficerModal();
+}
+
+function saveQuickOfficerName(event) {
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
+  const input = document.getElementById('officer-quick-input') || document.getElementById('officer-custom-name-input');
+  const newName = input ? input.value.trim() : "";
+  if (!newName) {
+    showToast("Please enter an examiner name");
+    return;
+  }
+  updateOfficerProfile(newName);
+  const dropdown = document.getElementById('officer-dropdown-menu');
+  if (dropdown) dropdown.classList.add('hidden');
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playSuccess();
+  showToast(`Examiner Name Updated: ${newName}`);
+}
+
+function saveOfficerCustomName() {
+  saveQuickOfficerName();
+}
+
 function toggleOfficerEditForm(event) {
   if (event) event.stopPropagation();
-  hapticEngine.playSoftTap();
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
   const form = document.getElementById('officer-inline-edit');
   if (form) {
     const isHidden = form.classList.contains('hidden');
     form.classList.toggle('hidden');
     if (isHidden) {
-      const input = document.getElementById('officer-custom-name-input');
+      const input = document.getElementById('officer-custom-name-input') || document.getElementById('officer-quick-input');
       if (input) {
         input.value = currentOfficer.name;
         setTimeout(() => input.focus(), 50);
@@ -2848,25 +2919,8 @@ function toggleOfficerEditForm(event) {
   }
 }
 
-function saveOfficerCustomName() {
-  hapticEngine.playSoftTap();
-  const input = document.getElementById('officer-custom-name-input');
-  const newName = input?.value.trim() || "Inspector Arpit Yadav";
-  
-  updateOfficerProfile(newName);
-
-  const form = document.getElementById('officer-inline-edit');
-  if (form) form.classList.add('hidden');
-
-  const dropdown = document.getElementById('officer-dropdown-menu');
-  if (dropdown) dropdown.classList.add('hidden');
-
-  hapticEngine.playSuccess();
-  showToast(`Examiner Name Updated: ${newName}`);
-}
-
 function openOfficerModal() {
-  hapticEngine.playWhoosh();
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playWhoosh();
   const modal = document.getElementById('edit-officer-modal');
   const elName = document.getElementById('modal-officer-name');
   const elBadge = document.getElementById('modal-officer-badge');
@@ -2883,11 +2937,17 @@ function openOfficerModal() {
   if (modal) {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
+    setTimeout(() => {
+      if (elName) {
+        elName.focus();
+        elName.select();
+      }
+    }, 50);
   }
 }
 
 function closeOfficerModal() {
-  hapticEngine.playSoftTap();
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
   const modal = document.getElementById('edit-officer-modal');
   if (modal) {
     modal.classList.add('hidden');
@@ -2896,7 +2956,7 @@ function closeOfficerModal() {
 }
 
 function saveOfficerModalProfile() {
-  hapticEngine.playSoftTap();
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
   const elName = document.getElementById('modal-officer-name')?.value.trim() || currentOfficer.name;
   const elBadge = document.getElementById('modal-officer-badge')?.value.trim() || currentOfficer.badge;
   const elInitials = document.getElementById('modal-officer-initials')?.value.trim() || deriveOfficerInitials(elName);
@@ -2905,7 +2965,7 @@ function saveOfficerModalProfile() {
 
   updateOfficerProfile(elName, elInitials, elBadge, elDesig, elPs);
   closeOfficerModal();
-  hapticEngine.playSuccess();
+  if (typeof hapticEngine !== 'undefined') hapticEngine.playSuccess();
   showToast(`Examiner Profile Saved: ${elName}`);
 }
 

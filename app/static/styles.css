@@ -995,15 +995,16 @@ div[id$="-drawer"] .editorial-card,
 }
 
 #officer-menu-btn {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  background: transparent !important;
+  border: none !important;
   color: #FFFFFF !important;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 #officer-menu-btn:hover {
-  background: rgba(255, 255, 255, 0.25) !important;
+  background: transparent !important;
+  opacity: 0.9;
 }
 
 #officer-dropdown-menu {
@@ -1020,13 +1021,49 @@ div[id$="-drawer"] .editorial-card,
   color: #64748B !important;
 }
 
-#officer-dropdown-menu button {
+#officer-dropdown-menu button:not(.btn-editorial-primary):not(.btn-save-officer) {
   color: #0F172A !important;
   background-color: transparent !important;
 }
 
-#officer-dropdown-menu button:hover {
+#officer-dropdown-menu button:not(.btn-editorial-primary):not(.btn-save-officer):hover {
   background-color: #F1F5F9 !important;
+}
+
+#officer-dropdown-menu .btn-editorial-primary,
+#officer-dropdown-menu .btn-save-officer {
+  background-color: #0262af !important;
+  color: #FFFFFF !important;
+}
+
+#officer-dropdown-menu .btn-editorial-primary:hover,
+#officer-dropdown-menu .btn-save-officer:hover {
+  background-color: #004d8c !important;
+  color: #FFFFFF !important;
+}
+
+#officer-quick-input {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+}
+
+#officer-quick-input:focus {
+  border-color: #0262af !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(2, 98, 175, 0.2) !important;
+}
+
+#edit-officer-modal input {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+}
+
+#edit-officer-modal input:focus {
+  border-color: #0262af !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(2, 98, 175, 0.2) !important;
 }
 
 #officer-dropdown-menu button.text-danger:hover {

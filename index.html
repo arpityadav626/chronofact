@@ -55,7 +55,7 @@
   </script>
 
   <!-- Primary Stylesheet with Cache-Buster -->
-  <link rel="stylesheet" href="styles.css?v=20261011_emergency_mitra_v6" onerror="this.onerror=null;this.href='/static/styles.css?v=20261011_emergency_mitra_v6'">
+  <link rel="stylesheet" href="styles.css?v=20261012_v11_examiner_fix" onerror="this.onerror=null;this.href='/static/styles.css?v=20261012_v11_examiner_fix'">
 
   <!-- Critical Theme Rules (Official Government Cyber Crime Portal Theme) -->
   <style>
@@ -459,81 +459,91 @@
 
         <!-- Officer Profile & Terminal Gate Button (Screenshot 1 & 2 Fix) -->
         <div class="relative">
-          <button 
-            id="officer-menu-btn"
-            onclick="toggleOfficerDropdown(event)" 
-            class="flex items-center gap-2 pl-1.5 pr-3 py-1 rounded-full text-white transition shadow-xs"
-            title="Inspector Arpit Yadav"
-          >
-            <div class="w-6 h-6 rounded-full bg-amber-400 text-[#002654] flex items-center justify-center font-black text-[11px] shrink-0 shadow-xs">
-              AY
-            </div>
-            <span class="font-bold text-xs text-white hidden md:inline officer-label">Insp. Arpit</span>
-            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-white/90 shrink-0"></i>
-          </button>
+          <div class="flex items-center gap-1 bg-black/30 pl-2 pr-1.5 py-1 rounded-full border border-white/25 text-white shadow-xs">
+            <!-- Clicking avatar/label opens dropdown -->
+            <button 
+              id="officer-menu-btn"
+              onclick="toggleOfficerDropdown(event)" 
+              class="flex items-center gap-2 text-white hover:opacity-90 transition cursor-pointer bg-transparent border-0"
+              title="Click to view Examiner Menu"
+            >
+              <div id="officer-badge-avatar" class="w-6 h-6 rounded-full bg-amber-400 text-[#002654] flex items-center justify-center font-black text-[11px] shrink-0 shadow-xs">
+                AY
+              </div>
+              <span id="officer-badge-label" class="font-bold text-xs text-white hidden md:inline officer-label">Insp. Arpit</span>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-white/90 shrink-0"></i>
+            </button>
+            <!-- Direct Quick Edit Pencil button right on the navbar! -->
+            <button 
+              onclick="openEditOfficerNameDialog(event)" 
+              class="px-2 py-0.5 rounded-full bg-white/15 hover:bg-white/25 text-amber-300 hover:text-white transition cursor-pointer flex items-center gap-1 border border-white/20" 
+              title="Change Inspector Name Directly"
+            >
+              <i data-lucide="edit-3" class="w-3 h-3"></i>
+              <span class="text-[10px] font-semibold text-amber-200 hidden sm:inline">Change</span>
+            </button>
+          </div>
 
           <!-- Dropdown Menu -->
-          <div id="officer-dropdown-menu" class="hidden absolute right-0 mt-2 w-72 rounded-xl bg-white border border-[#CBD5E1] shadow-2xl p-2.5 z-50 text-xs space-y-2">
+          <div id="officer-dropdown-menu" class="hidden absolute right-0 mt-2 w-80 rounded-xl bg-white border border-[#CBD5E1] shadow-2xl p-3 z-50 text-xs space-y-2.5">
             
-            <!-- Active Examiner Card with One-Click Edit -->
-            <div class="p-3 border border-[#E2E8F0] bg-slate-50 rounded-lg space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] font-mono uppercase font-bold text-[#64748B] tracking-wider">Active Examiner</span>
-                <button onclick="toggleOfficerEditForm(event)" class="text-[11px] font-bold text-[#0262af] hover:text-[#004d8c] hover:underline flex items-center gap-1">
-                  <i data-lucide="edit-3" class="w-3 h-3"></i>
-                  <span>Change Name</span>
+            <!-- Prominent Active Examiner Card with Live Input -->
+            <div class="p-3 border border-[#CBD5E1] bg-[#F8FAFC] rounded-xl space-y-2">
+              <div class="flex items-center justify-between text-[11px] font-bold text-[#0F172A]">
+                <span class="flex items-center gap-1.5">
+                  <i data-lucide="user-check" class="w-3.5 h-3.5 text-[#0262af]"></i>
+                  <span>Examiner In-Charge</span>
+                </span>
+                <button onclick="openOfficerModal(); toggleOfficerDropdown();" class="text-[10px] font-bold text-[#0262af] hover:underline flex items-center gap-1 cursor-pointer">
+                  <i data-lucide="sliders" class="w-3 h-3"></i>
+                  <span>Full Profile</span>
                 </button>
               </div>
-              <div>
-                <div id="officer-display-name" class="font-bold text-[#0F172A] text-sm">Inspector Arpit Yadav</div>
-                <div id="officer-display-badge" class="text-[10px] text-[#64748B] font-mono mt-0.5">Badge #AY-4091 &bull; PS Cyber Crime</div>
+              
+              <div class="flex items-center gap-1.5">
+                <input 
+                  type="text" 
+                  id="officer-quick-input" 
+                  value="Inspector Arpit Yadav" 
+                  placeholder="Enter Inspector Name" 
+                  class="w-full text-xs px-2.5 py-1.5 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af] font-semibold"
+                  onkeydown="if(event.key==='Enter') saveQuickOfficerName(event);"
+                  onclick="event.stopPropagation();"
+                >
+                <button 
+                  onclick="saveQuickOfficerName(event)" 
+                  class="btn-save-officer px-3 py-1.5 rounded-lg bg-[#0262af] hover:bg-[#004d8c] text-white font-bold text-xs shrink-0 shadow-xs cursor-pointer"
+                >
+                  Save
+                </button>
               </div>
 
-              <!-- Inline Officer Edit Form (Hidden by default, toggled by Change Name) -->
-              <div id="officer-inline-edit" class="hidden pt-2 border-t border-[#CBD5E1] space-y-2">
-                <label class="text-[10px] font-semibold text-[#475569] block">Enter Examiner Name / Rank:</label>
-                <div class="space-y-1.5">
-                  <input 
-                    type="text" 
-                    id="officer-custom-name-input" 
-                    value="Inspector Arpit Yadav" 
-                    placeholder="e.g. Insp. Vikram Singh" 
-                    class="w-full text-xs px-2.5 py-1.5 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af] font-medium"
-                    onkeydown="if(event.key==='Enter') saveOfficerCustomName();"
-                  >
-                  <div class="flex items-center gap-1.5 justify-end">
-                    <button onclick="toggleOfficerEditForm(event)" class="px-2 py-1 text-[11px] rounded text-[#64748B] hover:bg-slate-200">
-                      Cancel
-                    </button>
-                    <button onclick="saveOfficerCustomName()" class="btn-editorial-primary px-3 py-1 text-[11px] font-bold rounded">
-                      Save Name
-                    </button>
-                  </div>
-                </div>
+              <div id="officer-display-badge" class="text-[10px] text-[#64748B] font-mono">
+                Badge #AY-4091 &bull; PS Cyber Crime
               </div>
             </div>
 
             <!-- Profile & Setting Actions -->
-            <button onclick="openOfficerModal(); toggleOfficerDropdown();" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition text-left font-medium">
+            <button onclick="openOfficerModal(); toggleOfficerDropdown();" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition text-left font-medium cursor-pointer">
               <i data-lucide="user-cog" class="w-3.5 h-3.5 text-[#0262af]"></i>
-              <span>Customize Examiner &amp; Badge ID</span>
+              <span>Customize Designation &amp; Badge ID</span>
             </button>
-            <button onclick="openCaseSelectorModal(); toggleOfficerDropdown();" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition text-left font-medium">
+            <button onclick="openCaseSelectorModal(); toggleOfficerDropdown();" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition text-left font-medium cursor-pointer">
               <i data-lucide="folder-search" class="w-3.5 h-3.5 text-[#0262af]"></i>
               <span>Switch / Load Case Samples</span>
             </button>
-            <button onclick="hapticEngine.toggle(); updateHeaderSoundIcon();" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition">
+            <button onclick="hapticEngine.toggle(); updateHeaderSoundIcon();" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition cursor-pointer">
               <span class="flex items-center gap-2">
                 <i data-lucide="volume-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
                 <span class="font-medium">Haptic Audio</span>
               </span>
               <span id="officer-sound-label" class="text-[10px] font-mono text-[#64748B] font-bold">ON</span>
             </button>
-            <button onclick="openDossierModal(); toggleOfficerDropdown();" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition font-medium">
+            <button onclick="openDossierModal(); toggleOfficerDropdown();" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition font-medium cursor-pointer">
               <i data-lucide="archive" class="w-3.5 h-3.5 text-[#0284C7]"></i>
               <span>Export Case Dossier (ZIP)</span>
             </button>
-            <button onclick="lockTerminal()" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-red-50 text-[#DC2626] transition font-semibold">
+            <button onclick="lockTerminal()" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-red-50 text-[#DC2626] transition font-semibold cursor-pointer">
               <i data-lucide="lock" class="w-3.5 h-3.5 text-[#DC2626]"></i>
               <span>Lock Terminal (Sign Out)</span>
             </button>
@@ -846,7 +856,17 @@
             <div class="pt-2 flex flex-wrap items-center gap-6 text-xs text-[#64748B] border-t border-[#F1F5F9]">
               <div class="flex items-center gap-2">
                 <i data-lucide="user-check" class="w-4 h-4 text-[#0262af]"></i>
-                <span>Lead Examiner: <strong id="overview-lead-examiner" class="text-[#0F172A]">Insp. Arpit Yadav</strong> (Cyber Crime Cell)</span>
+                <div class="flex items-center gap-1.5">
+                  <span>Lead Examiner: <strong id="overview-lead-examiner" class="text-[#0F172A]">Insp. Arpit Yadav</strong> (Cyber Crime Cell)</span>
+                  <button 
+                    onclick="openOfficerModal()" 
+                    class="px-2 py-0.5 rounded text-[10px] font-bold text-[#0262af] bg-[#EFF6FF] hover:bg-[#DBEAFE] border border-[#BFDBFE] transition cursor-pointer inline-flex items-center gap-1"
+                    title="Change Lead Examiner Name &amp; Details"
+                  >
+                    <i data-lucide="edit-3" class="w-2.5 h-2.5"></i>
+                    <span>Change</span>
+                  </button>
+                </div>
               </div>
               <div class="flex items-center gap-2">
                 <i data-lucide="scale" class="w-4 h-4 text-[#059669]"></i>
@@ -1510,7 +1530,7 @@
                   <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                   <span>Air-Gapped Node #CY-49 • Online</span>
                 </div>
-                <div>Examiner: Insp. Arpit Yadav (AY-4091)</div>
+                <div id="footer-examiner-info">Examiner: Insp. Arpit Yadav (AY-4091)</div>
                 <div>Hash Verification: SHA-256 + SHA3-512</div>
                 <div>STQC Audit Compliance: Level 4 Certified</div>
               </div>
@@ -2239,6 +2259,7 @@
             value="Inspector Arpit Yadav" 
             placeholder="e.g. Inspector Vikram Singh"
             class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af] font-medium"
+            onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
           >
         </div>
 
@@ -2251,6 +2272,7 @@
               value="AY-4091" 
               placeholder="e.g. VS-8492"
               class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af] font-mono"
+              onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
             >
           </div>
 
@@ -2263,6 +2285,7 @@
               maxlength="3"
               placeholder="e.g. VS"
               class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af] font-mono uppercase font-bold"
+              onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
             >
           </div>
         </div>
@@ -2274,6 +2297,7 @@
             id="modal-officer-designation" 
             value="Inspector of Police (Cyber Crime Cell)" 
             class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af]"
+            onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
           >
         </div>
 
@@ -2284,15 +2308,16 @@
             id="modal-officer-ps" 
             value="PS Cyber Crime, Central District" 
             class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af]"
+            onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
           >
         </div>
       </div>
 
       <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-[#E2E8F0]">
-        <button onclick="closeOfficerModal()" class="btn-editorial-secondary text-xs px-3 py-1.5">
+        <button onclick="closeOfficerModal()" class="btn-editorial-secondary text-xs px-3 py-1.5 cursor-pointer">
           Cancel
         </button>
-        <button onclick="saveOfficerModalProfile()" class="btn-editorial-primary text-xs px-4 py-1.5 flex items-center gap-1.5">
+        <button onclick="saveOfficerModalProfile()" class="btn-editorial-primary text-xs px-4 py-1.5 flex items-center gap-1.5 cursor-pointer">
           <i data-lucide="check" class="w-3.5 h-3.5"></i>
           <span>Save Changes</span>
         </button>
@@ -2302,7 +2327,7 @@
 
 
   <!-- Main Application Logic Script (with Cache-Buster) -->
-  <script src="app.js?v=20261011_dedicated_login_v8" onerror="this.onerror=null;this.src='/static/app.js?v=20261011_dedicated_login_v8'"></script>
+  <script src="app.js?v=20261012_v11_examiner_fix" onerror="this.onerror=null;this.src='/static/app.js?v=20261012_v11_examiner_fix'"></script>
 
 </body>
 </html>
