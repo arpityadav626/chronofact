@@ -1,0 +1,24 @@
+{
+  "schema": "chronofact-phase6-model-v1",
+  "created_at_utc": "2026-11-15T09:46:37Z",
+  "model_type": "hist_gb",
+  "target_column": "label",
+  "group_column": "scenario_id",
+  "feature_columns": [
+    "bytes",
+    "log_bytes",
+    "hour_ist",
+    "after_hours",
+    "gap_min",
+    "burst_score",
+    "day_of_week",
+    "source",
+    "action",
+    "user_id"
+  ],
+  "positive_label_definition": "Malicious exfiltration or reconnaissance log event",
+  "dataset_sha256": "06028f91f45debc2eb29fd3d4e3ecbe18a19c02f90b610fbf02fb380517a9b79",
+  "training_metrics_file": "metrics.json",
+  "warning": "Load only model.joblib files produced by a trusted local training run. Joblib/pickle model files must not be loaded from untrusted sources.",
+  "model_sha256": "cae8b4180601308d170da596ee3ec7a5d277ff337583f17669d5901ee7cf7e9c"
+}

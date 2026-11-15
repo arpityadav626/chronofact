@@ -1,0 +1,77 @@
+{
+  "schema": "chronofact-phase6-evaluation-v1",
+  "created_at_utc": "2026-11-15T09:46:37Z",
+  "dataset_path": "C:\\Users\\Arpit Yadav\\.gemini\\antigravity\\scratch\\chronofact\\training_data.csv",
+  "dataset_sha256": "06028f91f45debc2eb29fd3d4e3ecbe18a19c02f90b610fbf02fb380517a9b79",
+  "model_type": "hist_gb",
+  "target_column": "label",
+  "group_column": "scenario_id",
+  "rows_total": 837,
+  "rows_train": 638,
+  "rows_test": 199,
+  "groups_total": 52,
+  "groups_train": 39,
+  "groups_test": 13,
+  "train_groups_disjoint_from_test": true,
+  "positive_label_definition": "Malicious exfiltration or reconnaissance log event",
+  "features": [
+    "bytes",
+    "log_bytes",
+    "hour_ist",
+    "after_hours",
+    "gap_min",
+    "burst_score",
+    "day_of_week",
+    "source",
+    "action",
+    "user_id"
+  ],
+  "threshold_for_reported_predictions": 0.5,
+  "precision": 1.0,
+  "recall": 0.9393939393939394,
+  "average_precision": 1.0,
+  "confusion_matrix_labels_0_then_1": [
+    [
+      166,
+      0
+    ],
+    [
+      2,
+      31
+    ]
+  ],
+  "classification_report": {
+    "label_0": {
+      "precision": 0.9880952380952381,
+      "recall": 1.0,
+      "f1-score": 0.9940119760479041,
+      "support": 166.0
+    },
+    "label_1": {
+      "precision": 1.0,
+      "recall": 0.9393939393939394,
+      "f1-score": 0.96875,
+      "support": 33.0
+    },
+    "accuracy": 0.9899497487437185,
+    "macro avg": {
+      "precision": 0.9940476190476191,
+      "recall": 0.9696969696969697,
+      "f1-score": 0.9813809880239521,
+      "support": 199.0
+    },
+    "weighted avg": {
+      "precision": 0.9900693945920076,
+      "recall": 0.9899497487437185,
+      "f1-score": 0.9898228041404628,
+      "support": 199.0
+    }
+  },
+  "positive_score_note": "The model positive-class score is not calibrated and is not a probability of wrongdoing or evidence credibility.",
+  "limitations": [
+    "One group-separated holdout is not independent external validation.",
+    "Synthetic dataset performance does not establish real-world accuracy.",
+    "Model flags are review leads only, not evidence of guilt."
+  ],
+  "roc_auc": 1.0
+}

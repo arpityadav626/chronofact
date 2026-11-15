@@ -47,6 +47,7 @@ training_results/
 Thumbs.db
 
 # Large Media & Submission Archives
+score-runs/
 *.mp4
 *.mp3
 *.zip

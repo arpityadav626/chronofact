@@ -9,9 +9,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import joblib
+import numpy as np
 import pandas as pd
 from sklearn.compose import ColumnTransformer
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import HistGradientBoostingClassifier, RandomForestClassifier
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import (
     average_precision_score,
@@ -27,8 +28,8 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
 MAX_INPUT_BYTES = 500 * 1024 * 1024
-NUMERIC_FEATURES = ["bytes", "hour_utc", "day_of_week"]
-CATEGORICAL_FEATURES = ["source", "action"]
+NUMERIC_FEATURES = ["bytes", "log_bytes", "hour_ist", "after_hours", "gap_min", "burst_score", "day_of_week"]
+BASE_CATEGORICAL_FEATURES = ["source", "action"]
 REQUIRED_COLUMNS = {
     "event_id",
     "timestamp",
@@ -102,14 +103,35 @@ def load_events(
             ) from exc
 
     times = pd.to_datetime(parsed_times, utc=True)
-    df["hour_utc"] = times.hour + times.minute / 60.0
-    df["day_of_week"] = times.dayofweek
+    ist_times = times.tz_convert("Asia/Kolkata")
+    df["hour_ist"] = ist_times.hour + ist_times.minute / 60.0
+    df["after_hours"] = ((ist_times.hour >= 22) | (ist_times.hour < 6)).astype(int)
+    df["day_of_week"] = ist_times.day_of_week
 
     df["bytes"] = pd.to_numeric(df["bytes"], errors="coerce")
     if df["bytes"].isna().any() or (df["bytes"] < 0).any():
         raise ValueError("bytes must contain non-negative numeric values.")
+    df["log_bytes"] = np.log1p(df["bytes"])
 
-    for column in ("source", "action", group_column, "event_id"):
+    # Compute inter-event gap per scenario group
+    df["_ts_temp"] = ist_times
+    df = df.sort_values([group_column, "_ts_temp"]).reset_index(drop=True)
+    df["gap_min"] = (
+        df.groupby(group_column)["_ts_temp"]
+        .diff()
+        .dt.total_seconds()
+        .div(60)
+        .fillna(999.0)
+        .clip(upper=999.0)
+    )
+    df["burst_score"] = 1.0 / (df["gap_min"] + 0.1)
+    df = df.drop(columns=["_ts_temp"])
+
+    check_cols = ["source", "action", group_column, "event_id"]
+    if "user_id" in df.columns:
+        check_cols.append("user_id")
+
+    for column in check_cols:
         df[column] = df[column].fillna("").astype(str).str.strip()
         if (df[column] == "").any():
             raise ValueError(f"Column {column!r} cannot contain blank values.")
@@ -130,7 +152,10 @@ def load_events(
     return df, path
 
 
-def make_pipeline() -> Pipeline:
+def make_pipeline(model_type: str = "hist_gb", cat_cols: list[str] | None = None) -> Pipeline:
+    if cat_cols is None:
+        cat_cols = list(BASE_CATEGORICAL_FEATURES)
+
     numeric = Pipeline(
         steps=[
             ("imputer", SimpleImputer(strategy="median")),
@@ -140,25 +165,31 @@ def make_pipeline() -> Pipeline:
     categorical = Pipeline(
         steps=[
             ("imputer", SimpleImputer(strategy="most_frequent")),
-            ("onehot", OneHotEncoder(handle_unknown="ignore")),
+            ("onehot", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
         ]
     )
 
     preprocessor = ColumnTransformer(
         transformers=[
             ("numeric", numeric, NUMERIC_FEATURES),
-            ("categorical", categorical, CATEGORICAL_FEATURES),
+            ("categorical", categorical, cat_cols),
         ],
         remainder="drop",
     )
 
-    classifier = RandomForestClassifier(
-        n_estimators=300,
-        min_samples_leaf=2,
-        class_weight="balanced_subsample",
-        random_state=42,
-        n_jobs=-1,
-    )
+    if model_type == "hist_gb":
+        classifier = HistGradientBoostingClassifier(
+            random_state=42,
+            min_samples_leaf=5,
+        )
+    else:
+        classifier = RandomForestClassifier(
+            n_estimators=100,
+            min_samples_leaf=2,
+            class_weight="balanced_subsample",
+            random_state=42,
+            n_jobs=-1,
+        )
 
     return Pipeline(
         steps=[
@@ -217,15 +248,21 @@ def train(args) -> int:
     df, csv_path = load_events(args.input, args.group_column, args.label_column)
     y = df[args.label_column].astype(int)
 
+    cat_features = list(BASE_CATEGORICAL_FEATURES)
+    if "user_id" in df.columns:
+        cat_features.append("user_id")
+
+    all_features = NUMERIC_FEATURES + cat_features
     # IDs and grouping columns are intentionally excluded from model features.
-    x = df[NUMERIC_FEATURES + CATEGORICAL_FEATURES]
+    x = df[all_features]
     groups = df[args.group_column]
 
     train_idx, test_idx = choose_group_holdout(x, y, groups)
     x_train, x_test = x.iloc[train_idx], x.iloc[test_idx]
     y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
 
-    model = make_pipeline()
+    model_type = getattr(args, "model_type", "hist_gb")
+    model = make_pipeline(model_type=model_type, cat_cols=cat_features)
     model.fit(x_train, y_train)
 
     predicted = model.predict(x_test).astype(int)
@@ -240,6 +277,7 @@ def train(args) -> int:
         "created_at_utc": utc_now(),
         "dataset_path": str(csv_path),
         "dataset_sha256": sha256_file(csv_path),
+        "model_type": model_type,
         "target_column": args.label_column,
         "group_column": args.group_column,
         "rows_total": int(len(df)),
@@ -252,7 +290,7 @@ def train(args) -> int:
             set(groups.iloc[test_idx])
         ),
         "positive_label_definition": args.positive_label_definition,
-        "features": NUMERIC_FEATURES + CATEGORICAL_FEATURES,
+        "features": all_features,
         "threshold_for_reported_predictions": 0.5,
         "precision": float(
             precision_score(y_test, predicted, zero_division=0)
@@ -275,7 +313,7 @@ def train(args) -> int:
             output_dict=True,
         ),
         "positive_score_note": (
-            "The Random Forest positive-class score is not calibrated and is "
+            "The model positive-class score is not calibrated and is "
             "not a probability of wrongdoing or evidence credibility."
         ),
         "limitations": [
@@ -294,10 +332,10 @@ def train(args) -> int:
     metadata = {
         "schema": "chronofact-phase6-model-v1",
         "created_at_utc": utc_now(),
-        "model_type": "RandomForestClassifier",
+        "model_type": model_type,
         "target_column": args.label_column,
         "group_column": args.group_column,
-        "feature_columns": NUMERIC_FEATURES + CATEGORICAL_FEATURES,
+        "feature_columns": all_features,
         "positive_label_definition": args.positive_label_definition,
         "dataset_sha256": metrics["dataset_sha256"],
         "training_metrics_file": "metrics.json",
@@ -406,6 +444,12 @@ def main() -> int:
     train_parser.add_argument("--output-root", required=True)
     train_parser.add_argument("--group-column", default="scenario_id")
     train_parser.add_argument("--label-column", default="label")
+    train_parser.add_argument(
+        "--model-type",
+        choices=["hist_gb", "random_forest"],
+        default="hist_gb",
+        help="Classifier model architecture (default: hist_gb)",
+    )
     train_parser.add_argument(
         "--positive-label-definition",
         required=True,
