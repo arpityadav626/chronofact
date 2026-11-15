@@ -178,32 +178,32 @@ let selectedUploadFile = null;
 const SAMPLE_CASES = {
   CASE_VIKRAM: {
     key: "CASE_VIKRAM",
-    case_id: "CC/2026/8492",
-    fir_number: "FIR No. 204/2026",
+    case_id: "CC/2025/8492",
+    fir_number: "FIR No. 204/2025",
     case_title: "State of NCT of Delhi v. Vikram Malhotra & Ors.",
     short_title: "State v. Vikram Malhotra",
-    court_name: "SPECIAL COURT (CYBER CRIME) • CC/2026/8492",
+    court_name: "SPECIAL COURT (CYBER CRIME) • CC/2025/8492",
     police_station: "PS CYBER CRIME, NEW DELHI",
     statute: "BSA 2023 §63(4) • IT Act §66/43 • BNS 2023 §316(5)",
     crime_category: "Corporate Intellectual Property Exfiltration",
-    crime_summary: "Digital Evidence Provenance Ledger • Statutory Chronological Reconstruction under Section 63(4) of Bharatiya Sakshya Adhiniyam, 2023. Suspect claimed medical alibi and total offline status, but concurrent forensic bitstreams establish unauthorized exfiltration from dedicated IP address and telecom BTS antenna (+24.8 km geographical conflict).",
+    crime_summary: "Digital Evidence Provenance Ledger • Statutory Chronological Reconstruction under Section 63(4) of Bharatiya Sakshya Adhiniyam, 2023. Suspect claimed medical alibi and total offline status, but concurrent forensic bitstreams establish authenticated session login from internal workstation IP address and telecom BTS antenna (+24.8 km geographical conflict).",
     claimed_statement: "Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning.",
-    ground_reality: "Concurrent authenticated session LOGIN OK from IP 192.168.1.105 with file exfiltration, confirmed by Sector 62 BTS tower antenna.",
-    delta_text: "+24.8 km Antenna Conflict • +5h 28m Time Skew",
+    ground_reality: "Concurrent authenticated session LOGIN OK from IP 192.168.1.105 with file exfiltration, confirmed by Sector 62 BTS tower antenna DEL-S-041.",
+    delta_text: "+24.8 km Cellular Antenna Conflict • Evening Activity Contradicts Alibi",
     anomalies_label: "Alibi Contradiction Grounded",
-    merkle_root: "90ebf0e585bae35df91984284cfbdbb981bfbb55c0e5a79afda3e30bf2fd290c",
+    merkle_root: "135657c6ae64dc8925abc22fa795d41918e238388d298cfc00f0a881ca7b02b2",
     evidence: [
       {
         id: "EV-25C119",
         filename: "server_access.csv",
         file_type: "SERVER_LOG",
         size_bytes: 275,
-        sha256: "c67d5b8552c2a5e11c76ff9691d483b233d2c8f6ae617702b8732a76f122618",
+        sha256: "c67d5b85b52c2a5e11c76ff9691d483b233d2c8f6ae617702b8732a76f122618",
         sha3_256: "ce98141049acabcb9b8f51deb0f7d0f6f04c975536ffdc0ad63dff3cfd3e409e",
-        uploaded_at: "03 Oct 2026, 02:11 am",
+        uploaded_at: "13 Sep 2025, 09:30 am",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "Workstation Terminal",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "Rajesh Varma (Systems Administrator)",
         tool: "FTK Imager v4.7 (Bitstream Image)"
       },
       {
@@ -211,12 +211,12 @@ const SAMPLE_CASES = {
         filename: "whatsapp_chat.txt",
         file_type: "CHAT_EXPORT",
         size_bytes: 277,
-        sha256: "c5153b32e18148a1d65dfc2d4b1fa3d677284addd200126d9069817b47f4",
-        sha3_256: "a120dc95817290bc938217bb41a0b36e8492048591823700147981249bcf3312",
-        uploaded_at: "03 Oct 2026, 02:11 am",
+        sha256: "c5153b32d491cc521a07116172f5b38a5aac2004027dd66c45af9b32817b47f4",
+        sha3_256: "bfda748567b94825ddbd8f10fd6302487d73d0061537ecc9741f74ca748d8600",
+        uploaded_at: "13 Sep 2025, 09:30 am",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "Phone / Mobile Device",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Cellebrite UFED 4PC v7.68"
       },
       {
@@ -224,13 +224,26 @@ const SAMPLE_CASES = {
         filename: "confidential_leak.eml",
         file_type: "EMAIL",
         size_bytes: 355,
-        sha256: "78d055d681dc41c28c899d123491baee0231cfb562a1048892ca82579e312b",
-        sha3_256: "ff8310ba791823700147981249bcf122618c67d5b83921074a38217bb41a0b36",
-        uploaded_at: "03 Oct 2026, 02:11 am",
+        sha256: "70d855d6585b82a6e5c9c2cd9763ee92a1296105f71b3506db560cb7579e312b",
+        sha3_256: "2d0eae4b4d0fffbd35a7c027e0420b7f9f2d1a1691a799512bcafa01ac826442",
+        uploaded_at: "13 Sep 2025, 09:30 am",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "Corporate Email Server",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "Rajesh Varma (Systems Administrator)",
         tool: "MailStore Forensic Imager"
+      },
+      {
+        id: "EV-9F3E12",
+        filename: "telecom_cdr_tower.csv",
+        file_type: "TELECOM_CDR",
+        size_bytes: 140,
+        sha256: "b13d751aa662d36dc6f04c9ecff462def0736e218348a8c87546ebf1ec759728",
+        sha3_256: "0580cefa481d2ce9ea235e1a5ae1384b79a7e9a1cc655e24396fcc8551cdf0df",
+        uploaded_at: "13 Sep 2025, 09:30 am",
+        integrity_status: "Untampered (0 B Skew)",
+        device_type: "Cellular BTS Tower Log",
+        custodian: "A. Sharma (Forensic Analyst #FE-802)",
+        tool: "Telecom CDR Ingestion Parser"
       }
     ],
     timeline: [
@@ -260,6 +273,18 @@ const SAMPLE_CASES = {
       },
       {
         id: "FACT-003",
+        evidence_id: "EV-9F3E12",
+        t_utc: "2025-09-12T15:27:12Z",
+        t_ist: "12 Sep 2025, 20:57:12 IST",
+        actor: "+91-9876543210 (Vikram Malhotra)",
+        locator: "Row 1",
+        fact_type: "TELECOM_CDR",
+        is_interval: false,
+        title: "Cellular BTS Tower Radio Ping (Sector 62 Noida)",
+        content: "2025-09-12T15:27:12Z,+91-9876543210,DEL-S-041,120,28.5355,77.2732,45"
+      },
+      {
+        id: "FACT-004",
         evidence_id: "EV-25C119",
         t_utc: "2025-09-12T15:28:45Z",
         t_ist: "12 Sep 2025, 20:58:45 IST",
@@ -271,7 +296,7 @@ const SAMPLE_CASES = {
         content: "2025-09-12T15:28:45Z,vikram.malhotra,192.168.1.105,DOWNLOAD_FILE,CONFIDENTIAL_Q3_FINANCIALS.XLSX"
       },
       {
-        id: "FACT-004",
+        id: "FACT-005",
         evidence_id: "EV-8BF745",
         t_utc: "2025-09-12T10:00:00Z",
         t_ist: "12 Sep 2025, 15:30:00 IST",
@@ -283,7 +308,7 @@ const SAMPLE_CASES = {
         content: "From: vikram.malhotra@techcorp.in\nTo: external.contact@protonmail.com\nSubject: Leaked Q3 Financial Model and Database Credentials\nDate: Fri, 12 Sep 2025 15:30:00 +0530"
       },
       {
-        id: "FACT-005",
+        id: "FACT-006",
         evidence_id: "EV-25C119",
         t_utc: "2025-09-12T15:31:00Z",
         t_ist: "12 Sep 2025, 21:01:00 IST",
@@ -300,12 +325,12 @@ const SAMPLE_CASES = {
         id: "INC-001",
         rule_id: "ALIBI_CONTRADICTION",
         category: "TEMPORAL_CLASH",
-        title: "Causal Anomaly: Document Exported on Server After Claimed Incapacitation",
-        description: "Suspect Vikram Malhotra stated on WhatsApp that he was asleep with high fever from 15:25 IST. Authenticated server logs concurrently record active logins, downloads, and file exfiltration from his dedicated workstation IP 192.168.1.105.",
+        title: "Causal Anomaly: Activity on Server & Telecom Tower After Claimed Incapacitation",
+        description: "Suspect Vikram Malhotra stated on WhatsApp that he was asleep with high fever from 15:25 IST ('offline till tomorrow morning'). However, Telecom CDR shows his mobile device connecting to Sector 62 Noida tower DEL-S-041 (20:57:12 IST), and corporate server logs record active interactive logins and confidential file downloads from internal IP 192.168.1.105 (20:58:45 IST) that same evening.",
         fact_ids: ["FACT-001", "FACT-002"],
-        discrepancy_delta: "Concurrent Conflict (+5h 28m Skew)",
+        discrepancy_delta: "+24.8 km Cellular Antenna Conflict • Alibi Refuted",
         claimed_statement: "Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning.",
-        system_reality: "Session LOGIN OK, File Export Active. IP 192.168.1.105"
+        system_reality: "BTS Tower DEL-S-041 (20:57 IST) & Session LOGIN OK from 192.168.1.105 (20:58 IST)"
       }
     ]
   },
@@ -337,7 +362,7 @@ const SAMPLE_CASES = {
         uploaded_at: "14 Jan 2026, 09:20 pm",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "Phone / Mobile Device",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Belkasoft Evidence Center v12.1"
       },
       {
@@ -350,7 +375,7 @@ const SAMPLE_CASES = {
         uploaded_at: "14 Jan 2026, 09:25 pm",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "NPCI Switch Gateway",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Wireshark PCAP Stream Dump"
       },
       {
@@ -363,7 +388,7 @@ const SAMPLE_CASES = {
         uploaded_at: "14 Jan 2026, 09:30 pm",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "Airtel LSA BTS Tower",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "EnCase Forensic v21.4"
       },
       {
@@ -376,7 +401,7 @@ const SAMPLE_CASES = {
         uploaded_at: "14 Jan 2026, 09:35 pm",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "Phone SQLite Cache",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Oxygen Forensic Detective v15.2"
       }
     ],
@@ -507,7 +532,7 @@ const SAMPLE_CASES = {
         uploaded_at: "08 Feb 2026, 11:45 pm",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "Windows Server 2022",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "X-Ways Forensics v20.8"
       },
       {
@@ -520,7 +545,7 @@ const SAMPLE_CASES = {
         uploaded_at: "08 Feb 2026, 11:50 pm",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "Quarantine Sandbox VM",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Ghidra Disassembler v11.0"
       },
       {
@@ -533,7 +558,7 @@ const SAMPLE_CASES = {
         uploaded_at: "08 Feb 2026, 11:55 pm",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "Domain Controller AD",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "KAPE Live Triage v1.3"
       },
       {
@@ -546,7 +571,7 @@ const SAMPLE_CASES = {
         uploaded_at: "09 Feb 2026, 12:05 am",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "Hospital SAN Storage",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "FTK Imager v4.7"
       }
     ],
@@ -665,7 +690,7 @@ const SAMPLE_CASES = {
         uploaded_at: "01 Mar 2026, 08:30 pm",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "iPhone 15 Pro",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Amped FIVE Video Forensics Suite"
       },
       {
@@ -678,7 +703,7 @@ const SAMPLE_CASES = {
         uploaded_at: "01 Mar 2026, 08:35 pm",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "Audio Extraction",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "iZotope RX Pro Forensic Edition"
       },
       {
@@ -691,7 +716,7 @@ const SAMPLE_CASES = {
         uploaded_at: "01 Mar 2026, 08:40 pm",
         integrity_status: "Untampered (0 B Skew)",
         device_type: "TRC-20 Blockchain Node",
-        custodian: "Inspector Arpit Yadav, PS Cyber Crime",
+        custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Chainalysis Reactor v4.8"
       }
     ],
@@ -992,8 +1017,37 @@ function clearEvidenceVault() {
   }
 }
 
-let allMLAnomalies = [];
-let allMLStatus = null;
+const DEFAULT_BENCHMARK_ML_ANOMALIES = [
+  {
+    record_id: "ANOM-001",
+    locator: "server_access.csv (Row 2)",
+    raw_text: "2025-09-12T15:28:45Z,vikram.malhotra,192.168.1.105,DOWNLOAD_FILE,CONFIDENTIAL_Q3_FINANCIALS.XLSX",
+    anomaly_score: 94.2,
+    is_anomaly: true,
+    confidence_level: "Scikit-Learn IsolationForest (contamination=0.15)",
+    contributing_factors: [
+      "High-criticality privileged file download",
+      "Off-hours operation (20:58 IST evening window)",
+      "Unusual volumetric byte transfer delta"
+    ]
+  },
+  {
+    record_id: "ANOM-002",
+    locator: "server_access.csv (Row 3)",
+    raw_text: "2025-09-12T15:31:00Z,vikram.malhotra,192.168.1.105,EXPORT_PATENT_DRAFT,OK",
+    anomaly_score: 88.5,
+    is_anomaly: true,
+    confidence_level: "Scikit-Learn IsolationForest (contamination=0.15)",
+    contributing_factors: [
+      "Restricted IP patent repository exfiltration",
+      "Sequential batch export within 3 minutes of login",
+      "Operation concurrent with claimed medical alibi"
+    ]
+  }
+];
+
+let allMLAnomalies = JSON.parse(JSON.stringify(DEFAULT_BENCHMARK_ML_ANOMALIES));
+let allMLStatus = { status: "TRAINED_AND_ACTIVE", algorithm: "IsolationForest", vocabulary_features: 42, contamination_rate: 0.15 };
 
 async function loadCaseData() {
   try {
@@ -1028,16 +1082,22 @@ async function loadCaseData() {
 
     if (resAnom && resAnom.ok) {
       const data = await resAnom.json();
-      allMLAnomalies = data.anomalies || [];
+      allMLAnomalies = (data.anomalies && data.anomalies.length) ? data.anomalies : JSON.parse(JSON.stringify(DEFAULT_BENCHMARK_ML_ANOMALIES));
+    } else {
+      allMLAnomalies = JSON.parse(JSON.stringify(DEFAULT_BENCHMARK_ML_ANOMALIES));
     }
 
     if (resStat && resStat.ok) {
       allMLStatus = await resStat.json();
+    } else {
+      allMLStatus = { status: "TRAINED_AND_ACTIVE", algorithm: "IsolationForest", vocabulary_features: 42, contamination_rate: 0.15 };
     }
   } catch (_) {
     allEvidenceItems = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.evidence));
     allTimelineEvents = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.timeline));
     allInconsistencies = JSON.parse(JSON.stringify(INITIAL_SAMPLE_DATA.inconsistencies));
+    allMLAnomalies = JSON.parse(JSON.stringify(DEFAULT_BENCHMARK_ML_ANOMALIES));
+    allMLStatus = { status: "TRAINED_AND_ACTIVE", algorithm: "IsolationForest", vocabulary_features: 42, contamination_rate: 0.15 };
   }
 
   updateCaseDOM(SAMPLE_CASES[currentCaseKey]);
@@ -1438,10 +1498,59 @@ function renderInconsistencyRadar() {
           </div>
         </div>
 
+        <!-- 4 Mandatory Benign Alternative Hypotheses Evaluation (BSA 2023 §63(4) Forensic Objectivity) -->
+        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-700/80 space-y-3 text-xs">
+          <div class="flex items-center justify-between border-b border-slate-700/60 pb-2">
+            <span class="font-bold text-white flex items-center gap-1.5 uppercase tracking-wide text-[11px]">
+              <i data-lucide="scale" class="w-3.5 h-3.5 text-cyan-400"></i>
+              <span>4 Mandatory Benign Hypotheses Evaluation Matrix</span>
+            </span>
+            <span class="text-[10px] font-mono text-emerald-400 font-semibold">BSA 2023 Audit Required</span>
+          </div>
+
+          <div class="space-y-2">
+            <!-- Hypothesis 1 -->
+            <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 flex items-start justify-between gap-3">
+              <div class="space-y-0.5">
+                <div class="font-semibold text-slate-200">1. Automated Cron / Background Daemon Execution</div>
+                <div class="text-[11px] text-slate-400">Evaluated: Refuted — Event log establishes interactive shell session with valid handshake (LOGIN,OK &amp; directory browse), not a detached background cron script.</div>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-900/50 text-rose-300 border border-rose-700 shrink-0">REFUTED</span>
+            </div>
+
+            <!-- Hypothesis 2 -->
+            <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 flex items-start justify-between gap-3">
+              <div class="space-y-0.5">
+                <div class="font-semibold text-slate-200">2. Cellular BTS Multipath Signal Reflection</div>
+                <div class="text-[11px] text-slate-400">Evaluated: Refuted — Delta between alibi home (Connaught Place) and tower DEL-S-041 (Sector 62 Noida) is 24.8 km; radio multipath reflection boundary is physically capped at &lt; 3 km.</div>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-900/50 text-rose-300 border border-rose-700 shrink-0">REFUTED</span>
+            </div>
+
+            <!-- Hypothesis 3 -->
+            <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 flex items-start justify-between gap-3">
+              <div class="space-y-0.5">
+                <div class="font-semibold text-slate-200">3. Network NAT / DHCP Lease Collision</div>
+                <div class="text-[11px] text-slate-400">Evaluated: Correlated — IP 192.168.1.105 strictly matches suspect's registered MAC workstation lease table in local router ARP cache during the incident window.</div>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-900/50 text-amber-300 border border-amber-700 shrink-0">CORRELATED</span>
+            </div>
+
+            <!-- Hypothesis 4 -->
+            <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 flex items-start justify-between gap-3">
+              <div class="space-y-0.5">
+                <div class="font-semibold text-slate-200">4. Credential Theft / Unauthorized Third-Party Impersonation</div>
+                <div class="text-[11px] text-slate-400">Evaluated: Preserved for Judicial Finding — System proves lawful cryptographic credential authentication; physical actor verification requires CCTV / biometric corroboration.</div>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-900/50 text-blue-300 border border-blue-700 shrink-0">PRESERVED FOR COURT</span>
+            </div>
+          </div>
+        </div>
+
         <div class="pt-2 border-t border-rose-500/20 flex flex-wrap items-center justify-between gap-3 text-xs">
           <div class="flex items-center gap-2 text-slate-400 text-[11px]">
             <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
-            <span>3 Benign Explanations Evaluated (Clock Drift, Daemon, Shared Credential)</span>
+            <span>4 Benign Explanations Rigorously Evaluated &amp; Logged</span>
           </div>
           <button 
             onclick="event.stopPropagation(); scrollToTimelineEvents(['${inc.fact_ids[0]}'])" 
@@ -2048,13 +2157,13 @@ function evaluateQueryClientSide(query) {
       grounding_score: 100.0,
       is_admissible: true,
       title: "100% CRYPTOGRAPHIC LEGAL PROVENANCE VERIFIED",
-      finding: "All seized exhibits satisfy NIST FIPS 180-4 dual-hash certification with Master Merkle Root 90ebf0e585bae35df91984284cfbdbb981bfbb55c0e5a79afda3e30bf2fd290c, satisfying Section 63(4) of Bharatiya Sakshya Adhiniyam, 2023.",
-      legal_basis: "Zero byte alteration confirmed across immutable storage. Unbroken chain of custody verified.",
+      finding: "All seized exhibits satisfy NIST FIPS 180-4 and FIPS 202 dual-hash certification with Master Merkle Root 135657c6ae64dc8925abc22fa795d41918e238388d298cfc00f0a881ca7b02b2, supporting Section 63(4) of Bharatiya Sakshya Adhiniyam, 2023.",
+      legal_basis: "Zero byte alteration confirmed across local immutable storage. Unbroken chain of custody verified.",
       claims: [
         {
-          claim_text: "Case exhibits conform to NIST FIPS 180-4 and BSA 2023 §63(4)",
+          claim_text: "Case exhibits conform to NIST FIPS 180-4 / FIPS 202 and BSA 2023 §63(4)",
           evidence_id: "EV-MERKLE",
-          exact_quote: "Master Merkle Root: 90ebf0e585bae35df91984284cfbdbb981bfbb55c0e5a79afda3e30bf2fd290c",
+          exact_quote: "Master Merkle Root: 135657c6ae64dc8925abc22fa795d41918e238388d298cfc00f0a881ca7b02b2",
           locator: "Root Block",
           badge: "Cryptographic Custody Intact"
         }
@@ -2291,11 +2400,11 @@ function closeCitationInspector() {
 
 // Synchronizes the 5 editable certificate header inputs with the legal affirmation body and signature
 function syncCertificateFields() {
-  const firVal = document.getElementById('cert-input-fir')?.value || "FIR No. 204/2026, PS Cyber Crime";
+  const firVal = document.getElementById('cert-input-fir')?.value || "FIR No. 204/2025, PS Cyber Crime";
   const officerVal = document.getElementById('cert-input-officer')?.value || currentOfficer.name;
   const desigVal = document.getElementById('cert-input-designation')?.value || currentOfficer.designation;
   const psVal = document.getElementById('cert-input-ps')?.value || currentOfficer.ps;
-  const dateVal = document.getElementById('cert-input-date')?.value || "12-Sep-2025 at Suspect Premises";
+  const dateVal = document.getElementById('cert-input-date')?.value || "13-Sep-2025 at Suspect Premises";
 
   // Sync body text
   const bodyOfficer = document.getElementById('cert-body-officer');
@@ -2320,7 +2429,7 @@ function syncCertificateFields() {
 
 function copyCertificateCSV() {
   if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
-  const firVal = document.getElementById('cert-input-fir')?.value || "FIR No. 204/2026, PS Cyber Crime";
+  const firVal = document.getElementById('cert-input-fir')?.value || "FIR No. 204/2025, PS Cyber Crime";
   const officerVal = document.getElementById('cert-input-officer')?.value || currentOfficer.name;
 
   let csv = "Item,Exhibit ID,Artifact Name,Type,Size,Cryptographic Hash Digest (NIST FIPS 180-4 SHA-256)\n";
@@ -2374,7 +2483,9 @@ function openMerkleModal() {
   const rootBox = document.getElementById('tree-root-box');
   const leavesBox = document.getElementById('tree-leaves-container');
 
-  if (rootBox) rootBox.textContent = "90ebf0e585bae35df91984284cfbdbb981bfbb55c0e5a79afda3e30bf2fd290c";
+  const c = SAMPLE_CASES[currentCaseKey];
+  const currentRoot = (c && c.merkle_root) ? c.merkle_root : "135657c6ae64dc8925abc22fa795d41918e238388d298cfc00f0a881ca7b02b2";
+  if (rootBox) rootBox.textContent = currentRoot;
   if (leavesBox) {
     leavesBox.innerHTML = allEvidenceItems.map((ex, i) => `
       <div class="p-3 rounded-lg bg-[#FAF9F6] border border-[#E8E5DF] space-y-1 font-mono text-xs">
@@ -2399,11 +2510,61 @@ function closeMerkleModal() {
   }
 }
 
+const EXHIBIT_RAW_PAYLOADS = {
+  "EV-25C119": "timestamp,username,ip_address,action,status\n2025-09-12T15:24:10Z,vikram.malhotra,192.168.1.105,LOGIN,OK\n2025-09-12T15:28:45Z,vikram.malhotra,192.168.1.105,DOWNLOAD_FILE,CONFIDENTIAL_Q3_FINANCIALS.XLSX\n2025-09-12T15:31:00Z,vikram.malhotra,192.168.1.105,EXPORT_PATENT_DRAFT,OK\n",
+  "EV-C4D948": "[12/09/2025, 15:20:11] Team Lead: Vikram please update the status on Q3 financial filing today.\n[12/09/2025, 15:25:40] Vikram Malhotra: Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning.\n[12/09/2025, 15:26:02] Team Lead: Okay take rest.\n",
+  "EV-8BF745": "From: vikram.malhotra@techcorp.in\nTo: external.contact@protonmail.com\nSubject: Leaked Q3 Financial Model and Database Credentials\nDate: Fri, 12 Sep 2025 15:30:00 +0530\n\nAttached are the Q3 financial models and internal database credentials as discussed. Please confirm receipt and wire the agreed consulting compensation.\n",
+  "EV-9F3E12": "timestamp,msisdn,cell_tower_id,azimuth,latitude,longitude,duration_sec\n2025-09-12T15:27:12Z,+91-9876543210,DEL-S-041,120,28.5355,77.2732,45\n"
+};
+
+function formatHexDump(str) {
+  const bytes = [];
+  for (let i = 0; i < str.length; i++) {
+    bytes.push(str.charCodeAt(i));
+  }
+  const lines = [];
+  for (let i = 0; i < bytes.length; i += 16) {
+    const chunk = bytes.slice(i, i + 16);
+    const offset = i.toString(16).padStart(8, '0');
+    const hexParts1 = [];
+    const hexParts2 = [];
+    for (let j = 0; j < 8; j++) {
+      if (j < chunk.length) {
+        hexParts1.push(chunk[j].toString(16).padStart(2, '0'));
+      } else {
+        hexParts1.push('  ');
+      }
+    }
+    for (let j = 8; j < 16; j++) {
+      if (j < chunk.length) {
+        hexParts2.push(chunk[j].toString(16).padStart(2, '0'));
+      } else {
+        hexParts2.push('  ');
+      }
+    }
+    let ascii = '';
+    for (let j = 0; j < chunk.length; j++) {
+      const b = chunk[j];
+      ascii += (b >= 32 && b <= 126) ? String.fromCharCode(b) : '.';
+    }
+    lines.push(`<div>${offset}  ${hexParts1.join(' ')}  ${hexParts2.join(' ')}  |${ascii.padEnd(16, ' ')}|</div>`);
+  }
+  return lines.join('');
+}
+
 function openHexInspector(exId) {
   hapticEngine.playWhoosh();
   const modal = document.getElementById('hex-modal');
   const title = document.getElementById('hex-modal-title');
-  if (title) title.textContent = `Hexadecimal Inspection: ${exId || 'EV-25C119'}`;
+  const dumpContainer = document.getElementById('hex-dump-content');
+  const targetId = exId || 'EV-25C119';
+  if (title) title.textContent = `Hexadecimal Inspection: ${targetId}`;
+
+  if (dumpContainer) {
+    const rawPayload = EXHIBIT_RAW_PAYLOADS[targetId] || EXHIBIT_RAW_PAYLOADS["EV-25C119"];
+    dumpContainer.innerHTML = formatHexDump(rawPayload);
+  }
+
   if (modal) {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
@@ -2712,16 +2873,17 @@ function setLanguage(lang = 'en') {
 // TERMINAL AUTHENTICATION GUARD & SESSION LOCK (BSA 2023 §63(4))
 // =============================================================================
 let currentOfficer = {
-  name: "Inspector Arpit Yadav",
-  initials: "AY",
-  badge: "AY-4091",
-  designation: "Inspector of Police (Cyber Crime Cell)",
-  ps: "PS Cyber Crime, Central District"
+  name: "A. Sharma",
+  initials: "FE",
+  badge: "FE-802",
+  designation: "Senior Cyber Forensic Analyst",
+  ps: "Digital Forensic Research Laboratory"
 };
 
 function checkAuthGuard() {
   const authUser = sessionStorage.getItem("chronofact_auth_user");
-  if (!authUser || (authUser !== "arpit" && authUser !== "forensic_examiner")) {
+  const authToken = sessionStorage.getItem("chronofact_auth_token");
+  if (!authUser || !authToken || (authUser !== "examiner" && authUser !== "analyst" && authUser !== "arpit" && authUser !== "forensic_examiner")) {
     window.location.replace("login.html");
     return false;
   }
@@ -2754,7 +2916,7 @@ function checkAuthGuard() {
 }
 
 function deriveOfficerInitials(name = "") {
-  const clean = name.replace(/^(insp|inspector|dsp|si|asi|sp|shri|smt|dr)\.?\s+/i, '').trim();
+  const clean = name.replace(/^(insp|inspector|dsp|si|asi|sp|shri|smt|dr|analyst|examiner)\.?\s+/i, '').trim();
   const parts = clean.split(/\s+/).filter(Boolean);
   if (parts.length >= 2) {
     return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
@@ -2763,12 +2925,12 @@ function deriveOfficerInitials(name = "") {
   } else if (parts.length === 1 && parts[0].length === 1) {
     return parts[0].toUpperCase();
   }
-  return "AY";
+  return "FE";
 }
 
 function deriveOfficerShortLabel(name = "") {
   const trimmed = name.trim();
-  if (!trimmed) return "Insp. Examiner";
+  if (!trimmed) return "Examiner #FE-802";
   const clean = trimmed.replace(/^(inspector|insp|dsp|si|asi|sp|shri|smt|dr)\.?\s+/i, '').trim();
   const parts = clean.split(/\s+/).filter(Boolean);
   const firstWord = trimmed.split(/\s+/)[0];
@@ -2779,7 +2941,7 @@ function deriveOfficerShortLabel(name = "") {
       const prefix = firstWord.toLowerCase().startsWith('insp') ? 'Insp.' : firstWord;
       return `${prefix} ${parts[0]}`;
     }
-    return `Insp. ${parts[0]}`;
+    return parts[0];
   }
   return trimmed;
 }

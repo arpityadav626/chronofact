@@ -6,7 +6,7 @@ Compliant with:
 - Deterministic Abstract Syntax & Byte-Span Verification
 - Zero-Tolerance Hallucination Gatekeeper Architecture
 
-Author: CHRONOFACT Forensic Software Architect
+Author: Arpit Yadav & Team (SUTRAM 2026 // Cyber Forensic Research)
 """
 
 import re

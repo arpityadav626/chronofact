@@ -81,11 +81,18 @@ def resolve_tool(name: str, bin_dir: str | None) -> str:
     if found:
         return str(Path(found).resolve())
     
-    # Try common Windows Sleuth Kit paths
-    for base in [
+    # Try common Windows and UNIX Sleuth Kit paths
+    search_paths = [
+        os.environ.get("SLEUTHKIT_BIN", ""),
         r"C:\Program Files\Sleuth Kit\bin",
-        r"C:\Users\antriksh\Downloads\sleuthkit-4.14.0-win32\sleuthkit-4.14.0-win32\bin",
-    ]:
+        r"C:\Program Files (x86)\Sleuth Kit\bin",
+        r"/usr/bin",
+        r"/usr/local/bin",
+        str(Path(__file__).resolve().parent / "tools" / "sleuthkit" / "bin"),
+    ]
+    for base in search_paths:
+        if not base or not os.path.isdir(base):
+            continue
         found = shutil.which(name, path=base)
         if found:
             return str(Path(found).resolve())

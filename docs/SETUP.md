@@ -12,11 +12,11 @@
 ## Installation Steps
 
 ### 1. Clone/Download Project
-Project location: `C:\Users\antriksh\Downloads\arpit_hackathon\chronofact_installed\chronofact`
+Project location: `.`
 
 ### 2. Install Python Dependencies
 ```powershell
-cd C:\Users\antriksh\Downloads\arpit_hackathon\chronofact_installed\chronofact
+cd .
 python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
@@ -41,18 +41,18 @@ CHRONOFACT_DATA_DIR=./chronofact-data
 
 #### Sleuth Kit (Phase 3)
 **Already installed** at:
-`C:\Users\antriksh\Downloads\sleuthkit-4.14.0-win32\sleuthkit-4.14.0-win32\bin`
+`tools/sleuthkit/bin`
 
 Tools available: `mmls.exe`, `tsk_recover.exe`, `fls.exe`, `icat.exe`
 
 #### Volatility 3 (Phase 4)
 **✅ Now installed and working:**
-- Path: `C:\Users\antriksh\Downloads\volatility3`
+- Path: `tools/volatility3`
 - Files: `vol.exe` (22MB) ready to use
 
 **To verify installation:**
 ```powershell
-C:\Users\antriksh\Downloads\volatility3\vol.exe --help
+tools/volatility3\vol.exe --help
 ```
 
 ---
@@ -66,7 +66,7 @@ START_FULL.bat
 
 ### Option 2: Manual Start
 ```powershell
-cd C:\Users\antriksh\Downloads\arpit_hackathon\chronofact_installed\chronofact
+cd .
 venv\Scripts\activate
 set CHRONOFACT_USER=examiner
 set CHRONOFACT_PASSWORD=SecurePassMin16Chars!
@@ -140,7 +140,7 @@ echo kUPIpkwEMr_-jsbuvNfCUdZIrAXE1X0OhNXhSt-tL08= > C:\backup\vault-key.txt
 
 ### Backup Database
 ```powershell
-robocopy C:\Users\antriksh\Downloads\arpit_hackathon\chronofact_installed\chronofact\chronofact-data C:\backup\chronofact-data /MIR
+robocopy .\chronofact-data C:\backup\chronofact-data /MIR
 ```
 
 ### Recovery Steps

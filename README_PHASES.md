@@ -14,7 +14,7 @@ This implements the CHRONOFACT forensic workbench with Phases 0-6.
 ## Setup
 
 ```powershell
-cd C:\Users\antriksh\Downloads\arpit_hackathon\chronofact_installed\chronofact
+cd .
 python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt

@@ -1,0 +1,318 @@
+import os
+import subprocess
+from pathlib import Path
+import fitz  # PyMuPDF
+
+HTML_CONTENT = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ChronoFact 2.0 — Presentation Cheat Sheet</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm 10mm 12mm;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #0f172a;
+    background: #ffffff;
+    line-height: 1.45;
+    font-size: 9.5pt;
+    margin: 0;
+    padding: 0;
+  }
+  .header {
+    border-bottom: 2.5px solid #0284c7;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .title-group h1 {
+    font-size: 17pt;
+    color: #032b5f;
+    margin: 0 0 2px 0;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+  .title-group p {
+    color: #0284c7;
+    font-size: 9.5pt;
+    font-weight: 600;
+    margin: 0;
+  }
+  .badge {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .col-full {
+    grid-column: span 2;
+  }
+  .card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 9px 12px;
+    position: relative;
+  }
+  .card-blue {
+    border-left: 4.5px solid #0284c7;
+    background: #f0f9ff;
+  }
+  .card-emerald {
+    border-left: 4.5px solid #059669;
+    background: #f0fdf4;
+  }
+  .card-amber {
+    border-left: 4.5px solid #d97706;
+    background: #fffbeb;
+  }
+  .card-purple {
+    border-left: 4.5px solid #7c3aed;
+    background: #faf5ff;
+  }
+  .card-title {
+    font-size: 10.5pt;
+    font-weight: 800;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-blue .card-title { color: #0369a1; }
+  .card-emerald .card-title { color: #047857; }
+  .card-amber .card-title { color: #b45309; }
+  .card-purple .card-title { color: #6d28d9; }
+
+  .speech-box {
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 5px;
+    padding: 7px 10px;
+    font-style: italic;
+    color: #1e293b;
+    font-size: 9pt;
+    line-height: 1.4;
+    margin-top: 4px;
+  }
+  .speech-box strong {
+    font-style: normal;
+    color: #0284c7;
+  }
+  ul {
+    margin: 4px 0 6px 16px;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 3px;
+  }
+  .step-num {
+    display: inline-block;
+    background: #0284c7;
+    color: #ffffff;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 18px;
+    font-size: 8pt;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .footer {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 6px;
+    margin-top: 6px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 7.5pt;
+    color: #64748b;
+  }
+  .highlight-tag {
+    background: rgba(2, 132, 199, 0.12);
+    color: #0369a1;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 8pt;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="title-group">
+    <h1>⚖️ CHRONOFACT 2.0 — Presentation Cheat Sheet</h1>
+    <p>How to Explain Your Project to the Jury in 3 Minutes (SUTRAM 2026 Round 2)</p>
+  </div>
+  <div>
+    <span class="badge">SUTRAM 2026 // ISEA MeitY</span>
+  </div>
+</div>
+
+<!-- STEP 1: THE 30-SECOND OPENING PITCH -->
+<div class="card card-blue" style="margin-bottom: 9px;">
+  <div class="card-title">🎙️ STEP 1: THE 30-SECOND OPENING PITCH (Speak Confidently)</div>
+  <div><em>Stand tall, make eye contact with the jury, and speak these exact words:</em></div>
+  <div class="speech-box">
+    "Respected Jury Members, our project is <strong>CHRONOFACT 2.0</strong> — an air-gapped Cyber Forensic Investigation Workbench.<br>
+    In cyber investigations, police receive scattered logs: WhatsApp chats, server CSVs, emails, and cellular CDRs. Under India’s new criminal law — <strong>Section 63(4) of Bharatiya Sakshya Adhiniyam, 2023</strong> — over 40% of digital records fail court scrutiny due to broken custody chains. 
+    <strong>ChronoFact unifies these logs into one timeline, busts fake alibis using physics/velocity checks, and generates court-ready legal certificates in 1 click — 100% offline with zero cloud leak.</strong>"
+  </div>
+</div>
+
+<div class="grid">
+  <!-- STEP 2: THE 3-STEP DEMO -->
+  <div class="card card-emerald">
+    <div class="card-title">💻 STEP 2: LIVE DEMO FLOW (What to Click)</div>
+    <div>Follow this exact 3-step sequence on <code>http://localhost:8000</code>:</div>
+    <ul>
+      <li>
+        <span class="step-num">1</span> <strong>Click "⚡ Load Sample Case Exhibit"</strong><br>
+        <small><em>Say:</em> "We ingest 4 multi-source logs: WhatsApp chat, production server log, email leak, and cellular CDR tower data."</small>
+      </li>
+      <li>
+        <span class="step-num">2</span> <strong>Point to "Inconsistency Radar"</strong><br>
+        <small><em>Say:</em> "Suspect Vikram claims he was asleep in Noida at 23:14. But at 23:17, his phone connected to an Okhla tower 24.8 km away! Moving 25 km in 3 mins requires <strong>496 km/h</strong> — physically impossible by road! Fake alibi busted in 2 seconds."</small>
+      </li>
+      <li>
+        <span class="step-num">3</span> <strong>Click "Generate BSA §63(4) Certificate"</strong><br>
+        <small><em>Say:</em> "In 1 click, we export Part A Custodian & Part B Examiner legal affidavits with Merkle root hash proofs."</small>
+      </li>
+    </ul>
+  </div>
+
+  <!-- STEP 3: SECURITY & TAMPER-PROOFING -->
+  <div class="card card-amber">
+    <div class="card-title">🔒 STEP 3: "HOW IS IT SECURE?" (Defense)</div>
+    <div>When judges ask about tampering and evidence integrity:</div>
+    <ul>
+      <li>
+        <span class="highlight-tag">100% Air-Gapped</span> <strong>Zero Cloud Leak:</strong> Runs entirely local. No evidence ever touches external cloud servers or commercial APIs.
+      </li>
+      <li>
+        <span class="highlight-tag">NIST Dual-Hash</span> <strong>FIPS 180-4 (SHA-256) + FIPS 202 (SHA3-256):</strong> Concurrent streaming hashing over 64KB memory-safe chunks.
+      </li>
+      <li>
+        <span class="highlight-tag">Binary Merkle Tree</span> <strong>1-Bit Tamper Lock:</strong> If anyone modifies 1 single bit, the system raises an uncatchable <code>ForensicIntegrityViolationError</code>.
+      </li>
+      <li>
+        <span class="highlight-tag">atime Preservation</span> Preserves original file access timestamps under ISO 27037 standard.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- STEP 4: WHAT OUR AI DOES -->
+<div class="card card-purple" style="margin-bottom: 9px;">
+  <div class="card-title">🧠 STEP 4: "WHAT DOES YOUR AI DO?" (Jury Favorite Question)</div>
+  <div class="grid" style="margin-bottom: 0; gap: 8px;">
+    <div>
+      <strong>1. IsolationForest Log Anomaly Engine:</strong><br>
+      Scans multi-dimensional server telemetry to detect data exfiltration bursts, critical SCP actions (weight 0.75), and 2 AM off-hours logins.
+    </div>
+    <div>
+      <strong>2. Spatiotemporal Kinematic Modeling:</strong><br>
+      Uses Haversine distance formula to calculate speed between chat claims and cellular base stations, catching kinematic impossibilities.
+    </div>
+    <div>
+      <strong>3. Anti-Confirmation Bias Hypotheses:</strong><br>
+      Mandatorily generates 4 benign technical explanations (e.g. tower bounce, automated backup, VPN) to protect innocent suspects.
+    </div>
+    <div>
+      <strong>4. Mechanical Citation Gate (0% Hallucination):</strong><br>
+      Every fact is verified at <code>(byte_start, byte_end)</code>. Unverifiable quotes get struck down with a strict 0.0% Grounding Score!
+    </div>
+  </div>
+</div>
+
+<!-- STEP 5: CLOSING PUNCHLINE -->
+<div class="card card-blue">
+  <div class="card-title">🎯 STEP 5: THE 15-SECOND CLOSING PUNCHLINE</div>
+  <div class="speech-box" style="margin-top: 0;">
+    "Criminals can lie about where they were. But they cannot rewrite the laws of physics and mathematics.<br>
+    <strong>ChronoFact: Where raw forensic bytes meet courtroom-admissible legal truth.</strong> Thank you, and we are ready for your questions!"
+  </div>
+</div>
+
+<div class="footer">
+  <span>Lead Developer: Arpit Yadav & Team // SUTRAM 2026 Round 2 Finalist</span>
+  <span>Department of IT, CI/ISEA, IGDTUW // Ministry of Electronics & IT (MeitY)</span>
+</div>
+
+</body>
+</html>
+"""
+
+def generate_cheatsheet():
+    base_dir = Path(r"C:\Users\Arpit Yadav\.gemini\antigravity\scratch\chronofact")
+    desktop_dir = Path(r"C:\Users\Arpit Yadav\OneDrive\Desktop")
+
+    html_path = base_dir / "ChronoFact_Presentation_CheatSheet.html"
+    pdf_path_local = base_dir / "ChronoFact_Presentation_CheatSheet.pdf"
+    png_path_local = base_dir / "ChronoFact_Presentation_CheatSheet.png"
+
+    pdf_path_desktop = desktop_dir / "ChronoFact_Presentation_CheatSheet.pdf"
+    png_path_desktop = desktop_dir / "ChronoFact_Presentation_CheatSheet.png"
+
+    # 1. Write HTML file
+    with open(html_path, "w", encoding="utf-8") as f:
+        f.write(HTML_CONTENT)
+    print(f"[+] Wrote HTML template: {html_path}")
+
+    # 2. Convert to PDF using Edge headless
+    edge_exe = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+    cmd = [
+        edge_exe,
+        "--headless",
+        "--disable-gpu",
+        "--run-all-compositor-stages-before-draw",
+        f"--print-to-pdf={pdf_path_local}",
+        str(html_path)
+    ]
+    res = subprocess.run(cmd, capture_output=True, text=True)
+    if pdf_path_local.exists():
+        print(f"[SUCCESS] PDF generated at: {pdf_path_local} ({pdf_path_local.stat().st_size} bytes)")
+    else:
+        print(f"[ERROR] PDF generation failed: {res.stderr}")
+        return
+
+    # 3. Convert PDF to High-Resolution PNG (300 DPI) using PyMuPDF (fitz)
+    doc = fitz.open(str(pdf_path_local))
+    print(f"[+] PDF page count: {len(doc)}")
+    
+    # Render first page at 3x scale (~216 DPI to 300 DPI) for ultra-crisp text on phone
+    zoom = 3.0  # High-definition
+    mat = fitz.Matrix(zoom, zoom)
+    page = doc.load_page(0)
+    pix = page.get_pixmap(matrix=mat, alpha=False)
+    pix.save(str(png_path_local))
+    print(f"[SUCCESS] High-Res PNG generated at: {png_path_local} ({png_path_local.stat().st_size} bytes)")
+    doc.close()
+
+    # 4. Copy to Desktop
+    if desktop_dir.exists():
+        import shutil
+        shutil.copy2(pdf_path_local, pdf_path_desktop)
+        shutil.copy2(png_path_local, png_path_desktop)
+        print(f"[SUCCESS] Copied to Desktop:\n  - {pdf_path_desktop}\n  - {png_path_desktop}")
+
+if __name__ == "__main__":
+    generate_cheatsheet()

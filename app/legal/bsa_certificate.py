@@ -7,7 +7,7 @@ Compliant with:
 - Mandatory NIST FIPS 180-4 SHA-256 and FIPS 202 SHA-3-256 Disclosures
 - Deterministic Master Merkle Root Case Identifier & Hash-Chained Audit Trail
 
-Author: CHRONOFACT Forensic Software Architect
+Author: Arpit Yadav & Team (SUTRAM 2026 // Cyber Forensic Research)
 """
 
 import json

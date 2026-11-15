@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CHRONOFACT — AI Forensic Workbench (BSA 2023 §63(4))</title>
 
-  <!-- Law Enforcement Terminal Gate: Immediate Redirect to Login if Unauthorized -->
+  <!-- Forensic Evaluation Gate: Immediate Redirect to Login if Unauthorized -->
   <script>
     (function() {
       try {
         var user = sessionStorage.getItem('chronofact_auth_user');
-        if (!user || (user !== 'arpit' && user !== 'forensic_examiner')) {
+        var token = sessionStorage.getItem('chronofact_auth_token');
+        if (!user || !token || (user !== 'examiner' && user !== 'analyst' && user !== 'arpit' && user !== 'forensic_examiner')) {
           window.location.replace('login.html');
         }
       } catch (_) {}
@@ -256,22 +257,22 @@
   </style>
 <body class="font-sans h-screen flex flex-col overflow-hidden antialiased selection:bg-[#0262af] selection:text-white">
 
-  <!-- 1. Indian Tricolor Ribbon (Saffron - White - Green) -->
-  <div class="tricolor-strip"></div>
+  <!-- 1. SUTRAM 2026 Academic Research Prototype Banner -->
+  <div class="bg-amber-600 text-white px-4 py-1 text-xs font-semibold text-center select-none shadow-xs">
+    ⚠️ SUTRAM 2026 Academic Hackathon Prototype — For Educational &amp; Research Evaluation Only. Not affiliated with any Government Ministry, Law Enforcement Agency, or Official Department.
+  </div>
 
-  <!-- 2. Official Government of India Utility Strip (Cyber Crime Portal Common Wrapper) -->
+  <!-- 2. Academic Utility Strip -->
   <div class="common-wrapper px-4 sm:px-6 py-1.5 text-xs select-none no-print">
     <div class="max-w-[1920px] mx-auto flex items-center justify-between flex-wrap gap-2">
       <div class="flex items-center gap-2 sm:gap-3 text-white/95">
         <div class="flex items-center gap-1.5 font-bold">
-          <span class="text-xs">भारत सरकार</span>
+          <span class="text-xs">SUTRAM 2026</span>
           <span class="text-white/40">|</span>
-          <span class="text-xs">Government of India</span>
+          <span class="text-xs">National Cyber Security Hackathon</span>
         </div>
         <span class="hidden sm:inline text-white/40">|</span>
-        <span class="hidden sm:inline font-medium text-white/85 text-[11px]">गृह मंत्रालय • Ministry of Home Affairs</span>
-        <span class="hidden lg:inline text-white/40">|</span>
-        <span class="hidden lg:inline font-medium text-white/85 text-[11px]">विधि और न्याय मंत्रालय • Ministry of Law &amp; Justice</span>
+        <span class="hidden sm:inline font-medium text-white/85 text-[11px]">Digital Forensic &amp; Electronic Evidence Research Project</span>
       </div>
       
       <div class="flex items-center gap-2 sm:gap-3">
@@ -288,78 +289,59 @@
           <button onclick="setLanguage('en')" id="lang-btn-en" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-white text-[#0262af] transition shadow-xs">EN</button>
           <button onclick="setLanguage('hi')" id="lang-btn-hi" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-transparent text-white border border-white/40 hover:bg-white/10 transition">हिन्दी</button>
         </div>
-        <!-- Air-Gapped Node Badge -->
+        <!-- Local Evaluation Mode Badge -->
         <div class="hidden md:flex items-center gap-1.5 text-[11px] font-mono font-medium text-white bg-white/15 px-2.5 py-0.5 rounded border border-white/25">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Node #CY-49 • Air-Gapped</span>
+          <span>Evaluation Node #FE-802 • Offline Safe Mode</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 3. Main Government Logo Header (Header Wrapper) -->
+  <!-- 3. Main Workbench Header -->
   <header class="header-wrapper px-4 sm:px-6 select-none bg-white border-b border-[#DCE3DF]">
     <div class="max-w-[1920px] mx-auto flex items-center justify-between gap-4">
       
-      <!-- Left: Lion Capital + I4C + Title -->
+      <!-- Left: Forensic Shield + Title -->
       <div class="flex items-center gap-3 sm:gap-4">
-        <!-- National Emblem of India (Ashoka Lion Capital) -->
-        <a href="index.html" class="shrink-0 flex items-center" title="Government of India - National Emblem">
-          <img 
-            src="assets/images/national_emblem.png" 
-            alt="National Emblem of India" 
-            class="national_emblem"
-            onerror="this.onerror=null;this.src='/static/assets/images/national_emblem.png';"
-          />
+        <a href="index.html" class="shrink-0 flex items-center p-2 rounded-xl bg-slate-900 text-white" title="CHRONOFACT 2.0">
+          <svg class="w-8 h-8 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
         </a>
 
-        <!-- I4C Logo -->
-        <div class="hidden sm:flex items-center shrink-0">
-          <img 
-            src="assets/images/i4c.png" 
-            alt="Indian Cyber Crime Coordination Centre (I4C)" 
-            class="i4cImg"
-            onerror="this.onerror=null;this.src='/static/assets/images/i4c.png';"
-          />
-        </div>
-
-        <!-- Official Bilingual Platform Title -->
+        <!-- Platform Title -->
         <div class="flex flex-col justify-center border-l border-slate-200 pl-3 sm:pl-4">
           <div class="text-[13px] sm:text-[15px] font-black text-[#002654] leading-tight font-serif tracking-tight">
-            राष्ट्रीय न्यायिक साइबर फॉरेंसिक कार्यपीठ
+            न्यायिक इलेक्ट्रॉनिक साक्ष्य विश्लेषण कार्यपीठ
           </div>
           <div class="text-[12px] sm:text-[14px] font-bold text-[#0262af] leading-tight">
-            National Judicial Cyber Forensic Intelligence Workbench
+            Judicial Electronic Evidence Chronology &amp; Verification Workbench
           </div>
           <div class="flex items-center gap-2 mt-0.5">
             <span class="font-display font-extrabold text-[11px] tracking-wider text-[#131B2E]">CHRONOFACT 2.0</span>
             <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-300">
-              BSA 2023 §63(4) COMPLIANT
+              BSA 2023 §63(4) RESEARCH PROTOTYPE
             </span>
           </div>
         </div>
       </div>
 
-      <!-- Right: Azadi Ka Amrit Mahotsav + National Cyber Helpline 1930 -->
-      <div class="flex items-center gap-3 sm:gap-5 shrink-0">
-        <!-- 75 Azadi Ka Amrit Mahotsav -->
-        <img 
-          src="assets/images/amritmahotsavnicin.jpeg" 
-          alt="Azadi Ka Amrit Mahotsav" 
-          class="amritImg hidden md:block"
-          onerror="this.onerror=null;this.src='/static/assets/images/amritmahotsavnicin.jpeg';"
-        />
-
-        <!-- Helpline 1930 Badge -->
-        <div class="helpline-box flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-            <i data-lucide="phone-call" class="w-4 h-4 text-white"></i>
-          </div>
-          <div>
-            <div class="text-[9px] uppercase font-bold tracking-wider text-amber-200 leading-tight">National Cyber Helpline</div>
-            <div class="text-lg font-black tracking-wider leading-none text-white">1930</div>
-          </div>
+      <!-- Right: Research Hackathon Badge & Sign Out Button -->
+      <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+        <div class="text-right hidden sm:block">
+          <div class="text-[11px] font-bold text-slate-800">SUTRAM 2026 PROTOTYPE</div>
+          <div class="text-[10px] text-slate-500 font-mono">Academic Evaluation Environment</div>
         </div>
+        <button 
+          onclick="lockTerminal()" 
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 text-xs font-bold transition cursor-pointer shadow-xs"
+          title="Sign Out & Lock Terminal"
+        >
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">Sign Out</span>
+        </button>
       </div>
 
     </div>
@@ -467,17 +449,17 @@
               class="flex items-center gap-2 text-white hover:opacity-90 transition cursor-pointer bg-transparent border-0"
               title="Click to view Examiner Menu"
             >
-              <div id="officer-badge-avatar" class="w-6 h-6 rounded-full bg-amber-400 text-[#002654] flex items-center justify-center font-black text-[11px] shrink-0 shadow-xs">
-                AY
+              <div id="officer-badge-avatar" class="w-6 h-6 rounded-full bg-cyan-400 text-[#002654] flex items-center justify-center font-black text-[11px] shrink-0 shadow-xs">
+                FE
               </div>
-              <span id="officer-badge-label" class="font-bold text-xs text-white hidden md:inline officer-label">Insp. Arpit</span>
+              <span id="officer-badge-label" class="font-bold text-xs text-white hidden md:inline officer-label">Examiner #FE-802</span>
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-white/90 shrink-0"></i>
             </button>
             <!-- Direct Quick Edit Pencil button right on the navbar! -->
             <button 
               onclick="openEditOfficerNameDialog(event)" 
               class="px-2 py-0.5 rounded-full bg-white/15 hover:bg-white/25 text-amber-300 hover:text-white transition cursor-pointer flex items-center gap-1 border border-white/20" 
-              title="Change Inspector Name Directly"
+              title="Change Examiner Name Directly"
             >
               <i data-lucide="edit-3" class="w-3 h-3"></i>
               <span class="text-[10px] font-semibold text-amber-200 hidden sm:inline">Change</span>
@@ -504,8 +486,8 @@
                 <input 
                   type="text" 
                   id="officer-quick-input" 
-                  value="Inspector Arpit Yadav" 
-                  placeholder="Enter Inspector Name" 
+                  value="A. Sharma (Forensic Analyst #FE-802)" 
+                  placeholder="Enter Examiner Name" 
                   class="w-full text-xs px-2.5 py-1.5 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af] font-semibold"
                   onkeydown="if(event.key==='Enter') saveQuickOfficerName(event);"
                   onclick="event.stopPropagation();"
@@ -519,7 +501,7 @@
               </div>
 
               <div id="officer-display-badge" class="text-[10px] text-[#64748B] font-mono">
-                Badge #AY-4091 &bull; PS Cyber Crime
+                Badge #FE-802 &bull; Digital Forensic Lab
               </div>
             </div>
 
@@ -549,7 +531,7 @@
             </button>
             <div class="pt-1 border-t border-[#E2E8F0] text-[10px] text-[#0262af] font-mono px-2 py-1 flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              <span>Air-Gapped Node #CY-49</span>
+              <span>Evaluation Node #FE-802</span>
             </div>
           </div>
         </div>
@@ -562,14 +544,14 @@
   <!-- 5. Statutory Legal Ticker Strip -->
   <div class="statutory-ticker flex items-center justify-between gap-3 select-none no-print">
     <div class="flex items-center gap-2 overflow-hidden">
-      <span class="statutory-badge">STATUTORY LEGAL NOTICE</span>
+      <span class="statutory-badge">STATUTORY COMPLIANCE</span>
       <span class="truncate font-medium text-amber-900 text-[11px] sm:text-xs">
-        Section 63(4) Bharatiya Sakshya Adhiniyam, 2023 (BSA) &bull; Cryptographic Bitstream Hash Registry Sealed &bull; State v. Vikram Malhotra (FIR 204/2026) &bull; Admissible Evidence under BNS §336
+        Section 63(4) Bharatiya Sakshya Adhiniyam, 2023 (BSA) &bull; Cryptographic Bitstream Hash Registry Sealed &bull; State v. Vikram Malhotra (FIR 204/2025) &bull; Supports Section 63(4) Certificate Preparation
       </span>
     </div>
     <div class="hidden lg:flex items-center gap-1 font-mono text-[11px] text-amber-800 shrink-0 font-semibold">
       <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i>
-      <span>FIPS 180-4 Dual Hash Intact</span>
+      <span>Dual SHA-256 / SHA3-256 Intact</span>
     </div>
   </div>
 
@@ -759,7 +741,7 @@
         <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1 font-mono">
           <div class="flex items-center gap-1.5 text-emerald-400">
             <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>Air-Gapped Node</span>
+            <span>Evaluation Node #FE-802</span>
           </div>
           <span class="text-slate-500">v2.0</span>
         </div>
@@ -784,11 +766,11 @@
         </div>
         <div class="reassurance-item">
           <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
-          <span data-i18n-en="NIST FIPS 180-4 Dual Hash Intact (SHA-256 + SHA3-512)" data-i18n-hi="एनआईएसटी दोहरा हैश सुरक्षित (SHA-256 + SHA3-512)">NIST FIPS 180-4 Dual Hash Intact (SHA-256 + SHA3-512)</span>
+          <span data-i18n-en="NIST FIPS 180-4 Dual Hash Intact (SHA-256 + SHA3-256)" data-i18n-hi="एनआईएसटी दोहरा हैश सुरक्षित (SHA-256 + SHA3-256)">NIST FIPS 180-4 Dual Hash Intact (SHA-256 + SHA3-256)</span>
         </div>
         <div class="reassurance-item">
           <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
-          <span data-i18n-en="Air-Gapped Forensic Node (Zero Data Leak)" data-i18n-hi="एयर-गैप्ड फॉरेंसिक नोड (शून्य डेटा रिसाव)">Air-Gapped Forensic Node (Zero Data Leak)</span>
+          <span data-i18n-en="Local Offline Forensic Sandbox (Zero External Data Leak)" data-i18n-hi="लोकल फॉरेंसिक सैंडबॉक्स">Local Offline Forensic Sandbox (Zero External Data Leak)</span>
         </div>
         <div class="reassurance-item">
           <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
@@ -840,15 +822,15 @@
             <!-- Case Title & Crime Summary -->
             <div class="space-y-2">
               <div class="flex items-center gap-2 text-xs text-[#64748B] font-mono">
-                <span>GOVERNMENT OF INDIA DIGITAL FORENSIC RECORD</span>
+                <span>SYNTHETIC DEMO BENCHMARK // SUTRAM 2026</span>
                 <span>&bull;</span>
-                <span id="overview-fir-badge" class="font-bold text-[#0262af]">FIR No. 204/2026</span>
+                <span id="overview-fir-badge" class="font-bold text-[#0262af]">FIR No. 204/2025</span>
               </div>
               <h1 id="overview-case-title" class="text-2xl md:text-3xl font-display font-bold text-[#0F172A] tracking-tight">
                 State of NCT of Delhi <span class="text-[#64748B] font-normal">v.</span> Vikram Malhotra &amp; Ors.
               </h1>
               <p id="overview-crime-summary" class="text-xs md:text-sm text-[#475569] leading-relaxed max-w-5xl">
-                Digital Evidence Provenance Ledger &bull; Statutory Chronological Reconstruction under <strong>Section 63(4) of the Bharatiya Sakshya Adhiniyam, 2023</strong>. Suspect claimed medical alibi and total offline status, but concurrent forensic bitstreams establish unauthorized exfiltration from dedicated IP address and telecom BTS antenna (+24.8 km geographical conflict).
+                Digital Evidence Provenance Ledger &bull; Statutory Chronological Reconstruction under <strong>Section 63(4) of the Bharatiya Sakshya Adhiniyam, 2023</strong>. Suspect claimed medical alibi and total offline status, but concurrent forensic bitstreams establish authenticated session login from dedicated IP address and telecom BTS antenna (+24.8 km geographical conflict).
               </p>
             </div>
 
@@ -857,7 +839,7 @@
               <div class="flex items-center gap-2">
                 <i data-lucide="user-check" class="w-4 h-4 text-[#0262af]"></i>
                 <div class="flex items-center gap-1.5">
-                  <span>Lead Examiner: <strong id="overview-lead-examiner" class="text-[#0F172A]">Insp. Arpit Yadav</strong> (Cyber Crime Cell)</span>
+                  <span>Lead Examiner: <strong id="overview-lead-examiner" class="text-[#0F172A]">A. Sharma (Forensic Analyst #FE-802)</strong> (Digital Forensic Lab)</span>
                   <button 
                     onclick="openOfficerModal()" 
                     class="px-2 py-0.5 rounded text-[10px] font-bold text-[#0262af] bg-[#EFF6FF] hover:bg-[#DBEAFE] border border-[#BFDBFE] transition cursor-pointer inline-flex items-center gap-1"
@@ -874,7 +856,7 @@
               </div>
               <div class="flex items-center gap-2">
                 <i data-lucide="shield-check" class="w-4 h-4 text-[#0262af]"></i>
-                <span>Cryptographic Standard: <strong class="text-[#0F172A]">NIST FIPS 180-4 Dual Hash (SHA-256 + SHA3)</strong></span>
+                <span>Cryptographic Standard: <strong class="text-[#0F172A]">NIST FIPS 180-4 Dual Hash (SHA-256 + SHA3-256)</strong></span>
               </div>
             </div>
           </div>
@@ -1022,7 +1004,7 @@
                       </button>
                     </div>
                     <div id="overview-merkle-root" class="text-[11px] font-mono text-[#0F172A] break-all font-semibold select-all">
-                      90ebf0e585bae35df91984284cfbdbb981bfbb55c0e5a79afda3e30bf2fd290c
+                      135657c6ae64dc8925abc22fa795d41918e238388d298cfc00f0a881ca7b02b2
                     </div>
                   </div>
 
@@ -1073,7 +1055,7 @@
             <div>
               <strong>STATUTORY EVIDENCE CERTIFICATION // BHARATIYA SAKSHYA ADHINIYAM, 2023 §63(4):</strong>
               <span class="text-[#3B82F6] ml-1">
-                All exhibits and chronological reconstructions ingested into ChronoFact are cryptographically sealed with dual bitstream digests (SHA-256 + SHA3-512). Admissible as primary electronic evidence before any Judicial Magistrate or Special Court in the Republic of India.
+                All exhibits and chronological reconstructions ingested into ChronoFact are cryptographically verified with dual bitstream digests (SHA-256 + SHA3-256) and Merkle tree roots to support the preparation of Section 63(4) BSA 2023 statutory certificates for judicial evaluation.
               </span>
             </div>
           </div>
@@ -1502,21 +1484,21 @@
               </div>
               <ul class="space-y-1 text-[11px] text-slate-400">
                 <li>&bull; Bharatiya Sakshya Adhiniyam, 2023 §63(4)</li>
-                <li>&bull; Bharatiya Nyaya Sanhita, 2023 §336</li>
-                <li>&bull; Information Technology Act, 2000 §65B/§79A</li>
-                <li>&bull; NIST FIPS 180-4 Dual Bitstream Cryptography</li>
+                <li>&bull; Information Technology Act, 2000 §79A</li>
+                <li>&bull; ISO/IEC 27037:2012 Digital Evidence Handling</li>
+                <li>&bull; NIST FIPS 180-4 / FIPS 202 Dual Hash</li>
               </ul>
             </div>
 
             <div class="space-y-2">
               <div class="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                <i data-lucide="phone-call" class="w-4 h-4 text-rose-300"></i>
-                <span>National Assistance</span>
+                <i data-lucide="code-2" class="w-4 h-4 text-cyan-300"></i>
+                <span>Project Reference</span>
               </div>
               <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 space-y-1">
-                <div class="text-[10px] uppercase text-amber-300 font-bold">National Cyber Helpline</div>
-                <div class="text-base font-black text-white">Toll-Free: 1930</div>
-                <div class="text-[10px] text-slate-400">Portal: cybercrime.gov.in</div>
+                <div class="text-[10px] uppercase text-cyan-300 font-bold">SUTRAM 2026 Prototype</div>
+                <div class="text-xs font-semibold text-white">ChronoFact 2.0 AI Workbench</div>
+                <div class="text-[10px] text-slate-400 font-mono">Academic Research Project</div>
               </div>
             </div>
 
@@ -1527,12 +1509,12 @@
               </div>
               <div class="space-y-1 text-[11px] text-slate-400">
                 <div class="flex items-center gap-1.5 text-emerald-400 font-medium">
-                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span>Air-Gapped Node #CY-49 • Online</span>
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span>Evaluation Node #FE-802 (Offline Safe Mode)</span>
                 </div>
-                <div id="footer-examiner-info">Examiner: Insp. Arpit Yadav (AY-4091)</div>
-                <div>Hash Verification: SHA-256 + SHA3-512</div>
-                <div>STQC Audit Compliance: Level 4 Certified</div>
+                <div id="footer-examiner-info">Examiner: A. Sharma (Forensic Analyst #FE-802)</div>
+                <div>Hash Verification: SHA-256 + SHA3-256</div>
+                <div>Specification: RFC 6962 Merkle Tree Audit</div>
               </div>
             </div>
           </div>
@@ -1541,10 +1523,10 @@
         <div class="footer-bottom-wrapper px-6 py-4">
           <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-400">
             <div>
-              &copy; 2026 Indian Cyber Crime Coordination Centre (I4C), Ministry of Home Affairs, Government of India.
+              &copy; 2026 ChronoFact Research Team. Built for SUTRAM 2026 National Cyber Security Hackathon. Academic Research Prototype — Not affiliated with any Government entity.
             </div>
             <div class="flex items-center gap-3">
-              <span>GIGW 3.0 Compliant</span>
+              <span>SUTRAM 2026 Prototype</span>
               <span>&bull;</span>
               <span>ISO/IEC 27037:2012 Forensic Standard</span>
               <span>&bull;</span>
@@ -1721,7 +1703,7 @@
             </button>
           </div>
           <div id="detail-sha256" class="p-3 rounded-lg bg-[#0A0E18] border border-blue-500/25 font-mono text-[11px] text-blue-300 break-all select-all leading-relaxed">
-            c67d5b8552c2a5e11c76ff9691d483b233d2c8f6ae617702b8732a76f122618
+            c67d5b85b52c2a5e11c76ff9691d483b233d2c8f6ae617702b8732a76f122618
           </div>
         </div>
 
@@ -1740,8 +1722,8 @@
           <span class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block font-bold">CHAIN OF CUSTODY &amp; SEIZURE NOTES</span>
           <div class="space-y-1 text-slate-300">
             <div>Seizure Tool: <strong id="detail-custody-tool" class="text-white">FTK Imager v4.7 (Bitstream Image)</strong></div>
-            <div>Custodian: <strong id="detail-custody-officer" class="text-white">Inspector A. Yadav, PS Cyber Crime</strong></div>
-            <div>Hardware Hash Match: <strong class="text-emerald-400">100% Cryptographic Match</strong></div>
+            <div>Custodian: <strong id="detail-custody-officer" class="text-white">Rajesh Varma (Systems Administrator)</strong></div>
+            <div>Bitstream Verification: <strong class="text-emerald-400">Cryptographically Verified (Bit-Exact)</strong></div>
           </div>
         </div>
       </div>
@@ -1800,7 +1782,7 @@
           <input 
             type="text" 
             id="cert-input-fir" 
-            value="FIR No. 204/2026, PS Cyber Crime" 
+            value="FIR No. 204/2025, PS Cyber Crime" 
             oninput="syncCertificateFields()"
             class="w-full px-2.5 py-1.5 rounded-md bg-[#141B2B] border border-[#222E46] text-xs font-mono text-white focus:outline-none focus:border-blue-500"
             placeholder="FIR No."
@@ -1808,14 +1790,14 @@
         </div>
 
         <div class="space-y-1">
-          <label class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block font-medium">CERTIFYING OFFICER</label>
+          <label class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block font-medium">CERTIFYING EXAMINER</label>
           <input 
             type="text" 
             id="cert-input-officer" 
-            value="Inspector A. Yadav" 
+            value="A. Sharma" 
             oninput="syncCertificateFields()"
             class="w-full px-2.5 py-1.5 rounded-md bg-[#141B2B] border border-[#222E46] text-xs font-sans text-white focus:outline-none focus:border-blue-500"
-            placeholder="Officer Name"
+            placeholder="Examiner Name"
           >
         </div>
 
@@ -1824,7 +1806,7 @@
           <input 
             type="text" 
             id="cert-input-designation" 
-            value="Inspector of Police (Cyber Crime)" 
+            value="Senior Cyber Forensic Analyst" 
             oninput="syncCertificateFields()"
             class="w-full px-2.5 py-1.5 rounded-md bg-[#141B2B] border border-[#222E46] text-xs font-sans text-white focus:outline-none focus:border-blue-500"
             placeholder="Designation"
@@ -1832,14 +1814,14 @@
         </div>
 
         <div class="space-y-1">
-          <label class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block font-medium">POLICE STATION</label>
+          <label class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block font-medium">LABORATORY / UNIT</label>
           <input 
             type="text" 
             id="cert-input-ps" 
-            value="PS Cyber Crime, Central District" 
+            value="Digital Forensic Research Laboratory" 
             oninput="syncCertificateFields()"
             class="w-full px-2.5 py-1.5 rounded-md bg-[#141B2B] border border-[#222E46] text-xs font-sans text-white focus:outline-none focus:border-blue-500"
-            placeholder="Police Station"
+            placeholder="Laboratory"
           >
         </div>
 
@@ -1848,7 +1830,7 @@
           <input 
             type="text" 
             id="cert-input-date" 
-            value="12-Sep-2025 at Suspect Premises" 
+            value="13-Sep-2025 at Suspect Premises" 
             oninput="syncCertificateFields()"
             class="w-full px-2.5 py-1.5 rounded-md bg-[#141B2B] border border-[#222E46] text-xs font-sans text-white focus:outline-none focus:border-blue-500"
             placeholder="Date & Memo"
@@ -1859,7 +1841,7 @@
       <!-- Statutory Affirmation Text with Dynamic Synchronized Placeholders -->
       <div class="space-y-2 text-xs text-slate-300 leading-relaxed font-sans">
         <p>
-          I, <strong id="cert-body-officer" class="text-white">Inspector A. Yadav</strong>, serving as <span id="cert-body-designation">Inspector of Police (Cyber Crime)</span> at <span id="cert-body-ps">PS Cyber Crime, Central District</span>, do hereby solemnly affirm and certify pursuant to <strong>Section 63(4)(c) of the Bharatiya Sakshya Adhiniyam, 2023</strong> in respect of electronic records under seizure memo dated <span id="cert-body-date">12-Sep-2025 at Suspect Premises</span>:
+          I, <strong id="cert-body-officer" class="text-white">A. Sharma</strong>, serving as <span id="cert-body-designation">Senior Cyber Forensic Analyst</span> at <span id="cert-body-ps">Digital Forensic Research Laboratory</span>, do hereby solemnly affirm and certify pursuant to <strong>Section 63(4)(c) of the Bharatiya Sakshya Adhiniyam, 2023</strong> in respect of electronic records under seizure memo dated <span id="cert-body-date">13-Sep-2025 at Suspect Premises</span>:
         </p>
         <ol class="list-decimal pl-5 space-y-1.5 text-slate-400">
           <li>That I had lawful management and operational control over the electronic computer devices and storage media from which the electronic records enumerated in the schedule below were derived;</li>
@@ -1869,15 +1851,36 @@
         </ol>
       </div>
 
-      <!-- Signature Block -->
-      <div class="pt-4 border-t border-[#1E283E] flex items-center justify-between text-xs">
-        <div class="text-[11px] text-slate-400 font-mono">
-          Certification Timestamp: 12-Sep-2025 21:30:00 IST
+      <!-- Dual Signature Blocks: Part A (System Custodian) & Part B (Forensic Examiner) -->
+      <div class="pt-4 border-t border-[#1E283E] grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <!-- Part A Signature: Lawful Custodian -->
+        <div class="p-3 rounded-xl bg-[#0E1422] border border-[#1E283E] space-y-1.5">
+          <div class="text-[10px] font-mono uppercase text-amber-400 font-bold tracking-wider">
+            PART A: LAWFUL CUSTODIAN OF COMPUTER SYSTEM
+          </div>
+          <p class="text-[11px] text-slate-400 italic">
+            "I hereby certify that I had lawful management and operational control over the computer system during the material period."
+          </p>
+          <div class="pt-2 border-t border-[#1E283E]/50">
+            <div class="font-bold text-xs text-white">Rajesh Varma</div>
+            <div class="text-[11px] text-slate-400">Systems Administrator &amp; IT Custodian</div>
+            <div class="text-[10px] text-slate-500 font-mono">Date: 13-Sep-2025 10:00 IST</div>
+          </div>
         </div>
-        <div class="text-right space-y-0.5">
-          <div id="cert-sig-officer" class="font-bold text-sm text-white">Inspector A. Yadav</div>
-          <div id="cert-sig-designation" class="text-[11px] text-slate-400">Inspector of Police (Cyber Crime)</div>
-          <div id="cert-sig-ps" class="text-[10px] text-slate-500">PS Cyber Crime, Central District</div>
+
+        <!-- Part B Signature: Cyber Forensic Examiner -->
+        <div class="p-3 rounded-xl bg-[#0E1422] border border-[#1E283E] space-y-1.5">
+          <div class="text-[10px] font-mono uppercase text-emerald-400 font-bold tracking-wider">
+            PART B: DIGITAL FORENSIC EXAMINER / EXPERT
+          </div>
+          <p class="text-[11px] text-slate-400 italic">
+            "I hereby certify that I examined the electronic records, verified dual cryptographic hashes, and generated this bitstream schedule."
+          </p>
+          <div class="pt-2 border-t border-[#1E283E]/50">
+            <div id="cert-sig-officer" class="font-bold text-xs text-white">A. Sharma</div>
+            <div id="cert-sig-designation" class="text-[11px] text-slate-400">Senior Digital Forensic Analyst (#FE-802)</div>
+            <div id="cert-sig-ps" class="text-[10px] text-slate-500 font-mono">Date: 14-Sep-2025 11:00 IST &bull; Lab #FE-802</div>
+          </div>
         </div>
       </div>
 
@@ -2035,7 +2038,7 @@
       <div class="p-4 rounded-xl bg-[#0E1422] border border-[#1E283E] text-center space-y-1">
         <span class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block">Case Master Merkle Root</span>
         <div id="tree-root-box" class="font-mono text-xs font-semibold text-emerald-400 break-all select-all">
-          90ebf0e585bae35df91984284cfbdbb981bfbb55c0e5a79afda3e30bf2fd290c
+          135657c6ae64dc8925abc22fa795d41918e238388d298cfc00f0a881ca7b02b2
         </div>
       </div>
 
@@ -2065,12 +2068,8 @@
         </button>
       </div>
 
-      <div class="p-4 bg-[#080C14] rounded-xl border border-[#1E283E] text-[11px] overflow-x-auto space-y-1 text-slate-300">
-        <div>00000000  32 30 32 35 2d 30 39 2d  31 32 54 31 35 3a 32 34  |2025-09-12T15:24|</div>
-        <div>00000010  3a 31 30 5a 2c 76 69 6b  6d 61 6c 68 6f 74 72 61  |:10Z,vikmalhotra|</div>
-        <div>00000020  2c 31 39 32 2e 31 36 38  2e 31 2e 31 30 35 2c 4c  |,192.168.1.105,L|</div>
-        <div>00000030  4f 47 49 4e 2c 4f 4b 0a  32 30 32 35 2d 30 39 2d  |OGIN,OK.2025-09-|</div>
-        <div>00000040  31 32 54 31 35 3a 32 38  3a 34 35 5a 2c 76 69 6b  |12T15:28:45Z,vik|</div>
+      <div id="hex-dump-content" class="p-4 bg-[#080C14] rounded-xl border border-[#1E283E] text-[11px] overflow-x-auto space-y-1 text-slate-300 font-mono select-all">
+        <!-- Rendered dynamically by openHexInspector(exId) in app.js -->
       </div>
 
       <div class="flex items-center justify-between text-slate-400 text-[11px]">
@@ -2111,14 +2110,20 @@
             </div>
 
             <div class="p-3 rounded-lg bg-[#141B2B] border border-[#1E283E] space-y-1">
-              <span class="text-[10px] font-mono uppercase text-slate-400">Physical BTS Antenna Ping (15:28 IST)</span>
-              <div class="font-medium text-rose-400">Sector 62, Noida, Uttar Pradesh (Tower Azimuth 120°)</div>
+              <span class="text-[10px] font-mono uppercase text-slate-400">Physical BTS Antenna Ping (Telecom CDR EV-9F3E12)</span>
+              <div class="font-medium text-rose-400">Sector 62, Noida, Tower DEL-S-041 (Azimuth 120° &bull; 20:57:12 IST)</div>
+            </div>
+
+            <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[10px] text-slate-400 font-mono space-y-1">
+              <div>&bull; Workstation Session: Internal IP 192.168.1.105 (EV-25C119)</div>
+              <div>&bull; Cell Tower Correlation: Seized Telecom CDR Log (EV-9F3E12)</div>
+              <div class="text-amber-400/90">&bull; Forensic Note: Workstation login establishes credential usage; physical presence is corroborated by cell tower radio sectoring.</div>
             </div>
           </div>
         </div>
 
         <p class="text-xs text-slate-300 leading-relaxed font-sans">
-          Geographic velocity impossibility: The suspect could not physically commute 24.8 kilometers between the asserted alibi residence and the active cellular antenna handover point within the 3-minute timestamp window.
+          Geographic velocity impossibility: The suspect could not physically commute 24.8 kilometers between the asserted alibi residence and the active cellular antenna handover point within the observed timestamp window.
         </p>
       </div>
 
@@ -2256,8 +2261,8 @@
           <input 
             type="text" 
             id="modal-officer-name" 
-            value="Inspector Arpit Yadav" 
-            placeholder="e.g. Inspector Vikram Singh"
+            value="A. Sharma" 
+            placeholder="e.g. A. Sharma"
             class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af] font-medium"
             onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
           >
@@ -2269,8 +2274,8 @@
             <input 
               type="text" 
               id="modal-officer-badge" 
-              value="AY-4091" 
-              placeholder="e.g. VS-8492"
+              value="FE-802" 
+              placeholder="e.g. FE-802"
               class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af] font-mono"
               onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
             >
@@ -2281,9 +2286,9 @@
             <input 
               type="text" 
               id="modal-officer-initials" 
-              value="AY" 
+              value="FE" 
               maxlength="3"
-              placeholder="e.g. VS"
+              placeholder="e.g. FE"
               class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af] font-mono uppercase font-bold"
               onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
             >
@@ -2295,18 +2300,18 @@
           <input 
             type="text" 
             id="modal-officer-designation" 
-            value="Inspector of Police (Cyber Crime Cell)" 
+            value="Senior Cyber Forensic Analyst" 
             class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af]"
             onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
           >
         </div>
 
         <div class="space-y-1">
-          <label class="font-semibold text-[#475569] block">Police Station / Unit</label>
+          <label class="font-semibold text-[#475569] block">Laboratory / Unit</label>
           <input 
             type="text" 
             id="modal-officer-ps" 
-            value="PS Cyber Crime, Central District" 
+            value="Digital Forensic Research Laboratory" 
             class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af]"
             onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
           >

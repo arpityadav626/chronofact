@@ -6,7 +6,7 @@ Compliant with:
 - Haversine Geospatial Geodesic Distance & Velocity Impossibility
 - Mandatory Multi-Hypothesis Benign Explanation Generator (BSA 2023 §63(4))
 
-Author: CHRONOFACT Forensic Software Architect
+Author: Arpit Yadav & Team (SUTRAM 2026 // Cyber Forensic Research)
 """
 
 import re

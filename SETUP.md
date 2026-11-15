@@ -17,19 +17,19 @@
 ## Location
 
 ```
-C:\Users\antriksh\Downloads\arpit_hackathon\chronofact_installed\chronofact\
+.\
 ```
 
 ## External Tools Installed
 
-- **Sleuth Kit v4.14.0**: `C:\Users\antriksh\Downloads\sleuthkit-4.14.0-win32\sleuthkit-4.14.0-win32\bin`
+- **Sleuth Kit v4.14.0**: `tools/sleuthkit/bin`
 - **Volatility 3**: Install separately (see below)
 
 ## Quick Start
 
 ### 1. Start Server
 ```powershell
-cd C:\Users\antriksh\Downloads\arpit_hackathon\chronofact_installed\chronofact
+cd .
 START_FULL.bat
 ```
 

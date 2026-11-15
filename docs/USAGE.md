@@ -148,7 +148,7 @@ python phase4_memory.py ^
   --examiner "examiner1" ^
   --acquisition-reference "MEM-001" ^
   --acquisition-note "Acquired with DumpIt v4.5" ^
-  --vol-bin "C:\Users\antriksh\Downloads\volatility3"
+  --vol-bin "tools/volatility3"
 ```
 
 **Default Plugins:**
@@ -170,7 +170,7 @@ python phase4_memory.py ^
   --examiner "examiner1" ^
   --acquisition-reference "MEM-001" ^
   --acquisition-note "Acquired with DumpIt v4.5" ^
-  --vol-bin "C:\Users\antriksh\Downloads\volatility3" ^
+  --vol-bin "tools/volatility3" ^
   --plugins windows.pslist windows.cmdline windows.netscan
 ```
 

@@ -45,3 +45,8 @@ training_results/
 # OS
 .DS_Store
 Thumbs.db
+
+# Large Media & Submission Archives
+*.mp4
+*.mp3
+*.zip

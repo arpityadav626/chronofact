@@ -7,7 +7,7 @@ Compliant with:
 - ISO 8601 UTC / Indian Standard Time (IST: UTC + 05:30)
 - Device Clock Drift & NTP Calibration Bounding
 
-Author: CHRONOFACT Forensic Software Architect
+Author: Arpit Yadav & Team (SUTRAM 2026 // Cyber Forensic Research)
 """
 
 import math

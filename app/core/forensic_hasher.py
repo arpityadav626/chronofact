@@ -8,8 +8,8 @@ Compliant with:
 - ISO/IEC 27037:2012 (Digital Evidence Handling - Strict Preservation of Access Timestamps)
 - RFC 6962 (Certificate Transparency - Deterministic Binary Merkle Tree Construction)
 
-Author: CHRONOFACT Forensic Software Architect
-Classification: LAW ENFORCEMENT & JUDICIAL AUDIT SENSITIVE
+Author: Arpit Yadav & Team (SUTRAM 2026 // Cyber Forensic Research)
+Classification: FORENSIC INTEGRITY & STATUTORY AUDIT MODULE
 """
 
 import os

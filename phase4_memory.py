@@ -86,12 +86,18 @@ def find_volatility(bin_dir: str | None) -> str:
         if found:
             return str(found)
         
-        # Try common Windows Volatility paths
-        for base in [
+        # Try common Windows and UNIX Volatility paths
+        search_paths = [
+            os.environ.get("VOLATILITY_BIN", ""),
             r"C:\Program Files\volatility3",
-            r"C:\Users\antriksh\Downloads\volatility3",
-            r"C:\Users\antriksh\Downloads\volatility3-win-exes-2.28.2",
-        ]:
+            r"C:\Program Files (x86)\volatility3",
+            r"/usr/bin",
+            r"/usr/local/bin",
+            str(Path(__file__).resolve().parent / "tools" / "volatility3"),
+        ]
+        for base in search_paths:
+            if not base or not os.path.isdir(base):
+                continue
             found = shutil.which(name, path=base)
             if found:
                 return str(Path(found).resolve())

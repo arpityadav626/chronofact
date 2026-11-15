@@ -5,7 +5,7 @@ JWT-based authentication for forensic investigation workbench.
 """
 
 from datetime import datetime, timezone, timedelta
-from typing import Optional
+from typing import Optional, Dict, Any
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 from pydantic import BaseModel
@@ -54,30 +54,34 @@ class UserInDB(User):
     hashed_password: str
 
 
-# Mock user database (replace with real DB in production)
-fake_users_db = {
-    "forensic_examiner": {
-        "username": "forensic_examiner",
-        "email": "examiner@cybercrime.gov.in",
+# Internal registry of authorized forensic examiners
+# Credentials can be customized via environment variables for secure field deployments
+DEFAULT_EXAMINER_USER = os.getenv("CHRONOFACT_USER", "examiner")
+DEFAULT_EXAMINER_PASS = os.getenv("CHRONOFACT_PASSWORD", "SecurePassMin16Chars!")
+
+examiners_db: Dict[str, dict] = {
+    DEFAULT_EXAMINER_USER: {
+        "username": DEFAULT_EXAMINER_USER,
+        "email": "examiner@forensic-lab.local",
         "is_active": True,
         "is_superuser": True,
-        "hashed_password": get_password_hash("SecurePassword123!")
+        "hashed_password": get_password_hash(DEFAULT_EXAMINER_PASS)
     },
-    "arpit": {
-        "username": "arpit",
-        "email": "arpit.yadav@cybercrime.gov.in",
+    "analyst": {
+        "username": "analyst",
+        "email": "analyst@forensic-lab.local",
         "is_active": True,
-        "is_superuser": True,
-        "hashed_password": get_password_hash("arpit626")
+        "is_superuser": False,
+        "hashed_password": get_password_hash("ChronoFact2026!")
     }
 }
 
 
 def authenticate_user(username: str, password: str) -> Optional[dict]:
-    """Authenticate user against database."""
-    if username not in fake_users_db:
+    """Authenticate examiner against local credential store."""
+    if username not in examiners_db:
         return None
-    user = fake_users_db[username]
+    user = examiners_db[username]
     if not verify_password(password, user["hashed_password"]):
         return None
     return user

@@ -52,7 +52,7 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 8008
 **Solution:**
 ```powershell
 # Option 1: Add to PATH
-set PATH=C:\Users\antriksh\Downloads\sleuthkit-4.14.0-win32\sleuthkit-4.14.0-win32\bin;%PATH%
+set PATH=tools/sleuthkit/bin;%PATH%
 
 # Option 2: Pass explicit path
 python phase3_disk.py --tsk-bin "C:\Path\To\bin" ...
@@ -65,13 +65,13 @@ python phase3_disk.py --tsk-bin "C:\Path\To\bin" ...
 **Solution:**
 ```powershell
 # Extract zip manually (required due to earlier extraction failure)
-# Place vol.exe in: C:\Users\antriksh\Downloads\volatility3
+# Place vol.exe in: tools/volatility3
 
 # Verify
-C:\Users\antriksh\Downloads\volatility3\vol.exe --help
+tools/volatility3\vol.exe --help
 
 # Run with explicit path
-python phase4_memory.py --vol-bin "C:\Users\antriksh\Downloads\volatility3" ...
+python phase4_memory.py --vol-bin "tools/volatility3" ...
 ```
 
 ### "ImportError: cannot import name"
@@ -206,7 +206,7 @@ curl -u examiner:SecurePassMin16Chars! http://127.0.0.1:8007/api/integrity/verif
 mmls.exe -V
 
 # Volatility (if installed)
-C:\Users\antriksh\Downloads\volatility3\vol.exe --help
+tools/volatility3\vol.exe --help
 ```
 
 ---

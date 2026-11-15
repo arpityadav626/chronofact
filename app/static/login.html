@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#002654">
-  <title>Examiner Sign-In — CHRONOFACT AI Forensic Workbench (BSA 2023 §63(4))</title>
+  <title>Examiner Sign-In — CHRONOFACT 2.0 (SUTRAM 2026 Prototype)</title>
 
   <!-- Google Fonts: Inter (UI & Display), Noto Sans Devanagari (Official GoI), JetBrains Mono (Forensic Cryptography) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -160,22 +160,22 @@
 
 <body class="min-h-screen flex flex-col justify-between selection:bg-[#00453D] selection:text-white">
 
-  <!-- 1. Indian Tricolor Ribbon (Saffron - White - Green) -->
-  <div class="tricolor-strip"></div>
+  <!-- 1. SUTRAM 2026 Academic Research Prototype Banner -->
+  <div class="bg-amber-600 text-white px-4 py-1.5 text-xs font-semibold text-center select-none shadow-xs">
+    ⚠️ SUTRAM 2026 Academic Hackathon Prototype — For Educational &amp; Research Evaluation Only. Not affiliated with any Government Ministry, Law Enforcement Agency, or Official Department.
+  </div>
 
-  <!-- 2. Official Government of India Utility Strip (Cyber Crime Portal Common Wrapper) -->
+  <!-- 2. Academic Utility Strip -->
   <div class="common-wrapper px-4 sm:px-6 py-1.5 text-xs select-none no-print">
     <div class="max-w-[1920px] mx-auto flex items-center justify-between flex-wrap gap-2">
       <div class="flex items-center gap-2 sm:gap-3 text-white/95">
         <div class="flex items-center gap-1.5 font-bold">
-          <span class="text-xs">भारत सरकार</span>
+          <span class="text-xs">SUTRAM 2026</span>
           <span class="text-white/40">|</span>
-          <span class="text-xs">Government of India</span>
+          <span class="text-xs">National Cyber Security Hackathon</span>
         </div>
         <span class="hidden sm:inline text-white/40">|</span>
-        <span class="hidden sm:inline font-medium text-white/85 text-[11px]">गृह मंत्रालय • Ministry of Home Affairs</span>
-        <span class="hidden lg:inline text-white/40">|</span>
-        <span class="hidden lg:inline font-medium text-white/85 text-[11px]">विधि और न्याय मंत्रालय • Ministry of Law &amp; Justice</span>
+        <span class="hidden sm:inline font-medium text-white/85 text-[11px]">Digital Forensic &amp; Electronic Evidence Research Project</span>
       </div>
       
       <div class="flex items-center gap-2 sm:gap-3">
@@ -192,124 +192,101 @@
           <button onclick="setLanguage('en')" id="lang-btn-en" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-white text-[#0262af] transition shadow-xs">EN</button>
           <button onclick="setLanguage('hi')" id="lang-btn-hi" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-transparent text-white border border-white/40 hover:bg-white/10 transition">हिन्दी</button>
         </div>
-        <!-- Air-Gapped Node Badge -->
+        <!-- Local Evaluation Mode Badge -->
         <div class="hidden md:flex items-center gap-1.5 text-[11px] font-mono font-medium text-white bg-white/15 px-2.5 py-0.5 rounded border border-white/25">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Node #CY-49 • Air-Gapped</span>
+          <span>Evaluation Node #FE-802 • Offline Safe Mode</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 3. Main Government Logo Header (Header Wrapper) -->
+  <!-- 3. Main Workbench Header -->
   <header class="header-wrapper px-4 sm:px-6 select-none bg-white border-b border-[#DCE3DF]">
     <div class="max-w-[1920px] mx-auto flex items-center justify-between gap-4">
       
-      <!-- Left: Lion Capital + I4C + Title -->
+      <!-- Left: Forensic Shield + Title -->
       <div class="flex items-center gap-3 sm:gap-4">
-        <!-- National Emblem of India (Ashoka Lion Capital) -->
-        <a href="index.html" class="shrink-0 flex items-center" title="Government of India - National Emblem">
-          <img 
-            src="assets/images/national_emblem.png" 
-            alt="National Emblem of India" 
-            class="national_emblem"
-            onerror="this.onerror=null;this.src='/static/assets/images/national_emblem.png';"
-          />
+        <a href="index.html" class="shrink-0 flex items-center p-2 rounded-xl bg-slate-900 text-white" title="CHRONOFACT 2.0">
+          <svg class="w-8 h-8 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
         </a>
 
-        <!-- I4C Logo -->
-        <div class="hidden sm:flex items-center shrink-0">
-          <img 
-            src="assets/images/i4c.png" 
-            alt="Indian Cyber Crime Coordination Centre (I4C)" 
-            class="i4cImg"
-            onerror="this.onerror=null;this.src='/static/assets/images/i4c.png';"
-          />
-        </div>
-
-        <!-- Official Bilingual Platform Title -->
+        <!-- Platform Title -->
         <div class="flex flex-col justify-center border-l border-slate-200 pl-3 sm:pl-4">
           <div class="text-[13px] sm:text-[15px] font-black text-[#002654] leading-tight font-serif tracking-tight">
-            राष्ट्रीय न्यायिक साइबर फॉरेंसिक कार्यपीठ
+            न्यायिक इलेक्ट्रॉनिक साक्ष्य विश्लेषण कार्यपीठ
           </div>
           <div class="text-[12px] sm:text-[14px] font-bold text-[#0262af] leading-tight">
-            National Judicial Cyber Forensic Intelligence Workbench
+            Judicial Electronic Evidence Chronology &amp; Verification Workbench
           </div>
           <div class="flex items-center gap-2 mt-0.5">
             <span class="font-display font-extrabold text-[11px] tracking-wider text-[#131B2E]">CHRONOFACT 2.0</span>
             <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-300">
-              BSA 2023 §63(4) COMPLIANT
+              BSA 2023 §63(4) RESEARCH PROTOTYPE
             </span>
           </div>
         </div>
       </div>
 
-      <!-- Right: Azadi Ka Amrit Mahotsav + National Cyber Helpline 1930 -->
+      <!-- Right: Research Hackathon Badge -->
       <div class="flex items-center gap-3 sm:gap-5 shrink-0">
-        <!-- 75 Azadi Ka Amrit Mahotsav -->
-        <img 
-          src="assets/images/amritmahotsavnicin.jpeg" 
-          alt="Azadi Ka Amrit Mahotsav" 
-          class="amritImg hidden md:block"
-          onerror="this.onerror=null;this.src='/static/assets/images/amritmahotsavnicin.jpeg';"
-        />
-
-        <!-- Helpline 1930 Badge -->
-        <div class="helpline-box flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-            <i data-lucide="phone-call" class="w-4 h-4 text-white"></i>
-          </div>
-          <div>
-            <div class="text-[9px] uppercase font-bold tracking-wider text-amber-200 leading-tight">National Cyber Helpline</div>
-            <div class="text-lg font-black tracking-wider leading-none text-white">1930</div>
-          </div>
+        <div class="text-right hidden sm:block">
+          <div class="text-[11px] font-bold text-slate-800">SUTRAM 2026 PROTOTYPE</div>
+          <div class="text-[10px] text-slate-500 font-mono">Academic Evaluation Environment</div>
         </div>
       </div>
 
     </div>
   </header>
 
-  <!-- 4. Official Mega Menu Header Bar -->
+  <!-- 4. Sub-Navbar -->
   <nav class="megamenu-wraper px-4 sm:px-6 py-2.5 select-none z-30">
     <div class="max-w-[1920px] mx-auto flex items-center justify-between gap-3 text-xs text-white">
       <div class="flex items-center gap-2 font-semibold">
-        <i data-lucide="shield-check" class="w-4 h-4 text-amber-300"></i>
-        <span>Law Enforcement Authentication Terminal // Restricted Access</span>
+        <i data-lucide="shield-check" class="w-4 h-4 text-cyan-300"></i>
+        <span>Forensic Examiner Authentication Gate // Research Sandbox</span>
       </div>
       <div class="hidden sm:flex items-center gap-3 text-[11px] text-white/80 font-mono">
-        <span>Station: PS Cyber Crime</span>
+        <span>Lab Node: #FE-802</span>
         <span>•</span>
-        <span class="text-emerald-300">FIPS 140-3 Cryptographic Mode</span>
+        <span class="text-emerald-300">SHA-256 / SHA3-256 Dual Verification</span>
       </div>
     </div>
   </nav>
 
-  <!-- 5. Statutory Legal Ticker Strip -->
+  <!-- 5. Statutory Ticker Strip -->
   <div class="statutory-ticker flex items-center justify-between gap-3 select-none no-print">
     <div class="flex items-center gap-2 overflow-hidden">
-      <span class="statutory-badge">RESTRICTED TERMINAL</span>
+      <span class="statutory-badge">RESEARCH PROTOTYPE</span>
       <span class="truncate font-medium text-amber-900 text-[11px] sm:text-xs">
-        Section 63(4) Bharatiya Sakshya Adhiniyam, 2023 (BSA) &bull; Digital Forensic Chain of Custody Audited &bull; Penal Liability under BNS §336
+        Section 63(4) Bharatiya Sakshya Adhiniyam, 2023 (BSA) &bull; Cryptographic Bitstream Hash Registry &bull; Synthetic Demo Benchmark
       </span>
     </div>
     <div class="hidden lg:flex items-center gap-1 font-mono text-[11px] text-amber-800 shrink-0 font-semibold">
       <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i>
-      <span>Air-Gapped Node #CY-49</span>
+      <span>Evaluation Node #FE-802</span>
     </div>
   </div>
 
-      <!-- Statutory Admissibility & Law Enforcement Warning Banner -->
+  <!-- Main Login Form Container -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-6 my-auto">
+    <div class="w-full max-w-md space-y-4">
+
+      <!-- Disclaimer Banner -->
       <div class="trust-legal-banner">
-        <i data-lucide="shield-alert" class="w-5 h-5 text-[#B45309] shrink-0 mt-0.5"></i>
+        <i data-lucide="info" class="w-5 h-5 text-[#B45309] shrink-0 mt-0.5"></i>
         <div>
-          <strong class="font-bold">RESTRICTED LAW ENFORCEMENT ACCESS // BNS §336 &amp; BSA §63(4):</strong>
+          <strong class="font-bold">SUTRAM 2026 HACKATHON EVALUATION BENCHMARK:</strong>
           <p class="mt-0.5 text-xs text-[#78350F] leading-relaxed">
-            Authorized Digital Forensic Officers, IOs, and Special Court Examiners only. Bitstream cryptographic logs and access sessions are immutable and audited under Section 63(4) of Bharatiya Sakshya Adhiniyam, 2023. Unauthorized tampering carries penal liabilities.
+            This workbench demonstrates automated timeline extraction, cryptographic Merkle tree integrity verification, and Section 63(4) BSA 2023 electronic evidence schedule preparation. Admissibility of electronic records is determined strictly by the Hon'ble Court.
           </p>
         </div>
       </div>
 
-      <!-- Primary Login Card (Emergency Mitra Material-3 Squircle Role Style) -->
+      <!-- Primary Login Card -->
       <div id="login-card" class="bg-white rounded-2xl border-2 border-[#DCE3DF] shadow-xl p-6 sm:p-8 space-y-5 transition-all">
         
         <div class="flex items-center justify-between border-b border-[#DCE3DF] pb-4">
@@ -330,8 +307,8 @@
           
           <!-- Username Input -->
           <div class="space-y-1.5">
-            <label class="block text-xs font-bold text-[#3F4946] uppercase tracking-wide" for="login-username" data-i18n-en="Officer ID / Username" data-i18n-hi="अधिकारी पहचान पत्र / यूज़रनेम">
-              Officer ID / Username
+            <label class="block text-xs font-bold text-[#3F4946] uppercase tracking-wide" for="login-username" data-i18n-en="Examiner ID / Username" data-i18n-hi="परीक्षक पहचान पत्र / यूज़रनेम">
+              Examiner ID / Username
             </label>
             <div class="relative">
               <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#5E6C68]">
@@ -343,7 +320,7 @@
                 type="text"
                 required
                 autocomplete="username"
-                placeholder="Enter Officer ID (e.g. arpit)"
+                placeholder="Enter Examiner ID (e.g. examiner or analyst)"
                 class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#BEC9C5] bg-[#FBF9F5] focus:bg-white focus:ring-2 focus:ring-[#00453D] focus:border-[#00453D] outline-none text-sm font-medium text-[#131B2E] transition"
               />
             </div>
@@ -355,7 +332,7 @@
               <label class="block text-xs font-bold text-[#3F4946] uppercase tracking-wide" for="login-password" data-i18n-en="Passcode / Security Token" data-i18n-hi="पासवर्ड / सुरक्षा टोकन">
                 Passcode / Security Token
               </label>
-              <span class="text-[10px] text-[#006B5F] font-mono font-semibold">FIPS 140-3 Mode</span>
+              <span class="text-[10px] text-[#006B5F] font-mono font-semibold">Dual Digest Mode</span>
             </div>
             <div class="relative">
               <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#5E6C68]">
@@ -367,7 +344,7 @@
                 type="password"
                 required
                 autocomplete="current-password"
-                placeholder="Enter passcode (e.g. arpit626)"
+                placeholder="Enter passcode"
                 class="w-full pl-10 pr-11 py-2.5 rounded-xl border border-[#BEC9C5] bg-[#FBF9F5] focus:bg-white focus:ring-2 focus:ring-[#00453D] focus:border-[#00453D] outline-none text-sm font-medium text-[#131B2E] transition"
               />
               <button
@@ -381,13 +358,13 @@
             </div>
           </div>
 
-          <!-- Air-gapped Hardware Attestation Check -->
+          <!-- Checkbox -->
           <div class="flex items-center justify-between text-xs text-[#5E6C68] pt-1">
             <label class="flex items-center gap-2 cursor-pointer select-none">
               <input type="checkbox" checked class="w-4 h-4 rounded text-[#00453D] focus:ring-[#00453D] border-[#BEC9C5]" />
-              <span data-i18n-en="Keep authenticated on this secure terminal" data-i18n-hi="इस टर्मिनल पर सत्र सक्रिय रखें">Keep authenticated on this secure terminal</span>
+              <span data-i18n-en="Keep authenticated on this evaluation terminal" data-i18n-hi="इस टर्मिनल पर सत्र सक्रिय रखें">Keep authenticated on this evaluation terminal</span>
             </label>
-            <span class="font-mono text-[11px] text-[#00453D] bg-[#E6F4F1] px-2 py-0.5 rounded">HSM Active</span>
+            <span class="font-mono text-[11px] text-[#00453D] bg-[#E6F4F1] px-2 py-0.5 rounded">Local Keystore</span>
           </div>
 
           <!-- Alert / Error message container -->
@@ -399,20 +376,20 @@
             <span id="login-btn-text" data-i18n-en="Enter Forensic Workbench" data-i18n-hi="फॉरेंसिक कार्यपीठ में प्रवेश करें">Enter Forensic Workbench</span>
           </button>
 
-          <!-- 1-Click Demo Fill Action -->
-          <div class="p-3 rounded-xl bg-[#F4F1EA] border border-[#DCE3DF] flex items-center justify-between gap-3">
+          <!-- Evaluation Hint Card for Hackathon Evaluators -->
+          <div class="p-3 rounded-xl bg-[#F8FAFC] border border-[#CBD5E1] flex items-center justify-between gap-3">
             <div class="text-[11px] text-[#3F4946] leading-tight">
-              <span class="font-bold text-[#131B2E] block">Officer Credentials:</span>
-              <span class="font-mono text-[#00453D] font-bold">arpit</span> / <span class="font-mono text-[#00453D] font-bold">arpit626</span>
+              <span class="font-bold text-[#131B2E] block">Evaluator Accounts:</span>
+              <span class="font-mono text-[#00453D] font-bold">examiner</span> / <span class="font-mono text-[#00453D] font-bold">analyst</span>
             </div>
             <button
               type="button"
               onclick="oneClickDemoLogin()"
-              class="px-2.5 py-1.5 rounded-lg bg-[#00453D] text-white text-[11px] font-bold hover:bg-[#075E54] flex items-center gap-1 shrink-0 transition"
-              title="Auto-fill arpit & arpit626 and log in immediately"
+              class="px-2.5 py-1.5 rounded-lg bg-[#0262af] text-white text-[11px] font-bold hover:bg-[#004d8c] flex items-center gap-1 shrink-0 transition shadow-xs"
+              title="Auto-fill demo examiner credentials"
             >
-              <i data-lucide="zap" class="w-3 h-3 text-[#71F8E4]"></i>
-              <span>1-Click Unlock</span>
+              <i data-lucide="zap" class="w-3 h-3 text-cyan-300"></i>
+              <span>Auto-Fill Demo</span>
             </button>
           </div>
 
@@ -422,7 +399,7 @@
         <div class="pt-2 border-t border-[#DCE3DF] flex items-center justify-between text-xs text-[#5E6C68]">
           <span class="flex items-center gap-1.5 text-[#006B5F] font-semibold">
             <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-            <span>Law Enforcement Node #CY-49</span>
+            <span>Evaluation Lab Node #FE-802</span>
           </span>
           <span class="font-mono text-[11px] bg-[#E6F4F1] text-[#00453D] px-2 py-0.5 rounded font-bold">BSA 2023 §63(4)</span>
         </div>
@@ -432,21 +409,20 @@
     </div>
   </main>
 
-
-  <!-- 3. Bottom Reassurance & Statutory Strip (Emergency Mitra Reassurance Strip) -->
+  <!-- Bottom Reassurance Strip -->
   <footer class="w-full">
     <div class="reassurance-strip no-print">
       <div class="reassurance-item">
         <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#006B5F]"></i>
-        <span data-i18n-en="BSA 2023 §63(4) Certified Schedule" data-i18n-hi="बीएसए 2023 §63(4) प्रमाणित अनुसूची">BSA 2023 §63(4) Certified Schedule</span>
+        <span data-i18n-en="BSA 2023 §63(4) Certified Schedule Format" data-i18n-hi="बीएसए 2023 §63(4) प्रारूप">BSA 2023 §63(4) Certified Schedule Format</span>
       </div>
       <div class="reassurance-item">
         <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#006B5F]"></i>
-        <span data-i18n-en="NIST FIPS 180-4 Dual Hash Intact (SHA-256 + SHA3-512)" data-i18n-hi="एनआईएसटी दोहरा हैश सुरक्षित (SHA-256 + SHA3-512)">NIST FIPS 180-4 Dual Hash Intact (SHA-256 + SHA3-512)</span>
+        <span data-i18n-en="Dual Hash Verification (SHA-256 + SHA3-256)" data-i18n-hi="दोहरा हैश सत्यापन (SHA-256 + SHA3-256)">Dual Hash Verification (SHA-256 + SHA3-256)</span>
       </div>
       <div class="reassurance-item">
         <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#006B5F]"></i>
-        <span data-i18n-en="Air-Gapped Forensic Node (Zero Data Leak)" data-i18n-hi="एयर-गैप्ड फॉरेंसिक नोड (शून्य डेटा रिसाव)">Air-Gapped Forensic Node (Zero Data Leak)</span>
+        <span data-i18n-en="Local Offline Forensic Sandbox (Zero External Data Leak)" data-i18n-hi="लोकल फॉरेंसिक सैंडबॉक्स">Local Offline Forensic Sandbox (Zero External Data Leak)</span>
       </div>
       <div class="reassurance-item">
         <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#006B5F]"></i>
@@ -454,18 +430,16 @@
       </div>
     </div>
 
-    <!-- Official Cyber Crime Portal Copyright Notice -->
-    <div class="footer-bottom-wrapper px-6 py-4">
-      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-400">
+    <!-- Hackathon Disclaimer & Credits -->
+    <div class="footer-bottom-wrapper px-6 py-4 bg-slate-900 text-slate-400">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
         <div>
-          &copy; 2026 Indian Cyber Crime Coordination Centre (I4C), Ministry of Home Affairs, Government of India.
+          &copy; 2026 ChronoFact Research Team. SUTRAM 2026 National Cyber Security Hackathon Research Prototype. Not affiliated with any Government entity.
         </div>
         <div class="flex items-center gap-3">
-          <span>GIGW 3.0 Compliant</span>
+          <span>BSA 2023 §63(4) Format</span>
           <span>&bull;</span>
-          <span>Bharatiya Sakshya Adhiniyam, 2023 §63(4)</span>
-          <span>&bull;</span>
-          <span class="text-emerald-400 font-mono">Terminal CY-49</span>
+          <span class="text-emerald-400 font-mono">Lab Node #FE-802</span>
         </div>
       </div>
     </div>
@@ -630,12 +604,12 @@
       const password = passwordInput.value;
 
       btn.disabled = true;
-      btnText.textContent = "Verifying HSM Node #CY-49...";
+      btnText.textContent = "Verifying Credentials...";
 
-      const isArpit = (username === "arpit" && password === "arpit626");
-      const isExaminer = (username === "forensic_examiner" && password === "SecurePassword123!");
+      const isExaminer = (username === "examiner" && password === "SecurePassMin16Chars!");
+      const isAnalyst = (username === "analyst" && password === "ChronoFact2026!");
 
-      if (isArpit || isExaminer) {
+      if (isExaminer || isAnalyst) {
         // Attempt background API auth if server is running
         try {
           const formData = new FormData();
@@ -652,14 +626,17 @@
           }
         } catch (_) {}
 
-        sessionStorage.setItem("chronofact_auth_user", "arpit");
-        sessionStorage.setItem("chronofact_officer", "Inspector Arpit Yadav");
+        sessionStorage.setItem("chronofact_auth_user", username);
+        const officerTitle = isExaminer ? "A. Sharma (Forensic Analyst #FE-802)" : "Cyber Forensic Analyst";
+        sessionStorage.setItem("chronofact_officer", officerTitle);
+        sessionStorage.setItem("chronofact_badge", "FE-802");
+        sessionStorage.setItem("chronofact_station", "Digital Forensic Lab");
         if (!sessionStorage.getItem("chronofact_auth_token")) {
-          sessionStorage.setItem("chronofact_auth_token", "jwt-officer-arpit-node-cy49");
+          sessionStorage.setItem("chronofact_auth_token", "jwt-token-evaluator-" + username + "-fe802");
         }
         
         sound.playSuccess();
-        showAlert("✓ Verified: Inspector Arpit Yadav (PS Cyber Crime). Opening Case File...", "success");
+        showAlert(`✓ Authenticated: ${officerTitle}. Opening Case File...`, "success");
         setTimeout(() => {
           window.location.href = "index.html";
         }, 500);
@@ -668,7 +645,7 @@
 
       // If invalid credentials
       sound.playError();
-      showAlert("❌ Access Denied: Invalid Officer ID or Passcode. Allowed: arpit / arpit626", "error");
+      showAlert("❌ Access Denied: Invalid Examiner ID or Passcode. Evaluator Accounts: examiner / SecurePassMin16Chars! or analyst / ChronoFact2026!", "error");
       if (card) {
         card.classList.remove('gate-shake');
         void card.offsetWidth;
@@ -699,8 +676,8 @@
       sound.playTap();
       const u = document.getElementById('login-username');
       const p = document.getElementById('login-password');
-      if (u) u.value = "arpit";
-      if (p) p.value = "arpit626";
+      if (u) u.value = "examiner";
+      if (p) p.value = "SecurePassMin16Chars!";
       handleLoginSubmit(new Event('submit'));
     }
 
@@ -713,10 +690,12 @@
           sessionStorage.removeItem("chronofact_auth_user");
           sessionStorage.removeItem("chronofact_auth_token");
           sessionStorage.removeItem("chronofact_officer");
-          showAlert("Terminal Locked. Authorization required to re-enter.", "error");
+          sessionStorage.removeItem("chronofact_badge");
+          sessionStorage.removeItem("chronofact_station");
+          showAlert("Session Terminated. Authorization required to re-enter.", "error");
         } else {
           const authUser = sessionStorage.getItem("chronofact_auth_user");
-          if (authUser === "arpit" || authUser === "forensic_examiner") {
+          if (authUser === "examiner" || authUser === "analyst") {
             window.location.replace("index.html");
             return;
           }

@@ -47,7 +47,7 @@ Actual 1     0          25
 ### Score New Events
 
 ```powershell
-cd C:\Users\antriksh\Downloads\arpit_hackathon\chronofact_installed\chronofact
+cd .
 python phase6_ml.py score `
   --model ./model-runs/train-20261011-120155-f690b5c5/model.joblib `
   --input ./new_events.csv `

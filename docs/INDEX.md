@@ -1,7 +1,7 @@
 # CHRONOFACT Documentation Index
 
 ## Overview
-**Project Location**: `C:\Users\antriksh\Downloads\arpit_hackathon\chronofact_installed\chronofact`
+**Project Location**: `.`
 
 **Version**: 2.0.0 (Phases 0-6 Integrated)
 
@@ -75,8 +75,8 @@ chronofact/
 
 | Tool | Version | Status | Location |
 |------|---------|--------|----------|
-| Sleuth Kit | 4.14.0 | ✅ Installed | `C:\Users\antriksh\Downloads\sleuthkit-4.14.0-win32\sleuthkit-4.14.0-win32\bin` |
-| Volatility 3 | 2.28.2 | ✅ Installed | `C:\Users\antriksh\Downloads\volatility3` |
+| Sleuth Kit | 4.14.0 | ✅ Installed | `tools/sleuthkit/bin` |
+| Volatility 3 | 2.28.2 | ✅ Installed | `tools/volatility3` |
 
 ---
 
