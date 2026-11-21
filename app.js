@@ -1494,104 +1494,148 @@ function renderInconsistencyRadar() {
 
   if (allInconsistencies.length === 0) {
     container.innerHTML = `
-      <div class="temporal-empty-banner p-6 text-center border border-dashed rounded-xl text-xs">
-        Zero temporal anomalies flagged. All evidence events align within Allen partial order algebra bounds.
+      <div class="temporal-empty-banner p-8 text-center border border-dashed rounded-xl text-xs space-y-2">
+        <i data-lucide="shield-check" class="w-8 h-8 text-emerald-500 mx-auto"></i>
+        <div class="font-bold text-slate-700 dark:text-slate-300">Zero Temporal Contradictions Flagged</div>
+        <p class="text-slate-500 dark:text-slate-400">All evidence timestamps align strictly within Allen partial order algebra bounds.</p>
       </div>
     `;
+    if (window.lucide) lucide.createIcons();
     return;
   }
 
-  container.innerHTML = allInconsistencies.map((inc) => {
+  container.innerHTML = allInconsistencies.map((inc, idx) => {
     return `
       <div 
-        class="editorial-card p-5 border border-rose-500/30 bg-rose-950/20 rounded-xl space-y-4 cursor-pointer hover:border-rose-500/50 transition"
+        class="clash-card space-y-4 cursor-pointer"
         onclick="scrollToTimelineEvents(['${inc.fact_ids[0]}', '${inc.fact_ids[1]}'])"
+        tabindex="0"
+        role="region"
+        aria-label="Contradiction Conflict ${idx + 1}: ${escapeHTML(inc.title)}"
       >
+        <!-- Severity & Contradiction Header -->
         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-rose-500/20 pb-3">
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
-            <span class="text-xs font-bold text-rose-300 uppercase tracking-wide">
-              ${inc.title}
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-600 animate-pulse shrink-0"></span>
+            <span class="text-xs font-bold text-rose-700 dark:text-rose-300 uppercase tracking-wider">
+              CRITICAL CONTRADICTION &bull; ${escapeHTML(inc.title)}
             </span>
           </div>
-          <span class="badge-clash text-[11px] px-2.5 py-0.5 rounded font-mono">
-            ${inc.discrepancy_delta || 'Concurrent Conflict'}
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-rose-100 dark:bg-rose-950/60 text-rose-800 dark:text-rose-200 border border-rose-200 dark:border-rose-800">
+              ${escapeHTML(inc.discrepancy_delta || 'Concurrent Conflict')}
+            </span>
+            <button 
+              onclick="event.stopPropagation(); copyToClipboard('${escapeHTML(inc.title)}: ${escapeHTML(inc.claimed_statement)} vs ${escapeHTML(inc.system_reality)}', 'Contradiction summary copied');" 
+              class="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 transition"
+              title="Copy Conflict Summary"
+            >
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
+          ${escapeHTML(inc.description)}
+        </p>
+
+        <!-- Fact Comparison Matrix: Fact A vs Fact B -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <!-- Fact A: Claimed Alibi Statement -->
+          <div class="fact-comparison-box space-y-1.5 border-l-2 border-l-amber-500">
+            <div class="flex items-center justify-between text-[10px] font-mono uppercase text-amber-800 dark:text-amber-400 font-bold tracking-wider">
+              <span>FACT A: CLAIMED ALIBI (SUBJECTIVE)</span>
+              <span class="text-slate-400">WhatsApp / Chat</span>
+            </div>
+            <p class="text-slate-800 dark:text-slate-200 font-sans italic text-xs leading-relaxed">
+              "${escapeHTML(inc.claimed_statement)}"
+            </p>
+          </div>
+
+          <!-- Fact B: Objective Physical Reality -->
+          <div class="fact-comparison-box space-y-1.5 border-l-2 border-l-emerald-500">
+            <div class="flex items-center justify-between text-[10px] font-mono uppercase text-emerald-800 dark:text-emerald-400 font-bold tracking-wider">
+              <span>FACT B: OBJECTIVE BITSTREAM (PHYSICAL)</span>
+              <span class="font-mono text-[10px]">Server &amp; Tower Logs</span>
+            </div>
+            <p class="text-emerald-700 dark:text-emerald-300 font-mono text-xs font-semibold leading-relaxed">
+              ${escapeHTML(inc.system_reality)}
+            </p>
+          </div>
+        </div>
+
+        <!-- Kinematics & Timezone Notice Strip -->
+        <div class="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-lg bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 text-[11px]">
+          <div class="flex items-center gap-1.5 text-amber-900 dark:text-amber-200 font-medium">
+            <i data-lucide="info" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i>
+            <span>Timezone Assumption: Timestamps normalized assuming IST (UTC+05:30) per cellular BTS carrier clock sync.</span>
+          </div>
+          <span class="font-mono text-[10px] font-bold text-amber-800 dark:text-amber-300">
+            Allen Formal Algebra: Grounded
           </span>
         </div>
 
-        <p class="text-xs text-slate-300 leading-relaxed font-sans">
-          ${inc.description}
-        </p>
-
-        <!-- Comparison Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-          <div class="p-3.5 rounded-lg bg-[#0E1424] border border-[#232F46] space-y-1">
-            <span class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block">Claimed Alibi Statement (WhatsApp)</span>
-            <p class="text-slate-200 font-sans italic text-xs leading-relaxed">"${escapeHTML(inc.claimed_statement)}"</p>
-          </div>
-          <div class="p-3.5 rounded-lg bg-[#0E1424] border border-[#232F46] space-y-1">
-            <span class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block">Objective System Reality (Server Log)</span>
-            <p class="text-emerald-400 font-mono text-xs font-semibold leading-relaxed">${escapeHTML(inc.system_reality)}</p>
-          </div>
-        </div>
-
-        <!-- 4 Mandatory Benign Alternative Hypotheses Evaluation (BSA 2023 §63(4) Forensic Objectivity) -->
-        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-700/80 space-y-3 text-xs">
-          <div class="flex items-center justify-between border-b border-slate-700/60 pb-2">
-            <span class="font-bold text-white flex items-center gap-1.5 uppercase tracking-wide text-[11px]">
-              <i data-lucide="scale" class="w-3.5 h-3.5 text-cyan-400"></i>
-              <span>4 Mandatory Benign Hypotheses Evaluation Matrix</span>
+        <!-- 4 Mandatory Benign Alternative Hypotheses (Collapsible Accordion for Cleanliness) -->
+        <details class="benign-details" onclick="event.stopPropagation()">
+          <summary>
+            <div class="flex items-center gap-2">
+              <i data-lucide="scale" class="w-4 h-4 text-primary"></i>
+              <span>4 Mandatory Benign Hypotheses Evaluated (BSA §63(4) Forensic Objectivity)</span>
+            </div>
+            <span class="text-[10px] font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1">
+              <span>Toggle Matrix</span>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
             </span>
-            <span class="text-[10px] font-mono text-emerald-400 font-semibold">BSA 2023 Audit Required</span>
-          </div>
+          </summary>
 
-          <div class="space-y-2">
+          <div class="p-3.5 space-y-2 text-xs border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
             <!-- Hypothesis 1 -->
-            <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 flex items-start justify-between gap-3">
+            <div class="p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-start justify-between gap-3">
               <div class="space-y-0.5">
-                <div class="font-semibold text-slate-200">1. Automated Cron / Background Daemon Execution</div>
-                <div class="text-[11px] text-slate-400">Evaluated: Refuted — Event log establishes interactive shell session with valid handshake (LOGIN,OK &amp; directory browse), not a detached background cron script.</div>
+                <div class="font-semibold text-slate-800 dark:text-slate-200">1. Automated Cron / Background Daemon Execution</div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400">Evaluated: Refuted — Event log establishes interactive shell session with valid handshake (LOGIN,OK &amp; directory browse), not a detached background cron script.</div>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-900/50 text-rose-300 border border-rose-700 shrink-0">REFUTED</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-100 dark:bg-rose-900/50 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-700 shrink-0">REFUTED</span>
             </div>
 
             <!-- Hypothesis 2 -->
-            <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 flex items-start justify-between gap-3">
+            <div class="p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-start justify-between gap-3">
               <div class="space-y-0.5">
-                <div class="font-semibold text-slate-200">2. Cellular BTS Multipath Signal Reflection</div>
-                <div class="text-[11px] text-slate-400">Evaluated: Refuted — Delta between alibi home (Connaught Place) and tower DEL-S-041 (Sector 62 Noida) is 24.8 km; radio multipath reflection boundary is physically capped at &lt; 3 km.</div>
+                <div class="font-semibold text-slate-800 dark:text-slate-200">2. Cellular BTS Multipath Signal Reflection</div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400">Evaluated: Refuted — Delta between alibi home (Sector 62 Noida) and tower DEL-S-041 (Okhla Phase III) is 24.8 km; radio multipath reflection boundary is physically capped at &lt; 3 km.</div>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-900/50 text-rose-300 border border-rose-700 shrink-0">REFUTED</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-100 dark:bg-rose-900/50 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-700 shrink-0">REFUTED</span>
             </div>
 
             <!-- Hypothesis 3 -->
-            <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 flex items-start justify-between gap-3">
+            <div class="p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-start justify-between gap-3">
               <div class="space-y-0.5">
-                <div class="font-semibold text-slate-200">3. Network NAT / DHCP Lease Collision</div>
-                <div class="text-[11px] text-slate-400">Evaluated: Correlated — IP 192.168.1.105 strictly matches suspect's registered MAC workstation lease table in local router ARP cache during the incident window.</div>
+                <div class="font-semibold text-slate-800 dark:text-slate-200">3. Network NAT / DHCP Lease Collision</div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400">Evaluated: Correlated — IP 192.168.1.105 strictly matches suspect's registered MAC workstation lease table in local router ARP cache during the incident window.</div>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-900/50 text-amber-300 border border-amber-700 shrink-0">CORRELATED</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700 shrink-0">CORRELATED</span>
             </div>
 
             <!-- Hypothesis 4 -->
-            <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 flex items-start justify-between gap-3">
+            <div class="p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-start justify-between gap-3">
               <div class="space-y-0.5">
-                <div class="font-semibold text-slate-200">4. Credential Theft / Unauthorized Third-Party Impersonation</div>
-                <div class="text-[11px] text-slate-400">Evaluated: Preserved for Judicial Finding — System proves lawful cryptographic credential authentication; physical actor verification requires CCTV / biometric corroboration.</div>
+                <div class="font-semibold text-slate-800 dark:text-slate-200">4. Credential Theft / Unauthorized Third-Party Impersonation</div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400">Evaluated: Preserved for Judicial Finding — System proves lawful cryptographic credential authentication; physical actor verification requires CCTV / biometric corroboration.</div>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-900/50 text-blue-300 border border-blue-700 shrink-0">PRESERVED FOR COURT</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 border border-blue-300 dark:border-blue-700 shrink-0">PRESERVED FOR COURT</span>
             </div>
           </div>
-        </div>
+        </details>
 
-        <div class="pt-2 border-t border-rose-500/20 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div class="flex items-center gap-2 text-slate-400 text-[11px]">
-            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+        <!-- Bottom Action Strip -->
+        <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-[11px]">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400"></i>
             <span>4 Benign Explanations Rigorously Evaluated &amp; Logged</span>
           </div>
           <button 
             onclick="event.stopPropagation(); scrollToTimelineEvents(['${inc.fact_ids[0]}'])" 
-            class="text-xs font-semibold text-rose-400 hover:text-rose-300 flex items-center gap-1 transition"
+            class="text-xs font-semibold text-primary hover:underline flex items-center gap-1 transition"
           >
             <span>Jump to Conflict in Timeline</span>
             <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
@@ -2743,6 +2787,32 @@ function escapeAttr(str) {
   return String(str).replace(/'/g, "\\'").replace(/"/g, "&quot;");
 }
 
+function updateStepperActive(sectionId) {
+  const stepMap = {
+    'section-overview': 1,
+    'section-vault': 2,
+    'section-timeline': 3,
+    'section-ai': 4,
+    'section-export': 5
+  };
+  const currentStep = stepMap[sectionId] || 1;
+  for (let s = 1; s <= 5; s++) {
+    const el = document.getElementById(`stepper-step-${s}`);
+    if (el) {
+      if (s === currentStep) {
+        el.classList.add('active');
+        el.classList.remove('completed');
+      } else if (s < currentStep) {
+        el.classList.remove('active');
+        el.classList.add('completed');
+      } else {
+        el.classList.remove('active');
+        el.classList.remove('completed');
+      }
+    }
+  }
+}
+
 function navigateToSection(sectionId) {
   hapticEngine.playSoftTap();
 
@@ -2758,6 +2828,9 @@ function navigateToSection(sectionId) {
     target.classList.remove('hidden');
     target.classList.add('active');
   }
+
+  // Update Stepper active state
+  updateStepperActive(sectionId);
 
   // Reset scroll position to top of content area
   const scrollArea = document.getElementById('workbench-scroll-area');
@@ -2816,17 +2889,38 @@ function toggleSidebarMobile() {
   }
 }
 
-// Permanent 100% Pure Light Mode Controller (GOI Judicial Workbench)
-function setTheme(theme = 'light') {
-  document.documentElement.setAttribute('data-theme', 'light');
+// Dual Light/Dark Theme Controller (Cellebrite x Palantir Legal-Tech Standard)
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
   try {
-    localStorage.setItem('chronofact-theme', 'light');
+    localStorage.setItem('chronofact-theme', theme);
   } catch (_) {}
+  const icons = document.querySelectorAll('.theme-toggle-icon');
+  icons.forEach(icon => {
+    icon.setAttribute('data-lucide', theme === 'dark' ? 'sun' : 'moon');
+  });
+  if (window.lucide) lucide.createIcons();
 }
 
 function toggleTheme() {
-  setTheme('light');
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
 }
+
+// Initialize theme from storage or system preference
+(function initTheme() {
+  try {
+    const saved = localStorage.getItem('chronofact-theme');
+    if (saved) {
+      applyTheme(saved);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      applyTheme('dark');
+    } else {
+      applyTheme('light');
+    }
+  } catch (_) {}
+})();
 
 // =============================================================================
 // ACCESSIBILITY TEXT-SIZE CONTROLS (EMERGENCY MITRA ENGINE: A- A A+ A++)

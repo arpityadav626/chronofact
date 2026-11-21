@@ -24178,6 +24178,190 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   color-scheme: light;
 }
 
+[data-theme="dark"] {
+  --primary: #38BDF8;
+  --primary-container: #0C2340;
+  --primary-hover: #7DD3FC;
+  --on-primary: #082F49;
+  --secondary: #0F172A;
+  --accent-cyan: #38BDF8;
+  --accent-gold: #F59E0B;
+
+  --bg-canvas: #090D16;
+  --bg-sidebar: #0D1322;
+  --bg-surface: #111827;
+  --bg-card: #111827;
+  --bg-card-hover: #172033;
+  --bg-inset: #0B0F19;
+  --bg-input: #111827;
+  --bg-elevated: #161F33;
+
+  --border-subtle: #1F293D;
+  --border-hairline: #374151;
+  --border-focus: #38BDF8;
+  --border-divider: #1F293D;
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-dim: #4B5563;
+
+  --color-danger: #EF4444;
+  --color-danger-bg: rgba(69, 10, 10, 0.35);
+  --color-danger-border: #7F1D1D;
+  --color-danger-text: #FCA5A5;
+
+  --color-warning: #F59E0B;
+  --color-warning-bg: rgba(69, 26, 3, 0.35);
+  --color-warning-border: #78350F;
+  --color-warning-text: #FCD34D;
+
+  --color-success: #10B981;
+  --color-success-bg: rgba(6, 78, 59, 0.35);
+  --color-success-border: #065F46;
+  --color-success-text: #6EE7B7;
+
+  --color-info: #38BDF8;
+  --color-info-bg: rgba(8, 47, 73, 0.35);
+  --color-info-border: #0C4A6E;
+  --color-info-text: #7DD3FC;
+
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 4px 14px -2px rgba(0, 0, 0, 0.4);
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   EVIDENTIARY 5-STEP WORKFLOW STEPPER
+   -------------------------------------------------------------------------- */
+.evidence-flow-stepper {
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.flow-step-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.flow-step-item:hover {
+  background-color: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.flow-step-item.active {
+  background-color: var(--primary-container);
+  color: var(--primary);
+  border-color: var(--border-subtle);
+}
+
+.flow-step-item.completed {
+  color: var(--color-success);
+}
+
+.flow-step-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-hairline);
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.flow-step-item.active .flow-step-num {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+}
+
+.flow-step-item.completed .flow-step-num {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  border-color: var(--color-success-border);
+}
+
+/* --------------------------------------------------------------------------
+   COURTROOM-GRADE INCONSISTENCY CLASH CARD
+   -------------------------------------------------------------------------- */
+.clash-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--color-danger);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-card);
+  transition: all 0.18s ease;
+}
+
+.clash-card:hover {
+  border-color: var(--border-hairline);
+  border-left-color: var(--color-danger);
+}
+
+.fact-comparison-box {
+  background-color: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 1rem 1.15rem;
+}
+
+.benign-details {
+  background-color: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.benign-details summary {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-primary);
+  list-style: none;
+}
+
+.benign-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.benign-details summary:hover {
+  background-color: var(--bg-card-hover);
+}
+
+.benign-details[open] summary {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Focus Visible Accessibility */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -25271,109 +25455,54 @@ div[id$="-drawer"] .editorial-card,
   </style>
 
 
-  <!-- Critical Theme Rules (Official Government Cyber Crime Portal Theme) -->
+  <!-- Critical Theme Rules (Dual Light/Dark Theme Engine) -->
   <style>
-    :root, [data-theme="light"], html, body {
-      --primary: #0262af !important;
-      --primary-container: #EFF6FF !important;
-      --primary-hover: #004d8c !important;
-      --secondary: #002654 !important;
-      --bg-canvas: #F4F7FB !important;
-      --bg-sidebar: #FFFFFF !important;
-      --bg-surface: #FFFFFF !important;
-      --bg-card: #FFFFFF !important;
-      --bg-card-hover: #F8FAFC !important;
-      --bg-inset: #F8FAFC !important;
-      --border-subtle: #E2E8F0 !important;
-      --border-hairline: #CBD5E1 !important;
-      --text-primary: #0F172A !important;
-      --text-secondary: #475569 !important;
-      color-scheme: light;
-    }
     body {
-      background-color: var(--bg-canvas) !important;
-      color: var(--text-primary) !important;
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
     }
     #workbench-sidebar {
-      background-color: #FFFFFF !important;
-      border-color: #E2E8F0 !important;
+      background-color: var(--bg-sidebar);
+      border-color: var(--border-subtle);
     }
     header {
-      background-color: #FFFFFF !important;
-      border-color: #E2E8F0 !important;
+      background-color: var(--bg-surface);
+      border-color: var(--border-subtle);
     }
     #workbench-scroll-area, .master-container {
-      background-color: var(--bg-canvas) !important;
+      background-color: var(--bg-canvas);
     }
     .editorial-card {
-      background-color: #FFFFFF !important;
-      border: 1px solid #E2E8F0 !important;
-      color: var(--text-primary) !important;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
     }
     .evidence-card-row {
-      background-color: #FFFFFF !important;
-      border: 1px solid #E2E8F0 !important;
-      color: var(--text-primary) !important;
+      background-color: var(--bg-inset);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
     }
     .btn-editorial-secondary {
-      background-color: #FFFFFF !important;
-      border: 1px solid #CBD5E1 !important;
-      color: var(--text-primary) !important;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-primary);
     }
     .hero-qa-card {
-      background-color: #FFFFFF !important;
-      border: 1px solid #E2E8F0 !important;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-subtle);
     }
     .temporal-empty-banner {
-      background-color: #F8FAFC !important;
-      border-color: #CBD5E1 !important;
-      color: var(--text-secondary) !important;
+      background-color: var(--bg-inset);
+      border-color: var(--border-hairline);
+      color: var(--text-secondary);
+    }
+    input, select, textarea {
+      background-color: var(--bg-input);
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
     }
 
-    /* Universal Pure Light Overrides for Embedded Dark Utilities (Excluding Megamenu & Dark Headers) */
-    #workbench-scroll-area .bg-\[\#0B0F17\],
-    #workbench-scroll-area .bg-\[\#0D121F\],
-    #workbench-scroll-area .bg-\[\#101625\],
-    #workbench-scroll-area .bg-\[\#111726\],
-    #workbench-scroll-area .bg-\[\#121826\],
-    #workbench-scroll-area .bg-\[\#141B2B\],
-    #workbench-scroll-area .bg-\[\#161F33\],
-    #workbench-scroll-area .bg-\[\#0E1422\],
-    #workbench-scroll-area .bg-\[\#0E1424\],
-    #workbench-scroll-area .bg-\[\#0E1524\],
-    #workbench-scroll-area .bg-\[\#0A0E18\],
-    #workbench-scroll-area .bg-\[\#080C14\],
-    #workbench-scroll-area .bg-\[\#182338\],
-    #workbench-scroll-area .bg-\[\#1C2538\],
-    #workbench-scroll-area .bg-\[\#0F1626\],
-    #workbench-scroll-area .bg-\[\#111724\],
-    #workbench-scroll-area .bg-\[\#172033\],
-    #workbench-scroll-area .bg-\[\#121824\],
-    #workbench-scroll-area .bg-\[\#1C253B\],
-    #workbench-scroll-area .bg-\[\#181716\],
-    #workbench-scroll-area .bg-slate-800,
-    #workbench-scroll-area .bg-slate-900,
-    #workbench-scroll-area .bg-slate-950 {
-      background-color: #FFFFFF !important;
-      border-color: var(--border-subtle) !important;
-      color: var(--text-primary) !important;
-    }
-    #workbench-scroll-area .border-\[\#1E283E\],
-    #workbench-scroll-area .border-\[\#1B2336\],
-    #workbench-scroll-area .border-\[\#1A2336\],
-    #workbench-scroll-area .border-\[\#222E44\],
-    #workbench-scroll-area .border-\[\#232F46\],
-    #workbench-scroll-area .border-\[\#222E46\],
-    #workbench-scroll-area .border-\[\#2B3956\],
-    #workbench-scroll-area .border-\[\#23314E\],
-    #workbench-scroll-area .border-\[\#1E293E\],
-    #workbench-scroll-area .border-\[\#2E3D5C\],
-    #workbench-scroll-area .border-slate-800,
-    #workbench-scroll-area .border-slate-700 {
-      border-color: var(--border-subtle) !important;
-    }
-
-    /* Megamenu High-Contrast Text Fix (Screenshot 1 & 2 Fix) */
+    /* Megamenu text contrast */
     .megamenu-wraper,
     .megamenu-wraper .officer-label,
     .megamenu-wraper span:not(#officer-dropdown-menu span),
@@ -25383,6 +25512,7 @@ div[id$="-drawer"] .editorial-card,
     }
     #officer-menu-btn .officer-label {
       color: #FFFFFF !important;
+    }
     }
     input,
     select,
@@ -25835,12 +25965,24 @@ div[id$="-drawer"] .editorial-card,
         </div>
       </div>
 
-      <!-- Right: Research Hackathon Badge & Sign Out Button -->
-      <div class="flex items-center gap-3 sm:gap-4 shrink-0">
-        <div class="text-right hidden sm:block">
-          <div class="text-[11px] font-bold text-slate-800">SUTRAM 2026 PROTOTYPE</div>
-          <div class="text-[10px] text-slate-500 font-mono">Academic Evaluation Environment</div>
+      <!-- Right: Research Hackathon Badge, Theme Toggle & Sign Out Button -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <div class="text-right hidden md:block">
+          <div class="text-[11px] font-bold text-slate-800 dark:text-slate-200">SUTRAM 2026 PROTOTYPE</div>
+          <div class="text-[10px] text-slate-500 dark:text-slate-400 font-mono">Academic Evaluation Environment</div>
         </div>
+
+        <!-- 1-Click Dark/Light Theme Toggle -->
+        <button 
+          onclick="toggleTheme()" 
+          class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-semibold transition cursor-pointer"
+          title="Toggle Dark / Light Theme Mode"
+          aria-label="Toggle Theme"
+        >
+          <i data-lucide="moon" class="theme-toggle-icon w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">Theme</span>
+        </button>
+
         <button 
           onclick="lockTerminal()" 
           class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 text-xs font-bold transition cursor-pointer shadow-xs"
@@ -26061,6 +26203,56 @@ div[id$="-drawer"] .editorial-card,
       <span>Dual SHA-256 / SHA3-256 Intact</span>
     </div>
   </div>
+
+  <!-- 5.1 Courtroom 5-Step Evidence Progression Stepper -->
+  <nav id="evidence-flow-stepper" class="evidence-flow-stepper px-4 sm:px-6 py-2 select-none z-25 border-b border-[#E2E8F0] no-print" aria-label="Evidence Investigation Progress">
+    <div class="max-w-[1920px] mx-auto flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
+      <div class="flex items-center gap-1 sm:gap-2">
+        <button onclick="navigateToSection('section-vault'); updateStepperActive('section-vault');" class="flow-step-item" id="stepper-step-1" title="Step 1: Ingest Evidence Logs">
+          <span class="flow-step-num">1</span>
+          <span class="whitespace-nowrap">Ingest Evidence</span>
+        </button>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
+
+        <button onclick="navigateToSection('section-vault'); updateStepperActive('section-vault');" class="flow-step-item" id="stepper-step-2" title="Step 2: Cryptographic Hash Verification & Merkle Root">
+          <span class="flow-step-num">2</span>
+          <span class="whitespace-nowrap">Verify Hashes</span>
+        </button>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
+
+        <button onclick="navigateToSection('section-timeline'); updateStepperActive('section-timeline');" class="flow-step-item" id="stepper-step-3" title="Step 3: Temporal Hyper-Timeline Reconstruction">
+          <span class="flow-step-num">3</span>
+          <span class="whitespace-nowrap">Event Timeline</span>
+        </button>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
+
+        <button onclick="navigateToSection('section-ai'); updateStepperActive('section-ai');" class="flow-step-item active" id="stepper-step-4" title="Step 4: Spatiotemporal Inconsistency Radar">
+          <span class="flow-step-num">4</span>
+          <span class="whitespace-nowrap">Inconsistencies</span>
+        </button>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
+
+        <button onclick="navigateToSection('section-export'); updateStepperActive('section-export');" class="flow-step-item" id="stepper-step-5" title="Step 5: BSA 2023 §63(4) Statutory Certificate">
+          <span class="flow-step-num">5</span>
+          <span class="whitespace-nowrap">Court Certificate</span>
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- Live Integrity Badge Glance -->
+        <div id="stepper-integrity-glance" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200" title="Cryptographic Chain of Custody: NIST FIPS 180-4 Dual Hashed & RFC 6962 Sealed">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+          <span class="text-[11px] font-mono">Chain Intact</span>
+        </div>
+
+        <!-- Master Merkle Root Quick Copy -->
+        <button onclick="copyCurrentMerkleRoot()" class="hidden xl:flex items-center gap-1 text-[11px] font-mono text-slate-600 hover:text-primary transition" title="Click to copy Master Merkle Root">
+          <i data-lucide="copy" class="w-3 h-3"></i>
+          <span id="stepper-root-preview" class="truncate max-w-[120px]">622b79b4ed...</span>
+        </button>
+      </div>
+    </div>
+  </nav>
 
 
   <!-- Master Split Container (Sidebar + Content) -->
@@ -29436,104 +29628,148 @@ function renderInconsistencyRadar() {
 
   if (allInconsistencies.length === 0) {
     container.innerHTML = `
-      <div class="temporal-empty-banner p-6 text-center border border-dashed rounded-xl text-xs">
-        Zero temporal anomalies flagged. All evidence events align within Allen partial order algebra bounds.
+      <div class="temporal-empty-banner p-8 text-center border border-dashed rounded-xl text-xs space-y-2">
+        <i data-lucide="shield-check" class="w-8 h-8 text-emerald-500 mx-auto"></i>
+        <div class="font-bold text-slate-700 dark:text-slate-300">Zero Temporal Contradictions Flagged</div>
+        <p class="text-slate-500 dark:text-slate-400">All evidence timestamps align strictly within Allen partial order algebra bounds.</p>
       </div>
     `;
+    if (window.lucide) lucide.createIcons();
     return;
   }
 
-  container.innerHTML = allInconsistencies.map((inc) => {
+  container.innerHTML = allInconsistencies.map((inc, idx) => {
     return `
       <div 
-        class="editorial-card p-5 border border-rose-500/30 bg-rose-950/20 rounded-xl space-y-4 cursor-pointer hover:border-rose-500/50 transition"
+        class="clash-card space-y-4 cursor-pointer"
         onclick="scrollToTimelineEvents(['${inc.fact_ids[0]}', '${inc.fact_ids[1]}'])"
+        tabindex="0"
+        role="region"
+        aria-label="Contradiction Conflict ${idx + 1}: ${escapeHTML(inc.title)}"
       >
+        <!-- Severity & Contradiction Header -->
         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-rose-500/20 pb-3">
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
-            <span class="text-xs font-bold text-rose-300 uppercase tracking-wide">
-              ${inc.title}
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-600 animate-pulse shrink-0"></span>
+            <span class="text-xs font-bold text-rose-700 dark:text-rose-300 uppercase tracking-wider">
+              CRITICAL CONTRADICTION &bull; ${escapeHTML(inc.title)}
             </span>
           </div>
-          <span class="badge-clash text-[11px] px-2.5 py-0.5 rounded font-mono">
-            ${inc.discrepancy_delta || 'Concurrent Conflict'}
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-rose-100 dark:bg-rose-950/60 text-rose-800 dark:text-rose-200 border border-rose-200 dark:border-rose-800">
+              ${escapeHTML(inc.discrepancy_delta || 'Concurrent Conflict')}
+            </span>
+            <button 
+              onclick="event.stopPropagation(); copyToClipboard('${escapeHTML(inc.title)}: ${escapeHTML(inc.claimed_statement)} vs ${escapeHTML(inc.system_reality)}', 'Contradiction summary copied');" 
+              class="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 transition"
+              title="Copy Conflict Summary"
+            >
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
+          ${escapeHTML(inc.description)}
+        </p>
+
+        <!-- Fact Comparison Matrix: Fact A vs Fact B -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <!-- Fact A: Claimed Alibi Statement -->
+          <div class="fact-comparison-box space-y-1.5 border-l-2 border-l-amber-500">
+            <div class="flex items-center justify-between text-[10px] font-mono uppercase text-amber-800 dark:text-amber-400 font-bold tracking-wider">
+              <span>FACT A: CLAIMED ALIBI (SUBJECTIVE)</span>
+              <span class="text-slate-400">WhatsApp / Chat</span>
+            </div>
+            <p class="text-slate-800 dark:text-slate-200 font-sans italic text-xs leading-relaxed">
+              "${escapeHTML(inc.claimed_statement)}"
+            </p>
+          </div>
+
+          <!-- Fact B: Objective Physical Reality -->
+          <div class="fact-comparison-box space-y-1.5 border-l-2 border-l-emerald-500">
+            <div class="flex items-center justify-between text-[10px] font-mono uppercase text-emerald-800 dark:text-emerald-400 font-bold tracking-wider">
+              <span>FACT B: OBJECTIVE BITSTREAM (PHYSICAL)</span>
+              <span class="font-mono text-[10px]">Server &amp; Tower Logs</span>
+            </div>
+            <p class="text-emerald-700 dark:text-emerald-300 font-mono text-xs font-semibold leading-relaxed">
+              ${escapeHTML(inc.system_reality)}
+            </p>
+          </div>
+        </div>
+
+        <!-- Kinematics & Timezone Notice Strip -->
+        <div class="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-lg bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 text-[11px]">
+          <div class="flex items-center gap-1.5 text-amber-900 dark:text-amber-200 font-medium">
+            <i data-lucide="info" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i>
+            <span>Timezone Assumption: Timestamps normalized assuming IST (UTC+05:30) per cellular BTS carrier clock sync.</span>
+          </div>
+          <span class="font-mono text-[10px] font-bold text-amber-800 dark:text-amber-300">
+            Allen Formal Algebra: Grounded
           </span>
         </div>
 
-        <p class="text-xs text-slate-300 leading-relaxed font-sans">
-          ${inc.description}
-        </p>
-
-        <!-- Comparison Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-          <div class="p-3.5 rounded-lg bg-[#0E1424] border border-[#232F46] space-y-1">
-            <span class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block">Claimed Alibi Statement (WhatsApp)</span>
-            <p class="text-slate-200 font-sans italic text-xs leading-relaxed">"${escapeHTML(inc.claimed_statement)}"</p>
-          </div>
-          <div class="p-3.5 rounded-lg bg-[#0E1424] border border-[#232F46] space-y-1">
-            <span class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block">Objective System Reality (Server Log)</span>
-            <p class="text-emerald-400 font-mono text-xs font-semibold leading-relaxed">${escapeHTML(inc.system_reality)}</p>
-          </div>
-        </div>
-
-        <!-- 4 Mandatory Benign Alternative Hypotheses Evaluation (BSA 2023 §63(4) Forensic Objectivity) -->
-        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-700/80 space-y-3 text-xs">
-          <div class="flex items-center justify-between border-b border-slate-700/60 pb-2">
-            <span class="font-bold text-white flex items-center gap-1.5 uppercase tracking-wide text-[11px]">
-              <i data-lucide="scale" class="w-3.5 h-3.5 text-cyan-400"></i>
-              <span>4 Mandatory Benign Hypotheses Evaluation Matrix</span>
+        <!-- 4 Mandatory Benign Alternative Hypotheses (Collapsible Accordion for Cleanliness) -->
+        <details class="benign-details" onclick="event.stopPropagation()">
+          <summary>
+            <div class="flex items-center gap-2">
+              <i data-lucide="scale" class="w-4 h-4 text-primary"></i>
+              <span>4 Mandatory Benign Hypotheses Evaluated (BSA §63(4) Forensic Objectivity)</span>
+            </div>
+            <span class="text-[10px] font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1">
+              <span>Toggle Matrix</span>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
             </span>
-            <span class="text-[10px] font-mono text-emerald-400 font-semibold">BSA 2023 Audit Required</span>
-          </div>
+          </summary>
 
-          <div class="space-y-2">
+          <div class="p-3.5 space-y-2 text-xs border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
             <!-- Hypothesis 1 -->
-            <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 flex items-start justify-between gap-3">
+            <div class="p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-start justify-between gap-3">
               <div class="space-y-0.5">
-                <div class="font-semibold text-slate-200">1. Automated Cron / Background Daemon Execution</div>
-                <div class="text-[11px] text-slate-400">Evaluated: Refuted — Event log establishes interactive shell session with valid handshake (LOGIN,OK &amp; directory browse), not a detached background cron script.</div>
+                <div class="font-semibold text-slate-800 dark:text-slate-200">1. Automated Cron / Background Daemon Execution</div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400">Evaluated: Refuted — Event log establishes interactive shell session with valid handshake (LOGIN,OK &amp; directory browse), not a detached background cron script.</div>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-900/50 text-rose-300 border border-rose-700 shrink-0">REFUTED</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-100 dark:bg-rose-900/50 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-700 shrink-0">REFUTED</span>
             </div>
 
             <!-- Hypothesis 2 -->
-            <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 flex items-start justify-between gap-3">
+            <div class="p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-start justify-between gap-3">
               <div class="space-y-0.5">
-                <div class="font-semibold text-slate-200">2. Cellular BTS Multipath Signal Reflection</div>
-                <div class="text-[11px] text-slate-400">Evaluated: Refuted — Delta between alibi home (Connaught Place) and tower DEL-S-041 (Sector 62 Noida) is 24.8 km; radio multipath reflection boundary is physically capped at &lt; 3 km.</div>
+                <div class="font-semibold text-slate-800 dark:text-slate-200">2. Cellular BTS Multipath Signal Reflection</div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400">Evaluated: Refuted — Delta between alibi home (Sector 62 Noida) and tower DEL-S-041 (Okhla Phase III) is 24.8 km; radio multipath reflection boundary is physically capped at &lt; 3 km.</div>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-900/50 text-rose-300 border border-rose-700 shrink-0">REFUTED</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-100 dark:bg-rose-900/50 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-700 shrink-0">REFUTED</span>
             </div>
 
             <!-- Hypothesis 3 -->
-            <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 flex items-start justify-between gap-3">
+            <div class="p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-start justify-between gap-3">
               <div class="space-y-0.5">
-                <div class="font-semibold text-slate-200">3. Network NAT / DHCP Lease Collision</div>
-                <div class="text-[11px] text-slate-400">Evaluated: Correlated — IP 192.168.1.105 strictly matches suspect's registered MAC workstation lease table in local router ARP cache during the incident window.</div>
+                <div class="font-semibold text-slate-800 dark:text-slate-200">3. Network NAT / DHCP Lease Collision</div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400">Evaluated: Correlated — IP 192.168.1.105 strictly matches suspect's registered MAC workstation lease table in local router ARP cache during the incident window.</div>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-900/50 text-amber-300 border border-amber-700 shrink-0">CORRELATED</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700 shrink-0">CORRELATED</span>
             </div>
 
             <!-- Hypothesis 4 -->
-            <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 flex items-start justify-between gap-3">
+            <div class="p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-start justify-between gap-3">
               <div class="space-y-0.5">
-                <div class="font-semibold text-slate-200">4. Credential Theft / Unauthorized Third-Party Impersonation</div>
-                <div class="text-[11px] text-slate-400">Evaluated: Preserved for Judicial Finding — System proves lawful cryptographic credential authentication; physical actor verification requires CCTV / biometric corroboration.</div>
+                <div class="font-semibold text-slate-800 dark:text-slate-200">4. Credential Theft / Unauthorized Third-Party Impersonation</div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400">Evaluated: Preserved for Judicial Finding — System proves lawful cryptographic credential authentication; physical actor verification requires CCTV / biometric corroboration.</div>
               </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-900/50 text-blue-300 border border-blue-700 shrink-0">PRESERVED FOR COURT</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 border border-blue-300 dark:border-blue-700 shrink-0">PRESERVED FOR COURT</span>
             </div>
           </div>
-        </div>
+        </details>
 
-        <div class="pt-2 border-t border-rose-500/20 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div class="flex items-center gap-2 text-slate-400 text-[11px]">
-            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+        <!-- Bottom Action Strip -->
+        <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-[11px]">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400"></i>
             <span>4 Benign Explanations Rigorously Evaluated &amp; Logged</span>
           </div>
           <button 
             onclick="event.stopPropagation(); scrollToTimelineEvents(['${inc.fact_ids[0]}'])" 
-            class="text-xs font-semibold text-rose-400 hover:text-rose-300 flex items-center gap-1 transition"
+            class="text-xs font-semibold text-primary hover:underline flex items-center gap-1 transition"
           >
             <span>Jump to Conflict in Timeline</span>
             <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
@@ -30685,6 +30921,32 @@ function escapeAttr(str) {
   return String(str).replace(/'/g, "\\'").replace(/"/g, "&quot;");
 }
 
+function updateStepperActive(sectionId) {
+  const stepMap = {
+    'section-overview': 1,
+    'section-vault': 2,
+    'section-timeline': 3,
+    'section-ai': 4,
+    'section-export': 5
+  };
+  const currentStep = stepMap[sectionId] || 1;
+  for (let s = 1; s <= 5; s++) {
+    const el = document.getElementById(`stepper-step-${s}`);
+    if (el) {
+      if (s === currentStep) {
+        el.classList.add('active');
+        el.classList.remove('completed');
+      } else if (s < currentStep) {
+        el.classList.remove('active');
+        el.classList.add('completed');
+      } else {
+        el.classList.remove('active');
+        el.classList.remove('completed');
+      }
+    }
+  }
+}
+
 function navigateToSection(sectionId) {
   hapticEngine.playSoftTap();
 
@@ -30700,6 +30962,9 @@ function navigateToSection(sectionId) {
     target.classList.remove('hidden');
     target.classList.add('active');
   }
+
+  // Update Stepper active state
+  updateStepperActive(sectionId);
 
   // Reset scroll position to top of content area
   const scrollArea = document.getElementById('workbench-scroll-area');
@@ -30758,17 +31023,38 @@ function toggleSidebarMobile() {
   }
 }
 
-// Permanent 100% Pure Light Mode Controller (GOI Judicial Workbench)
-function setTheme(theme = 'light') {
-  document.documentElement.setAttribute('data-theme', 'light');
+// Dual Light/Dark Theme Controller (Cellebrite x Palantir Legal-Tech Standard)
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
   try {
-    localStorage.setItem('chronofact-theme', 'light');
+    localStorage.setItem('chronofact-theme', theme);
   } catch (_) {}
+  const icons = document.querySelectorAll('.theme-toggle-icon');
+  icons.forEach(icon => {
+    icon.setAttribute('data-lucide', theme === 'dark' ? 'sun' : 'moon');
+  });
+  if (window.lucide) lucide.createIcons();
 }
 
 function toggleTheme() {
-  setTheme('light');
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
 }
+
+// Initialize theme from storage or system preference
+(function initTheme() {
+  try {
+    const saved = localStorage.getItem('chronofact-theme');
+    if (saved) {
+      applyTheme(saved);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      applyTheme('dark');
+    } else {
+      applyTheme('light');
+    }
+  } catch (_) {}
+})();
 
 // =============================================================================
 // ACCESSIBILITY TEXT-SIZE CONTROLS (EMERGENCY MITRA ENGINE: A- A A+ A++)

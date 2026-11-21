@@ -33,6 +33,9 @@ if exist "venv\Scripts\activate.bat" (
     call venv\Scripts\activate.bat
 )
 
+REM Set Demo Mode for evaluation credentials
+if not defined CHRONOFACT_DEMO_MODE set CHRONOFACT_DEMO_MODE=true
+
 REM Start server via run.py
 echo.
 echo Starting ChronoFact Workbench at http://127.0.0.1:8000 ...

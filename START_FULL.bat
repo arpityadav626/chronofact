@@ -21,6 +21,7 @@ if exist "%CD%\tools\sleuthkit\bin" (
 REM Set production / forensic environment defaults
 if not defined CHRONOFACT_USER set CHRONOFACT_USER=examiner
 if not defined CHRONOFACT_PASSWORD set CHRONOFACT_PASSWORD=SecurePassMin16Chars!
+if not defined CHRONOFACT_DEMO_MODE set CHRONOFACT_DEMO_MODE=true
 if not defined CHRONOFACT_AUDIT_KEY set CHRONOFACT_AUDIT_KEY=audit-key-min-32-chars-secure
 if not defined CHRONOFACT_VAULT_KEY_B64 set CHRONOFACT_VAULT_KEY_B64=kUPIpkwEMr_-jsbuvNfCUdZIrAXE1X0OhNXhSt-tL08=
 if not defined CHRONOFACT_DATA_DIR set CHRONOFACT_DATA_DIR=%CD%\chronofact-data

@@ -64,6 +64,190 @@
   color-scheme: light;
 }
 
+[data-theme="dark"] {
+  --primary: #38BDF8;
+  --primary-container: #0C2340;
+  --primary-hover: #7DD3FC;
+  --on-primary: #082F49;
+  --secondary: #0F172A;
+  --accent-cyan: #38BDF8;
+  --accent-gold: #F59E0B;
+
+  --bg-canvas: #090D16;
+  --bg-sidebar: #0D1322;
+  --bg-surface: #111827;
+  --bg-card: #111827;
+  --bg-card-hover: #172033;
+  --bg-inset: #0B0F19;
+  --bg-input: #111827;
+  --bg-elevated: #161F33;
+
+  --border-subtle: #1F293D;
+  --border-hairline: #374151;
+  --border-focus: #38BDF8;
+  --border-divider: #1F293D;
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-dim: #4B5563;
+
+  --color-danger: #EF4444;
+  --color-danger-bg: rgba(69, 10, 10, 0.35);
+  --color-danger-border: #7F1D1D;
+  --color-danger-text: #FCA5A5;
+
+  --color-warning: #F59E0B;
+  --color-warning-bg: rgba(69, 26, 3, 0.35);
+  --color-warning-border: #78350F;
+  --color-warning-text: #FCD34D;
+
+  --color-success: #10B981;
+  --color-success-bg: rgba(6, 78, 59, 0.35);
+  --color-success-border: #065F46;
+  --color-success-text: #6EE7B7;
+
+  --color-info: #38BDF8;
+  --color-info-bg: rgba(8, 47, 73, 0.35);
+  --color-info-border: #0C4A6E;
+  --color-info-text: #7DD3FC;
+
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 4px 14px -2px rgba(0, 0, 0, 0.4);
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   EVIDENTIARY 5-STEP WORKFLOW STEPPER
+   -------------------------------------------------------------------------- */
+.evidence-flow-stepper {
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.flow-step-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.flow-step-item:hover {
+  background-color: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.flow-step-item.active {
+  background-color: var(--primary-container);
+  color: var(--primary);
+  border-color: var(--border-subtle);
+}
+
+.flow-step-item.completed {
+  color: var(--color-success);
+}
+
+.flow-step-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-hairline);
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.flow-step-item.active .flow-step-num {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+}
+
+.flow-step-item.completed .flow-step-num {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  border-color: var(--color-success-border);
+}
+
+/* --------------------------------------------------------------------------
+   COURTROOM-GRADE INCONSISTENCY CLASH CARD
+   -------------------------------------------------------------------------- */
+.clash-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--color-danger);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-card);
+  transition: all 0.18s ease;
+}
+
+.clash-card:hover {
+  border-color: var(--border-hairline);
+  border-left-color: var(--color-danger);
+}
+
+.fact-comparison-box {
+  background-color: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 1rem 1.15rem;
+}
+
+.benign-details {
+  background-color: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.benign-details summary {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-primary);
+  list-style: none;
+}
+
+.benign-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.benign-details summary:hover {
+  background-color: var(--bg-card-hover);
+}
+
+.benign-details[open] summary {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Focus Visible Accessibility */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
 * {
   box-sizing: border-box;
 }
