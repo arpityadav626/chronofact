@@ -879,44 +879,44 @@ function renderCaseSelectorCards() {
       >
         <div class="space-y-2">
           <div class="flex items-center justify-between gap-2">
-            <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-[#EFF6FF] text-[#0262af] border border-[#BFDBFE]">
+            <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-inset text-primary border border-subtle">
               ${escapeHTML(c.case_id)}
             </span>
             ${isActive ? `
-              <span class="flex items-center gap-1 font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0]">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#059669]"></span>
+              <span class="flex items-center gap-1 font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                 ACTIVE
               </span>
             ` : `
-              <span class="font-mono text-[10px] text-[#64748B]">
+              <span class="font-mono text-[10px] text-muted">
                 ${escapeHTML(c.fir_number)}
               </span>
             `}
           </div>
 
           <div>
-            <h4 class="font-display font-bold text-sm text-[#0F172A] leading-snug">
+            <h4 class="font-display font-bold text-sm text-primary leading-snug">
               ${escapeHTML(c.case_title)}
             </h4>
-            <div class="text-[11px] font-medium text-[#0262af] mt-0.5">
+            <div class="text-[11px] font-medium text-secondary mt-0.5">
               ${escapeHTML(c.crime_category)}
             </div>
           </div>
 
-          <p class="text-xs text-[#64748B] line-clamp-2 leading-relaxed">
+          <p class="text-xs text-muted line-clamp-2 leading-relaxed">
             ${escapeHTML(c.crime_summary)}
           </p>
         </div>
 
-        <div class="pt-2 border-t border-[#E2E8F0] flex items-center justify-between text-[11px]">
-          <div class="flex items-center gap-3 text-[#64748B] font-mono">
+        <div class="pt-2 border-t border-subtle flex items-center justify-between text-[11px]">
+          <div class="flex items-center gap-3 text-muted font-mono">
             <span><strong>${c.evidence.length}</strong> Exhibits</span>
             <span>&bull;</span>
             <span><strong>${c.timeline.length}</strong> Facts</span>
             <span>&bull;</span>
-            <span class="text-[#DC2626]"><strong>${c.inconsistencies.length}</strong> Clash</span>
+            <span class="text-rose-500"><strong>${c.inconsistencies.length}</strong> Clash</span>
           </div>
-          <button class="${isActive ? 'text-[#059669] font-bold' : 'text-[#0262af] font-semibold hover:underline'} flex items-center gap-1">
+          <button class="${isActive ? 'text-emerald-500 font-bold' : 'text-primary font-semibold hover:underline'} flex items-center gap-1">
             <span>${isActive ? 'Mounted' : 'Load Case'}</span>
             <i data-lucide="${isActive ? 'check' : 'arrow-right'}" class="w-3.5 h-3.5"></i>
           </button>

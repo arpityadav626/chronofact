@@ -31,17 +31,17 @@
   <script src="assets/vendor/jszip.min.js"></script>
   <script>if (typeof JSZip === 'undefined') { document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"><\/script>'); }</script>
 
-  <!-- Tailwind CSS Custom Configuration (Government of India Cyber Crime Portal Design System) -->
+  <!-- Tailwind CSS Custom Configuration (Forensic Precision Hardware Design System) -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            primary: '#0262af',
-            'primary-container': '#EFF6FF',
+            primary: '#0F172A',
+            'primary-container': '#F1F5F9',
             'on-primary': '#FFFFFF',
-            secondary: '#002654',
-            canvas: '#F4F7FB',
+            secondary: '#334155',
+            canvas: '#F8F9FA',
             sidebar: '#FFFFFF',
             surface: '#FFFFFF',
             card: '#FFFFFF',
@@ -204,7 +204,7 @@
       box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.12) !important;
     }
   </style>
-<body class="font-sans h-screen flex flex-col overflow-hidden antialiased selection:bg-[#0262af] selection:text-white">
+<body class="font-sans h-screen flex flex-col overflow-hidden antialiased selection:bg-[#0F172A] selection:text-white">
 
   <!-- 1. SUTRAM 2026 Academic Research Prototype Banner -->
   <div class="bg-amber-600 text-white px-4 py-1 text-xs font-semibold text-center select-none shadow-xs">
@@ -235,7 +235,7 @@
         </div>
         <!-- Language Switcher (EN / HI) -->
         <div class="flex items-center gap-1" id="lang-switcher">
-          <button onclick="setLanguage('en')" id="lang-btn-en" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-white text-[#0262af] transition shadow-xs">EN</button>
+          <button onclick="setLanguage('en')" id="lang-btn-en" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-white text-primary transition shadow-xs">EN</button>
           <button onclick="setLanguage('hi')" id="lang-btn-hi" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-transparent text-white border border-white/40 hover:bg-white/10 transition">हिन्दी</button>
         </div>
         <!-- Local Evaluation Mode Badge -->
@@ -251,26 +251,39 @@
   <header class="header-wrapper px-4 sm:px-6 select-none bg-white border-b border-[#DCE3DF]">
     <div class="max-w-[1920px] mx-auto flex items-center justify-between gap-4">
       
-      <!-- Left: Forensic Shield + Title -->
+      <!-- Left: Bespoke ChronoFact Forensic Mark + Title -->
       <div class="flex items-center gap-3 sm:gap-4">
-        <a href="index.html" class="shrink-0 flex items-center p-2 rounded-xl bg-slate-900 text-white" title="CHRONOFACT 2.0">
-          <svg class="w-8 h-8 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <path d="m9 12 2 2 4-4"/>
+        <a href="index.html" class="shrink-0 flex items-center" title="CHRONOFACT 2.0">
+          <svg class="w-9 h-9 shrink-0" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="7" fill="#0F172A" stroke="#334155" stroke-width="1"/>
+            <!-- Outer Chronometer Dial -->
+            <circle cx="16" cy="16" r="10" stroke="#475569" stroke-width="1" stroke-dasharray="2 2"/>
+            <!-- Cardinal Calibrations -->
+            <line x1="16" y1="3.5" x2="16" y2="6" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="16" y1="26" x2="16" y2="28.5" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="3.5" y1="16" x2="6" y2="16" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="26" y1="16" x2="28.5" y2="16" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Precision C Chrono Arc -->
+            <path d="M20.5 11.5C19.2 10 17.5 9.2 15.5 9.2C11.5 9.2 8.5 12.2 8.5 16C8.5 19.8 11.5 22.8 15.5 22.8C17.5 22.8 19.2 22 20.5 20.5" stroke="#F8FAFC" stroke-width="2" stroke-linecap="round"/>
+            <!-- Merkle Root Fact Vertex -->
+            <polygon points="16,13 19,16 16,19 13,16" fill="#10B981"/>
+            <!-- Verified Timestamp Vector -->
+            <line x1="16" y1="16" x2="23.5" y2="16" stroke="#E2E8F0" stroke-width="1.75" stroke-linecap="round"/>
+            <circle cx="23.5" cy="16" r="1.25" fill="#10B981"/>
           </svg>
         </a>
 
         <!-- Platform Title -->
-        <div class="flex flex-col justify-center border-l border-slate-200 pl-3 sm:pl-4">
-          <div class="text-[13px] sm:text-[15px] font-black text-[#002654] leading-tight font-serif tracking-tight">
+        <div class="flex flex-col justify-center border-l border-subtle pl-3 sm:pl-4">
+          <div class="text-[13px] sm:text-[15px] font-black text-primary leading-tight font-serif tracking-tight">
             न्यायिक इलेक्ट्रॉनिक साक्ष्य विश्लेषण कार्यपीठ
           </div>
-          <div class="text-[12px] sm:text-[14px] font-bold text-[#0262af] leading-tight">
+          <div class="text-[12px] sm:text-[13px] font-semibold text-secondary leading-tight">
             Judicial Electronic Evidence Chronology &amp; Verification Workbench
           </div>
           <div class="flex items-center gap-2 mt-0.5">
-            <span class="font-display font-extrabold text-[11px] tracking-wider text-[#131B2E]">CHRONOFACT 2.0</span>
-            <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-300">
+            <span class="font-display font-extrabold text-[11px] tracking-wider text-primary">CHRONOFACT 2.0</span>
+            <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-inset text-secondary border border-subtle">
               BSA 2023 §63(4) RESEARCH PROTOTYPE
             </span>
           </div>
@@ -434,10 +447,10 @@
             <div class="p-3 border border-[#CBD5E1] bg-[#F8FAFC] rounded-xl space-y-2">
               <div class="flex items-center justify-between text-[11px] font-bold text-[#0F172A]">
                 <span class="flex items-center gap-1.5">
-                  <i data-lucide="user-check" class="w-3.5 h-3.5 text-[#0262af]"></i>
+                  <i data-lucide="user-check" class="w-3.5 h-3.5 text-primary"></i>
                   <span>Examiner In-Charge</span>
                 </span>
-                <button onclick="openOfficerModal(); toggleOfficerDropdown();" class="text-[10px] font-bold text-[#0262af] hover:underline flex items-center gap-1 cursor-pointer">
+                <button onclick="openOfficerModal(); toggleOfficerDropdown();" class="text-[10px] font-bold text-primary hover:underline flex items-center gap-1 cursor-pointer">
                   <i data-lucide="sliders" class="w-3 h-3"></i>
                   <span>Full Profile</span>
                 </button>
@@ -449,13 +462,13 @@
                   id="officer-quick-input" 
                   value="A. Sharma (Forensic Analyst #FE-802)" 
                   placeholder="Enter Examiner Name" 
-                  class="w-full text-xs px-2.5 py-1.5 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af] font-semibold"
+                  class="w-full text-xs px-2.5 py-1.5 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-primary font-semibold"
                   onkeydown="if(event.key==='Enter') saveQuickOfficerName(event);"
                   onclick="event.stopPropagation();"
                 >
                 <button 
                   onclick="saveQuickOfficerName(event)" 
-                  class="btn-save-officer px-3 py-1.5 rounded-lg bg-[#0262af] hover:bg-[#004d8c] text-white font-bold text-xs shrink-0 shadow-xs cursor-pointer"
+                  class="btn-save-officer px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-hover text-white font-bold text-xs shrink-0 shadow-xs cursor-pointer"
                 >
                   Save
                 </button>
@@ -468,16 +481,16 @@
 
             <!-- Profile & Setting Actions -->
             <button onclick="openOfficerModal(); toggleOfficerDropdown();" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition text-left font-medium cursor-pointer">
-              <i data-lucide="user-cog" class="w-3.5 h-3.5 text-[#0262af]"></i>
+              <i data-lucide="user-cog" class="w-3.5 h-3.5 text-primary"></i>
               <span>Customize Designation &amp; Badge ID</span>
             </button>
             <button onclick="openCaseSelectorModal(); toggleOfficerDropdown();" class="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition text-left font-medium cursor-pointer">
-              <i data-lucide="folder-search" class="w-3.5 h-3.5 text-[#0262af]"></i>
+              <i data-lucide="folder-search" class="w-3.5 h-3.5 text-primary"></i>
               <span>Switch / Load Case Samples</span>
             </button>
             <button onclick="hapticEngine.toggle(); updateHeaderSoundIcon();" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-[#0F172A] transition cursor-pointer">
               <span class="flex items-center gap-2">
-                <i data-lucide="volume-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
+                <i data-lucide="volume-2" class="w-3.5 h-3.5 text-primary"></i>
                 <span class="font-medium">Haptic Audio</span>
               </span>
               <span id="officer-sound-label" class="text-[10px] font-mono text-[#64748B] font-bold">ON</span>
@@ -490,7 +503,7 @@
               <i data-lucide="lock" class="w-3.5 h-3.5 text-[#DC2626]"></i>
               <span>Lock Terminal (Sign Out)</span>
             </button>
-            <div class="pt-1 border-t border-[#E2E8F0] text-[10px] text-[#0262af] font-mono px-2 py-1 flex items-center gap-1.5">
+            <div class="pt-1 border-t border-[#E2E8F0] text-[10px] text-primary font-mono px-2 py-1 flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               <span>Evaluation Node #FE-802</span>
             </div>
@@ -591,12 +604,12 @@
             State v. Vikram Malhotra
           </div>
           <div class="text-[10px] text-[#64748B] font-mono flex items-center justify-between">
-            <span id="sidebar-case-fir" class="font-bold text-[#0262af]">FIR 204/2026</span>
+            <span id="sidebar-case-fir" class="font-bold text-primary">FIR 204/2026</span>
             <span id="sidebar-case-ps" class="text-slate-500">PS Cyber Crime</span>
           </div>
           <button 
             onclick="openCaseSelectorModal()" 
-            class="w-full mt-1 py-1 px-2 rounded-md bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#0262af] text-[10px] font-bold border border-[#BFDBFE] flex items-center justify-center gap-1.5 transition"
+            class="w-full mt-1 py-1 px-2 rounded-md bg-inset hover:bg-[#DBEAFE] text-primary text-[10px] font-bold border border-subtle flex items-center justify-center gap-1.5 transition"
             title="Switch case sample"
           >
             <i data-lucide="folder-search" class="w-3 h-3"></i>
@@ -616,10 +629,10 @@
           </button>
           <button 
             onclick="openCaseSelectorModal()" 
-            class="btn-editorial-secondary py-1.5 px-2 text-[11px] text-[#0262af] hover:bg-[#EFF6FF]"
+            class="btn-editorial-secondary py-1.5 px-2 text-[11px] text-primary hover:bg-inset"
             title="Load Case Samples"
           >
-            <i data-lucide="folder-search" class="w-3.5 h-3.5 text-[#0262af]"></i>
+            <i data-lucide="folder-search" class="w-3.5 h-3.5 text-primary"></i>
           </button>
           <button 
             onclick="clearEvidenceVault()" 
@@ -745,7 +758,7 @@
           class="w-full flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg bg-white hover:bg-slate-50 text-[#131B2E] border border-[#BEC9C5] text-[11px] font-semibold transition shadow-xs"
           title="Sign into Examiner Account"
         >
-          <i data-lucide="log-in" class="w-3.5 h-3.5 text-[#0262af]"></i>
+          <i data-lucide="log-in" class="w-3.5 h-3.5 text-primary"></i>
           <span>Officer Sign-In</span>
         </a>
 
@@ -772,19 +785,19 @@
       <!-- Government Reassurance Trust Strip -->
       <div class="reassurance-strip no-print">
         <div class="reassurance-item">
-          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
+          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary"></i>
           <span data-i18n-en="BSA 2023 §63(4) Certified Schedule" data-i18n-hi="बीएसए 2023 §63(4) प्रमाणित अनुसूची">BSA 2023 §63(4) Certified Schedule</span>
         </div>
         <div class="reassurance-item">
-          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
+          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary"></i>
           <span data-i18n-en="NIST FIPS 180-4 Dual Hash Intact (SHA-256 + SHA3-256)" data-i18n-hi="एनआईएसटी दोहरा हैश सुरक्षित (SHA-256 + SHA3-256)">NIST FIPS 180-4 Dual Hash Intact (SHA-256 + SHA3-256)</span>
         </div>
         <div class="reassurance-item">
-          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
+          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary"></i>
           <span data-i18n-en="Local Offline Forensic Sandbox (Zero External Data Leak)" data-i18n-hi="लोकल फॉरेंसिक सैंडबॉक्स">Local Offline Forensic Sandbox (Zero External Data Leak)</span>
         </div>
         <div class="reassurance-item">
-          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#0262af]"></i>
+          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary"></i>
           <span data-i18n-en="Zero-Hallucination Mechanical Grounding Gate" data-i18n-hi="शून्य-भ्रम यांत्रिक सत्यापन गेट">Zero-Hallucination Mechanical Grounding Gate</span>
         </div>
       </div>
@@ -804,7 +817,7 @@
             <!-- Top Metadata Strip & Case Switcher Button -->
             <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#E2E8F0] pb-5">
               <div class="flex flex-wrap items-center gap-2.5 text-xs">
-                <span id="overview-court-badge" class="font-mono uppercase text-[11px] tracking-wider text-[#0262af] bg-[#EFF6FF] px-3 py-1 rounded-md border border-[#BFDBFE] font-bold">
+                <span id="overview-court-badge" class="font-mono uppercase text-[11px] tracking-wider text-primary bg-inset px-3 py-1 rounded-md border border-subtle font-bold">
                   SPECIAL COURT (CYBER CRIME) &bull; CC/2026/8492
                 </span>
                 <span id="overview-station-badge" class="font-mono uppercase text-[11px] tracking-wider text-[#002654] bg-[#F1F5F9] px-3 py-1 rounded-md border border-[#CBD5E1] font-semibold">
@@ -824,7 +837,7 @@
                   <i data-lucide="chevron-down" class="w-3.5 h-3.5 opacity-80"></i>
                 </button>
                 <button onclick="openIngestModal()" class="btn-editorial-secondary py-2 px-3 text-xs font-medium flex items-center gap-1.5">
-                  <i data-lucide="file-up" class="w-3.5 h-3.5 text-[#0262af]"></i>
+                  <i data-lucide="file-up" class="w-3.5 h-3.5 text-primary"></i>
                   <span>+ Ingest Exhibit</span>
                 </button>
               </div>
@@ -835,7 +848,7 @@
               <div class="flex items-center gap-2 text-xs text-[#64748B] font-mono">
                 <span>SYNTHETIC DEMO BENCHMARK // SUTRAM 2026</span>
                 <span>&bull;</span>
-                <span id="overview-fir-badge" class="font-bold text-[#0262af]">FIR No. 204/2025</span>
+                <span id="overview-fir-badge" class="font-bold text-primary">FIR No. 204/2025</span>
               </div>
               <h1 id="overview-case-title" class="text-2xl md:text-3xl font-display font-bold text-[#0F172A] tracking-tight">
                 State of NCT of Delhi <span class="text-[#64748B] font-normal">v.</span> Vikram Malhotra &amp; Ors.
@@ -848,12 +861,12 @@
             <!-- Judicial Credential Metadata Row -->
             <div class="pt-2 flex flex-wrap items-center gap-6 text-xs text-[#64748B] border-t border-[#F1F5F9]">
               <div class="flex items-center gap-2">
-                <i data-lucide="user-check" class="w-4 h-4 text-[#0262af]"></i>
+                <i data-lucide="user-check" class="w-4 h-4 text-primary"></i>
                 <div class="flex items-center gap-1.5">
                   <span>Lead Examiner: <strong id="overview-lead-examiner" class="text-[#0F172A]">A. Sharma (Forensic Analyst #FE-802)</strong> (Digital Forensic Lab)</span>
                   <button 
                     onclick="openOfficerModal()" 
-                    class="px-2 py-0.5 rounded text-[10px] font-bold text-[#0262af] bg-[#EFF6FF] hover:bg-[#DBEAFE] border border-[#BFDBFE] transition cursor-pointer inline-flex items-center gap-1"
+                    class="px-2 py-0.5 rounded text-[10px] font-bold text-primary bg-inset hover:bg-[#DBEAFE] border border-subtle transition cursor-pointer inline-flex items-center gap-1"
                     title="Change Lead Examiner Name &amp; Details"
                   >
                     <i data-lucide="edit-3" class="w-2.5 h-2.5"></i>
@@ -866,7 +879,7 @@
                 <span>Statute: <strong id="overview-case-statute" class="text-[#0F172A]">BSA 2023 §63(4) Schedule Ready</strong></span>
               </div>
               <div class="flex items-center gap-2">
-                <i data-lucide="shield-check" class="w-4 h-4 text-[#0262af]"></i>
+                <i data-lucide="shield-check" class="w-4 h-4 text-primary"></i>
                 <span>Cryptographic Standard: <strong class="text-[#0F172A]">NIST FIPS 180-4 Dual Hash (SHA-256 + SHA3-256)</strong></span>
               </div>
             </div>
@@ -876,14 +889,14 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             
             <!-- KPI 1: Ingested Exhibits -->
-            <div class="editorial-card p-5 flex flex-col justify-between gap-3 bg-white hover:border-[#0262af] transition">
+            <div class="editorial-card p-5 flex flex-col justify-between gap-3 bg-white hover:border-primary transition">
               <div class="flex items-center justify-between">
                 <span class="text-[11px] font-mono uppercase text-[#64748B] font-bold tracking-wider">Seized Exhibits</span>
-                <div class="w-9 h-9 rounded-xl bg-[#EFF6FF] text-[#0262af] flex items-center justify-center">
+                <div class="w-9 h-9 rounded-xl bg-inset text-primary flex items-center justify-center">
                   <i data-lucide="shield-check" class="w-4 h-4"></i>
                 </div>
               </div>
-              <div class="text-3xl lg:text-4xl font-bold font-mono text-[#0262af]" id="stat-evidence-count">3</div>
+              <div class="text-3xl lg:text-4xl font-bold font-mono text-primary" id="stat-evidence-count">3</div>
               <div class="text-[11px] text-[#059669] font-semibold flex items-center gap-1.5">
                 <i data-lucide="check" class="w-3.5 h-3.5"></i>
                 <span>100% Sealed &bull; Zero Byte Tamper</span>
@@ -891,7 +904,7 @@
             </div>
 
             <!-- KPI 2: Reconstructed Timeline Events -->
-            <div class="editorial-card p-5 flex flex-col justify-between gap-3 bg-white hover:border-[#0262af] transition">
+            <div class="editorial-card p-5 flex flex-col justify-between gap-3 bg-white hover:border-primary transition">
               <div class="flex items-center justify-between">
                 <span class="text-[11px] font-mono uppercase text-[#64748B] font-bold tracking-wider">Causal Events</span>
                 <div class="w-9 h-9 rounded-xl bg-[#F0FDF4] text-[#059669] flex items-center justify-center">
@@ -899,7 +912,7 @@
                 </div>
               </div>
               <div class="text-3xl lg:text-4xl font-bold font-mono text-[#0F172A]" id="stat-timeline-count">5</div>
-              <div class="text-[11px] text-[#0262af] font-semibold flex items-center gap-1.5">
+              <div class="text-[11px] text-primary font-semibold flex items-center gap-1.5">
                 <i data-lucide="clock" class="w-3.5 h-3.5"></i>
                 <span>Allen Interval Reconstructed</span>
               </div>
@@ -944,7 +957,7 @@
             <div class="lg:col-span-7 editorial-card p-6 space-y-4">
               <div class="flex items-center justify-between border-b border-[#E2E8F0] pb-3">
                 <div class="flex items-center gap-2.5">
-                  <div class="w-7 h-7 rounded-lg bg-[#EFF6FF] text-[#0262af] flex items-center justify-center">
+                  <div class="w-7 h-7 rounded-lg bg-inset text-primary flex items-center justify-center">
                     <i data-lucide="radar" class="w-4 h-4"></i>
                   </div>
                   <div>
@@ -952,7 +965,7 @@
                     <p class="text-[11px] text-[#64748B]">Automated mechanical contradiction between suspect testimony &amp; bitstream reality</p>
                   </div>
                 </div>
-                <button onclick="navigateToSection('section-radar')" class="text-xs text-[#0262af] font-semibold hover:underline flex items-center gap-1">
+                <button onclick="navigateToSection('section-radar')" class="text-xs text-primary font-semibold hover:underline flex items-center gap-1">
                   <span>View Radar</span>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                 </button>
@@ -998,10 +1011,10 @@
               <div>
                 <div class="flex items-center justify-between border-b border-[#E2E8F0] pb-3 mb-4">
                   <div class="flex items-center gap-2">
-                    <i data-lucide="shield-check" class="w-4 h-4 text-[#0262af]"></i>
+                    <i data-lucide="shield-check" class="w-4 h-4 text-primary"></i>
                     <h3 class="font-display font-bold text-sm text-[#0F172A]">Cryptographic Chain of Custody</h3>
                   </div>
-                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#EFF6FF] text-[#0262af] font-bold border border-[#BFDBFE]">NIST FIPS</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-inset text-primary font-bold border border-subtle">NIST FIPS</span>
                 </div>
 
                 <!-- Merkle Root Block -->
@@ -1009,7 +1022,7 @@
                   <div class="p-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1">
                     <div class="flex items-center justify-between">
                       <span class="text-[10px] font-mono uppercase text-[#64748B] font-bold">MASTER MERKLE ROOT (SHA-256)</span>
-                      <button onclick="copyCurrentMerkleRoot()" class="text-[11px] text-[#0262af] hover:underline font-semibold flex items-center gap-1">
+                      <button onclick="copyCurrentMerkleRoot()" class="text-[11px] text-primary hover:underline font-semibold flex items-center gap-1">
                         <i data-lucide="copy" class="w-3 h-3"></i>
                         <span>Copy</span>
                       </button>
@@ -1026,7 +1039,7 @@
                     </div>
                     <div class="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
                       <span class="text-[10px] uppercase text-[#64748B] font-bold block">Evidence Standard</span>
-                      <span class="text-[11px] text-[#0262af] font-bold">ISO/IEC 27037:2012</span>
+                      <span class="text-[11px] text-primary font-bold">ISO/IEC 27037:2012</span>
                     </div>
                   </div>
                 </div>
@@ -1036,14 +1049,14 @@
               <div class="pt-3 border-t border-[#E2E8F0] space-y-2">
                 <button onclick="navigateToSection('section-vault')" class="w-full btn-editorial-secondary py-2 px-3 text-xs flex items-center justify-between">
                   <span class="flex items-center gap-2">
-                    <i data-lucide="folder-lock" class="w-3.5 h-3.5 text-[#0262af]"></i>
+                    <i data-lucide="folder-lock" class="w-3.5 h-3.5 text-primary"></i>
                     <span>Inspect Evidence Vault</span>
                   </span>
                   <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#94A3B8]"></i>
                 </button>
                 <button onclick="navigateToSection('section-timeline')" class="w-full btn-editorial-secondary py-2 px-3 text-xs flex items-center justify-between">
                   <span class="flex items-center gap-2">
-                    <i data-lucide="clock" class="w-3.5 h-3.5 text-[#0262af]"></i>
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-primary"></i>
                     <span>View Event Timeline</span>
                   </span>
                   <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#94A3B8]"></i>
@@ -1061,8 +1074,8 @@
           </div>
 
           <!-- Statutory Admissibility Footnote Banner -->
-          <div class="p-4 rounded-xl bg-[#EFF6FF] border border-[#BFDBFE] flex items-start gap-3 text-xs text-[#1E3A8A] leading-relaxed">
-            <i data-lucide="shield-alert" class="w-4 h-4 text-[#0262af] shrink-0 mt-0.5"></i>
+          <div class="p-4 rounded-xl bg-inset border border-subtle flex items-start gap-3 text-xs text-[#1E3A8A] leading-relaxed">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-primary shrink-0 mt-0.5"></i>
             <div>
               <strong>STATUTORY EVIDENCE CERTIFICATION // BHARATIYA SAKSHYA ADHINIYAM, 2023 §63(4):</strong>
               <span class="text-[#3B82F6] ml-1">
@@ -2274,7 +2287,7 @@
     <div class="editorial-card w-full max-w-4xl bg-white border border-[#CBD5E1] rounded-2xl shadow-2xl p-6 lg:p-8 space-y-5 max-h-[90vh] flex flex-col">
       <div class="flex items-center justify-between border-b border-[#E2E8F0] pb-4">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-[#EFF6FF] text-[#0262af] flex items-center justify-center">
+          <div class="w-10 h-10 rounded-xl bg-inset text-primary flex items-center justify-center">
             <i data-lucide="folder-open" class="w-5 h-5"></i>
           </div>
           <div>
@@ -2310,7 +2323,7 @@
     <div class="editorial-card w-full max-w-md bg-white border border-[#CBD5E1] rounded-2xl shadow-2xl p-6 space-y-4">
       <div class="flex items-center justify-between border-b border-[#E2E8F0] pb-3.5">
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-lg bg-[#EFF6FF] text-[#0262af] flex items-center justify-center">
+          <div class="w-8 h-8 rounded-lg bg-inset text-primary flex items-center justify-center">
             <i data-lucide="user-cog" class="w-4 h-4"></i>
           </div>
           <div>
@@ -2331,7 +2344,7 @@
             id="modal-officer-name" 
             value="A. Sharma" 
             placeholder="e.g. A. Sharma"
-            class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af] font-medium"
+            class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-primary font-medium"
             onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
           >
         </div>
@@ -2344,7 +2357,7 @@
               id="modal-officer-badge" 
               value="FE-802" 
               placeholder="e.g. FE-802"
-              class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af] font-mono"
+              class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-primary font-mono"
               onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
             >
           </div>
@@ -2357,7 +2370,7 @@
               value="FE" 
               maxlength="3"
               placeholder="e.g. FE"
-              class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af] font-mono uppercase font-bold"
+              class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-primary font-mono uppercase font-bold"
               onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
             >
           </div>
@@ -2369,7 +2382,7 @@
             type="text" 
             id="modal-officer-designation" 
             value="Senior Cyber Forensic Analyst" 
-            class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af]"
+            class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-primary"
             onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
           >
         </div>
@@ -2380,7 +2393,7 @@
             type="text" 
             id="modal-officer-ps" 
             value="Digital Forensic Research Laboratory" 
-            class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-[#0262af]"
+            class="w-full px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white text-[#0F172A] focus:outline-none focus:border-primary"
             onkeydown="if(event.key==='Enter') saveOfficerModalProfile();"
           >
         </div>
