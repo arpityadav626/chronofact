@@ -6,8 +6,9 @@ from pathlib import Path
 
 SOURCE_DIR = Path(r"C:\Users\Arpit Yadav\.gemini\antigravity\scratch\chronofact")
 STAGING_DIR = Path(r"C:\Users\Arpit Yadav\.gemini\antigravity\scratch\ChronoFact_SUTRAM2026_Submission")
-ZIP_DEST_LOCAL = SOURCE_DIR / "ChronoFact_SUTRAM2026_Round2_Submission.zip"
-ZIP_DEST_DESKTOP = Path(r"C:\Users\Arpit Yadav\OneDrive\Desktop\ChronoFact_SUTRAM2026_Round2_Submission.zip")
+ZIP_DEST_LOCAL = SOURCE_DIR / "ChronoFact_Complete_Prototype.zip"
+ZIP_DEST_VIDEOS = Path(r"C:\Users\Arpit Yadav\Videos\chronofact\ChronoFact_Complete_Prototype.zip")
+ZIP_DEST_DESKTOP = Path(r"C:\Users\Arpit Yadav\OneDrive\Desktop\ChronoFact_Complete_Prototype.zip")
 
 # Whitelist / Inclusions
 INCLUDE_DIRS = [
@@ -17,9 +18,15 @@ INCLUDE_DIRS = [
     "docs",
     "presentation",
     "models",
+    "model-runs",
 ]
 
 INCLUDE_FILES = [
+    "ChronoFact_Single_File_Prototype.html",
+    "index.html",
+    "login.html",
+    "app.js",
+    "styles.css",
     "README.md",
     "SETUP.md",
     "README_PHASES.md",
@@ -36,7 +43,13 @@ INCLUDE_FILES = [
     "phase4_memory.py",
     "phase5_report.py",
     "phase6_ml.py",
+    "eval_ml.py",
+    "generate_realistic_training_data.py",
+    "build_single_file_prototype.py",
     "training_data.csv",
+    "CHRONOFACT_Official_Demo_Script.pdf",
+    "ChronoFact_Presentation_CheatSheet.pdf",
+    "ChronoFact_System_Flowchart.pdf",
 ]
 
 EXCLUDE_PATTERNS = [
@@ -112,6 +125,11 @@ def clean_and_package():
 
     size_mb = ZIP_DEST_LOCAL.stat().st_size / (1024 * 1024)
     print(f"[SUCCESS] Created local ZIP: {ZIP_DEST_LOCAL} ({size_mb:.2f} MB)")
+
+    # Copy to Videos/chronofact
+    if ZIP_DEST_VIDEOS.parent.exists():
+        shutil.copy2(ZIP_DEST_LOCAL, ZIP_DEST_VIDEOS)
+        print(f"[SUCCESS] Copied prototype ZIP to Videos: {ZIP_DEST_VIDEOS}")
 
     # Copy to Desktop
     if ZIP_DEST_DESKTOP.parent.exists():
