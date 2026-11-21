@@ -1,14 +1,7 @@
-version: '3.8'
-
 services:
   chronofact:
     build: .
-    ports:
-      - "8000:8000"
-    environment:
-      - DATABASE_URL=sqlite:///./data/chronofact.db
-      - LOG_LEVEL=INFO
-    volumes:
-      - ./data:/app/data
-      - ./app/static:/app/app/static:ro
+    ports: ["127.0.0.1:8000:8000"]
+    env_file: .env
+    volumes: ["./data:/app/data"]
     restart: unless-stopped

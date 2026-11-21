@@ -275,7 +275,7 @@ def train(args) -> int:
     metrics = {
         "schema": "chronofact-phase6-evaluation-v1",
         "created_at_utc": utc_now(),
-        "dataset_path": str(csv_path),
+        "dataset_path": csv_path.name,
         "dataset_sha256": sha256_file(csv_path),
         "model_type": model_type,
         "target_column": args.label_column,

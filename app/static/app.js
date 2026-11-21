@@ -1,3 +1,32 @@
+// ---- auth plumbing: attach the bearer token to same-origin /api calls; 401 => back to login ----
+(function () {
+  const origFetch = window.fetch.bind(window);
+  window.fetch = async function (input, init) {
+    const url = typeof input === "string" ? input : (input && input.url) || "";
+    if (url.startsWith("/api/") && !url.startsWith("/api/auth/") && !url.startsWith("/api/health")) {
+      const t = sessionStorage.getItem("chronofact_auth_token");
+      if (t && t !== "demo-offline-no-server") {
+        init = Object.assign({}, init);
+        init.headers = Object.assign({}, init.headers, { Authorization: "Bearer " + t });
+      }
+    }
+    const res = await origFetch(input, init);
+    if (res.status === 401 && url.startsWith("/api/") && !url.startsWith("/api/auth/")) {
+      ["chronofact_auth_user", "chronofact_auth_token"].forEach(k => sessionStorage.removeItem(k));
+      window.location.replace("login.html");
+    }
+    return res;
+  };
+  if (sessionStorage.getItem("chronofact_demo_mode") === "1") {
+    document.addEventListener("DOMContentLoaded", () => {
+      const b = document.createElement("div");
+      b.textContent = "DEMO MODE - no server, unauthenticated, synthetic data only";
+      b.style.cssText = "position:fixed;bottom:0;left:0;right:0;z-index:99999;background:#92400E;color:#fff;font:600 12px sans-serif;text-align:center;padding:4px";
+      document.body.appendChild(b);
+    });
+  }
+})();
+
 /**
  * CHRONOFACT 2.0 // OFFICIAL FORENSIC INVESTIGATION WORKBENCH
  * Compliance: Bharatiya Sakshya Adhiniyam, 2023 §63(4) (Indian Evidence Law)
@@ -191,17 +220,17 @@ const SAMPLE_CASES = {
     ground_reality: "Concurrent authenticated session LOGIN OK from IP 192.168.1.105 with file exfiltration, confirmed by Sector 62 BTS tower antenna DEL-S-041.",
     delta_text: "+24.8 km Cellular Antenna Conflict • Evening Activity Contradicts Alibi",
     anomalies_label: "Alibi Contradiction Grounded",
-    merkle_root: "135657c6ae64dc8925abc22fa795d41918e238388d298cfc00f0a881ca7b02b2",
+    merkle_root: "622b79b4ed9b8ffb8b850ce0c08e2cafbc3bc1171b0ed19041abf26148c2957d",
     evidence: [
       {
         id: "EV-25C119",
         filename: "server_access.csv",
         file_type: "SERVER_LOG",
-        size_bytes: 275,
-        sha256: "c67d5b85b52c2a5e11c76ff9691d483b233d2c8f6ae617702b8732a76f122618",
-        sha3_256: "ce98141049acabcb9b8f51deb0f7d0f6f04c975536ffdc0ad63dff3cfd3e409e",
+        size_bytes: 286,
+        sha256: "b6ea37e9df964e3b5d2b5a77b8cdf168f022f3b3c1acba59e6dd8b108f2945ef",
+        sha3_256: "694d94d421f9486e8424de5f7dc4e65fd25b37f561fb255816bc5b893e8b1e4c",
         uploaded_at: "13 Sep 2025, 09:30 am",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "Workstation Terminal",
         custodian: "Rajesh Varma (Systems Administrator)",
         tool: "FTK Imager v4.7 (Bitstream Image)"
@@ -214,7 +243,7 @@ const SAMPLE_CASES = {
         sha256: "c5153b32d491cc521a07116172f5b38a5aac2004027dd66c45af9b32817b47f4",
         sha3_256: "bfda748567b94825ddbd8f10fd6302487d73d0061537ecc9741f74ca748d8600",
         uploaded_at: "13 Sep 2025, 09:30 am",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "Phone / Mobile Device",
         custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Cellebrite UFED 4PC v7.68"
@@ -227,7 +256,7 @@ const SAMPLE_CASES = {
         sha256: "70d855d6585b82a6e5c9c2cd9763ee92a1296105f71b3506db560cb7579e312b",
         sha3_256: "2d0eae4b4d0fffbd35a7c027e0420b7f9f2d1a1691a799512bcafa01ac826442",
         uploaded_at: "13 Sep 2025, 09:30 am",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "Corporate Email Server",
         custodian: "Rajesh Varma (Systems Administrator)",
         tool: "MailStore Forensic Imager"
@@ -236,11 +265,11 @@ const SAMPLE_CASES = {
         id: "EV-9F3E12",
         filename: "telecom_cdr_tower.csv",
         file_type: "TELECOM_CDR",
-        size_bytes: 140,
-        sha256: "b13d751aa662d36dc6f04c9ecff462def0736e218348a8c87546ebf1ec759728",
-        sha3_256: "0580cefa481d2ce9ea235e1a5ae1384b79a7e9a1cc655e24396fcc8551cdf0df",
+        size_bytes: 145,
+        sha256: "719a35470551801634b0ac0aa64a071b34c4f610da874021cd0755085cfd591f",
+        sha3_256: "3fe885ba3d1d41b1bf16fb04d3219ac5da9fd583f93dcb4ada20bdec731b8f3f",
         uploaded_at: "13 Sep 2025, 09:30 am",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "Cellular BTS Tower Log",
         custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Telecom CDR Ingestion Parser"
@@ -350,17 +379,17 @@ const SAMPLE_CASES = {
     ground_reality: "Bearer token active on seized device IMEI with automated SMS OTP hook, validated by Dadar West Sector 2 BTS at 18:44 IST.",
     delta_text: "+148 km Location Clash • Zero-Latency SMS Relay (<500ms)",
     anomalies_label: "Telecom BTS Tower Conflict",
-    merkle_root: "d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5",
+    merkle_root: "de6f407d32f2058c98d00037935798e7026cbc19672ebbfead0feb1380cba9a9",
     evidence: [
       {
         id: "EV-BKC01",
         filename: "trojan_payload.apk",
         file_type: "APPLICATION_PKG",
         size_bytes: 421800,
-        sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        sha3_256: "1f82b7c4d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6",
+        sha256: "9b2c8339c66c7070fc47f6442c985ad52c860c41c3490a59d4d777c978d182f1",
+        sha3_256: "36496c2831ddeedb8860c211e08138c8836e96a879be60758a0e04818a79c81f",
         uploaded_at: "14 Jan 2026, 09:20 pm",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "Phone / Mobile Device",
         custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Belkasoft Evidence Center v12.1"
@@ -370,10 +399,10 @@ const SAMPLE_CASES = {
         filename: "upi_gateway_webhook.json",
         file_type: "SERVER_LOG",
         size_bytes: 1240,
-        sha256: "8f4b2a3c7d1e6f5a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a",
-        sha3_256: "c7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8",
+        sha256: "a4c38f648e7980941190e024e2467b82b61e2ebc2f34b08e517483b67c11b2b6",
+        sha3_256: "8d2f389d34d45d678d21fa0dccbaa53f251c26dac4e55957a5c8c7f72c5ff369",
         uploaded_at: "14 Jan 2026, 09:25 pm",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "NPCI Switch Gateway",
         custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Wireshark PCAP Stream Dump"
@@ -383,10 +412,10 @@ const SAMPLE_CASES = {
         filename: "cdr_tower_telemetry.csv",
         file_type: "TELECOM_CDR",
         size_bytes: 46080,
-        sha256: "a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e",
-        sha3_256: "5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c",
+        sha256: "c63c5e4929096b50491cf6c7a2abc09a58a1a398333380217ed8aa52c4bbc258",
+        sha3_256: "f9af3e26a14cdea26d74c3268827a95f56aae4609a389e2a0b6d6c4964c848ad",
         uploaded_at: "14 Jan 2026, 09:30 pm",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "Airtel LSA BTS Tower",
         custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "EnCase Forensic v21.4"
@@ -396,10 +425,10 @@ const SAMPLE_CASES = {
         filename: "sms_forwarder_sqlite.db",
         file_type: "DATABASE",
         size_bytes: 524288,
-        sha256: "9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b",
-        sha3_256: "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b",
+        sha256: "51260cdc2efda42b08157e58fd7fb63c49f02531dc63e0a9a6f954bd003312e5",
+        sha3_256: "bc1603358a052874fdd382a04bebf124dfedda35140772fc6fcd86d8dba5bbfd",
         uploaded_at: "14 Jan 2026, 09:35 pm",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "Phone SQLite Cache",
         custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Oxygen Forensic Detective v15.2"
@@ -520,17 +549,17 @@ const SAMPLE_CASES = {
     ground_reality: "Sysmon Event 4624 confirms Interactive Physical Console Logon (Type 2). $MFT $STANDARD_INFORMATION antedated by 760 days.",
     delta_text: "760-Day $MFT Antedating • Interactive Console Logon",
     anomalies_label: "NTFS $MFT Timestomp Detected",
-    merkle_root: "7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c",
+    merkle_root: "64d52b93ad6f21f5a61900351d2e06a0d523d73ace293c0fab11560fdedef470",
     evidence: [
       {
         id: "EV-KUL01",
         filename: "icu_server_mft_parsed.raw",
         file_type: "FILE_SYSTEM_IMAGE",
         size_bytes: 134217728,
-        sha256: "71a82c4d9e0f1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c",
-        sha3_256: "4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f",
+        sha256: "3d2a653a17414b44ed92fdb82782993af3bf941efed1b6b0f5cf406cc2964ae4",
+        sha3_256: "e567fca1220cf898427d33d67159522224f62e22d9610d5b8a45b601498994e5",
         uploaded_at: "08 Feb 2026, 11:45 pm",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "Windows Server 2022",
         custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "X-Ways Forensics v20.8"
@@ -540,10 +569,10 @@ const SAMPLE_CASES = {
         filename: "lockbit_custom_binary.bin",
         file_type: "MALWARE_BINARY",
         size_bytes: 860160,
-        sha256: "5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e",
-        sha3_256: "1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
+        sha256: "e20bbe94f426a7c7d3ee51af0f8e6984266b1429d0c0d16af320b991557c4b89",
+        sha3_256: "0ee1cfc0340c91f9c1a9483f0ca669cb08a5066c8a22b505a12f02c5cef3da20",
         uploaded_at: "08 Feb 2026, 11:50 pm",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "Quarantine Sandbox VM",
         custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Ghidra Disassembler v11.0"
@@ -553,10 +582,10 @@ const SAMPLE_CASES = {
         filename: "sysmon_eventlog.evtx",
         file_type: "SERVER_LOG",
         size_bytes: 14680064,
-        sha256: "3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d",
-        sha3_256: "9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c1b0a9f8e",
+        sha256: "739bd578aa9a571807df6a6a2fae6bbb6d72534bd75bc0842c05ee9fb3cc8046",
+        sha3_256: "9871314b38f0e792dff4371d9c5c7321b9b5960d51700dd60a9c495ba6e10317",
         uploaded_at: "08 Feb 2026, 11:55 pm",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "Domain Controller AD",
         custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "KAPE Live Triage v1.3"
@@ -566,10 +595,10 @@ const SAMPLE_CASES = {
         filename: "monero_ransom_note.txt",
         file_type: "TEXT_DOCUMENT",
         size_bytes: 1843,
-        sha256: "1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f",
-        sha3_256: "8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b",
+        sha256: "9b6817136f343823566b721d994c8f7c8fd0225724626456d42d5ed64179d71a",
+        sha3_256: "2db6fc0b803fd687e9b8ba59747f8abfed7bee6229b136c0d00be4d7959385a7",
         uploaded_at: "09 Feb 2026, 12:05 am",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "Hospital SAN Storage",
         custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "FTK Imager v4.7"
@@ -678,17 +707,17 @@ const SAMPLE_CASES = {
     ground_reality: "18 keyframes contain synthetic facial boundary warping; audio spectrogram displays 8.0 kHz cutoff and +420ms AV desync.",
     delta_text: "+420ms Audio-Video Desync • 18 Synthetic Keyframes",
     anomalies_label: "Synthetic Deepfake Jitter Grounded",
-    merkle_root: "2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b",
+    merkle_root: "5e3cc70fca66cc5a020b17ee27981b3213cd63aa20e4a655473574fde79285e6",
     evidence: [
       {
         id: "EV-PV01",
         filename: "extortion_video_call.mp4",
         file_type: "VIDEO_RECORDING",
         size_bytes: 19293798,
-        sha256: "6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b",
-        sha3_256: "2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d",
+        sha256: "73a04e03d87944a73cf3b018351cf6b56d4beb09d845d2a57ca72d9de7e0fb60",
+        sha3_256: "0b2db1f217a9a05a74c7b337b5d01c88f6e4703f37128c31378a9d2d3f41f5df",
         uploaded_at: "01 Mar 2026, 08:30 pm",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "iPhone 15 Pro",
         custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Amped FIVE Video Forensics Suite"
@@ -698,10 +727,10 @@ const SAMPLE_CASES = {
         filename: "voice_sample_spectrum.wav",
         file_type: "AUDIO_WAVEFORM",
         size_bytes: 6501171,
-        sha256: "4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d",
-        sha3_256: "7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f",
+        sha256: "d64c446726deacd6dbe7398e07cc03d4d30c7cb83087cef4ccaf6cda5a14a62f",
+        sha3_256: "e0a0efd961f6dab22c0f125c18949a5619774eb8649338bc035f22ae88f1f4ee",
         uploaded_at: "01 Mar 2026, 08:35 pm",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "Audio Extraction",
         custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "iZotope RX Pro Forensic Edition"
@@ -711,10 +740,10 @@ const SAMPLE_CASES = {
         filename: "crypto_usdt_ledger.csv",
         file_type: "BLOCKCHAIN_LOG",
         size_bytes: 8294,
-        sha256: "8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f",
-        sha3_256: "1a3c5e7g9i1k3m5o7q9s1u3w5y7a9c1e3g5i7k9m1o3q5s7u9w1y3a5c7e9g1i3k",
+        sha256: "4952becd07da37d065f64e5992ab24b75a09bf309ba6305047fe228bddf540cb",
+        sha3_256: "9c6679509b7f6e6dd3539b4bf8ec472dfe584f72351b520d517bf9f7b922d003",
         uploaded_at: "01 Mar 2026, 08:40 pm",
-        integrity_status: "Untampered (0 B Skew)",
+        integrity_status: "Hashed in browser (offline demo, not vaulted)",
         device_type: "TRC-20 Blockchain Node",
         custodian: "A. Sharma (Forensic Analyst #FE-802)",
         tool: "Chainalysis Reactor v4.8"
@@ -1389,8 +1418,16 @@ async function commitUploadedExhibit() {
   }
 
   // Generate deterministic hash simulation for offline/static fallback
-  const randomHex = Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('');
-  const randomSha3 = Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('');
+  // Offline fallback: compute a REAL SHA-256 in the browser (the old code displayed random hex as a "hash").
+  // WebCrypto has no SHA3-256, so that field is explicitly marked as not computed.
+  let randomHex = "unavailable (no file / WebCrypto)";
+  const randomSha3 = "not computed offline";
+  if (file && window.crypto && crypto.subtle) {
+    try {
+      const d = await crypto.subtle.digest("SHA-256", await file.arrayBuffer());
+      randomHex = Array.from(new Uint8Array(d)).map(b => b.toString(16).padStart(2, "0")).join("");
+    } catch (_) {}
+  }
   const newId = "EV-" + Math.random().toString(16).substring(2, 8).toUpperCase();
 
   let fileType = "SERVER_LOG";
@@ -1406,7 +1443,7 @@ async function commitUploadedExhibit() {
     sha256: randomHex,
     sha3_256: randomSha3,
     uploaded_at: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
-    integrity_status: "Untampered (0 B Skew)",
+    integrity_status: "Hashed in browser (offline demo, not vaulted)",
     device_type: deviceType,
     custodian: `Inspector A. Yadav (${notes})`,
     tool: tool
@@ -2157,13 +2194,13 @@ function evaluateQueryClientSide(query) {
       grounding_score: 100.0,
       is_admissible: true,
       title: "100% CRYPTOGRAPHIC LEGAL PROVENANCE VERIFIED",
-      finding: "All seized exhibits satisfy NIST FIPS 180-4 and FIPS 202 dual-hash certification with Master Merkle Root 135657c6ae64dc8925abc22fa795d41918e238388d298cfc00f0a881ca7b02b2, supporting Section 63(4) of Bharatiya Sakshya Adhiniyam, 2023.",
+      finding: "All seized exhibits satisfy NIST FIPS 180-4 and FIPS 202 dual-hash certification with Master Merkle Root 622b79b4ed9b8ffb8b850ce0c08e2cafbc3bc1171b0ed19041abf26148c2957d, supporting Section 63(4) of Bharatiya Sakshya Adhiniyam, 2023.",
       legal_basis: "Zero byte alteration confirmed across local immutable storage. Unbroken chain of custody verified.",
       claims: [
         {
           claim_text: "Case exhibits conform to NIST FIPS 180-4 / FIPS 202 and BSA 2023 §63(4)",
           evidence_id: "EV-MERKLE",
-          exact_quote: "Master Merkle Root: 135657c6ae64dc8925abc22fa795d41918e238388d298cfc00f0a881ca7b02b2",
+          exact_quote: "Master Merkle Root: 622b79b4ed9b8ffb8b850ce0c08e2cafbc3bc1171b0ed19041abf26148c2957d",
           locator: "Root Block",
           badge: "Cryptographic Custody Intact"
         }
@@ -2484,7 +2521,7 @@ function openMerkleModal() {
   const leavesBox = document.getElementById('tree-leaves-container');
 
   const c = SAMPLE_CASES[currentCaseKey];
-  const currentRoot = (c && c.merkle_root) ? c.merkle_root : "135657c6ae64dc8925abc22fa795d41918e238388d298cfc00f0a881ca7b02b2";
+  const currentRoot = (c && c.merkle_root) ? c.merkle_root : "622b79b4ed9b8ffb8b850ce0c08e2cafbc3bc1171b0ed19041abf26148c2957d";
   if (rootBox) rootBox.textContent = currentRoot;
   if (leavesBox) {
     leavesBox.innerHTML = allEvidenceItems.map((ex, i) => `
@@ -2883,7 +2920,7 @@ let currentOfficer = {
 function checkAuthGuard() {
   const authUser = sessionStorage.getItem("chronofact_auth_user");
   const authToken = sessionStorage.getItem("chronofact_auth_token");
-  if (!authUser || !authToken || (authUser !== "examiner" && authUser !== "analyst" && authUser !== "arpit" && authUser !== "forensic_examiner")) {
+  if (!authUser || !authToken) {
     window.location.replace("login.html");
     return false;
   }

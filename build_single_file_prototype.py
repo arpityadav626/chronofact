@@ -45,6 +45,30 @@ def build_single_file(source_dir: Path, output_file: Path):
     redirect_pattern = r"<script>\s*\(function\(\)\s*\{\s*try\s*\{\s*var user = sessionStorage\.getItem\('chronofact_auth_user'\);.*?window\.location\.replace\('login\.html'\);.*?\}\s*\)\(\);\s*</script>"
     index_html = re.sub(redirect_pattern, "<!-- Standalone Authentication Gate Embedded -->", index_html, flags=re.DOTALL)
 
+    # In index_html, optionally inline vendor scripts if present
+    vendor_dir = source_dir / "assets" / "vendor"
+    if (vendor_dir / "tailwind.min.js").exists() and (vendor_dir / "lucide.min.js").exists():
+        with open(vendor_dir / "tailwind.min.js", "r", encoding="utf-8") as f:
+            tw_js = f.read()
+        with open(vendor_dir / "lucide.min.js", "r", encoding="utf-8") as f:
+            lucide_js = f.read()
+        with open(vendor_dir / "jszip.min.js", "r", encoding="utf-8") as f:
+            jszip_js = f.read()
+        vendor_replacement = f"""
+  <!-- Inlined Offline Air-Gapped Vendor Libraries (Zero Network Dependencies) -->
+  <script>
+{tw_js}
+  </script>
+  <script>
+{lucide_js}
+  </script>
+  <script>
+{jszip_js}
+  </script>
+"""
+        vendor_pattern = r'<!-- Offline Air-Gapped Local Vendor Scripts.*?<script src="assets/vendor/jszip\.min\.js"></script>\s*<script>.*?</script>'
+        index_html = re.sub(vendor_pattern, lambda m: vendor_replacement, index_html, flags=re.DOTALL)
+
     # In index_html, replace the external stylesheet link with inlined <style>
     style_link_pattern = r'<link\s+rel=["\']stylesheet["\'][^>]*styles\.css[^>]*>'
     inlined_css = f"""
@@ -259,7 +283,8 @@ if __name__ == "__main__":
     out_scratch = src / "ChronoFact_Single_File_Prototype.html"
     build_single_file(src, out_scratch)
     
-    # 2. Output to Videos/chronofact
-    videos_dir = Path("C:/Users/Arpit Yadav/Videos/chronofact")
-    out_videos = videos_dir / "ChronoFact_Single_File_Prototype.html"
-    build_single_file(src, out_videos)
+    # 2. Output to Desktop for quick evaluator access
+    desktop_dir = Path("C:/Users/Arpit Yadav/OneDrive/Desktop")
+    if desktop_dir.exists():
+        out_desktop = desktop_dir / "ChronoFact_Single_File_Prototype.html"
+        build_single_file(src, out_desktop)

@@ -1,0 +1,6 @@
+# Optional: scripts (phase5_report.py, phase6_ml.py, eval_ml.py) and semantic search
+-r requirements.txt
+pandas>=2.1.0
+reportlab>=4.0.0
+python-docx>=1.1.0
+sentence-transformers>=2.3.0   # optional; without it /api/rag/* uses keyword fallback and says so

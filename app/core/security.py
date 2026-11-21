@@ -1,33 +1,32 @@
-# FastAPI Security Middleware
-from fastapi import Request, HTTPException, status
+"""HTTP security middleware (registered in app/main.py - previously defined but never attached)."""
+from fastapi import Request, status
 from fastapi.responses import JSONResponse
-from .auth import rate_limiter, decode_token
 
-# Security headers middleware
-from fastapi.middleware import Middleware
-from fastapi.middleware.cors import CORSMiddleware
+from .auth import rate_limiter
 
-# Add security headers
+
 async def add_security_headers(request: Request, call_next):
     response = await call_next(request)
-    response.headers["X-Content-Type-Options"] = "nosniff"
-    response.headers["X-Frame-Options"] = "DENY"
-    response.headers["X-XSS-Protection"] = "1; mode=block"
-    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+    h = response.headers
+    h["X-Content-Type-Options"] = "nosniff"
+    h["X-Frame-Options"] = "DENY"
+    h["Referrer-Policy"] = "no-referrer"
+    h["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+    # Directives that cannot break the current UI (inline scripts + CDN assets still work).
+    # Tighten script-src/style-src after vendoring Tailwind/Lucide/fonts locally (see README).
+    h["Content-Security-Policy"] = "frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
+    if request.url.path.startswith("/api/"):
+        h["Cache-Control"] = "no-store"
+    if request.headers.get("x-forwarded-proto", request.url.scheme) == "https":
+        h["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     return response
 
-# Rate limiting middleware
+
 async def rate_limit_middleware(request: Request, call_next):
-    # Skip auth endpoint
-    if request.url.path == "/api/auth/login":
-        return await call_next(request)
-    
-    client_id = request.client.host if request.client else "unknown"
-    if not rate_limiter.is_allowed(client_id):
-        return JSONResponse(
-            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            content={"detail": "Rate limit exceeded. Try again later."}
-        )
-    
+    """General per-IP limit on API calls. Login has its own stricter throttle in the endpoint."""
+    if request.url.path.startswith("/api/") and request.url.path != "/api/health":
+        client_id = request.client.host if request.client else "unknown"
+        if not rate_limiter.is_allowed(client_id):
+            return JSONResponse(status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+                                content={"detail": "Rate limit exceeded. Try again later."})
     return await call_next(request)

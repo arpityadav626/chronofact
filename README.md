@@ -3,7 +3,7 @@
 > **Verifiable, Uncertainty-Aware Digital Evidence Reasoning & Statutory Admissibility Engine**  
 > **Compliant with Section 63(4) of Bharatiya Sakshya Adhiniyam, 2023 (BSA)**  
 > 
-> 🏆 **SUTRAM 2026 — Round 2 Finalist Project Submission**  
+> **SUTRAM 2026 — Round 2 Submission**  
 > **Organized by:** Information Security Education and Awareness (ISEA) Project | Ministry of Electronics and Information Technology (MeitY), Government of India  
 > **Host Institution:** Department of Information Technology, Indira Gandhi Delhi Technical University for Women (IGDTUW)  
 > **Project Lead:** Arpit Yadav & Team  
@@ -18,7 +18,7 @@ Modern criminal and corporate fraud investigations in India face an acute eviden
 3. **Confirmation Bias:** Triage tools surface only incriminating correlations without proposing mandatory alternative benign hypotheses.
 4. **Fragile Custody Chains:** Electronic exhibits lack concurrent cryptographic multi-algorithm hashing and tamper-evident Merkle tree proofs.
 
-**CHRONOFACT 2.0** is an enterprise-grade, air-gapped forensic intelligence workbench built specifically for Cyber Crime Units, State Forensic Science Laboratories (FSLs), and Judicial Magistrates. It fuses **NIST dual-algorithm cryptographic hashing**, **Allen's Interval Temporal Algebra**, **deterministic velocity impossibility analysis**, **mechanical byte-span citation verification**, and **one-click BSA 2023 §63(4) statutory certificate generation**.
+**CHRONOFACT 2.0** is a prototype forensic intelligence workbench that runs fully locally built specifically for Cyber Crime Units, State Forensic Science Laboratories (FSLs), and Judicial Magistrates. It fuses **NIST dual-algorithm cryptographic hashing**, **Allen's Interval Temporal Algebra**, **deterministic velocity impossibility analysis**, **mechanical byte-span citation verification**, and **one-click BSA 2023 §63(4) statutory certificate generation**.
 
 ---
 
@@ -28,7 +28,7 @@ Under **Section 63(4) of the Bharatiya Sakshya Adhiniyam, 2023**, any electronic
 - **Part A:** The person occupying an official position in relation to the operation of the relevant device or the management of the relevant activities (Lawful Custodian).
 - **Part B:** An authorized technical forensic expert or cyber examiner confirming the cryptographic hash, device integrity, and uncorrupted transmission.
 
-ChronoFact automates this statutory mandate by maintaining an immutable, dual-algorithm evidence ledger and generating court-admissible legal affidavits dynamically.
+ChronoFact automates this statutory mandate by maintaining an immutable, dual-algorithm evidence ledger and generating UNSIGNED DRAFT §63(4) certificates that a human officer and expert must review and sign.
 
 ---
 
@@ -48,11 +48,11 @@ ChronoFact automates this statutory mandate by maintaining an immutable, dual-al
   │  └── Dual UTC / IST Timezone Normalization with Clock Drift Tolerance
   ▼
 [SPATIO-TEMPORAL INCONSISTENCY RADAR & ML ANOMALY ENGINE]
-  │  ├── Haversine Distance & Velocity Impossibility (>500 km/h Alibi Contradiction)
+  │  ├── Haversine Distance & Velocity Impossibility (>800 km/h implied-speed flag)
   │  ├── Unsupervised IsolationForest Telemetry Scoring with Factor Attribution
   │  └── Mandatory 4 Benign Alternative Hypotheses (Bias Prevention Engine)
   ▼
-[MECHANICAL CITATION GATE (0% HALLUCINATION GUARANTEE)]
+[MECHANICAL CITATION GATE (verbatim byte-span check)]
   │  ├── Verbatim Byte-Span Verification: [byte_start, byte_end] & File Line Anchors
   │  └── Trap Gate: Unsubstantiated / Fabricated Quotes Struck Down with 0.0% Score
   ▼
@@ -134,11 +134,11 @@ chronofact/
 │   ├── TROUBLESHOOTING.md          # Diagnostic runbook for common edge cases
 │   └── USAGE.md                    # Complete examiner workflow walkthrough
 ├── sample_evidence/                # Pre-packaged synthetic corporate espionage case
-│   ├── server_access_log.csv       # Server authentication timestamps & external IP logs
-│   ├── suspect_alibi_chat.txt      # Suspect's WhatsApp claims & conflicting statements
+│   ├── server_access.csv       # Server authentication timestamps & external IP logs
+│   ├── whatsapp_chat.txt      # Suspect's WhatsApp claims & conflicting statements
 │   ├── telecom_cdr_tower.csv       # Cell tower azimuth, sector ID & coordinates
-│   └── confidential_leak_email.eml # RFC 822 exfiltration email with MIME attachments
-├── tests/                          # 100% automated forensic accuracy test suite
+│   └── confidential_leak.eml # RFC 822 exfiltration email with MIME attachments
+├── tests/                          # automated test suite
 │   ├── test_backend_accuracy_engines.py # Allen's algebra, alibi radar & citation gates
 │   ├── test_forensic_integrity.py       # NIST test vectors, Merkle proofs & 1-bit tampering
 │   ├── test_ml_models.py                # IsolationForest anomaly scoring & RAG verification
@@ -247,10 +247,10 @@ ChronoFact comes pre-loaded with a complete, synthetic corporate insider threat 
 ### 1. Ingest Case Exhibits
 1. Click **"⚡ Load Sample Case Exhibit"** in the top navigation bar.
 2. The system instantaneously ingests four disparate evidence streams:
-   - `server_access_log.csv`: Production server authentication and SCP file transfer records.
-   - `suspect_alibi_chat.txt`: Suspect's WhatsApp claims insisting he was asleep at home.
+   - `server_access.csv`: Production server authentication and SCP file transfer records.
+   - `whatsapp_chat.txt`: Suspect's WhatsApp claims insisting he was asleep at home.
    - `telecom_cdr_tower.csv`: Telecom antenna coordinates and azimuth connections.
-   - `confidential_leak_email.eml`: Exfiltrated project source code with RFC-822 email headers.
+   - `confidential_leak.eml`: Exfiltrated project source code with RFC-822 email headers.
 
 ### 2. Inspect Cryptographic Sealing & Merkle Tree
 - Navigate to the **Evidence Vault** tab.
@@ -263,8 +263,8 @@ ChronoFact comes pre-loaded with a complete, synthetic corporate insider threat 
 
 ### 4. Trigger the Inconsistency Radar (Alibi Buster)
 - Scroll to the **Inconsistency Radar** card.
-- **The Finding:** Suspect claims in WhatsApp at `23:14 IST` that he is sleeping at his residence in Noida Sector 62. However, cellular CDR logs record his phone connecting to Tower `DEL-S-041` in Okhla Phase III at `23:17 IST` (+24.8 km distance).
-- **Physical Velocity Check:** Moving 24.8 km in 3 minutes requires a velocity of **496.0 km/h**, physically impossible by ground transit.
+- **The Finding:** Suspect claims in WhatsApp at `15:25 IST` that he is sleeping at his residence in Noida Sector 62. However, cellular CDR logs record his phone connecting to Tower `DEL-S-041` in Okhla Phase III at `15:27 IST` (+24.8 km distance), followed by authenticated server access logs downloading confidential financial models at `15:28 IST`.
+- **Physical Velocity Check:** Moving 24.8 km in ~92 seconds requires an impossible velocity of **970.0 km/h** (and over 490 km/h even across 3 minutes), physically impossible by ground transit.
 - **Benign Counter-Hypotheses:** ChronoFact automatically presents 4 alternative explanations (e.g. tower signal bounce, SIM clone, forwarded call, carrier network realignment) to ensure impartial judicial reporting.
 
 ### 5. Generate BSA 2023 Section 63(4) Legal Certificate
@@ -281,7 +281,7 @@ ChronoFact comes pre-loaded with a complete, synthetic corporate insider threat 
 
 ## 🧪 Automated Forensic Accuracy Test Suite
 
-To verify that the cryptographic, algorithmic, and legal engines operate with 100% mathematical precision, run the automated test suite:
+To verify that the cryptographic, algorithmic, and legal engines operate as covered by the test suite, run the automated test suite:
 
 ### Test 1: Cryptographic Integrity & NIST Test Vectors
 Validates NIST FIPS 180-4 and FIPS 202 digests against official NIST test vectors, streaming chunk equivalence, `atime` preservation, Merkle inclusion proofs, and 1-bit tamper interception:
@@ -310,7 +310,7 @@ python tests/test_ml_models.py
 
 - **Zero Cloud Dependence:** All natural language extraction, cryptographic hashing, and interval calculations run entirely on the local host. No evidence ever leaves the examination machine.
 - **Read-Only Ingestion:** Evidence files are opened strictly in read-only binary mode (`rb`), guaranteeing that access timestamps (`atime`) and modified timestamps (`mtime`) remain unchanged on physical media.
-- **AES-256-GCM Vault:** Case files stored in the local evidence vault are encrypted using AES-GCM with authenticated tags to prevent local malware or unauthorized user manipulation.
+- **Evidence Vault Security:** Seized exhibits are stored in a dedicated containment vault with strict path-confinement and sanitize guards. An optional AES-256-GCM encrypted-at-rest mode (`CHRONOFACT_VAULT_KEY_B64`) is available for untrusted storage environments, while default forensic mode maintains bitstream byte-identity for direct FSL hexadecimal audits.
 - **Enterprise Defense in Depth:** Includes Content Security Policy (CSP) headers, HTTP Strict Transport Security (HSTS), XSS protection, anti-clickjacking frame guards, and cryptographic session rate limiting.
 
 ---
@@ -330,3 +330,18 @@ python tests/test_ml_models.py
 ## 📜 License
 
 This project is licensed under the **Apache License 2.0**. See the [LICENSE](LICENSE) file for complete terms. Developed for academic evaluation, law enforcement research, and judicial evidence modernization.
+
+
+---
+
+## Security & honesty notes (v2)
+
+- **Run it:** `pip install -r requirements.txt`, copy `.env.example` to `.env`, set `CHRONOFACT_USER`/`CHRONOFACT_PASSWORD` and `JWT_SECRET_KEY`, then `python run.py`. For a public demo set `CHRONOFACT_DEMO_MODE=true` (accounts `examiner` / `analyst`, never in production).
+- All `/api/*` routes need a bearer token; there are no built-in passwords. Failed logins lock a client+user pair for 5 minutes.
+- Merkle scheme is `RFC6962-style/SHA-256/v2` (0x00 leaf / 0x01 node prefixes, odd nodes promoted). Roots from older builds differ by design.
+- The audit log is append-only (DB triggers) and `GET /api/audit/verify` recomputes the whole chain. It is tamper-*evident*, not tamper-proof: anchor the head hash externally (signed, printed or timestamped) for real assurance.
+- **Citation gate:** answers are extractive (verbatim excerpts), so "no fabricated quotes" holds by construction. It does not make the *interpretation* correct.
+- **ML is a triage aid.** Metrics come from a synthetic dataset (perfect holdout scores indicate the generator is easy, not real-world accuracy). IsolationForest flags a fixed fraction of any data.
+- **Not air-gapped as shipped:** the pages load Tailwind, Lucide and Google Fonts from CDNs. Vendor them locally (and pin versions) before claiming offline operation.
+- **Legal:** the certificate is a draft. Admissibility is decided by the court; this tool is not legal advice and is not a FIPS-validated module (it uses standard SHA-256/SHA3-256 algorithms through Python/OpenSSL).
+- Chat exports have no UTC offset; correlation rules assume `CHRONOFACT_ASSUMED_CHAT_TZ` (default +05:30) and disclose that in each finding.

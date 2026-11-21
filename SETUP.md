@@ -7,7 +7,7 @@
 | Phase | Description | Status |
 |-------|-------------|--------|
 | 0 | Security patches | ✅ Integrated |
-| 1 | Encrypted vault | ✅ AES-GCM |
+| 1 | Evidence vault | ✅ Path-confined & AES-GCM ready |
 | 2 | Read-only parsers | ✅ CSV/TXT/SQLite/EVTX/Registry |
 | 3 | Disk analysis | ✅ Sleuth Kit v4.14.0 |
 | 4 | Memory analysis | ✅ Volatility 3 wrapper |

@@ -1,13 +1,29 @@
 import sqlite3
 import json
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 from .config import DB_PATH
 
+
+@contextmanager
 def get_db():
-    conn = sqlite3.connect(DB_PATH)
+    """
+    SQLite connection scope: commit on success, rollback on error, ALWAYS close.
+    (A bare `with sqlite3.connect()` never closes the connection, which leaks handles.)
+    """
+    conn = sqlite3.connect(DB_PATH, timeout=15)
     conn.row_factory = sqlite3.Row
-    return conn
+    conn.execute("PRAGMA foreign_keys = ON")
+    conn.execute("PRAGMA journal_mode = WAL")
+    try:
+        yield conn
+        conn.commit()
+    except BaseException:
+        conn.rollback()
+        raise
+    finally:
+        conn.close()
 
 def init_db():
     with get_db() as conn:
@@ -110,14 +126,30 @@ def init_db():
             )
         """)
         
-        # Initialize genesis block in audit log if empty
+        # Initialize genesis block in audit log if empty (computed in Python: the old SQL
+        # literal '0'*64 is a numeric multiplication in SQLite and stored the value 0).
         cursor.execute("SELECT COUNT(*) as cnt FROM audit_log")
         if cursor.fetchone()["cnt"] == 0:
-            cursor.execute("""
-                INSERT INTO audit_log (seq, timestamp, actor, action, target_id, target_hash, details, prev_hash, entry_hash)
-                VALUES (1, datetime('now'), 'SYSTEM', 'GENESIS_INIT', 'SYSTEM', '0'*64, '{"msg": "Audit Log Initialized"}', '0'*64, '0'*64)
-            """)
-            
-        conn.commit()
+            from .crypto import HashChainedAuditLogger
+            g = HashChainedAuditLogger.create_log_entry(
+                seq=1, actor="SYSTEM", action="GENESIS_INIT", target_id="SYSTEM",
+                target_hash="0" * 64, prev_hash="0" * 64, details={"msg": "Audit Log Initialized"},
+            )
+            cursor.execute(
+                """INSERT INTO audit_log (seq, timestamp, actor, action, target_id, target_hash, details, prev_hash, entry_hash)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (g["seq"], g["timestamp"], g["actor"], g["action"], g["target_id"], g["target_hash"],
+                 g["details"], g["prev_hash"], g["entry_hash"]),
+            )
 
-init_db()
+        # Append-only enforcement at DB level (someone with raw file access can still drop these,
+        # which is exactly what /api/audit/verify detects through the hash chain).
+        cursor.execute("""
+            CREATE TRIGGER IF NOT EXISTS audit_log_no_update BEFORE UPDATE ON audit_log
+            BEGIN SELECT RAISE(ABORT, 'audit_log is append-only'); END
+        """)
+        cursor.execute("""
+            CREATE TRIGGER IF NOT EXISTS audit_log_no_delete BEFORE DELETE ON audit_log
+            BEGIN SELECT RAISE(ABORT, 'audit_log is append-only'); END
+        """)
+        conn.commit()

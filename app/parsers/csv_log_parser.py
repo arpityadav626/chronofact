@@ -45,11 +45,22 @@ def parse_csv_log_file(file_path: Path, evidence_id: str) -> Dict[str, Any]:
             raw_line = f"{timestamp_val},{user_val},{ip_val},{action_val},{status_val}"
             display_text = f"Timestamp: {timestamp_val} | User: {user_val} | IP: {ip_val} | Action: {action_val} | Status: {status_val}"
             fact_id = f"F-LOG-{uuid.uuid4().hex[:8]}"
+            fact_type = "SERVER_LOG_EVENT"
+
+            # Telecom CDR / tower-dump rows (msisdn + cell_tower_id [+ lat/lon]) used to be flattened
+            # to "<ts>,Unknown,,," and lost every telecom field. Keep them verbatim so that quotes
+            # remain byte-verifiable and tower coordinates are available to the correlation rules.
+            if row.get("cell_tower_id") or row.get("msisdn"):
+                user_val = row.get("msisdn") or user_val
+                fields = [f"{k}={v}" for k, v in row.items() if k and v not in (None, "")]
+                raw_line = ",".join(f"{v}" for v in row.values() if v is not None)
+                display_text = "CDR | " + " | ".join(fields)
+                fact_type = "TELECOM_CDR"
             
             facts.append({
                 "id": fact_id,
                 "evidence_id": evidence_id,
-                "fact_type": "SERVER_LOG_EVENT",
+                "fact_type": fact_type,
                 "locator": f"CSV row {row_count}",
                 "raw_text": raw_line,
                 "display_text": display_text,

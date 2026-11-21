@@ -73,12 +73,12 @@
   "How we catch fabricated claims using physics and mathematics."
 * **Explanation:**  
   - "Using the Geodesic Haversine formula, ChronoFact computes physical travel velocities between successive digital actions."
-  - "In our benchmark case study: Suspect Vikram Malhotra claims on WhatsApp at 23:14 IST that he is asleep at Noida Sector 62. Just 3 minutes later, at 23:17 IST, his phone connects to Okhla Phase III tower DEL-S-041 (+24.8 km away). Traveling 24.8 km in 3 minutes requires a velocity of **496.0 km/h**—a physical impossibility by road."
+  - "In our benchmark case study: Suspect Vikram Malhotra claims on WhatsApp at 15:25 IST that he is asleep at Noida Sector 62. Just 1.5 minutes later, at 15:27 IST, his phone connects to Okhla Phase III tower DEL-S-041 (+24.8 km away). Traveling 24.8 km in ~92 seconds requires an impossible velocity of **970.0 km/h** by road (and 3 minutes later at 15:28 IST, server access logs confirm active file exfiltration)."
   - **Crucial Ethical Guardrail:** "To prevent confirmation bias, ChronoFact automatically presents **4 benign alternative hypotheses** (e.g. atmospheric cellular signal bounce, background automated sync, tethering, or corporate VPN routing)."
 
 ---
 
-### Slide 8: Pillar 4 — Mechanical Citation Gate (0% Hallucination)
+### Slide 8: Pillar 4 — Mechanical Citation Gate (Deterministic Grounding)
 * **Key Point:**  
   "Zero tolerance for generative AI hallucinations in court."
 * **Explanation:**  

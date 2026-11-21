@@ -31,7 +31,7 @@ from app.engines.ml_model import ForensicAnomalyModel
 from app.engines.training_pipeline import TrainingPipeline
 
 
-def test_model_fit_predict_roundtrip():
+def _fit_model():
     print("[1/4] Testing ForensicAnomalyModel fit/predict round trip...")
 
     sample_logs = [
@@ -59,7 +59,13 @@ def test_model_fit_predict_roundtrip():
     return model
 
 
-def test_model_persistence(model):
+def test_model_fit_predict_roundtrip():
+    model = _fit_model()
+    assert model is not None
+
+
+def test_model_persistence():
+    model = _fit_model()
     print("[2/4] Testing model persistence (save/load) with integrity hash...")
 
     models_dir = PROJECT_ROOT / "models"

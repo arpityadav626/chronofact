@@ -305,204 +305,194 @@ class ForensicHashEngine:
 
 class MerkleTreeEngine:
     """
-    Deterministic Lexicographically Sorted Binary Merkle Tree Engine.
-    
-    1. Canonical Ordering:
-       Leaves are sorted lexicographically by their lowercase hexadecimal SHA-256
-       digest. This guarantees a deterministic root regardless of file ingestion order,
-       operating system directory traversal sequence, or timestamp discrepancies.
-       
-    2. Binary Merkle Node Hashing:
-       Each parent node is computed as SHA-256(left_bytes + right_bytes).
-       If an odd number of nodes exists at any level, the last node is paired with
-       a duplicate of itself (RFC 6962 / Bitcoin Merkle tree standard).
-       
-    3. Master Root Hash:
-       Iterates level-by-level until 1 root hash remains: `Case_Merkle_Root`.
-       This 256-bit digest serves as the statutory case master identifier
-       for the BSA 2023 s.63(4) certificate.
+    Deterministic Merkle tree over exhibit SHA-256 digests (RFC 6962 style).
+
+    1. Canonical ordering:
+       Leaf digests are sorted lexicographically (lowercase hex), so the root is
+       independent of ingestion order or filesystem traversal order.
+
+    2. Domain separation (fixes second-preimage ambiguity):
+       leaf_hash = SHA-256(0x00 || exhibit_sha256_bytes)
+       node_hash = SHA-256(0x01 || left || right)
+       A 64-byte internal-node preimage can therefore never be passed off as a leaf.
+
+    3. Odd nodes are PROMOTED unchanged to the next level (RFC 6962 behaviour).
+       They are NOT duplicated (duplication is the Bitcoin variant and allows two
+       different leaf lists to share one root).
+
+    4. Root: a single exhibit's root is its own leaf_hash (not the raw digest).
+       An empty case returns the sentinel "0" * 64.
+
+    NOTE: Merkle_Root_v2. Roots computed by earlier builds (no 0x00/0x01 prefixes,
+    duplicated odd nodes) are intentionally different and must be regenerated.
     """
 
+    LEAF_PREFIX = b"\x00"
+    NODE_PREFIX = b"\x01"
+    SCHEME = "RFC6962-style/SHA-256/v2"
+
     @staticmethod
-    def compute_case_merkle_root(leaf_hashes: List[str]) -> str:
-        """
-        Calculates the deterministic Master Case Merkle Root from a list of SHA-256 digests.
-        """
+    def _clean_leaf(h: str) -> str:
+        raw = str(h).strip().lower()
+        if len(raw) != 64 or any(c not in "0123456789abcdef" for c in raw):
+            raise ValueError(f"Invalid SHA-256 digest format for Merkle leaf: '{h}'")
+        return raw
+
+    @classmethod
+    def hash_leaf(cls, sha256_hex: str) -> bytes:
+        return hashlib.sha256(cls.LEAF_PREFIX + bytes.fromhex(sha256_hex)).digest()
+
+    @classmethod
+    def hash_node(cls, left: bytes, right: bytes) -> bytes:
+        return hashlib.sha256(cls.NODE_PREFIX + left + right).digest()
+
+    @classmethod
+    def compute_case_merkle_root(cls, leaf_hashes: List[str]) -> str:
+        """Deterministic Master Case Merkle Root from a list of SHA-256 digests."""
         if not leaf_hashes:
             return "0" * 64
-
-        # Validate format & canonicalize: lowercase, stripped, sorted lexicographically
-        cleaned_leaves: List[str] = []
-        for h in leaf_hashes:
-            raw = h.strip().lower()
-            if len(raw) != 64 or any(c not in "0123456789abcdef" for c in raw):
-                raise ValueError(f"Invalid SHA-256 digest format for Merkle leaf: '{h}'")
-            cleaned_leaves.append(raw)
-
-        # Canonical lexicographical sort
-        sorted_leaves = sorted(cleaned_leaves)
-
-        if len(sorted_leaves) == 1:
-            return sorted_leaves[0]
-
-        # Convert hex leaves to 32 raw bytes for cryptographic node combination
-        current_level = [bytes.fromhex(h) for h in sorted_leaves]
-
-        while len(current_level) > 1:
-            next_level = []
-            for i in range(0, len(current_level), 2):
-                left = current_level[i]
-                if i + 1 < len(current_level):
-                    right = current_level[i + 1]
+        leaves = sorted(cls._clean_leaf(h) for h in leaf_hashes)
+        level = [cls.hash_leaf(h) for h in leaves]
+        while len(level) > 1:
+            nxt = []
+            for i in range(0, len(level), 2):
+                if i + 1 < len(level):
+                    nxt.append(cls.hash_node(level[i], level[i + 1]))
                 else:
-                    # Odd count: duplicate last node (RFC 6962)
-                    right = left
-                parent = hashlib.sha256(left + right).digest()
-                next_level.append(parent)
-            current_level = next_level
+                    nxt.append(level[i])  # promote odd node unchanged
+            level = nxt
+        return level[0].hex()
 
-        return current_level[0].hex().lower()
-
-    @staticmethod
-    def build_merkle_tree(
-        exhibits: List[Dict[str, Any]]
-    ) -> Dict[str, Any]:
-        """
-        Builds the complete Merkle Tree hierarchy with leaf metadata,
-        intermediate levels, and Master Root for judicial inspection.
-        """
+    @classmethod
+    def build_merkle_tree(cls, exhibits: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Full tree hierarchy (leaf metadata + intermediate levels + root) for inspection."""
         if not exhibits:
             return {
                 "case_merkle_root": "0" * 64,
+                "scheme": cls.SCHEME,
                 "leaf_count": 0,
                 "depth": 0,
                 "levels": [],
-                "canonical_leaves": []
+                "canonical_leaves": [],
             }
 
-        # Sort exhibits canonically by their SHA-256 hash
-        sorted_exhibits = sorted(
-            exhibits,
-            key=lambda x: str(x.get("sha256", "")).strip().lower()
-        )
-
+        sorted_exhibits = sorted(exhibits, key=lambda x: str(x.get("sha256", "")).strip().lower())
         leaf_nodes = []
         for idx, item in enumerate(sorted_exhibits):
-            sha_hex = str(item.get("sha256", "")).strip().lower()
+            sha_hex = cls._clean_leaf(item.get("sha256", ""))
             leaf_nodes.append({
                 "index": idx,
-                "hash": sha_hex,
+                "hash": cls.hash_leaf(sha_hex).hex(),
+                "exhibit_sha256": sha_hex,
                 "is_leaf": True,
                 "evidence_id": item.get("id") or item.get("evidence_id") or f"EV-{idx}",
                 "filename": item.get("filename", "unknown"),
                 "file_type": item.get("file_type", "EXHIBIT"),
-                "size_bytes": item.get("size_bytes", 0)
+                "size_bytes": item.get("size_bytes", 0),
             })
 
         levels: List[List[Dict[str, Any]]] = [leaf_nodes]
-        current_hashes = [bytes.fromhex(node["hash"]) for node in leaf_nodes]
-
-        level_depth = 0
-        while len(current_hashes) > 1:
-            next_hashes = []
-            next_level_nodes = []
-            for i in range(0, len(current_hashes), 2):
-                left_bytes = current_hashes[i]
-                right_bytes = current_hashes[i + 1] if i + 1 < len(current_hashes) else left_bytes
-
-                parent_bytes = hashlib.sha256(left_bytes + right_bytes).digest()
-                parent_hex = parent_bytes.hex().lower()
-
-                next_hashes.append(parent_bytes)
-                next_level_nodes.append({
-                    "index": len(next_level_nodes),
-                    "hash": parent_hex,
-                    "is_leaf": False,
-                    "level": level_depth + 1,
-                    "left_child_hash": left_bytes.hex().lower(),
-                    "right_child_hash": right_bytes.hex().lower(),
-                    "is_duplicated_odd_node": (i + 1 >= len(current_hashes))
-                })
-
-            current_hashes = next_hashes
-            levels.append(next_level_nodes)
-            level_depth += 1
-
-        root_hash = current_hashes[0].hex().lower() if current_hashes else ("0" * 64)
+        current = [bytes.fromhex(n["hash"]) for n in leaf_nodes]
+        depth = 0
+        while len(current) > 1:
+            nxt_bytes = []
+            nxt_nodes = []
+            for i in range(0, len(current), 2):
+                if i + 1 < len(current):
+                    parent = cls.hash_node(current[i], current[i + 1])
+                    nxt_nodes.append({
+                        "index": len(nxt_nodes),
+                        "hash": parent.hex(),
+                        "is_leaf": False,
+                        "level": depth + 1,
+                        "left_child_hash": current[i].hex(),
+                        "right_child_hash": current[i + 1].hex(),
+                        "is_promoted_odd_node": False,
+                    })
+                else:
+                    parent = current[i]
+                    nxt_nodes.append({
+                        "index": len(nxt_nodes),
+                        "hash": parent.hex(),
+                        "is_leaf": False,
+                        "level": depth + 1,
+                        "left_child_hash": current[i].hex(),
+                        "right_child_hash": None,
+                        "is_promoted_odd_node": True,
+                    })
+                nxt_bytes.append(parent)
+            current = nxt_bytes
+            levels.append(nxt_nodes)
+            depth += 1
 
         return {
-            "case_merkle_root": root_hash,
+            "case_merkle_root": current[0].hex(),
+            "scheme": cls.SCHEME,
             "leaf_count": len(leaf_nodes),
             "depth": len(levels),
             "levels": levels,
-            "canonical_leaves": [n["hash"] for n in leaf_nodes]
+            "canonical_leaves": [n["exhibit_sha256"] for n in leaf_nodes],
         }
 
-    @staticmethod
-    def generate_inclusion_proof(
-        target_sha256: str,
-        leaf_hashes: List[str]
-    ) -> Dict[str, Any]:
+    @classmethod
+    def generate_inclusion_proof(cls, target_sha256: str, leaf_hashes: List[str]) -> Dict[str, Any]:
         """
-        Generates an RFC 6962 audit inclusion proof path for a specific exhibit hash.
-        Allows defense or judicial examiners to verify that an individual exhibit
-        was part of the sealed case session without revealing all other exhibits.
+        Inclusion (audit) proof for one exhibit. Lets a court or the defence verify that an
+        exhibit belongs to the sealed case set without seeing the other exhibits.
         """
-        target = target_sha256.strip().lower()
-        sorted_leaves = sorted([h.strip().lower() for h in leaf_hashes])
-
-        if target not in sorted_leaves:
+        target = cls._clean_leaf(target_sha256)
+        leaves = sorted(cls._clean_leaf(h) for h in leaf_hashes)
+        if target not in leaves:
             raise ValueError(f"Target hash {target} is not in the provided Merkle leaves.")
 
-        index = sorted_leaves.index(target)
+        index = leaves.index(target)
+        level = [cls.hash_leaf(h) for h in leaves]
         proof = []
-        current_hashes = [bytes.fromhex(h) for h in sorted_leaves]
+        while len(level) > 1:
+            if index % 2 == 0:
+                if index + 1 < len(level):
+                    proof.append({"sibling": level[index + 1].hex(), "direction": "RIGHT"})
+                # else: odd node is promoted unchanged, no sibling at this level
+            else:
+                proof.append({"sibling": level[index - 1].hex(), "direction": "LEFT"})
 
-        while len(current_hashes) > 1:
-            next_hashes = []
-            for i in range(0, len(current_hashes), 2):
-                left = current_hashes[i]
-                right = current_hashes[i + 1] if i + 1 < len(current_hashes) else left
-                parent = hashlib.sha256(left + right).digest()
-                next_hashes.append(parent)
+            nxt = []
+            for i in range(0, len(level), 2):
+                if i + 1 < len(level):
+                    nxt.append(cls.hash_node(level[i], level[i + 1]))
+                else:
+                    nxt.append(level[i])
+            level = nxt
+            index //= 2
 
-                if i == index or (i + 1 == index and i + 1 < len(current_hashes)):
-                    if index % 2 == 0:
-                        sibling_hash = right.hex().lower()
-                        proof.append({"sibling": sibling_hash, "direction": "RIGHT"})
-                    else:
-                        sibling_hash = left.hex().lower()
-                        proof.append({"sibling": sibling_hash, "direction": "LEFT"})
-
-            current_hashes = next_hashes
-            index = index // 2
-
-        root = current_hashes[0].hex().lower()
+        root = level[0].hex()
         return {
             "target_hash": target,
+            "scheme": cls.SCHEME,
             "proof_path": proof,
             "merkle_root": root,
-            "verified": MerkleTreeEngine.verify_inclusion_proof(target, proof, root)
+            "verified": cls.verify_inclusion_proof(target, proof, root),
         }
 
-    @staticmethod
-    def verify_inclusion_proof(
-        target_sha256: str,
-        proof_path: List[Dict[str, str]],
-        expected_root: str
-    ) -> bool:
-        """
-        Cryptographically verifies an inclusion proof path against an expected Merkle Root.
-        """
-        current = bytes.fromhex(target_sha256.strip().lower())
-        for step in proof_path:
-            sibling = bytes.fromhex(step["sibling"])
-            direction = step["direction"]
-            if direction == "RIGHT":
-                current = hashlib.sha256(current + sibling).digest()
-            else:
-                current = hashlib.sha256(sibling + current).digest()
-        return current.hex().lower() == expected_root.strip().lower()
+    @classmethod
+    def verify_inclusion_proof(cls, target_sha256: str, proof_path: List[Dict[str, str]], expected_root: str) -> bool:
+        """Verify an inclusion proof against an expected root (constant-time compare)."""
+        try:
+            current = cls.hash_leaf(cls._clean_leaf(target_sha256))
+            for step in proof_path:
+                sibling = bytes.fromhex(step["sibling"])
+                if len(sibling) != 32:
+                    return False
+                if step["direction"] == "RIGHT":
+                    current = cls.hash_node(current, sibling)
+                elif step["direction"] == "LEFT":
+                    current = cls.hash_node(sibling, current)
+                else:
+                    return False
+            import hmac as _hmac
+            return _hmac.compare_digest(current.hex(), str(expected_root).strip().lower())
+        except (ValueError, KeyError, TypeError):
+            return False
 
 
 # ==============================================================================

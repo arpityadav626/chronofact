@@ -11,9 +11,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Core External CDN Libraries -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Offline Air-Gapped Local Vendor Scripts (with CDN fallback) -->
+  <script src="assets/vendor/tailwind.min.js"></script>
+  <script>if (typeof tailwind === 'undefined') { document.write('<script src="https://cdn.tailwindcss.com"><\/script>'); }</script>
+  <script src="assets/vendor/lucide.min.js"></script>
+  <script>if (typeof lucide === 'undefined') { document.write('<script src="https://unpkg.com/lucide@latest"><\/script>'); }</script>
 
   <!-- Tailwind CSS Custom Configuration (Government of India Cyber Crime Portal Design System) -->
   <script>
@@ -606,46 +608,42 @@
       btn.disabled = true;
       btnText.textContent = "Verifying Credentials...";
 
-      const isExaminer = (username === "examiner" && password === "SecurePassMin16Chars!");
-      const isAnalyst = (username === "analyst" && password === "ChronoFact2026!");
+      // Backend-first authentication. The browser never decides on its own that a password is right.
+      // Only when NO backend answers (static hosting, e.g. the public demo page) are the publicly
+      // documented demo accounts accepted, and the session is clearly flagged as "demo / unauthenticated".
+      let outcome = "unreachable", token = null;
+      try {
+        const formData = new FormData();
+        formData.append("username", username);
+        formData.append("password", password);
+        const res = await fetch("/api/auth/login", { method: "POST", body: formData });
+        if (res.ok) { token = (await res.json()).access_token; outcome = "ok"; }
+        else if (res.status === 401) outcome = "denied";
+        else if (res.status === 429) outcome = "locked";
+      } catch (_) {}
+      const isDemoAccount = (username === "examiner" && password === "SecurePassMin16Chars!") ||
+                            (username === "analyst" && password === "ChronoFact2026!");
+      const demoMode = outcome === "unreachable" && isDemoAccount;
 
-      if (isExaminer || isAnalyst) {
-        // Attempt background API auth if server is running
-        try {
-          const formData = new FormData();
-          formData.append("username", username);
-          formData.append("password", password);
-
-          const res = await fetch("/api/auth/login", {
-            method: "POST",
-            body: formData
-          });
-          if (res.ok) {
-            const data = await res.json();
-            sessionStorage.setItem("chronofact_auth_token", data.access_token);
-          }
-        } catch (_) {}
-
+      if (outcome === "ok" || demoMode) {
         sessionStorage.setItem("chronofact_auth_user", username);
-        const officerTitle = isExaminer ? "A. Sharma (Forensic Analyst #FE-802)" : "Cyber Forensic Analyst";
+        sessionStorage.setItem("chronofact_auth_token", token || "demo-offline-no-server");
+        if (demoMode) sessionStorage.setItem("chronofact_demo_mode", "1"); else sessionStorage.removeItem("chronofact_demo_mode");
+        const officerTitle = username === "examiner" ? "A. Sharma (Forensic Analyst #FE-802)" : "Cyber Forensic Analyst";
         sessionStorage.setItem("chronofact_officer", officerTitle);
         sessionStorage.setItem("chronofact_badge", "FE-802");
         sessionStorage.setItem("chronofact_station", "Digital Forensic Lab");
-        if (!sessionStorage.getItem("chronofact_auth_token")) {
-          sessionStorage.setItem("chronofact_auth_token", "jwt-token-evaluator-" + username + "-fe802");
-        }
-        
         sound.playSuccess();
-        showAlert(`✓ Authenticated: ${officerTitle}. Opening Case File...`, "success");
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 500);
+        showAlert(`✓ ${demoMode ? "Demo mode (no server, synthetic data)" : "Authenticated"}: ${officerTitle}. Opening Case File...`, "success");
+        setTimeout(() => { window.location.href = "index.html"; }, 500);
         return;
       }
 
       // If invalid credentials
       sound.playError();
-      showAlert("❌ Access Denied: Invalid Examiner ID or Passcode. Evaluator Accounts: examiner / SecurePassMin16Chars! or analyst / ChronoFact2026!", "error");
+      showAlert(outcome === "locked" ? "⛔ Too many attempts. Wait a few minutes and try again." :
+        outcome === "denied" ? "❌ Access Denied: invalid Examiner ID or passcode." :
+        "❌ Server not reachable. For the static public demo use the Auto-Fill Demo button.", "error");
       if (card) {
         card.classList.remove('gate-shake');
         void card.offsetWidth;

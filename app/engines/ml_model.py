@@ -367,5 +367,11 @@ class ForensicAnomalyModel:
         }
 
 
-# Re-export TrainingPipeline for backwards compatibility
-from .training_pipeline import TrainingPipeline
+def __getattr__(name):
+    """Lazy re-export of TrainingPipeline (backwards compatibility).
+    A top-level `from .training_pipeline import ...` here created a circular import that only worked
+    when ml_model happened to be imported before training_pipeline."""
+    if name == "TrainingPipeline":
+        from .training_pipeline import TrainingPipeline
+        return TrainingPipeline
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

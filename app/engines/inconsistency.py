@@ -9,6 +9,7 @@ Compliant with:
 Author: Arpit Yadav & Team (SUTRAM 2026 // Cyber Forensic Research)
 """
 
+import os
 import re
 import math
 import uuid
@@ -16,6 +17,35 @@ from datetime import datetime, timezone, timedelta
 from typing import List, Dict, Any, Optional, Tuple
 
 from .timeline_engine import parse_iso_datetime, format_utc_and_ist, IST_OFFSET
+
+
+def _parse_offset_minutes(text: str) -> int:
+    m = re.fullmatch(r"\s*([+-])(\d{1,2}):?(\d{2})\s*", text or "")
+    if not m:
+        return 330
+    sign = -1 if m.group(1) == "-" else 1
+    return sign * (int(m.group(2)) * 60 + int(m.group(3)))
+
+
+# Chat exports carry no UTC offset. The parser therefore stores a 26-hour uncertainty interval
+# [wall_clock - 14h, wall_clock + 12h]. Correlation rules need ONE reference instant; we use an explicit,
+# configurable assumption (default IST, +05:30, for Indian investigations) and always disclose it.
+ASSUMED_CHAT_TZ = os.getenv("CHRONOFACT_ASSUMED_CHAT_TZ", "+05:30")
+ASSUMED_CHAT_OFFSET_MIN = _parse_offset_minutes(ASSUMED_CHAT_TZ)
+ALIBI_CLOCK_SKEW_TOLERANCE_SEC = 60  # events up to 60 s before the statement still count (device clock skew)
+
+
+def chat_reference_instant(fact: Dict[str, Any]) -> Optional[datetime]:
+    """Best single instant (UTC) for a fact. For offset-less chat facts, recover the wall-clock time from the
+    interval lower bound (wall - 14h) and apply the assumed zone. The old rules used the raw lower bound, which is
+    up to 14 hours before any realistic reading and made the alibi rule miss real contradictions."""
+    t_min = parse_iso_datetime(fact.get("t_min") or "")
+    if not t_min:
+        return None
+    if fact.get("tz_basis") != "assumed_local_no_offset":
+        return t_min
+    wall = (t_min + timedelta(hours=14)).replace(tzinfo=None)
+    return (wall - timedelta(minutes=ASSUMED_CHAT_OFFSET_MIN)).replace(tzinfo=timezone.utc)
 
 
 # ==============================================================================
@@ -125,20 +155,22 @@ class InconsistencyRadarEngine:
             if not matched_alibi:
                 continue
 
-            chat_dt = parse_iso_datetime(chat.get("t_min") or "")
+            chat_dt = chat_reference_instant(chat)
             if not chat_dt:
                 continue
 
             # Look for concurrent or subsequent server logins/downloads within 12 hours
-            for log in log_facts:
+            for log in sorted(log_facts, key=lambda l: l.get("t_min") or ""):
                 log_text = (log.get("raw_text") or log.get("content") or "")
                 log_dt = parse_iso_datetime(log.get("t_min") or "")
                 if not log_dt:
                     continue
 
-                # Check if server activity is between chat_dt - 30m and chat_dt + 12h
+                # A "I'm asleep/offline" statement is forward-looking: only activity AFTER it contradicts it.
+                # (The old window started 30 minutes BEFORE the statement, so a normal login just before
+                # someone says "going to sleep" was reported as a CRITICAL contradiction.)
                 time_diff_sec = (log_dt - chat_dt).total_seconds()
-                if -1800 <= time_diff_sec <= 43200:
+                if -ALIBI_CLOCK_SKEW_TOLERANCE_SEC <= time_diff_sec <= 43200:
                     # Check if action is an active user operation
                     if any(term in log_text.upper() for term in ["LOGIN", "DOWNLOAD", "EXPORT", "SSH", "SESSION", "TRANSFER"]):
                         inc_id = f"INC-TMP-{uuid.uuid4().hex[:6].upper()}"
@@ -183,6 +215,11 @@ class InconsistencyRadarEngine:
                                 f"for '{user}' from IP {ip} ({action}) at {log_ist}."
                             ),
                             "discrepancy_delta": delta_str,
+                            "timezone_assumption": (
+                                f"Chat timestamp has no UTC offset; {ASSUMED_CHAT_TZ} assumed "
+                                f"(override with CHRONOFACT_ASSUMED_CHAT_TZ). Confirm the device timezone before relying on this gap."
+                                if chat.get("tz_basis") == "assumed_local_no_offset" else "Explicit offsets on both sources."
+                            ),
                             "fact_ids": [chat["id"], log["id"]],
                             "claimed_statement": {
                                 "source": f"{chat.get('fact_type', 'COMMUNICATION')} • {chat.get('locator', 'Ref')}",
@@ -211,7 +248,7 @@ class InconsistencyRadarEngine:
         return anomalies
 
     # --------------------------------------------------------------------------
-    # RULE 2: GEOGRAPHIC & VELOCITY IMPOSSIBILITY
+    # RULE 2: GEOGRAPHIC & VELOCITY IMPOSSIBILITY (HAVERSINE KINEMATICS)
     # --------------------------------------------------------------------------
     @classmethod
     def _detect_geographic_impossibility(
@@ -222,47 +259,62 @@ class InconsistencyRadarEngine:
         """
         Detects physical impossibility when two distinct geographic locations are claimed
         or recorded within a time delta that would require physically impossible transit speeds (> 800 km/h).
-        Requires genuine evidence-grounded geographic entities (no synthetic city assumptions).
+        Evaluates both natural language claims and cellular CDR tower telemetry coordinates.
         """
         anomalies = []
         
-        # Helper to extract real locations mentioned in text
-        def extract_known_location(text: str) -> Optional[Tuple[str, Tuple[float, float]]]:
+        # Helper to extract real locations or CDR coordinates
+        def extract_known_location(fact: Dict[str, Any]) -> Optional[Tuple[str, Tuple[float, float]]]:
+            text = (fact.get("raw_text") or "") + " " + (fact.get("display_text") or "")
             text_lower = text.lower()
+
+            # 1. Direct geodetic coordinates from TELECOM_CDR telemetry
+            lat_m = re.search(r"(?:latitude|lat)[:=]?\s*([+-]?\d+\.\d+)", text_lower)
+            lon_m = re.search(r"(?:longitude|lon)[:=]?\s*([+-]?\d+\.\d+)", text_lower)
+            if lat_m and lon_m:
+                try:
+                    lat, lon = float(lat_m.group(1)), float(lon_m.group(1))
+                    tower_m = re.search(r"(?:cell_tower_id|tower)[:=]?\s*([A-Za-z0-9_\-]+)", text, re.IGNORECASE)
+                    tower_label = f"Tower {tower_m.group(1)}" if tower_m else f"Cell ({lat:.4f}, {lon:.4f})"
+                    return tower_label, (lat, lon)
+                except (ValueError, TypeError):
+                    pass
+
+            # 2. Known city entities in text
             for city_name, coords in LOCATION_COORDINATES.items():
-                # Word boundary check to prevent substring false matches
                 if re.search(r"\b" + re.escape(city_name) + r"\b", text_lower):
-                    return city_name, coords
+                    return city_name.title(), coords
             return None
 
+        # Build list of all location-bearing events
+        loc_events = []
         for chat in chat_facts:
-            chat_text = (chat.get("raw_text") or "")
-            claimed_loc = extract_known_location(chat_text)
-            if not claimed_loc:
-                continue
+            loc = extract_known_location(chat)
+            dt = chat_reference_instant(chat)
+            if loc and dt:
+                loc_events.append({"fact": chat, "loc_name": loc[0], "coords": loc[1], "dt": dt, "type": "STATEMENT"})
 
-            claimed_city, (lat1, lon1) = claimed_loc
-            chat_dt = parse_iso_datetime(chat.get("t_min") or "")
-            if not chat_dt:
-                continue
+        for log in log_facts:
+            loc = extract_known_location(log)
+            dt = parse_iso_datetime(log.get("t_min") or "")
+            if loc and dt:
+                loc_events.append({"fact": log, "loc_name": loc[0], "coords": loc[1], "dt": dt, "type": "TELEMETRY"})
 
-            for log in log_facts:
-                log_dt = parse_iso_datetime(log.get("t_min") or "")
-                if not log_dt:
+        # Compare pairs sorted by time
+        loc_events.sort(key=lambda x: x["dt"])
+        for i in range(len(loc_events)):
+            for j in range(i + 1, len(loc_events)):
+                e1, e2 = loc_events[i], loc_events[j]
+                # Avoid comparing two identical locations
+                if e1["loc_name"] == e2["loc_name"]:
                     continue
 
-                log_text = log.get("raw_text", "")
-                network_loc = extract_known_location(log_text)
-                if not network_loc:
-                    continue
-
-                network_city, (lat2, lon2) = network_loc
-                if network_city == claimed_city:
-                    continue
-
-                time_diff_hours = abs((log_dt - chat_dt).total_seconds()) / 3600.0
-                if 0.001 <= time_diff_hours <= 2.0:  # Under 2 hours
-                    dist_km = calculate_haversine_distance_km(lat1, lon1, lat2, lon2)
+                time_diff_hours = (e2["dt"] - e1["dt"]).total_seconds() / 3600.0
+                if 0.001 <= time_diff_hours <= 2.0:  # Under 2 hours window
+                    dist_km = calculate_haversine_distance_km(
+                        e1["coords"][0], e1["coords"][1],
+                        e2["coords"][0], e2["coords"][1]
+                    )
                     velocity_kmh = dist_km / max(0.01, time_diff_hours)
 
                     # Commercial flight cruise speed ~ 850 km/h; supersonic > 850 km/h is impossible for civilians
@@ -275,15 +327,15 @@ class InconsistencyRadarEngine:
                             "severity": "CRITICAL",
                             "title": f"Geographic Impossibility Flag: Physical location mismatch ({int(dist_km)} km)",
                             "description": (
-                                f"Subject was recorded at {claimed_city.title()} at {format_utc_and_ist(chat_dt)['ist_display']}, "
-                                f"yet Telemetry places activity at {network_city.title()} "
+                                f"Subject was recorded at {e1['loc_name']} at {format_utc_and_ist(e1['dt'])['ist_display']}, "
+                                f"yet {e2['type'].lower()} places activity at {e2['loc_name']} "
                                 f"{int(time_diff_hours * 60)} minutes later. Required physical transit speed: {int(velocity_kmh)} km/h."
                             ),
                             "discrepancy_delta": f"Distance {int(dist_km)} km in {int(time_diff_hours * 60)} min (Implied Velocity: {int(velocity_kmh)} km/h - Physically Impossible).",
-                            "fact_ids": [chat["id"], log["id"]],
+                            "fact_ids": [e1["fact"]["id"], e2["fact"]["id"]],
                             "geo_telemetry": {
-                                "claimed_location": {"city": claimed_city.title(), "lat": lat1, "lon": lon1},
-                                "network_location": {"city": network_city.title(), "lat": lat2, "lon": lon2},
+                                "claimed_location": {"city": e1["loc_name"], "lat": e1["coords"][0], "lon": e1["coords"][1]},
+                                "network_location": {"city": e2["loc_name"], "lat": e2["coords"][0], "lon": e2["coords"][1]},
                                 "distance_km": round(dist_km, 1),
                                 "transit_hours": round(time_diff_hours, 2),
                                 "required_speed_kmh": round(velocity_kmh, 1)
@@ -292,7 +344,7 @@ class InconsistencyRadarEngine:
                                 "Virtual Private Network (VPN) or corporate proxy exit node located in different geographic telecom zone.",
                                 "Cell tower antenna signal bounce / carrier network Address Translation (CGNAT) gateway misattribution.",
                                 "Remote Desktop Protocol (RDP) or TeamViewer session initiated from another authorized team member.",
-                                "ISP MaxMind/GeoIP database outdated or inaccurate for regional dynamic IP pools."
+                                "Carrier CDR handover latency between cellular Base Transceiver Stations (BTS)."
                             ],
                             "detected_at": datetime.now(timezone.utc).isoformat()
                         })

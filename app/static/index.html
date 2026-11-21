@@ -23,10 +23,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Core External CDN Libraries -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <!-- Offline Air-Gapped Local Vendor Scripts (with CDN fallback) -->
+  <script src="/static/vendor/tailwind.min.js"></script>
+  <script>if (typeof tailwind === 'undefined') { document.write('<script src="https://cdn.tailwindcss.com"><\/script>'); }</script>
+  <script src="/static/vendor/lucide.min.js"></script>
+  <script>if (typeof lucide === 'undefined') { document.write('<script src="https://unpkg.com/lucide@latest"><\/script>'); }</script>
+  <script src="/static/vendor/jszip.min.js"></script>
+  <script>if (typeof JSZip === 'undefined') { document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"><\/script>'); }</script>
 
   <!-- Tailwind CSS Custom Configuration (Government of India Cyber Crime Portal Design System) -->
   <script>
@@ -1004,7 +1007,7 @@
                       </button>
                     </div>
                     <div id="overview-merkle-root" class="text-[11px] font-mono text-[#0F172A] break-all font-semibold select-all">
-                      135657c6ae64dc8925abc22fa795d41918e238388d298cfc00f0a881ca7b02b2
+                      622b79b4ed9b8ffb8b850ce0c08e2cafbc3bc1171b0ed19041abf26148c2957d
                     </div>
                   </div>
 
@@ -2038,7 +2041,7 @@
       <div class="p-4 rounded-xl bg-[#0E1422] border border-[#1E283E] text-center space-y-1">
         <span class="text-[10px] font-mono uppercase text-slate-400 tracking-wider block">Case Master Merkle Root</span>
         <div id="tree-root-box" class="font-mono text-xs font-semibold text-emerald-400 break-all select-all">
-          135657c6ae64dc8925abc22fa795d41918e238388d298cfc00f0a881ca7b02b2
+          622b79b4ed9b8ffb8b850ce0c08e2cafbc3bc1171b0ed19041abf26148c2957d
         </div>
       </div>
 

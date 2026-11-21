@@ -4,12 +4,12 @@
 - **Model Name:** ChronoFact Behavioral Anomaly Classifier (`HistGradientBoosting` / `LogisticRegression` / `IsolationForest`)
 - **Version:** 2.0 (Enterprise Benchmark)
 - **Role in ChronoFact:** **Assistive Behavioral Triage & Anomaly Ranking**.
-- **Crucial Judicial Boundary:** **ML is NOT proof of guilt.** In accordance with the Bharatiya Sakshya Adhiniyam (BSA) 2023 §63(4), judicial proof is provided exclusively by ChronoFact's deterministic engines (dual SHA-256 + SHA3-256 hashing, lexicographical Merkle trees, Allen's Interval Algebra, and 100% mechanical byte-citation grounding). The ML model functions as an assistive filter to help human examiners prioritize massive log volumes.
+- **Crucial Judicial Boundary:** **ML is NOT proof of guilt.** In accordance with the Bharatiya Sakshya Adhiniyam (BSA) 2023 §63, judicial proof is provided exclusively by ChronoFact's deterministic engines (dual SHA-256 + SHA3-256 hashing, lexicographical Merkle trees, Allen's Interval Algebra, and 100% mechanical byte-citation grounding). The ML model functions as an assistive filter to help human examiners prioritize massive log volumes.
 
 ---
 
 ## 2. Dataset & Training Distribution
-- **Dataset:** `training_data_realistic.csv` (Synthetic Enterprise Benchmark v2)
+- **Dataset:** `training_data.csv` (Synthetic Enterprise Benchmark v2)
 - **Scale:** 837 discrete events across 52 independent enterprise operational scenarios.
 - **Class Balance:**
   - Benign events: 683 (81.6%)
@@ -38,19 +38,18 @@ The model extracts multi-dimensional forensic signals designed for the Indian en
 
 ---
 
-## 4. Evaluation Methodology (Leave-One-Scenario-Out CV)
-To prevent cross-scenario data leakage, models are evaluated strictly using **Leave-One-Group-Out Cross-Validation** (`scenario_id`). Entire enterprise scenarios are held out during testing.
+## 4. Evaluation Methodology (single scenario-grouped holdout)
+To prevent cross-scenario data leakage, the shipped run (`model-runs/train-20261115-*/metrics.json`) uses ONE grouped train/test split (39 train / 13 test scenarios). Leave-one-group-out CV is not what produced the reported numbers.
 
 ### Baseline vs. Machine Learning Performance Comparison
 | Model / Heuristic | PR-AUC | Precision @ 0.5 | Recall @ 0.5 | F1-Score | Verdict |
 |---|---|---|---|---|---|
 | **Naive Rule (`bytes > 100k`)** | — | **0.191** | **0.271** | **0.224** | **Fails**: Flags backups; misses stealth drip. |
-| **Logistic Regression (Balanced)** | ~0.76 - 0.82 | ~0.65 - 0.75 | ~0.75 - 0.85 | ~0.72 | Interpretable linear baseline. |
-| **HistGradientBoostingClassifier** | **> 0.85** | **> 0.80** | **> 0.85** | **> 0.82** | **Recommended**: Captures non-linear burst/off-hours interactions. |
+| **HistGradientBoosting (shipped run)** | 1.00 | 1.00 | 0.94 | 0.97 | ROC-AUC 1.00 on 199 synthetic test events: the generator is easily separable; this does NOT estimate real-world performance. |
 
 ---
 
 ## 5. Limitations & Bias Declaration
 1. **Synthetic Training Baseline:** Trained on realistic synthetic enterprise data; requires domain calibration before deployment on production SIEM (Splunk, Elastic, Sentinel).
 2. **Context Blindness:** The model scores behavioral anomalies, but cannot determine legal authorization (e.g. an approved emergency hotfix vs an unauthorized attack).
-3. **Court Admissibility Note:** Model anomaly scores are presented in court reports solely as investigative leads under Section 45 / Section 63 BSA 2023, never as self-authenticating proof.
+3. **Court Admissibility Note:** Model anomaly scores are presented in court reports solely as investigative leads under Section 39 (expert opinion) / Section 63 BSA 2023, never as self-authenticating proof.

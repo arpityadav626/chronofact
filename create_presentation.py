@@ -510,7 +510,7 @@ def build_presentation(output_path: str):
     p.font.size = Pt(13)
     p.font.color.rgb = C_WHITE
     p = tf.add_paragraph()
-    p.text = "• 23:14 IST: Suspect chats on WhatsApp claiming he is asleep at Noida Sector 62.\n• 23:17 IST: Mobile phone registers with Okhla Phase III cell tower DEL-S-041 (+24.8 km).\n• Computed Velocity: 496.0 km/h (Physically Impossible by road transport)."
+    p.text = "• 15:25 IST: Suspect chats on WhatsApp claiming he is asleep at Noida Sector 62.\n• 15:27 IST: Mobile phone registers with Okhla Phase III cell tower DEL-S-041 (+24.8 km).\n• 15:28 IST: Authenticated workstation session downloads confidential financials.\n• Computed Velocity: >490 km/h (Physically Impossible by road transport)."
     p.font.size = Pt(12)
     p.font.color.rgb = C_AMBER
 
