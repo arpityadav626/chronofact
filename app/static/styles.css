@@ -1292,3 +1292,131 @@ div[id$="-drawer"] .editorial-card,
   box-shadow: 0 0 0 2px rgba(2, 98, 175, 0.2);
 }
 
+/* ==========================================================================
+   COURTROOM-GRADE HEX INSPECTOR & BITSTREAM VIEWER (PRIORITY 4)
+   ========================================================================== */
+.hex-inspector-dialog {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-subtle) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4) !important;
+}
+
+.hex-dump-stream {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 11px;
+  line-height: 1.6;
+  background-color: var(--bg-inset) !important;
+  border: 1px solid var(--border-subtle) !important;
+  color: var(--text-secondary);
+  user-select: text;
+}
+
+.hex-dump-row {
+  display: flex;
+  align-items: center;
+  padding: 1px 4px;
+  border-radius: 3px;
+  transition: background-color 0.12s ease;
+}
+
+.hex-dump-row:hover {
+  background-color: var(--bg-card-hover);
+}
+
+.hex-offset-col {
+  color: #64748B;
+  font-weight: 600;
+  width: 72px;
+  shrink: 0;
+  user-select: none;
+}
+
+[data-theme="dark"] .hex-offset-col {
+  color: #475569;
+}
+
+.hex-bytes-col {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.hex-byte-group {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.hex-ascii-col {
+  width: 140px;
+  padding-left: 10px;
+  border-left: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+
+.hex-anomaly-byte {
+  background-color: rgba(225, 29, 72, 0.18) !important;
+  color: #BE123C !important;
+  font-weight: 700 !important;
+  border-bottom: 2px solid #E11D48 !important;
+  padding: 0 1px;
+  border-radius: 2px;
+}
+
+[data-theme="dark"] .hex-anomaly-byte {
+  background-color: rgba(225, 29, 72, 0.32) !important;
+  color: #FDA4AF !important;
+  border-bottom: 2px solid #F43F5E !important;
+}
+
+.hex-anomaly-pulse {
+  animation: hexPulse 1.2s ease-in-out 3;
+}
+
+@keyframes hexPulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.4); }
+  50% { transform: scale(1.02); box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.2); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+}
+
+.hex-side-panel {
+  background-color: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 14px;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   COURTROOM-GRADE SKELETON LOADERS & EMPTY STATES (PRIORITY 5)
+   ========================================================================== */
+.forensic-skeleton {
+  background: linear-gradient(90deg, var(--bg-surface) 25%, var(--bg-card-hover) 50%, var(--bg-surface) 75%);
+  background-size: 200% 100%;
+  animation: skeletonPulse 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes skeletonPulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.court-empty-card {
+  background-color: var(--bg-card) !important;
+  border: 1.5px dashed var(--border-hairline) !important;
+  border-radius: 14px;
+  color: var(--text-secondary);
+}
+
+.dropzone-container.drag-over {
+  border-color: #0262af !important;
+  background-color: rgba(2, 98, 175, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(2, 98, 175, 0.22) !important;
+  transform: scale(1.005);
+}
+
+

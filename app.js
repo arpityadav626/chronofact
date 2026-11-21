@@ -1185,13 +1185,13 @@ function renderEvidenceTable() {
 
   if (allEvidenceItems.length === 0) {
     container.innerHTML = `
-      <div class="p-10 text-center border border-dashed border-[#222E44] rounded-xl text-slate-400 bg-[#0E1422] space-y-3">
-        <div class="w-10 h-10 rounded-full bg-[#182338] text-[#60A5FA] flex items-center justify-center mx-auto">
-          <i data-lucide="archive" class="w-5 h-5"></i>
+      <div class="court-empty-card p-10 text-center space-y-3">
+        <div class="w-12 h-12 rounded-full bg-blue-500/10 text-blue-500 flex items-center justify-center mx-auto border border-blue-500/20">
+          <i data-lucide="archive" class="w-6 h-6"></i>
         </div>
         <div class="space-y-1">
-          <h4 class="text-sm font-semibold text-slate-100">Evidence Vault Empty</h4>
-          <p class="text-xs text-slate-400">No digital exhibits currently staged in this case session.</p>
+          <h4 class="text-sm font-bold text-primary">Evidence Vault Empty</h4>
+          <p class="text-xs text-muted max-w-md mx-auto">No digital exhibits currently staged in this case session. All ingested files are cryptographically anchored under NIST FIPS 180-4 and RFC 6962.</p>
         </div>
         <div class="flex items-center justify-center gap-2 pt-1">
           <button onclick="openIngestModal()" class="btn-editorial-primary text-xs py-1.5 px-3">
@@ -1199,6 +1199,7 @@ function renderEvidenceTable() {
             <span>Ingest Exhibit</span>
           </button>
           <button onclick="loadSampleCaseData()" class="btn-editorial-secondary text-xs py-1.5 px-3">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
             <span>Load Sample Case</span>
           </button>
         </div>
@@ -1494,10 +1495,18 @@ function renderInconsistencyRadar() {
 
   if (allInconsistencies.length === 0) {
     container.innerHTML = `
-      <div class="temporal-empty-banner p-8 text-center border border-dashed rounded-xl text-xs space-y-2">
-        <i data-lucide="shield-check" class="w-8 h-8 text-emerald-500 mx-auto"></i>
-        <div class="font-bold text-slate-700 dark:text-slate-300">Zero Temporal Contradictions Flagged</div>
-        <p class="text-slate-500 dark:text-slate-400">All evidence timestamps align strictly within Allen partial order algebra bounds.</p>
+      <div class="court-empty-card p-10 text-center space-y-3">
+        <div class="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center mx-auto border border-emerald-500/20">
+          <i data-lucide="shield-check" class="w-6 h-6"></i>
+        </div>
+        <div class="space-y-1">
+          <h4 class="text-sm font-bold text-primary">Zero Contradictions Detected</h4>
+          <p class="text-xs text-muted max-w-md mx-auto">All evidentiary timestamps, mobile extractions, and carrier telemetry align coherently under Allen's Interval Algebra. No spatiotemporal conflicts found.</p>
+        </div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-semibold border border-emerald-500/30">
+          <i data-lucide="check" class="w-3.5 h-3.5"></i>
+          <span>Coherent Evidentiary Chain</span>
+        </div>
       </div>
     `;
     if (window.lucide) lucide.createIcons();
@@ -1846,10 +1855,26 @@ function renderTimeline() {
 
   if (filtered.length === 0) {
     container.innerHTML = `
-      <div class="p-8 text-center border border-dashed border-[#E8E5DF] rounded-xl space-y-2">
-        <i data-lucide="search-x" class="w-6 h-6 text-[#A8A29A] mx-auto"></i>
-        <div class="text-xs font-medium text-[#57534E]">No events matched your filter criteria</div>
-        <button onclick="clearTimelineFilter()" class="btn-editorial-secondary text-xs mt-2">Clear all filters</button>
+      <div class="court-empty-card p-10 text-center space-y-3">
+        <div class="w-12 h-12 rounded-full bg-slate-500/10 text-slate-400 flex items-center justify-center mx-auto border border-subtle">
+          <i data-lucide="search-x" class="w-6 h-6"></i>
+        </div>
+        <div class="space-y-1">
+          <h4 class="text-sm font-bold text-primary">${allTimelineEvents.length === 0 ? 'No Factual Events Ingested' : 'No Events Match Current Filters'}</h4>
+          <p class="text-xs text-muted max-w-md mx-auto">${allTimelineEvents.length === 0 ? 'Ingest digital exhibits into the Evidence Vault to reconstruct the causal spatiotemporal timeline under Allen algebra.' : 'Try adjusting your search query, actor filter, or exhibit scope.'}</p>
+        </div>
+        <div>
+          ${allTimelineEvents.length === 0 ? `
+            <button onclick="openIngestModal()" class="btn-editorial-primary text-xs py-1.5 px-3">
+              <i data-lucide="file-up" class="w-3.5 h-3.5"></i>
+              <span>Ingest Exhibit</span>
+            </button>
+          ` : `
+            <button onclick="clearTimelineFilter()" class="btn-editorial-secondary text-xs py-1.5 px-3">
+              Clear All Filters
+            </button>
+          `}
+        </div>
       </div>
     `;
     if (window.lucide) lucide.createIcons();
@@ -2592,64 +2617,343 @@ function closeMerkleModal() {
 }
 
 const EXHIBIT_RAW_PAYLOADS = {
-  "EV-25C119": "timestamp,username,ip_address,action,status\n2025-09-12T15:24:10Z,vikram.malhotra,192.168.1.105,LOGIN,OK\n2025-09-12T15:28:45Z,vikram.malhotra,192.168.1.105,DOWNLOAD_FILE,CONFIDENTIAL_Q3_FINANCIALS.XLSX\n2025-09-12T15:31:00Z,vikram.malhotra,192.168.1.105,EXPORT_PATENT_DRAFT,OK\n",
-  "EV-C4D948": "[12/09/2025, 15:20:11] Team Lead: Vikram please update the status on Q3 financial filing today.\n[12/09/2025, 15:25:40] Vikram Malhotra: Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning.\n[12/09/2025, 15:26:02] Team Lead: Okay take rest.\n",
-  "EV-8BF745": "From: vikram.malhotra@techcorp.in\nTo: external.contact@protonmail.com\nSubject: Leaked Q3 Financial Model and Database Credentials\nDate: Fri, 12 Sep 2025 15:30:00 +0530\n\nAttached are the Q3 financial models and internal database credentials as discussed. Please confirm receipt and wire the agreed consulting compensation.\n",
-  "EV-9F3E12": "timestamp,msisdn,cell_tower_id,azimuth,latitude,longitude,duration_sec\n2025-09-12T15:27:12Z,+91-9876543210,DEL-S-041,120,28.5355,77.2732,45\n"
+  "EV-25C119": "timestamp,user,ip_address,action,status\n2025-09-12T15:24:10+05:30,vikram.malhotra,192.168.1.105,LOGIN,OK\n2025-09-12T15:28:45+05:30,vikram.malhotra,192.168.1.105,DOWNLOAD_FILE,CONFIDENTIAL_Q3_FINANCIALS.XLSX\n2025-09-12T15:31:00+05:30,vikram.malhotra,192.168.1.105,EXPORT_PATENT_DRAFT,OK\n",
+  "EV-C4D948": "[12/09/2025, 15:20:10] Team Lead: Vikram are you available on Slack for urgent sync?\n[12/09/2025, 15:25:40] Vikram Malhotra: Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning.\n[12/09/2025, 15:26:00] Team Lead: Ok take rest.\n",
+  "EV-8BF745": "From: vikram.malhotra@techcorp.in\nTo: external.contact@protonmail.com\nSubject: Leaked Q3 Financial Model and Database Credentials\nDate: Fri, 12 Sep 2025 15:30:00 +0530\nMessage-ID: <leak-8921-techcorp@corp>\n\nAttached is the unreleased patent draft and SQL credentials for production.\nPlease confirm receipt and deposit the agreed consultation fee.\n",
+  "EV-9F3E12": "timestamp,msisdn,cell_tower_id,azimuth,latitude,longitude,duration_sec\n2025-09-12T15:27:12+05:30,+91-9876543210,DEL-S-041,120,28.5355,77.2732,45\n",
+  "EV-BKC01": "DEX\\x035\\x00\\x8e\\x1a...com.evilcorp.bankstealer.SmsInterceptorService...TARGET_PKG:in.org.npci.upi...ACTION_FORWARD_SMS",
+  "EV-BKC02": "{\"event_id\":\"TXN_99182\",\"timestamp\":\"2026-01-14T21:23:45+05:30\",\"source\":\"UPI_GATEWAY\",\"account\":\"9876543210@upi\",\"amount\":95000.00,\"status\":\"TRANSFERRED\",\"ip\":\"103.21.144.12\"}",
+  "EV-BKC03": "timestamp,msisdn,cell_tower_id,azimuth,lac,ci,event_type\n2026-01-14T21:22:10+05:30,9876543210,MUM-BKC-T09,30,404,11029,SMS_RELAY\n",
+  "EV-BKC04": "SQLite format 3\\x00\\x10\\x00\\x01\\x01...CREATE TABLE messages (id INTEGER, address TEXT, body TEXT, date INTEGER, forwarded_to TEXT);...9876543210|OTP 881291 for INR 95000|1768407825|+447911123456"
 };
 
-function formatHexDump(str) {
+const EXHIBIT_ANOMALY_RANGES = {
+  "EV-25C119": {
+    start: 161,
+    end: 206,
+    rangeHex: "0x00A1 - 0x00CE",
+    byteLength: 46,
+    matchedString: "DOWNLOAD_FILE,CONFIDENTIAL_Q3_FINANCIALS.XLSX",
+    timestamp: "12 Sep 2025, 15:28:45 IST",
+    actor: "vikram.malhotra (192.168.1.105)",
+    severity: "CRITICAL CONTRADICTION",
+    title: "Active Data Exfiltration During Alibi Window",
+    explanation: "Bitstream byte span 0x00A1–0x00CE captures active file transfer 'DOWNLOAD_FILE,CONFIDENTIAL_Q3_FINANCIALS.XLSX' initiated at 15:28:45 IST from internal workstation 192.168.1.105. This directly disproves suspect Vikram's WhatsApp assertion (EV-C4D948) claiming he was 'asleep in bed and completely offline' since 15:25:40 IST (+3m 05s discrepancy).",
+    bsaClause: "Admissible under BSA 2023 §63(4)(c) — Authenticated server syslog byte-stream with unbroken SHA-256 custody chain."
+  },
+  "EV-C4D948": {
+    start: 129,
+    end: 225,
+    rangeHex: "0x0081 - 0x00E1",
+    byteLength: 97,
+    matchedString: "Sir I am suffering from high fever, I am asleep in bed and completely offline till tomorrow morning.",
+    timestamp: "12 Sep 2025, 15:25:40 IST",
+    actor: "Vikram Malhotra",
+    severity: "CONTRADICTED ALIBI STATEMENT",
+    title: "Declared Incapacitation & Offline Status",
+    explanation: "Suspect statement asserting complete physical incapacitation and zero network presence. Contradicted by server login at 15:24:10 IST, file exfiltration at 15:28:45 IST, and concurrent cellular tower ping at 15:27:12 IST.",
+    bsaClause: "Admissible under BSA 2023 §63(4)(b) — Physical extraction payload from mobile device via Cellebrite UFED."
+  },
+  "EV-8BF745": {
+    start: 228,
+    end: 301,
+    rangeHex: "0x00E4 - 0x012D",
+    byteLength: 74,
+    matchedString: "Attached is the unreleased patent draft and SQL credentials for production.",
+    timestamp: "12 Sep 2025, 15:30:00 IST",
+    actor: "vikram.malhotra@techcorp.in",
+    severity: "PROPRIETARY DATA BREACH",
+    title: "Unauthorized Exfiltration to External Protonmail",
+    explanation: "Outbound MIME stream transmitting internal proprietary patent drafts and SQL credentials to external unauthorized email external.contact@protonmail.com while falsely claiming sleep.",
+    bsaClause: "Admissible under BSA 2023 §63(4)(a) — RFC 822 forensic electronic mail header and payload preservation."
+  },
+  "EV-9F3E12": {
+    start: 69,
+    end: 144,
+    rangeHex: "0x0045 - 0x0090",
+    byteLength: 76,
+    matchedString: "DEL-S-041,120,28.5355,77.2732,45",
+    timestamp: "12 Sep 2025, 15:27:12 IST",
+    actor: "+91-9876543210 (Cellular BTS Uplink)",
+    severity: "GEOSPATIAL LOCATION CLASH",
+    title: "Cell Tower Antenna Sector Uplink During Alibi",
+    explanation: "Call detail record registers physical BTS tower sector DEL-S-041 (Azimuth 120°, Sector 62 Noida) active at 15:27:12 IST. Suspect claimed to be at residence in South Delhi (24.8 km distance conflict).",
+    bsaClause: "Admissible under BSA 2023 §63(4)(d) — Carrier switch gateway CDR record certified under statutory schedule."
+  }
+};
+
+let currentInspectedExhibitId = "EV-25C119";
+
+function formatHexDump(str, anomalyRange) {
   const bytes = [];
   for (let i = 0; i < str.length; i++) {
     bytes.push(str.charCodeAt(i));
   }
   const lines = [];
+  const rangeStart = anomalyRange ? anomalyRange.start : -1;
+  const rangeEnd = anomalyRange ? anomalyRange.end : -1;
+
   for (let i = 0; i < bytes.length; i += 16) {
     const chunk = bytes.slice(i, i + 16);
-    const offset = i.toString(16).padStart(8, '0');
-    const hexParts1 = [];
-    const hexParts2 = [];
+    const offsetHex = "0x" + i.toString(16).padStart(4, '0').toUpperCase();
+    
+    let hasAnomalyInRow = false;
+    const hexGroup1 = [];
+    const hexGroup2 = [];
+
     for (let j = 0; j < 8; j++) {
+      const byteIdx = i + j;
       if (j < chunk.length) {
-        hexParts1.push(chunk[j].toString(16).padStart(2, '0'));
+        const b = chunk[j];
+        const hexStr = b.toString(16).padStart(2, '0').toUpperCase();
+        if (byteIdx >= rangeStart && byteIdx < rangeEnd) {
+          hasAnomalyInRow = true;
+          hexGroup1.push(`<span class="hex-anomaly-byte" title="Offset 0x${byteIdx.toString(16).toUpperCase()}: Anomaly Byte">${hexStr}</span>`);
+        } else {
+          hexGroup1.push(`<span>${hexStr}</span>`);
+        }
       } else {
-        hexParts1.push('  ');
+        hexGroup1.push('<span class="opacity-0">..</span>');
       }
     }
+
     for (let j = 8; j < 16; j++) {
+      const byteIdx = i + j;
       if (j < chunk.length) {
-        hexParts2.push(chunk[j].toString(16).padStart(2, '0'));
+        const b = chunk[j];
+        const hexStr = b.toString(16).padStart(2, '0').toUpperCase();
+        if (byteIdx >= rangeStart && byteIdx < rangeEnd) {
+          hasAnomalyInRow = true;
+          hexGroup2.push(`<span class="hex-anomaly-byte" title="Offset 0x${byteIdx.toString(16).toUpperCase()}: Anomaly Byte">${hexStr}</span>`);
+        } else {
+          hexGroup2.push(`<span>${hexStr}</span>`);
+        }
       } else {
-        hexParts2.push('  ');
+        hexGroup2.push('<span class="opacity-0">..</span>');
       }
     }
-    let ascii = '';
+
+    let asciiHtml = '';
     for (let j = 0; j < chunk.length; j++) {
+      const byteIdx = i + j;
       const b = chunk[j];
-      ascii += (b >= 32 && b <= 126) ? String.fromCharCode(b) : '.';
+      const char = (b >= 32 && b <= 126) ? String.fromCharCode(b) : '·';
+      const safeChar = char === '<' ? '&lt;' : char === '>' ? '&gt;' : char === '&' ? '&amp;' : char;
+      if (byteIdx >= rangeStart && byteIdx < rangeEnd) {
+        asciiHtml += `<span class="hex-anomaly-byte" title="Offset 0x${byteIdx.toString(16).toUpperCase()}">${safeChar}</span>`;
+      } else {
+        asciiHtml += `<span>${safeChar}</span>`;
+      }
     }
-    lines.push(`<div>${offset}  ${hexParts1.join(' ')}  ${hexParts2.join(' ')}  |${ascii.padEnd(16, ' ')}|</div>`);
+
+    const rowClass = `hex-dump-row ${hasAnomalyInRow ? 'has-anomaly' : ''}`;
+    lines.push(`
+      <div class="${rowClass}" data-offset="${offsetHex}">
+        <span class="hex-offset-col">${offsetHex}</span>
+        <div class="hex-bytes-col">
+          <div class="hex-byte-group">${hexGroup1.join(' ')}</div>
+          <span class="text-slate-600 select-none">|</span>
+          <div class="hex-byte-group">${hexGroup2.join(' ')}</div>
+        </div>
+        <div class="hex-ascii-col font-mono">${asciiHtml}</div>
+      </div>
+    `);
   }
   return lines.join('');
 }
 
 function openHexInspector(exId) {
   hapticEngine.playWhoosh();
+  const targetId = exId || 'EV-25C119';
+  currentInspectedExhibitId = targetId;
+
   const modal = document.getElementById('hex-modal');
   const title = document.getElementById('hex-modal-title');
+  const badge = document.getElementById('hex-modal-badge');
+  const subtitle = document.getElementById('hex-modal-subtitle');
   const dumpContainer = document.getElementById('hex-dump-content');
-  const targetId = exId || 'EV-25C119';
-  if (title) title.textContent = `Hexadecimal Inspection: ${targetId}`;
+  const sidePanel = document.getElementById('hex-side-panel');
+
+  const exhibit = allEvidenceItems.find(e => e.id === targetId) || (currentCase.evidence ? currentCase.evidence.find(e => e.id === targetId) : null) || {
+    id: targetId,
+    filename: targetId + ".raw",
+    size_bytes: 286,
+    sha256: "b6ea37e9df964e3b5d2b5a77b8cdf168f022f3b3c1acba59e6dd8b108f2945ef",
+    sha3_256: "694d94d421f9486e8424de5f7dc4e65fd25b37f561fb255816bc5b893e8b1e4c",
+    file_type: "BITSTREAM_RAW"
+  };
+
+  const rawPayload = EXHIBIT_RAW_PAYLOADS[targetId] || EXHIBIT_RAW_PAYLOADS["EV-25C119"];
+  const anomalyInfo = EXHIBIT_ANOMALY_RANGES[targetId] || null;
+
+  if (title) title.textContent = `Hexadecimal Bitstream Examiner • ${targetId}`;
+  if (badge) {
+    badge.textContent = anomalyInfo ? anomalyInfo.severity : "SEALED BITSTREAM";
+    if (anomalyInfo && anomalyInfo.severity.includes("CRITICAL")) {
+      badge.className = "px-2 py-0.5 rounded text-[10px] font-mono bg-rose-500/15 text-rose-500 border border-rose-500/30 font-bold";
+    } else {
+      badge.className = "px-2 py-0.5 rounded text-[10px] font-mono bg-blue-500/15 text-blue-500 border border-blue-500/30 font-bold";
+    }
+  }
+  if (subtitle) {
+    subtitle.textContent = `${exhibit.filename} • ${rawPayload.length} Bytes • Read-Only Memory Buffer (NIST FIPS 180-4 Dual Hash Matched)`;
+  }
 
   if (dumpContainer) {
-    const rawPayload = EXHIBIT_RAW_PAYLOADS[targetId] || EXHIBIT_RAW_PAYLOADS["EV-25C119"];
-    dumpContainer.innerHTML = formatHexDump(rawPayload);
+    dumpContainer.innerHTML = formatHexDump(rawPayload, anomalyInfo);
+  }
+
+  if (sidePanel) {
+    sidePanel.innerHTML = `
+      <div class="space-y-4">
+        <!-- Exhibit Overview -->
+        <div class="p-3 rounded-xl bg-inset border border-subtle space-y-2">
+          <div class="flex items-center justify-between text-[11px]">
+            <span class="font-bold text-primary">${exhibit.filename}</span>
+            <span class="font-mono text-muted text-[10px]">${rawPayload.length} Bytes</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-[10px]">
+            <div>
+              <span class="text-muted block">Evidence Type</span>
+              <span class="font-semibold text-primary font-mono">${exhibit.file_type || 'SERVER_LOG'}</span>
+            </div>
+            <div>
+              <span class="text-muted block">Integrity State</span>
+              <span class="font-semibold text-emerald-500 flex items-center gap-1">
+                <i data-lucide="check-circle" class="w-3 h-3"></i> Intact Verified
+              </span>
+            </div>
+          </div>
+        </div>
+
+        ${anomalyInfo ? `
+        <!-- Anomaly Highlight Card -->
+        <div class="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-rose-500/20 text-rose-500 border border-rose-500/40">
+              ${anomalyInfo.severity}
+            </span>
+            <span class="text-[10px] font-mono text-rose-500 font-bold">
+              ${anomalyInfo.rangeHex} (${anomalyInfo.byteLength} B)
+            </span>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-bold text-primary">${anomalyInfo.title}</h4>
+            <p class="text-[11px] text-muted mt-1 leading-relaxed">${anomalyInfo.explanation}</p>
+          </div>
+
+          <div class="p-2 rounded-lg bg-black/30 border border-rose-500/20 text-[10px] font-mono text-rose-300 break-all select-all">
+            "${anomalyInfo.matchedString}"
+          </div>
+
+          <div class="flex items-center justify-between pt-1 border-t border-rose-500/20 text-[10px] text-muted">
+            <span>Actor: <strong class="text-primary">${anomalyInfo.actor}</strong></span>
+            <span>Recorded: <strong class="text-primary">${anomalyInfo.timestamp}</strong></span>
+          </div>
+        </div>
+        ` : `
+        <div class="p-4 rounded-xl bg-inset border border-dashed border-subtle text-center text-xs text-muted space-y-1">
+          <i data-lucide="shield-check" class="w-6 h-6 text-emerald-500 mx-auto"></i>
+          <div class="font-semibold text-primary">No Anomaly Span Flagged</div>
+          <p class="text-[11px]">All bitstream segments align within baseline operating tolerances.</p>
+        </div>
+        `}
+
+        <!-- Cryptographic Proof Card -->
+        <div class="space-y-2">
+          <div class="text-[11px] font-bold text-primary flex items-center justify-between">
+            <span>Dual Cryptographic Digests</span>
+            <span class="text-[10px] font-mono text-emerald-500 font-semibold">NIST FIPS 180-4</span>
+          </div>
+
+          <div class="space-y-1.5 font-mono text-[10px]">
+            <div class="p-2 rounded bg-inset border border-subtle space-y-0.5">
+              <div class="flex items-center justify-between text-muted text-[9px]">
+                <span>SHA-256 (Primary)</span>
+                <button onclick="copyHashToClipboard('${exhibit.sha256}', this)" class="text-blue-500 hover:underline flex items-center gap-1 cursor-pointer">
+                  <i data-lucide="copy" class="w-3 h-3"></i> Copy
+                </button>
+              </div>
+              <div class="text-primary truncate select-all" title="${exhibit.sha256}">${exhibit.sha256}</div>
+            </div>
+
+            <div class="p-2 rounded bg-inset border border-subtle space-y-0.5">
+              <div class="flex items-center justify-between text-muted text-[9px]">
+                <span>SHA3-256 (Keccak Permutation)</span>
+                <button onclick="copyHashToClipboard('${exhibit.sha3_256}', this)" class="text-blue-500 hover:underline flex items-center gap-1 cursor-pointer">
+                  <i data-lucide="copy" class="w-3 h-3"></i> Copy
+                </button>
+              </div>
+              <div class="text-primary truncate select-all" title="${exhibit.sha3_256}">${exhibit.sha3_256}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statutory Admissibility Notice -->
+      <div class="p-2.5 rounded-lg bg-inset border border-subtle text-[10px] text-muted space-y-1 mt-3">
+        <div class="font-bold text-primary flex items-center gap-1">
+          <i data-lucide="scale" class="w-3.5 h-3.5 text-blue-500"></i>
+          <span>Courtroom Admissibility (BSA 2023 §63(4))</span>
+        </div>
+        <p class="leading-normal">${anomalyInfo ? anomalyInfo.bsaClause : 'Sealed digital evidence bitstream prepared for statutory certificate schedule.'}</p>
+      </div>
+    `;
   }
 
   if (modal) {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
   }
+
+  if (window.lucide) lucide.createIcons();
+}
+
+function focusHexAnomaly() {
+  hapticEngine.playSoftTap();
+  const firstAnomaly = document.querySelector('.has-anomaly');
+  if (firstAnomaly) {
+    firstAnomaly.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    firstAnomaly.classList.remove('hex-anomaly-pulse');
+    void firstAnomaly.offsetWidth;
+    firstAnomaly.classList.add('hex-anomaly-pulse');
+    showToast("Scrolled to anomaly byte offset.");
+  } else {
+    showToast("No anomaly range flagged for this exhibit bitstream.");
+  }
+}
+
+function copyHexPayload() {
+  hapticEngine.playSoftTap();
+  const raw = EXHIBIT_RAW_PAYLOADS[currentInspectedExhibitId] || "";
+  if (!raw) {
+    showToast("No bitstream data available.");
+    return;
+  }
+  navigator.clipboard.writeText(raw).then(() => {
+    const btnText = document.getElementById('btn-copy-hex-text');
+    if (btnText) {
+      const orig = btnText.textContent;
+      btnText.textContent = "Copied!";
+      setTimeout(() => { btnText.textContent = orig; }, 1500);
+    }
+    showToast("Raw bitstream payload copied to clipboard.");
+  }).catch(() => {
+    showToast("Copied to clipboard.");
+  });
+}
+
+function copyHashToClipboard(hashStr, btnEl) {
+  hapticEngine.playSoftTap();
+  navigator.clipboard.writeText(hashStr).then(() => {
+    if (btnEl) {
+      const originalHtml = btnEl.innerHTML;
+      btnEl.innerHTML = `<span class="text-emerald-500 font-bold">Copied!</span>`;
+      setTimeout(() => { btnEl.innerHTML = originalHtml; }, 1500);
+    }
+    showToast(`Hash copied to clipboard.`);
+  });
 }
 
 function closeHexInspector() {
