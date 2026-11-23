@@ -34,137 +34,21 @@
  */
 
 // =============================================================================
-// 1. REFINED ACOUSTIC HAPTIC SOUND ENGINE (ENABLED BY DEFAULT, ZERO SCROLL AUDIO)
+// 1. SOUND PERMANENTLY DISABLED (100% SILENT COURTROOM STANDARD)
 // =============================================================================
-class LuxuryHapticAudio {
-  constructor() {
-    this.ctx = null;
-    this.isMuted = false; // Enabled by default as requested!
-    this.hasUnlocked = false;
-  }
-
-  init() {
-    if (!this.ctx && typeof window !== 'undefined') {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (AudioCtx) {
-        this.ctx = new AudioCtx();
-      }
-    }
-    if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume();
-    }
-    this.hasUnlocked = true;
-  }
-
-  toggle() { this.enabled = false; return false;
-    this.init();
-    this.isMuted = !this.isMuted;
-    const btn = document.getElementById('sound-toggle-btn');
-    const label = document.getElementById('sound-toggle-label');
-    const icon = document.getElementById('sound-toggle-icon');
-
-    if (this.isMuted) {
-      if (label) label.textContent = 'Muted';
-      if (icon) icon.setAttribute('data-lucide', 'volume-x');
-      if (btn) btn.classList.replace('text-[#181716]', 'text-[#8C867D]');
-    } else {
-      if (label) label.textContent = 'Sound ON';
-      if (icon) icon.setAttribute('data-lucide', 'volume-2');
-      if (btn) btn.classList.replace('text-[#8C867D]', 'text-[#181716]');
-      this.playChime(660);
-    }
-    if (window.lucide) lucide.createIcons();
-    return !this.isMuted;
-  }
-
-  // Soft tactile acoustic tap for deliberate primary clicks
-  playSoftTap() { return;
-    if (this.isMuted) return;
-    this.init();
-    try {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(620, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(260, this.ctx.currentTime + 0.02);
-      gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.02);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.02);
-    } catch (_) {}
-  }
-
-  // Micro hover tick for interactive buttons
-  playHoverTick() {
-    if (this.isMuted) return;
-    this.init();
-    try {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(1100, this.ctx.currentTime);
-      gain.gain.setValueAtTime(0.012, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.008);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.008);
-    } catch (_) {}
-  }
-
-  // Pure harmonic crystalline chime (e.g. verified lock, splash end)
-  playChime(freq = 523.25) {
-    if (this.isMuted) return;
-    this.init();
-    try {
-      [freq, freq * 1.5].forEach((f, idx) => {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(f, this.ctx.currentTime);
-        gain.gain.setValueAtTime(0.06 / (idx + 1), this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.35);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.35);
-      });
-    } catch (_) {}
-  }
-
-  // Double chime on commit/verification
-  playSuccess() { return;
-    this.playChime(587);
-    setTimeout(() => this.playChime(880), 120);
-  }
-
-  // Soft breath whoosh on modal opening
-  playWhoosh() {
-    if (this.isMuted) return;
-    this.init();
-    try {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(220, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(440, this.ctx.currentTime + 0.08);
-      gain.gain.setValueAtTime(0.03, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.08);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.08);
-    } catch (_) {}
-  }
-}
-
-const hapticEngine = new LuxuryHapticAudio();
-
-// Unlock Web Audio immediately on first user touch/click/press anywhere
-['pointerdown', 'mousedown', 'keydown', 'touchstart'].forEach(evt => {
-  window.addEventListener(evt, () => hapticEngine.init(), { once: true });
+const hapticEngine = {
+  isMuted: true,
+  enabled: false,
+  init() {},
+  toggle() { return false; },
+  playSoftTap() {},
+  playHoverTick() {},
+  playChime() {},
+  playSuccess() {},
+  playWhoosh() {},
+  playTap() {},
+  playError() {}
+};
 });
 
 
@@ -3216,7 +3100,6 @@ function toggleTheme() {
 const TEXT_SCALE_LEVELS = [0.85, 1.0, 1.15, 1.30];
 
 function setTextScale(levelIdx = 1) {
-  if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
   if (levelIdx < 0 || levelIdx >= TEXT_SCALE_LEVELS.length) levelIdx = 1;
   const scale = TEXT_SCALE_LEVELS[levelIdx];
   const root = document.documentElement;
@@ -3242,7 +3125,7 @@ function setTextScale(levelIdx = 1) {
         btn.classList.remove('active');
         btn.style.backgroundColor = '#FFFFFF';
         btn.style.color = '#0F172A';
-        btn.style.borderColor = '#94A3B8';
+        btn.style.borderColor = '#64748B';
       }
     }
   });

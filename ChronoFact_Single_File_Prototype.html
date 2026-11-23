@@ -24564,21 +24564,22 @@ html, body {
 
 /* Accessibility Text-Size Controls (High-Contrast Courtroom Standard) */
 .text-size-btn {
-  font-size: 0.72rem;
-  font-weight: 800;
-  padding: 0.15rem 0.55rem;
-  border-radius: 4px;
-  border: 1px solid #94A3B8;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  border: 1.5px solid #64748B !important;
   background-color: #FFFFFF !important;
   color: #0F172A !important;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  line-height: 1.2;
+  cursor: pointer !important;
+  line-height: 1.2 !important;
+  display: inline-block !important;
+  transition: all 0.15s ease !important;
 }
 
 .text-size-btn:hover {
   background-color: #E2E8F0 !important;
-  border-color: #475569 !important;
+  border-color: #1E293B !important;
   color: #0F172A !important;
 }
 
@@ -24813,9 +24814,7 @@ header button:not(.btn-editorial-primary):hover,
   border-left: 3px solid var(--primary) !important;
   border-color: var(--border-subtle) !important;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
-  font-weight: 600 !important;
-}
-  font-weight: 600 !important;
+  font-weight: 700 !important;
 }
 
 /* Modal Dialogs & Drawers in Light Mode */
@@ -25061,9 +25060,10 @@ div[id$="-drawer"] .editorial-card,
    OFFICIAL CYBER CRIME PORTAL SKELETON (MHA / I4C / DFSS GOI DESIGN SYSTEM)
    ============================================================================= */
 .common-wrapper {
-  background: #F8FAFC !important;
-  color: #334155 !important;
-  border-bottom: 1px solid #E2E8F0 !important;
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border-bottom: 1.5px solid #CBD5E1 !important;
+  padding: 6px 0 !important;
 }
 
 .header-wrapper {
@@ -25104,40 +25104,53 @@ div[id$="-drawer"] .editorial-card,
 }
 
 .megamenu-wraper {
-  background: #FFFFFF !important;
-  border-top: 1px solid #E2E8F0 !important;
-  border-bottom: 1px solid #E2E8F0 !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-}
-  box-shadow: 0 2px 10px rgba(2, 98, 175, 0.25);
+  background: #F1F5F9 !important;
+  border-top: 1px solid #CBD5E1 !important;
+  border-bottom: 2px solid #CBD5E1 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
 }
 
 .portal-nav-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 14px;
-  font-size: 13px;
-  font-weight: 600;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  padding: 8px 14px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #334155 !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 6px !important;
+  transition: all 0.15s ease !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+}
+
+.portal-nav-btn i {
   color: #475569 !important;
-  background: transparent;
-  border: none;
-  border-bottom: 3px solid transparent;
-  transition: all 0.15s ease;
-  cursor: pointer;
-  white-space: nowrap;
+  width: 15px !important;
+  height: 15px !important;
 }
 
 .portal-nav-btn:hover {
-  background-color: #F8FAFC !important;
+  background-color: #E2E8F0 !important;
   color: #0F172A !important;
-  border-bottom-color: #94A3B8 !important;
 }
 
 .portal-nav-btn.active {
-  background-color: #F1F5F9 !important;
-  border-bottom-color: #0F172A !important;
-  color: #0F172A !important;
+  background-color: #0F172A !important;
+  color: #FFFFFF !important;
+  border-color: #0F172A !important;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.25) !important;
+}
+
+.portal-nav-btn.active span {
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+}
+
+.portal-nav-btn.active i {
+  color: #F8FAFC !important;
 }
 
 .statutory-ticker {
@@ -25272,17 +25285,23 @@ div[id$="-drawer"] .editorial-card,
 
 /* Case Selector Pill & Modal Styles */
 .header-case-badge {
-  background: #F1F5F9 !important;
-  border: 1px solid #CBD5E1 !important;
+  background: #FFFFFF !important;
+  border: 1.5px solid #94A3B8 !important;
+  border-radius: 9999px !important;
+  padding: 6px 14px !important;
   color: #0F172A !important;
-  cursor: pointer;
-  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  cursor: pointer !important;
+  font-weight: 700 !important;
 }
 
 .header-case-badge:hover {
-  background: #E2E8F0 !important;
-  border-color: #94A3B8 !important;
-  transform: translateY(-1px);
+  background: #F8FAFC !important;
+  border-color: #475569 !important;
+}
+
+.header-case-badge * {
+  color: #0F172A !important;
 }
 
 .case-card-option {
@@ -25432,6 +25451,72 @@ div[id$="-drawer"] .editorial-card,
 
 #workbench-scroll-area {
   background-color: var(--bg-canvas) !important;
+}
+
+/* Guaranteed Bottom Clearance so cards are never cut off by demo banner */
+#workbench-scroll-area {
+  padding-bottom: 6rem !important;
+}
+main {
+  padding-bottom: 6rem !important;
+}
+
+/* High-Contrast Action Buttons */
+.btn-editorial-primary {
+  background-color: #0F172A !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid #0F172A !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  padding: 8px 14px !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.2) !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+.btn-editorial-primary:hover {
+  background-color: #1E293B !important;
+  border-color: #1E293B !important;
+}
+.btn-editorial-primary * {
+  color: #FFFFFF !important;
+}
+
+.btn-editorial-secondary {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1.5px solid #CBD5E1 !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  padding: 8px 14px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+.btn-editorial-secondary:hover {
+  background-color: #F8FAFC !important;
+  border-color: #94A3B8 !important;
+  color: #0F172A !important;
+}
+.btn-editorial-secondary * {
+  color: #0F172A !important;
+}
+
+/* Light Footer Styles */
+.footer-top-wrapper {
+  background: #F8FAFC !important;
+  color: #334155 !important;
+  border-top: 1.5px solid #CBD5E1 !important;
+}
+.footer-top-wrapper * {
+  color: #334155 !important;
+}
+.footer-top-wrapper .font-bold {
+  color: #0F172A !important;
+}
+.footer-bottom-wrapper {
+  background: #FFFFFF !important;
+  color: #64748B !important;
+  border-top: 1px solid #E2E8F0 !important;
 }
 
 
@@ -26463,7 +26548,7 @@ div[id$="-drawer"] .editorial-card,
 
 
       <!-- Main Content Container with Generous Breathing Room -->
-      <main class="flex-1 p-6 lg:p-10 space-y-10 max-w-7xl w-full mx-auto">
+      <main class="flex-1 p-6 lg:p-10 space-y-10 max-w-7xl w-full mx-auto pb-24">
 
         <!-- ===================================================================== -->
         <!-- ZONE 1: CASE OVERVIEW & HEALTH AT A GLANCE (TAB PANE 1) -->
@@ -28209,137 +28294,21 @@ window.addEventListener('DOMContentLoaded', function() {
  */
 
 // =============================================================================
-// 1. REFINED ACOUSTIC HAPTIC SOUND ENGINE (ENABLED BY DEFAULT, ZERO SCROLL AUDIO)
+// 1. SOUND PERMANENTLY DISABLED (100% SILENT COURTROOM STANDARD)
 // =============================================================================
-class LuxuryHapticAudio {
-  constructor() {
-    this.ctx = null;
-    this.isMuted = false; // Enabled by default as requested!
-    this.hasUnlocked = false;
-  }
-
-  init() {
-    if (!this.ctx && typeof window !== 'undefined') {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (AudioCtx) {
-        this.ctx = new AudioCtx();
-      }
-    }
-    if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume();
-    }
-    this.hasUnlocked = true;
-  }
-
-  toggle() { this.enabled = false; return false;
-    this.init();
-    this.isMuted = !this.isMuted;
-    const btn = document.getElementById('sound-toggle-btn');
-    const label = document.getElementById('sound-toggle-label');
-    const icon = document.getElementById('sound-toggle-icon');
-
-    if (this.isMuted) {
-      if (label) label.textContent = 'Muted';
-      if (icon) icon.setAttribute('data-lucide', 'volume-x');
-      if (btn) btn.classList.replace('text-[#181716]', 'text-[#8C867D]');
-    } else {
-      if (label) label.textContent = 'Sound ON';
-      if (icon) icon.setAttribute('data-lucide', 'volume-2');
-      if (btn) btn.classList.replace('text-[#8C867D]', 'text-[#181716]');
-      this.playChime(660);
-    }
-    if (window.lucide) lucide.createIcons();
-    return !this.isMuted;
-  }
-
-  // Soft tactile acoustic tap for deliberate primary clicks
-  playSoftTap() { return;
-    if (this.isMuted) return;
-    this.init();
-    try {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(620, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(260, this.ctx.currentTime + 0.02);
-      gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.02);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.02);
-    } catch (_) {}
-  }
-
-  // Micro hover tick for interactive buttons
-  playHoverTick() {
-    if (this.isMuted) return;
-    this.init();
-    try {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(1100, this.ctx.currentTime);
-      gain.gain.setValueAtTime(0.012, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.008);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.008);
-    } catch (_) {}
-  }
-
-  // Pure harmonic crystalline chime (e.g. verified lock, splash end)
-  playChime(freq = 523.25) {
-    if (this.isMuted) return;
-    this.init();
-    try {
-      [freq, freq * 1.5].forEach((f, idx) => {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(f, this.ctx.currentTime);
-        gain.gain.setValueAtTime(0.06 / (idx + 1), this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.35);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.35);
-      });
-    } catch (_) {}
-  }
-
-  // Double chime on commit/verification
-  playSuccess() { return;
-    this.playChime(587);
-    setTimeout(() => this.playChime(880), 120);
-  }
-
-  // Soft breath whoosh on modal opening
-  playWhoosh() {
-    if (this.isMuted) return;
-    this.init();
-    try {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(220, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(440, this.ctx.currentTime + 0.08);
-      gain.gain.setValueAtTime(0.03, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.08);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.08);
-    } catch (_) {}
-  }
-}
-
-const hapticEngine = new LuxuryHapticAudio();
-
-// Unlock Web Audio immediately on first user touch/click/press anywhere
-['pointerdown', 'mousedown', 'keydown', 'touchstart'].forEach(evt => {
-  window.addEventListener(evt, () => hapticEngine.init(), { once: true });
+const hapticEngine = {
+  isMuted: true,
+  enabled: false,
+  init() {},
+  toggle() { return false; },
+  playSoftTap() {},
+  playHoverTick() {},
+  playChime() {},
+  playSuccess() {},
+  playWhoosh() {},
+  playTap() {},
+  playError() {}
+};
 });
 
 
@@ -31391,7 +31360,6 @@ function toggleTheme() {
 const TEXT_SCALE_LEVELS = [0.85, 1.0, 1.15, 1.30];
 
 function setTextScale(levelIdx = 1) {
-  if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
   if (levelIdx < 0 || levelIdx >= TEXT_SCALE_LEVELS.length) levelIdx = 1;
   const scale = TEXT_SCALE_LEVELS[levelIdx];
   const root = document.documentElement;
@@ -31417,7 +31385,7 @@ function setTextScale(levelIdx = 1) {
         btn.classList.remove('active');
         btn.style.backgroundColor = '#FFFFFF';
         btn.style.color = '#0F172A';
-        btn.style.borderColor = '#94A3B8';
+        btn.style.borderColor = '#64748B';
       }
     }
   });
