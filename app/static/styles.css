@@ -10,7 +10,59 @@
 /* --------------------------------------------------------------------------
    1. COLOR PALETTES (PURE DARK & PURE LIGHT)
    -------------------------------------------------------------------------- */
-:root, [data-theme="light"], /* Dark theme permanently decommissioned - pure courtroom light theme */
+:root, [data-theme="light"] {
+  /* Official Government of India Cyber Crime Portal (MHA / I4C / DFSS Design System) */
+  --primary: #0262af;
+  --primary-container: #EFF6FF;
+  --primary-hover: #004d8c;
+  --on-primary: #FFFFFF;
+  --secondary: #002654;
+  --accent-cyan: #38BDF8;
+  --accent-gold: #F59E0B;
+
+  --bg-canvas: #F4F7FB;
+  --bg-sidebar: #FFFFFF;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F8FAFC;
+  --bg-inset: #F8FAFC;
+  --bg-input: #FFFFFF;
+  --bg-elevated: #F1F5F9;
+
+  --border-subtle: #CBD5E1;
+  --border-hairline: #CBD5E1;
+  --border-focus: #0262af;
+  --border-divider: #E2E8F0;
+
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #475569;
+  --text-dim: #64748B;
+
+  --color-danger: #DC2626;
+  --color-danger-bg: #FEF2F2;
+  --color-danger-border: #FECACA;
+  --color-danger-text: #991B1B;
+
+  --color-warning: #D97706;
+  --color-warning-bg: #FFFBEB;
+  --color-warning-border: #FDE68A;
+  --color-warning-text: #92400E;
+
+  --color-success: #059669;
+  --color-success-bg: #ECFDF5;
+  --color-success-border: #A7F3D0;
+  --color-success-text: #065F46;
+
+  --color-info: #0262af;
+  --color-info-bg: #EFF6FF;
+  --color-info-border: #BFDBFE;
+  --color-info-text: #1D4ED8;
+
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 14px -2px rgba(2, 98, 175, 0.08);
+  color-scheme: light;
+}
 
 /* --------------------------------------------------------------------------
    EVIDENTIARY 5-STEP WORKFLOW STEPPER
@@ -997,6 +1049,13 @@ div[id$="-drawer"] .editorial-card,
 }
 
 .portal-nav-btn {
+  color: #0F172A !important;
+}
+.portal-nav-btn span {
+  color: #0F172A !important;
+  font-weight: 700 !important;
+}
+.portal-nav-btn {
   display: inline-flex !important;
   align-items: center !important;
   gap: 7px !important;
@@ -1060,18 +1119,18 @@ div[id$="-drawer"] .editorial-card,
 }
 
 .footer-top-wrapper {
-  background: #F8FAFC;
-  color: #64748B;
-  padding: 24px 0;
-  border-top: 1px solid #334155;
+  background: #FFFFFF !important;
+  color: #334155 !important;
+  padding: 32px 0 24px 0 !important;
+  border-top: 2px solid #CBD5E1 !important;
 }
 
 .footer-bottom-wrapper {
-  background: #FFFFFF;
-  color: #64748B;
-  padding: 14px 0;
-  font-size: 11px;
-  border-top: 1px solid #1E293B;
+  background: #F1F5F9 !important;
+  color: #475569 !important;
+  padding: 16px 0 28px 0 !important;
+  font-size: 11px !important;
+  border-top: 1px solid #CBD5E1 !important;
 }
 
 /* Horizontal scrollbar concealment for megamenu */
@@ -1336,12 +1395,16 @@ div[id$="-drawer"] .editorial-card,
 
 
 #workbench-scroll-area {
-  background-color: var(--bg-canvas) !important;
+  padding-bottom: 7rem !important;
+  height: 100% !important;
+  min-height: 0 !important;
 }
 
 /* Guaranteed Bottom Clearance so cards are never cut off by demo banner */
 #workbench-scroll-area {
-  padding-bottom: 6rem !important;
+  padding-bottom: 7rem !important;
+  height: 100% !important;
+  min-height: 0 !important;
 }
 main {
   padding-bottom: 6rem !important;
@@ -1389,9 +1452,10 @@ main {
 
 /* Light Footer Styles */
 .footer-top-wrapper {
-  background: #F8FAFC !important;
+  background: #FFFFFF !important;
   color: #334155 !important;
-  border-top: 1.5px solid #CBD5E1 !important;
+  padding: 32px 0 24px 0 !important;
+  border-top: 2px solid #CBD5E1 !important;
 }
 .footer-top-wrapper * {
   color: #334155 !important;
@@ -1400,7 +1464,9 @@ main {
   color: #0F172A !important;
 }
 .footer-bottom-wrapper {
-  background: #FFFFFF !important;
-  color: #64748B !important;
-  border-top: 1px solid #E2E8F0 !important;
+  background: #F1F5F9 !important;
+  color: #475569 !important;
+  padding: 16px 0 28px 0 !important;
+  font-size: 11px !important;
+  border-top: 1px solid #CBD5E1 !important;
 }

@@ -24124,7 +24124,59 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 /* --------------------------------------------------------------------------
    1. COLOR PALETTES (PURE DARK & PURE LIGHT)
    -------------------------------------------------------------------------- */
-:root, [data-theme="light"], /* Dark theme permanently decommissioned - pure courtroom light theme */
+:root, [data-theme="light"] {
+  /* Official Government of India Cyber Crime Portal (MHA / I4C / DFSS Design System) */
+  --primary: #0262af;
+  --primary-container: #EFF6FF;
+  --primary-hover: #004d8c;
+  --on-primary: #FFFFFF;
+  --secondary: #002654;
+  --accent-cyan: #38BDF8;
+  --accent-gold: #F59E0B;
+
+  --bg-canvas: #F4F7FB;
+  --bg-sidebar: #FFFFFF;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F8FAFC;
+  --bg-inset: #F8FAFC;
+  --bg-input: #FFFFFF;
+  --bg-elevated: #F1F5F9;
+
+  --border-subtle: #CBD5E1;
+  --border-hairline: #CBD5E1;
+  --border-focus: #0262af;
+  --border-divider: #E2E8F0;
+
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #475569;
+  --text-dim: #64748B;
+
+  --color-danger: #DC2626;
+  --color-danger-bg: #FEF2F2;
+  --color-danger-border: #FECACA;
+  --color-danger-text: #991B1B;
+
+  --color-warning: #D97706;
+  --color-warning-bg: #FFFBEB;
+  --color-warning-border: #FDE68A;
+  --color-warning-text: #92400E;
+
+  --color-success: #059669;
+  --color-success-bg: #ECFDF5;
+  --color-success-border: #A7F3D0;
+  --color-success-text: #065F46;
+
+  --color-info: #0262af;
+  --color-info-bg: #EFF6FF;
+  --color-info-border: #BFDBFE;
+  --color-info-text: #1D4ED8;
+
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 14px -2px rgba(2, 98, 175, 0.08);
+  color-scheme: light;
+}
 
 /* --------------------------------------------------------------------------
    EVIDENTIARY 5-STEP WORKFLOW STEPPER
@@ -25111,6 +25163,13 @@ div[id$="-drawer"] .editorial-card,
 }
 
 .portal-nav-btn {
+  color: #0F172A !important;
+}
+.portal-nav-btn span {
+  color: #0F172A !important;
+  font-weight: 700 !important;
+}
+.portal-nav-btn {
   display: inline-flex !important;
   align-items: center !important;
   gap: 7px !important;
@@ -25174,18 +25233,18 @@ div[id$="-drawer"] .editorial-card,
 }
 
 .footer-top-wrapper {
-  background: #F8FAFC;
-  color: #64748B;
-  padding: 24px 0;
-  border-top: 1px solid #334155;
+  background: #FFFFFF !important;
+  color: #334155 !important;
+  padding: 32px 0 24px 0 !important;
+  border-top: 2px solid #CBD5E1 !important;
 }
 
 .footer-bottom-wrapper {
-  background: #FFFFFF;
-  color: #64748B;
-  padding: 14px 0;
-  font-size: 11px;
-  border-top: 1px solid #1E293B;
+  background: #F1F5F9 !important;
+  color: #475569 !important;
+  padding: 16px 0 28px 0 !important;
+  font-size: 11px !important;
+  border-top: 1px solid #CBD5E1 !important;
 }
 
 /* Horizontal scrollbar concealment for megamenu */
@@ -25450,12 +25509,16 @@ div[id$="-drawer"] .editorial-card,
 
 
 #workbench-scroll-area {
-  background-color: var(--bg-canvas) !important;
+  padding-bottom: 7rem !important;
+  height: 100% !important;
+  min-height: 0 !important;
 }
 
 /* Guaranteed Bottom Clearance so cards are never cut off by demo banner */
 #workbench-scroll-area {
-  padding-bottom: 6rem !important;
+  padding-bottom: 7rem !important;
+  height: 100% !important;
+  min-height: 0 !important;
 }
 main {
   padding-bottom: 6rem !important;
@@ -25503,9 +25566,10 @@ main {
 
 /* Light Footer Styles */
 .footer-top-wrapper {
-  background: #F8FAFC !important;
+  background: #FFFFFF !important;
   color: #334155 !important;
-  border-top: 1.5px solid #CBD5E1 !important;
+  padding: 32px 0 24px 0 !important;
+  border-top: 2px solid #CBD5E1 !important;
 }
 .footer-top-wrapper * {
   color: #334155 !important;
@@ -25514,9 +25578,11 @@ main {
   color: #0F172A !important;
 }
 .footer-bottom-wrapper {
-  background: #FFFFFF !important;
-  color: #64748B !important;
-  border-top: 1px solid #E2E8F0 !important;
+  background: #F1F5F9 !important;
+  color: #475569 !important;
+  padding: 16px 0 28px 0 !important;
+  font-size: 11px !important;
+  border-top: 1px solid #CBD5E1 !important;
 }
 
 
@@ -25614,17 +25680,51 @@ main {
       border-color: var(--border-subtle);
     }
 
-    /* Megamenu text contrast */
-    .megamenu-wraper,
-    .megamenu-wraper .officer-label,
-    .megamenu-wraper span:not(#officer-dropdown-menu span),
-    .megamenu-wraper button:not(#officer-dropdown-menu button),
-    .megamenu-wraper i:not(#officer-dropdown-menu i) {
+    /* Megamenu High-Contrast Dark Text */
+    .megamenu-wraper {
+      background-color: #F8FAFC !important;
+      border-bottom: 1.5px solid #CBD5E1 !important;
+    }
+    .megamenu-wraper .portal-nav-btn {
+      color: #0F172A !important;
+      font-weight: 700 !important;
+    }
+    .megamenu-wraper .portal-nav-btn span {
+      color: #0F172A !important;
+      font-weight: 700 !important;
+    }
+    .megamenu-wraper .portal-nav-btn i {
+      color: #334155 !important;
+    }
+    .megamenu-wraper .portal-nav-btn.active {
+      background-color: #0F172A !important;
+      color: #FFFFFF !important;
+      border-color: #0F172A !important;
+    }
+    .megamenu-wraper .portal-nav-btn.active span {
+      color: #FFFFFF !important;
+      font-weight: 800 !important;
+    }
+    .megamenu-wraper .portal-nav-btn.active i {
       color: #FFFFFF !important;
     }
+    .megamenu-wraper .officer-label {
+      color: #0F172A !important;
+      font-weight: 700 !important;
+    }
+    #officer-menu-btn,
+    #officer-menu-btn span,
     #officer-menu-btn .officer-label {
-      color: #FFFFFF !important;
+      color: #0F172A !important;
     }
+    .header-case-badge,
+    .header-case-badge span,
+    .header-case-badge i {
+      color: #0F172A !important;
+    }
+    #header-vault-status-pill,
+    #header-vault-status-pill span {
+      color: #064E3B !important;
     }
     input,
     select,
@@ -26515,7 +26615,7 @@ main {
     <!-- ========================================================================= -->
     <!-- 2. MAIN WORKBENCH MULTI-PANE SCROLL AREA -->
     <!-- ========================================================================= -->
-    <div id="workbench-scroll-area" class="flex-1 flex flex-col h-screen overflow-y-auto min-w-0 bg-[#F8FAFC]">
+    <div id="workbench-scroll-area" class="flex-1 flex flex-col h-full min-h-0 overflow-y-auto min-w-0 bg-[#F8FAFC] pb-28">
       
 
 
@@ -27225,25 +27325,25 @@ main {
       <!-- ===================================================================== -->
       <!-- OFFICIAL CYBER CRIME PORTAL GOI FOOTER (MHA / I4C / DFSS) -->
       <!-- ===================================================================== -->
-      <footer class="w-full mt-12 no-print select-none">
+      <footer class="w-full mt-12 no-print select-none pb-24">
         <div class="footer-top-wrapper px-6 py-8">
-          <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 text-xs text-slate-300">
+          <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 text-xs text-slate-700">
             <div class="space-y-2">
-              <div class="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                <i data-lucide="shield" class="w-4 h-4 text-[#71F8E4]"></i>
+              <div class="font-extrabold text-[#0F172A] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                <i data-lucide="shield" class="w-4 h-4 text-[#0262af]"></i>
                 <span>About ChronoFact • I4C</span>
               </div>
-              <p class="text-slate-400 text-[11px] leading-relaxed">
+              <p class="text-slate-600 text-[11px] leading-relaxed">
                 National Judicial Cyber Forensic Intelligence Workbench operated in adherence with the Indian Cyber Crime Coordination Centre (I4C), Ministry of Home Affairs, and Directorate of Forensic Science Services (DFSS).
               </p>
             </div>
 
             <div class="space-y-2">
-              <div class="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                <i data-lucide="scale" class="w-4 h-4 text-amber-300"></i>
+              <div class="font-extrabold text-[#0F172A] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                <i data-lucide="scale" class="w-4 h-4 text-amber-600"></i>
                 <span>Statutory Mandate</span>
               </div>
-              <ul class="space-y-1 text-[11px] text-slate-400">
+              <ul class="space-y-1.5 text-[11px] text-slate-600">
                 <li>&bull; Bharatiya Sakshya Adhiniyam, 2023 §63(4)</li>
                 <li>&bull; Information Technology Act, 2000 §79A</li>
                 <li>&bull; ISO/IEC 27037:2012 Digital Evidence Handling</li>
@@ -27252,28 +27352,28 @@ main {
             </div>
 
             <div class="space-y-2">
-              <div class="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                <i data-lucide="code-2" class="w-4 h-4 text-cyan-300"></i>
+              <div class="font-extrabold text-[#0F172A] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                <i data-lucide="code-2" class="w-4 h-4 text-cyan-600"></i>
                 <span>Project Reference</span>
               </div>
-              <div class="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700 space-y-1">
-                <div class="text-[10px] uppercase text-cyan-300 font-bold">SUTRAM 2026 Prototype</div>
-                <div class="text-xs font-semibold text-white">ChronoFact 2.0 AI Workbench</div>
-                <div class="text-[10px] text-slate-400 font-mono">Academic Research Project</div>
+              <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
+                <div class="text-[10px] uppercase text-cyan-700 font-bold">SUTRAM 2026 Prototype</div>
+                <div class="text-xs font-bold text-slate-900">ChronoFact 2.0 AI Workbench</div>
+                <div class="text-[10px] text-slate-500 font-mono">Academic Research Project</div>
               </div>
             </div>
 
             <div class="space-y-2">
-              <div class="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                <i data-lucide="server" class="w-4 h-4 text-emerald-400"></i>
+              <div class="font-extrabold text-[#0F172A] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                <i data-lucide="server" class="w-4 h-4 text-emerald-600"></i>
                 <span>Forensic Terminal Status</span>
               </div>
-              <div class="space-y-1 text-[11px] text-slate-400">
-                <div class="flex items-center gap-1.5 text-emerald-400 font-medium">
-                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <div class="space-y-1 text-[11px] text-slate-600">
+                <div class="flex items-center gap-1.5 text-emerald-700 font-semibold">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                   <span>Evaluation Node #FE-802 (Offline Safe Mode)</span>
                 </div>
-                <div id="footer-examiner-info">Examiner: A. Sharma (Forensic Analyst #FE-802)</div>
+                <div id="footer-examiner-info" class="text-slate-700 font-medium">Examiner: A. Sharma (Forensic Analyst #FE-802)</div>
                 <div>Hash Verification: SHA-256 + SHA3-256</div>
                 <div>Specification: RFC 6962 Merkle Tree Audit</div>
               </div>
@@ -27282,16 +27382,16 @@ main {
         </div>
 
         <div class="footer-bottom-wrapper px-6 py-4">
-          <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-400">
+          <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-600">
             <div>
               &copy; 2026 ChronoFact Research Team. Built for SUTRAM 2026 National Cyber Security Hackathon. Academic Research Prototype — Not affiliated with any Government entity.
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 font-medium">
               <span>SUTRAM 2026 Prototype</span>
               <span>&bull;</span>
               <span>ISO/IEC 27037:2012 Forensic Standard</span>
               <span>&bull;</span>
-              <span class="text-emerald-400 font-mono">Merkle Root Verified</span>
+              <span class="text-emerald-700 font-mono font-bold">Merkle Root Verified</span>
             </div>
           </div>
         </div>
