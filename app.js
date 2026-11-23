@@ -56,7 +56,7 @@ class LuxuryHapticAudio {
     this.hasUnlocked = true;
   }
 
-  toggle() {
+  toggle() { this.enabled = false; return false;
     this.init();
     this.isMuted = !this.isMuted;
     const btn = document.getElementById('sound-toggle-btn');
@@ -78,7 +78,7 @@ class LuxuryHapticAudio {
   }
 
   // Soft tactile acoustic tap for deliberate primary clicks
-  playSoftTap() {
+  playSoftTap() { return;
     if (this.isMuted) return;
     this.init();
     try {
@@ -135,7 +135,7 @@ class LuxuryHapticAudio {
   }
 
   // Double chime on commit/verification
-  playSuccess() {
+  playSuccess() { return;
     this.playChime(587);
     setTimeout(() => this.playChime(880), 120);
   }
@@ -3235,14 +3235,14 @@ function setTextScale(levelIdx = 1) {
     if (btn) {
       if (i === levelIdx) {
         btn.classList.add('active');
-        btn.style.backgroundColor = '#00453D';
+        btn.style.backgroundColor = '#0F172A';
         btn.style.color = '#FFFFFF';
-        btn.style.borderColor = '#00453D';
+        btn.style.borderColor = '#0F172A';
       } else {
         btn.classList.remove('active');
         btn.style.backgroundColor = '#FFFFFF';
-        btn.style.color = '#131B2E';
-        btn.style.borderColor = '#BEC9C5';
+        btn.style.color = '#0F172A';
+        btn.style.borderColor = '#94A3B8';
       }
     }
   });

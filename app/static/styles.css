@@ -448,23 +448,30 @@ html, body {
   transform: scale(1.08);
 }
 
-/* Accessibility Text-Size Controls */
+/* Accessibility Text-Size Controls (High-Contrast Courtroom Standard) */
 .text-size-btn {
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 0.125rem 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.15rem 0.55rem;
   border-radius: 4px;
-  border: 1px solid var(--border-hairline);
-  background-color: #FFFFFF;
-  color: var(--text-primary);
+  border: 1px solid #94A3B8;
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
   cursor: pointer;
   transition: all 0.15s ease;
+  line-height: 1.2;
 }
 
-.text-size-btn:hover, .text-size-btn.active {
-  background-color: var(--primary);
-  color: #FFFFFF;
-  border-color: var(--primary);
+.text-size-btn:hover {
+  background-color: #E2E8F0 !important;
+  border-color: #475569 !important;
+  color: #0F172A !important;
+}
+
+.text-size-btn.active {
+  background-color: #0F172A !important;
+  color: #FFFFFF !important;
+  border-color: #0F172A !important;
 }
 
 /* Sidebar Navigation Items */
@@ -940,9 +947,9 @@ div[id$="-drawer"] .editorial-card,
    OFFICIAL CYBER CRIME PORTAL SKELETON (MHA / I4C / DFSS GOI DESIGN SYSTEM)
    ============================================================================= */
 .common-wrapper {
-  background: #0F172A !important;
-  color: #F8FAFC !important;
-  border-bottom: 1px solid #1E293B !important;
+  background: #F8FAFC !important;
+  color: #334155 !important;
+  border-bottom: 1px solid #E2E8F0 !important;
 }
 
 .header-wrapper {
@@ -983,10 +990,10 @@ div[id$="-drawer"] .editorial-card,
 }
 
 .megamenu-wraper {
-  background: #0B0F19 !important;
-  border-top: 1px solid #1E293B;
-  border-bottom: 1px solid #1E293B;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  background: #FFFFFF !important;
+  border-top: 1px solid #E2E8F0 !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
   box-shadow: 0 2px 10px rgba(2, 98, 175, 0.25);
 }
@@ -998,7 +1005,7 @@ div[id$="-drawer"] .editorial-card,
   padding: 10px 14px;
   font-size: 13px;
   font-weight: 600;
-  color: #FFFFFF !important;
+  color: #475569 !important;
   background: transparent;
   border: none;
   border-bottom: 3px solid transparent;
@@ -1008,15 +1015,15 @@ div[id$="-drawer"] .editorial-card,
 }
 
 .portal-nav-btn:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-  border-bottom-color: #FBBF24;
-  color: #FFFFFF !important;
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+  border-bottom-color: #94A3B8 !important;
 }
 
 .portal-nav-btn.active {
-  background-color: #002654 !important;
-  border-bottom-color: #FBBF24 !important;
-  color: #FFFFFF !important;
+  background-color: #F1F5F9 !important;
+  border-bottom-color: #0F172A !important;
+  color: #0F172A !important;
 }
 
 .statutory-ticker {
@@ -1040,15 +1047,15 @@ div[id$="-drawer"] .editorial-card,
 }
 
 .footer-top-wrapper {
-  background: #1E293B;
-  color: #94A3B8;
+  background: #F8FAFC;
+  color: #64748B;
   padding: 24px 0;
   border-top: 1px solid #334155;
 }
 
 .footer-bottom-wrapper {
-  background: #0F172A;
-  color: #CBD5E1;
+  background: #FFFFFF;
+  color: #64748B;
   padding: 14px 0;
   font-size: 11px;
   border-top: 1px solid #1E293B;
@@ -1063,28 +1070,18 @@ div[id$="-drawer"] .editorial-card,
   scrollbar-width: none;
 }
 
-.common-wrapper .text-size-btn:hover,
-.common-wrapper .text-size-btn.active {
-  background-color: #334155 !important;
-  color: #FFFFFF !important;
-  border-color: #475569 !important;
-}
+
 
 /* High-Specificity Megamenu & Officer Button Styles */
-.megamenu-wraper,
-.megamenu-wraper * {
-  color: #FFFFFF;
-}
-
 .megamenu-wraper .officer-label {
-  color: #FFFFFF !important;
-  font-weight: 600;
+  color: #0F172A !important;
+  font-weight: 700;
 }
 
 #officer-menu-btn {
   background: transparent !important;
   border: none !important;
-  color: #FFFFFF !important;
+  color: #0F172A !important;
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -1161,16 +1158,16 @@ div[id$="-drawer"] .editorial-card,
 
 /* Case Selector Pill & Modal Styles */
 .header-case-badge {
-  background: rgba(0, 0, 0, 0.3) !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  color: #FFFFFF !important;
+  background: #F1F5F9 !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .header-case-badge:hover {
-  background: rgba(0, 0, 0, 0.45) !important;
-  border-color: var(--border-hairline) !important;
+  background: #E2E8F0 !important;
+  border-color: #94A3B8 !important;
   transform: translateY(-1px);
 }
 
