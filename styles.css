@@ -10,112 +10,7 @@
 /* --------------------------------------------------------------------------
    1. COLOR PALETTES (PURE DARK & PURE LIGHT)
    -------------------------------------------------------------------------- */
-:root, [data-theme="light"] {
-  /* Courtroom-Grade Forensic Hardware Palette (Obsidian & High-Contrast Slate) */
-  --primary: #0F172A;
-  --primary-container: #F1F5F9;
-  --primary-hover: #1E293B;
-  --on-primary: #FFFFFF;
-  --secondary: #334155;
-  --accent-cyan: #0F172A;
-  --accent-gold: #D97706;
-
-  --bg-canvas: #F8F9FA;
-  --bg-sidebar: #FFFFFF;
-  --bg-surface: #FFFFFF;
-  --bg-card: #FFFFFF;
-  --bg-card-hover: #F1F5F9;
-  --bg-inset: #F1F5F9;
-  --bg-input: #FFFFFF;
-  --bg-elevated: #F8FAFC;
-
-  --border-subtle: #E2E8F0;
-  --border-hairline: #CBD5E1;
-  --border-focus: #0F172A;
-  --border-divider: #E2E8F0;
-
-  --text-primary: #0F172A;
-  --text-secondary: #334155;
-  --text-muted: #64748B;
-  --text-dim: #94A3B8;
-
-  --color-danger: #DC2626;
-  --color-danger-bg: #FEF2F2;
-  --color-danger-border: #FECACA;
-  --color-danger-text: #991B1B;
-
-  --color-warning: #D97706;
-  --color-warning-bg: #FFFBEB;
-  --color-warning-border: #FDE68A;
-  --color-warning-text: #92400E;
-
-  --color-success: #059669;
-  --color-success-bg: #ECFDF5;
-  --color-success-border: #A7F3D0;
-  --color-success-text: #065F46;
-
-  --color-info: #475569;
-  --color-info-bg: #F1F5F9;
-  --color-info-border: #CBD5E1;
-  --color-info-text: #0F172A;
-
-  --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06);
-  color-scheme: light;
-}
-
-[data-theme="dark"] {
-  --primary: #F8FAFC;
-  --primary-container: #1E293B;
-  --primary-hover: #FFFFFF;
-  --on-primary: #0F172A;
-  --secondary: #64748B;
-  --accent-cyan: #94A3B8;
-  --accent-gold: #F59E0B;
-
-  --bg-canvas: #090D14;
-  --bg-sidebar: #0D111A;
-  --bg-surface: #111722;
-  --bg-card: #111722;
-  --bg-card-hover: #161F2E;
-  --bg-inset: #0B0E17;
-  --bg-input: #111722;
-  --bg-elevated: #161F2E;
-
-  --border-subtle: #1E2738;
-  --border-hairline: #2E3B4E;
-  --border-focus: #F8FAFC;
-  --border-divider: #1E2738;
-
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --text-dim: #475569;
-
-  --color-danger: #EF4444;
-  --color-danger-bg: rgba(69, 10, 10, 0.35);
-  --color-danger-border: #7F1D1D;
-  --color-danger-text: #FCA5A5;
-
-  --color-warning: #F59E0B;
-  --color-warning-bg: rgba(69, 26, 3, 0.35);
-  --color-warning-border: #78350F;
-  --color-warning-text: #FCD34D;
-
-  --color-success: #10B981;
-  --color-success-bg: rgba(6, 78, 59, 0.35);
-  --color-success-border: #065F46;
-  --color-success-text: #6EE7B7;
-
-  --color-info: #94A3B8;
-  --color-info-bg: #161F2E;
-  --color-info-border: #2E3B4E;
-  --color-info-text: #F8FAFC;
-
-  --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.5);
-  --shadow-card: 0 2px 8px -2px rgba(0, 0, 0, 0.5);
-  color-scheme: dark;
-}
+:root, [data-theme="light"], /* Dark theme permanently decommissioned - pure courtroom light theme */
 
 /* --------------------------------------------------------------------------
    EVIDENTIARY 5-STEP WORKFLOW STEPPER
@@ -408,16 +303,9 @@ html, body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
 }
 
-[data-theme="dark"] .btn-editorial-primary {
-  background-color: #F8FAFC !important;
-  color: #0F172A !important;
-  border-color: #E2E8F0 !important;
-}
 
-[data-theme="dark"] .btn-editorial-primary:hover {
-  background-color: #FFFFFF !important;
-  color: #0F172A !important;
-}
+
+
 
 .btn-editorial-secondary {
   display: inline-flex;
@@ -1347,9 +1235,7 @@ div[id$="-drawer"] .editorial-card,
   user-select: none;
 }
 
-[data-theme="dark"] .hex-offset-col {
-  color: #475569;
-}
+
 
 .hex-bytes-col {
   display: flex;
@@ -1382,11 +1268,7 @@ div[id$="-drawer"] .editorial-card,
   border-radius: 2px;
 }
 
-[data-theme="dark"] .hex-anomaly-byte {
-  background-color: rgba(225, 29, 72, 0.32) !important;
-  color: #FDA4AF !important;
-  border-bottom: 2px solid #F43F5E !important;
-}
+
 
 .hex-anomaly-pulse {
   animation: hexPulse 1.2s ease-in-out 3;
@@ -1435,3 +1317,8 @@ div[id$="-drawer"] .editorial-card,
 }
 
 
+
+
+#workbench-scroll-area {
+  background-color: var(--bg-canvas) !important;
+}

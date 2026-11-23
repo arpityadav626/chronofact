@@ -97,18 +97,16 @@ def clean_and_package():
                     "*.mp3", 
                     "*.pdf", 
                     "*.docx",
+                    "*.pptx",
+                    "*.ppt",
                     ".DS_Store"
                 )
             )
             print(f"  + Copied dir: {dname}")
 
-    # Copy presentation pptx explicitly into presentation/ inside staging
+    # PPTX is excluded per user request (uploaded separately)
     staging_pres_dir = STAGING_DIR / "presentation"
     staging_pres_dir.mkdir(parents=True, exist_ok=True)
-    pres_file = SOURCE_DIR / "presentation" / "ChronoFact_SUTRAM2026_Round2_Presentation.pptx"
-    if pres_file.exists():
-        shutil.copy2(pres_file, staging_pres_dir / "ChronoFact_SUTRAM2026_Round2_Presentation.pptx")
-        print("  + Copied presentation PPTX")
 
     speaker_notes = SOURCE_DIR / "presentation" / "PRESENTATION_SPEAKER_NOTES.md"
     if speaker_notes.exists():

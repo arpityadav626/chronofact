@@ -3193,37 +3193,21 @@ function toggleSidebarMobile() {
   }
 }
 
-// Dual Light/Dark Theme Controller (Cellebrite x Palantir Legal-Tech Standard)
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
+// White Courtroom Theme Enforcer
+function applyTheme(theme = 'light') {
+  document.documentElement.setAttribute('data-theme', 'light');
   try {
-    localStorage.setItem('chronofact-theme', theme);
+    localStorage.removeItem('chronofact-theme');
+    localStorage.removeItem('chronofact_theme');
   } catch (_) {}
-  const icons = document.querySelectorAll('.theme-toggle-icon');
-  icons.forEach(icon => {
-    icon.setAttribute('data-lucide', theme === 'dark' ? 'sun' : 'moon');
-  });
-  if (window.lucide) lucide.createIcons();
 }
 
 function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme') || 'light';
-  const next = current === 'dark' ? 'light' : 'dark';
-  applyTheme(next);
+  applyTheme('light');
 }
 
-// Initialize theme from storage or system preference
 (function initTheme() {
-  try {
-    const saved = localStorage.getItem('chronofact-theme');
-    if (saved) {
-      applyTheme(saved);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      applyTheme('dark');
-    } else {
-      applyTheme('light');
-    }
-  } catch (_) {}
+  applyTheme('light');
 })();
 
 // =============================================================================
@@ -3265,43 +3249,15 @@ function setTextScale(levelIdx = 1) {
 }
 
 // =============================================================================
-// BILINGUAL LANGUAGE CONTROLLER (EN / HI)
+// LANGUAGE CONTROLLER (ENGLISH COURTROOM STANDARD)
 // =============================================================================
 let currentLang = 'en';
 
 function setLanguage(lang = 'en') {
-  if (typeof hapticEngine !== 'undefined') hapticEngine.playSoftTap();
-  currentLang = lang;
+  currentLang = 'en';
   try {
-    localStorage.setItem('chronofact_lang', lang);
+    localStorage.removeItem('chronofact_lang');
   } catch (_) {}
-
-  const btnEn = document.getElementById('lang-btn-en');
-  const btnHi = document.getElementById('lang-btn-hi');
-  if (btnEn && btnHi) {
-    if (lang === 'en') {
-      btnEn.className = "px-2.5 py-0.5 text-[11px] font-bold rounded bg-[#00453D] text-white border border-[#00453D] transition";
-      btnHi.className = "px-2.5 py-0.5 text-[11px] font-bold rounded bg-white text-[#131B2E] border border-[#BEC9C5] hover:bg-slate-50 transition";
-    } else {
-      btnHi.className = "px-2.5 py-0.5 text-[11px] font-bold rounded bg-[#00453D] text-white border border-[#00453D] transition";
-      btnEn.className = "px-2.5 py-0.5 text-[11px] font-bold rounded bg-white text-[#131B2E] border border-[#BEC9C5] hover:bg-slate-50 transition";
-    }
-  }
-
-  // Update translatable labels across UI
-  document.querySelectorAll('[data-i18n-en]').forEach(el => {
-    const enText = el.getAttribute('data-i18n-en');
-    const hiText = el.getAttribute('data-i18n-hi');
-    if (lang === 'hi' && hiText) {
-      el.textContent = hiText;
-    } else if (enText) {
-      el.textContent = enText;
-    }
-  });
-
-  if (typeof showToast === 'function') {
-    showToast(lang === 'hi' ? 'भाषा: हिन्दी सक्रिय की गई' : 'Language: English Active');
-  }
 }
 
 // =============================================================================
@@ -3612,7 +3568,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Load saved language
   try {
     const savedLang = localStorage.getItem('chronofact_lang') || 'en';
-    setLanguage(savedLang);
+    setLanguage('en');
   } catch (_) {}
 
   runSleekOpeningAnimation();

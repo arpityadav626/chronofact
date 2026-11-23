@@ -233,11 +233,7 @@
           <button onclick="setTextScale(2)" id="ts-btn-2" class="text-size-btn" title="Large (115%)">A+</button>
           <button onclick="setTextScale(3)" id="ts-btn-3" class="text-size-btn" title="Extra Large (130%)">A++</button>
         </div>
-        <!-- Language Switcher (EN / HI) -->
-        <div class="flex items-center gap-1" id="lang-switcher">
-          <button onclick="setLanguage('en')" id="lang-btn-en" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-white text-primary transition shadow-xs">EN</button>
-          <button onclick="setLanguage('hi')" id="lang-btn-hi" class="px-2.5 py-0.5 text-[11px] font-bold rounded bg-transparent text-white border border-white/40 hover:bg-white/10 transition">हिन्दी</button>
-        </div>
+        
         <!-- Local Evaluation Mode Badge -->
         <div class="hidden md:flex items-center gap-1.5 text-[11px] font-mono font-medium text-white bg-white/15 px-2.5 py-0.5 rounded border border-white/25">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -275,11 +271,11 @@
 
         <!-- Platform Title -->
         <div class="flex flex-col justify-center border-l border-subtle pl-3 sm:pl-4">
-          <div class="text-[13px] sm:text-[15px] font-black text-primary leading-tight font-serif tracking-tight">
-            न्यायिक इलेक्ट्रॉनिक साक्ष्य विश्लेषण कार्यपीठ
-          </div>
-          <div class="text-[12px] sm:text-[13px] font-semibold text-secondary leading-tight">
+          <div class="text-[14px] sm:text-[16px] font-black text-primary leading-tight font-serif tracking-tight">
             Judicial Electronic Evidence Chronology &amp; Verification Workbench
+          </div>
+          <div class="text-[11px] sm:text-[12px] font-medium text-secondary leading-tight">
+            Digital Forensics &amp; Admissibility Reasoning System
           </div>
           <div class="flex items-center gap-2 mt-0.5">
             <span class="font-display font-extrabold text-[11px] tracking-wider text-primary">CHRONOFACT 2.0</span>
@@ -293,20 +289,11 @@
       <!-- Right: Research Hackathon Badge, Theme Toggle & Sign Out Button -->
       <div class="flex items-center gap-2 sm:gap-3 shrink-0">
         <div class="text-right hidden md:block">
-          <div class="text-[11px] font-bold text-slate-800 dark:text-slate-200">SUTRAM 2026 PROTOTYPE</div>
-          <div class="text-[10px] text-slate-500 dark:text-slate-400 font-mono">Academic Evaluation Environment</div>
+          <div class="text-[11px] font-bold text-slate-800">SUTRAM 2026 PROTOTYPE</div>
+          <div class="text-[10px] text-slate-500 font-mono">Academic Evaluation Environment</div>
         </div>
 
-        <!-- 1-Click Dark/Light Theme Toggle -->
-        <button 
-          onclick="toggleTheme()" 
-          class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-semibold transition cursor-pointer"
-          title="Toggle Dark / Light Theme Mode"
-          aria-label="Toggle Theme"
-        >
-          <i data-lucide="moon" class="theme-toggle-icon w-3.5 h-3.5"></i>
-          <span class="hidden sm:inline">Theme</span>
-        </button>
+        
 
         <button 
           onclick="lockTerminal()" 
@@ -654,7 +641,7 @@
               <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
               <div class="text-left">
                 <div class="font-medium text-xs">Case Overview</div>
-                <div class="text-[10px] text-slate-500 font-normal">प्रकरण अवलोकन</div>
+                <div class="text-[10px] text-slate-500 font-normal">Health &amp; Telemetry</div>
               </div>
             </div>
             <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400">Health</span>
@@ -669,7 +656,7 @@
               <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
               <div class="text-left">
                 <div class="font-medium text-xs">Evidence Vault</div>
-                <div class="text-[10px] text-slate-500 font-normal">साक्ष्य भंडार</div>
+                <div class="text-[10px] text-slate-500 font-normal">Digital Storage</div>
               </div>
             </div>
             <span id="sidebar-badge-vault" class="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-500/15 text-blue-400 border border-blue-500/25">3</span>
@@ -684,7 +671,7 @@
               <i data-lucide="clock" class="w-4 h-4 text-blue-400"></i>
               <div class="text-left">
                 <div class="font-medium text-xs">Event Timeline</div>
-                <div class="text-[10px] text-slate-500 font-normal">घटनाक्रम समयरेखा</div>
+                <div class="text-[10px] text-slate-500 font-normal">Chronological Graph</div>
               </div>
             </div>
             <span id="sidebar-badge-timeline" class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-300">5</span>
@@ -699,7 +686,7 @@
               <i data-lucide="cpu" class="w-4 h-4 text-purple-400"></i>
               <div class="text-left">
                 <div class="font-medium text-xs">Grounded AI Q&amp;A</div>
-                <div class="text-[10px] text-slate-500 font-normal">न्यायिक विश्लेषण</div>
+                <div class="text-[10px] text-slate-500 font-normal">Contradiction Radar</div>
               </div>
             </div>
             <span id="sidebar-badge-ai" class="px-2 py-0.5 rounded text-[10px] font-mono bg-rose-500/15 text-rose-400 border border-rose-500/25">1 Clash</span>
@@ -714,7 +701,7 @@
               <i data-lucide="file-badge" class="w-4 h-4 text-amber-400"></i>
               <div class="text-left">
                 <div class="font-medium text-xs">Export / BSA Cert</div>
-                <div class="text-[10px] text-slate-500 font-normal">न्यायालय प्रमाणन</div>
+                <div class="text-[10px] text-slate-500 font-normal">Courtroom Certificate</div>
               </div>
             </div>
             <span class="px-1.5 py-0.5 rounded text-[10px] font-mono bg-emerald-500/15 text-emerald-400 border border-emerald-500/25">§63(4)</span>
@@ -778,7 +765,7 @@
     <!-- ========================================================================= -->
     <!-- 2. MAIN WORKBENCH MULTI-PANE SCROLL AREA -->
     <!-- ========================================================================= -->
-    <div id="workbench-scroll-area" class="flex-1 flex flex-col h-screen overflow-y-auto min-w-0 bg-[#0B0F17]">
+    <div id="workbench-scroll-area" class="flex-1 flex flex-col h-screen overflow-y-auto min-w-0 bg-[#F8FAFC]">
       
 
 
@@ -786,19 +773,19 @@
       <div class="reassurance-strip no-print">
         <div class="reassurance-item">
           <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary"></i>
-          <span data-i18n-en="BSA 2023 §63(4) Certified Schedule" data-i18n-hi="बीएसए 2023 §63(4) प्रमाणित अनुसूची">BSA 2023 §63(4) Certified Schedule</span>
+          <span>BSA 2023 §63(4) Certified Schedule</span>
         </div>
         <div class="reassurance-item">
           <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary"></i>
-          <span data-i18n-en="NIST FIPS 180-4 Dual Hash Intact (SHA-256 + SHA3-256)" data-i18n-hi="एनआईएसटी दोहरा हैश सुरक्षित (SHA-256 + SHA3-256)">NIST FIPS 180-4 Dual Hash Intact (SHA-256 + SHA3-256)</span>
+          <span>NIST FIPS 180-4 Dual Hash Intact (SHA-256 + SHA3-256)</span>
         </div>
         <div class="reassurance-item">
           <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary"></i>
-          <span data-i18n-en="Local Offline Forensic Sandbox (Zero External Data Leak)" data-i18n-hi="लोकल फॉरेंसिक सैंडबॉक्स">Local Offline Forensic Sandbox (Zero External Data Leak)</span>
+          <span>Local Offline Forensic Sandbox (Zero External Data Leak)</span>
         </div>
         <div class="reassurance-item">
           <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary"></i>
-          <span data-i18n-en="Zero-Hallucination Mechanical Grounding Gate" data-i18n-hi="शून्य-भ्रम यांत्रिक सत्यापन गेट">Zero-Hallucination Mechanical Grounding Gate</span>
+          <span>Zero-Hallucination Mechanical Grounding Gate</span>
         </div>
       </div>
 

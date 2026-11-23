@@ -1,6 +1,6 @@
 {
   "model_id": "58558ce5b655",
-  "created_at": "2026-11-21T16:51:11.366625+00:00",
+  "created_at": "2026-11-23T16:10:49.045598+00:00",
   "algorithm": "IsolationForest",
   "feature_names": [
     "hour_sin",
@@ -24,7 +24,7 @@
       "text_length_norm"
     ],
     "effective_contamination": 0.15,
-    "training_timestamp_utc": "2026-11-21T16:51:11.366625+00:00",
+    "training_timestamp_utc": "2026-11-23T16:10:49.045598+00:00",
     "algorithm": "IsolationForest",
     "hyperparameters": {
       "contamination": 0.15,
