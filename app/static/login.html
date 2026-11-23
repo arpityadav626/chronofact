@@ -381,71 +381,13 @@
 
   <!-- Interactive Client Engine -->
   <script>
-    // Lightweight Luxury Acoustic Chime Engine
-    class SoftLoginAudio {
-      constructor() {
-        this.ctx = null;
-      }
-      init() {
-        if (!this.ctx && typeof window !== 'undefined') {
-          const AudioCtx = window.AudioContext || window.webkitAudioContext;
-          if (AudioCtx) this.ctx = new AudioCtx();
-        }
-        if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
-      }
-      playTap() {
-        try {
-          this.init();
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(620, this.ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(260, this.ctx.currentTime + 0.02);
-          gain.gain.setValueAtTime(0.05, this.ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.02);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start();
-          osc.stop(this.ctx.currentTime + 0.02);
-        } catch (_) {}
-      }
-      playSuccess() {
-        try {
-          this.init();
-          [587, 880].forEach((freq, idx) => {
-            setTimeout(() => {
-              const osc = this.ctx.createOscillator();
-              const gain = this.ctx.createGain();
-              osc.type = 'sine';
-              osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-              gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
-              gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.25);
-              osc.connect(gain);
-              gain.connect(this.ctx.destination);
-              osc.start();
-              osc.stop(this.ctx.currentTime + 0.25);
-            }, idx * 110);
-          });
-        } catch (_) {}
-      }
-      playError() {
-        try {
-          this.init();
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(220, this.ctx.currentTime);
-          gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.15);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start();
-          osc.stop(this.ctx.currentTime + 0.15);
-        } catch (_) {}
-      }
-    }
-
-    const sound = new SoftLoginAudio();
+    // Audio permanently disabled per Courtroom standard
+    const sound = {
+      init() {},
+      playTap() {},
+      playSuccess() {},
+      playError() {}
+    };
 
     // Toggle Password Visibility
     function togglePasswordVisibility() {
